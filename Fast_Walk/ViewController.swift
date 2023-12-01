@@ -309,41 +309,60 @@ import UIKit
 import GoogleMaps
 
 class ViewController: UIViewController {
-   
-   @IBOutlet weak var mapView: GMSMapView!
-   
-   override func viewDidLoad() {
-       super.viewDidLoad()
-       let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-       mapView.camera = camera
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-       addMarkersAndDrawPath()
-   }
+        let camera = GMSCameraPosition.camera(withLatitude: -33.8688, longitude: 151.2093, zoom: 14.0)
+        let mapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
+        self.view.addSubview(mapView)
 
-   func addMarkersAndDrawPath() {
-       // Add origin marker
-       let origin = CLLocationCoordinate2D(latitude: 24.871941, longitude: 66.988060)
-       let markerOrigin = GMSMarker(position: origin)
-       markerOrigin.title = "Origin"
-       markerOrigin.map = mapView
+        // Define two locations
+        let operaHouseLocation = CLLocationCoordinate2D(latitude: -33.8587, longitude: 151.2140)
+        let harbourBridgeLocation = CLLocationCoordinate2D(latitude: -33.8523, longitude: 151.2108)
 
-       // Add destination marker
-       let destination = CLLocationCoordinate2D(latitude: 24.885958, longitude: 67.026744)
-       let markerDestination = GMSMarker(position: destination)
-       markerDestination.title = "Destination"
-       markerDestination.map = mapView
+        drawRoute(from: operaHouseLocation, to: harbourBridgeLocation, on: mapView)
+    }
 
-       // Draw a polyline
-       let path = GMSMutablePath()
-       path.add(origin)
-       path.add(destination)
-       let polyline = GMSPolyline(path: path)
-       polyline.strokeWidth = 3.0
-       polyline.map = mapView
-   }
+    private func drawRoute(from start: CLLocationCoordinate2D, to end: CLLocationCoordinate2D, on mapView: GMSMapView) {
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+
+        let origin = "\(start.latitude),\(start.longitude)"
+        let destination = "\(end.latitude),\(end.longitude)"
+        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc"
+        let url = URL(string: urlString)
+
+        let task = session.dataTask(with: url!) { (data, response, error) in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            guard let json = try? JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] else {
+                print("Serialization error")
+                return
+            }
+            guard let routes = json["routes"] as? [Any] else {
+                return
+            }
+            guard let route = routes[0] as? [String: Any] else {
+                return
+            }
+            guard let overviewPolyline = route["overview_polyline"] as? [String: Any] else {
+                return
+            }
+            guard let polyString = overviewPolyline["points"] as? String else {
+                return
+            }
+
+            DispatchQueue.main.async {
+                let path = GMSPath(fromEncodedPath: polyString)
+                let polyline = GMSPolyline(path: path)
+                polyline.strokeWidth = 5.0
+                polyline.map = mapView
+            }
+        }
+        task.resume()
+    }
 }
 
-
-                                   
-
-                        
