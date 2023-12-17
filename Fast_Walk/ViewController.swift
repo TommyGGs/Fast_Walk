@@ -1,368 +1,148 @@
-////
-////  ViewController.swift
-////  Fast_Walk
-////
-////  Created by Tom  on 2023/11/29.
-////
-//
-//import UIKit
-//import GoogleMaps
-//import CoreLocation
-//
-//
-//class ViewController: UIViewController {
-//    @IBOutlet weak var mapView: GMSMapView!
-//    @IBOutlet weak var iblTime: UILabel!
-//    @IBOutlet weak var iblDistance: UILabel!
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        // Do any additional setup after loading the view.
-//        // delete
-//        mapView.translatesAutoresizingMaskIntoConstraints = false
-//       drawGoogleApiDirection()
-//
-//    }
-//
-////    func drawGoogleApiDirection() {
-////        let origin = "\(24.871941), \(66.988060)"
-////        let destination = "\(24.885958), \(67.026744)"
-////
-////        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc"
-////
-////        let url = URL(string: urlString)
-////        URLSession.shared.dataTask(with: url!, completionHandler: {
-////            (data, response, error) in
-////            if(error != nil){
-////                print("error")
-////            }else{
-////
-////                DispatchQueue.main.async {
-////                    self.mapView.clear()
-////                    self.addSourceDestinationMarkers()
-////                }
-////
-////                do{
-////                    let json = try JSONSerialization.jsonObject(with: data!, options:.allowFragments) as![String: AnyObject]
-////                    let routes = json["routes"] as! NSArray
-////
-////                    self.getTotalDistance()
-////
-////                    OperationQueue.main.addOperation({
-////                        for route in routes {
-////                            let routeOverviewPolyline:NSDictionary = (route as! NSDictionary).value(forKey: "overview_polyline") as! NSDictionary
-////                            let points = routeOverviewPolyline.object(forKey: "points")
-////                            let path = GMSPath.init(fromEncodedPath: points! as! String)
-////                            let polyline = GMSPolyline.init(path: path)
-////                            polyline.strokeWidth = 3
-////                            polyline.strokeColor = UIColor(red: 50/255, green: 165/255, blue: 102/255, alpha: 1.0)
-////
-////                            let bounds = GMSCoordinateBounds(path: path!)
-////                            self.mapView?.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 30.0))
-////
-////
-////                            polyline.map = self.mapView
-////                        }
-////                    })
-////                } catch let error as NSError{
-////                    print("error:\(error)")
-////                }
-////            }
-////        }).resume()
-////
-////    }
-//
-//    func drawGoogleApiDirection() {
-//        let origin = "\(24.871941), \(66.988060)"
-//        let destination = "\(24.885958), \(67.026744)"
-//
-////        guard let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc") else {
-////            print("Invalid URL")
-////            return
-////        }
-////
-//        let urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=\(origin)&destinations=\(destination)&units=imperial&mode=driving&language=en-EN&sensor=false&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc"
-//
-//
-//        URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
-//            if let error = error {
-//                print("Error: \(error)")
-//            } else {
-//                DispatchQueue.main.async {
-//                    self?.mapView?.clear()
-//                    self?.addSourceDestinationMarkers()
-//                }
-//
-//
-//                do {
-//                    if let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: AnyObject],
-//                       let routes = json["routes"] as? NSArray {
-//
-//                        self?.getTotalDistance()
-//
-//                        OperationQueue.main.addOperation {
-//                            for route in routes {
-//                                if let routeOverviewPolyline = (route as? NSDictionary)?.value(forKey: "overview_polyline") as? NSDictionary,
-//                                   let points = routeOverviewPolyline.object(forKey: "points") as? String,
-//                                   let path = GMSPath(fromEncodedPath: points) {
-//
-//                                    let polyline = GMSPolyline(path: path)
-//                                    polyline.strokeWidth = 3
-//                                    polyline.strokeColor = UIColor(red: 50/255, green: 165/255, blue: 102/255, alpha: 1.0)
-//
-//                                    if let mapView = self?.mapView {
-//                                        let bounds = GMSCoordinateBounds(path: path)
-//                                        mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 30.0))
-//                                        polyline.map = mapView
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                } catch let error as NSError {
-//                    print("Error: \(error)")
-//                }
-//            }
-//        }.resume()
-//    }
-//
-//
-//    func addSourceDestinationMarkers() {
-//        let markerSource = GMSMarker()
-//        markerSource.position = CLLocationCoordinate2D(latitude: 24.871941, longitude: 66.988060)
-//        markerSource.icon = UIImage(named: "markera")
-//        markerSource.title = "Point A"
-//
-//        markerSource.map = mapView
-//
-//        let markerDestination = GMSMarker()
-//        markerDestination.position = CLLocationCoordinate2D(latitude: 24.885958, longitude: 67.026744)
-//        markerDestination.icon = UIImage(named: "markerb")
-//        markerDestination.title = "Point B"
-//
-//        markerDestination.map = mapView
-//    }
-//
-//
-//    func getTotalDistance() {
-//        let origin = "\(24.871941), \(66.988060)"
-//        let destination = "\(24.885958), \(67.026744)"
-//
-//        let urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?=\(origin)&destinations=\(destination)&units=imperial&mode=driving&language=en-EN&sensor=false&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc"
-//
-//        let url = URL(string: urlString)
-//        URLSession.shared.dataTask(with: url!, completionHandler: {
-//            (data, response, error) in
-//            if (error != nil){
-//                print("error")
-//            } else{
-//                do{
-//                    let json = try JSONSerialization.jsonObject(with: data!, options:.allowFragments) as! [String: AnyObject]
-//                    let rows = json["rows"] as! NSArray
-//                    print(rows)
-//
-//                    let dic = rows[0] as! Dictionary<String, Any>
-//                    let elements = dic["elements"] as! NSArray
-//                    let dis = elements[0] as! Dictionary<String, Any>
-//                    let distanceMiles = dis["distance"] as! Dictionary<String, Any>
-//                    let miles = distanceMiles["text"]! as! String
-//
-//                    self.iblDistance.text = miles.replacingOccurrences(of: "mi", with: "")
-//                    print("\(String(describing: self.iblDistance.text))")
-//
-//                } catch let error as NSError{
-//                    print("error:\(error)")
-//                }
-//            }
-//        }).resume()
-//    }
-//}
-//import UIKit
-//import GoogleMaps
-//import CoreLocation
-//
-//class ViewController: UIViewController {
-//    @IBOutlet weak var mapView: GMSMapView!
-//
-//    @IBOutlet weak var iblTime: UILabel!
-//    @IBOutlet weak var iblDistance: UILabel!
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        mapView.translatesAutoresizingMaskIntoConstraints = false
-//        drawGoogleApiDirection()
-//    }
-//
-//    func drawGoogleApiDirection() {
-//        let origin = "24.871941,66.988060"
-//        let destination = "24.885958,67.026744"
-//
-//        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc"
-////
-//        let url = URL(string: urlString)
-////        guard let encodedOrigin = origin.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-////              let encodedDestination = destination.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-////              let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(encodedOrigin)&destination=\(encodedDestination)&mode=driving&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc") else {
-////            print("Invalid URL")
-////            return
-////        }
-//
-//        URLSession.shared.dataTask(with: url!, completionHandler: {
-//            (data,response, error) in
-//            if (error != nil) {
-//                print("error")
-//            } else {
-//                DispatchQueue.main.async {
-//                    self.mapView.clear()
-//                    self.addSourceDestinationMarkers()
-//                }
-//
-//                do {
-//                    let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: AnyObject]
-//                    let routes = json["routes"] as! NSArray
-//
-//                        self?.getTotalDistance()
-//
-//                        OperationQueue.main.addOperation {
-//                            for route in routes {
-//                                if let routeOverviewPolyline = (route as! NSDictionary)?.value(forKey: "overview_polyline") as! NSDictionary,
-//                                   let points = routeOverviewPolyline.object(forKey: "points") as? String,
-//                                   let path = GMSPath(fromEncodedPath: points) {
-//
-//                                    let polyline = GMSPolyline(path: path)
-//                                    polyline.strokeWidth = 3
-//                                    polyline.strokeColor = UIColor(red: 50/255, green: 165/255, blue: 102/255, alpha: 1.0)
-//
-//                                    if let mapView = self?.mapView {
-//                                        let bounds = GMSCoordinateBounds(path: path)
-//                                        mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 30.0))
-//                                        polyline.map = mapView
-//                                    }
-//                                }
-//                            }
-//                        }
-//
-//                } catch let error as NSError {
-//                    print("Error: \(error)")
-//                }
-//            }
-//        }.resume()
-//    }
-//
-//    func addSourceDestinationMarkers() {
-//        let markerSource = GMSMarker()
-//        markerSource.position = CLLocationCoordinate2D(latitude: 24.871941, longitude: 66.988060)
-//        markerSource.icon = UIImage(named: "markera")
-//        markerSource.title = "Point A"
-//
-//        markerSource.map = mapView
-//
-//        let markerDestination = GMSMarker()
-//        markerDestination.position = CLLocationCoordinate2D(latitude: 24.885958, longitude: 67.026744)
-//        markerDestination.icon = UIImage(named: "markerb")
-//        markerDestination.title = "Point B"
-//
-//        markerDestination.map = mapView
-//    }
-//
-//    func getTotalDistance() {
-//        let origin = "24.871941,66.988060"
-//        let destination = "24.885958,67.026744"
-//
-//        guard let urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=\(origin)&destinations=\(destination)&units=imperial&mode=driving&language=en-EN&sensor=false&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-//              let url = URL(string: urlString) else {
-//            print("Invalid URL")
-//            return
-//        }
-//
-//        URLSession.shared.dataTask(with: url) { (data, response, error) in
-//            if error != nil {
-//                print("error")
-//            } else {
-//                do {
-//                    let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String: AnyObject]
-//                    let rows = json["rows"] as! NSArray
-//                    print(rows)
-//
-//                    let dic = rows[0] as! Dictionary<String, Any>
-//                    let elements = dic["elements"] as! NSArray
-//                    let dis = elements[0] as! Dictionary<String, Any>
-//                    let distanceMiles = dis["distance"] as! Dictionary<String, Any>
-//                    let miles = distanceMiles["text"]! as! String
-//
-//                    let TimeRide = dis["duration"] as! Dictionary<String, Any>
-//                    let finalTime = TimeRide["text"]! as! String
-//
-//                    DispatchQueue.main.async {
-//                        self.iblDistance.text = miles
-//                        self.iblTime.text = finalTime
-//                        print("\(String(describing: self.iblDistance.text))")
-//                    }
-//                } catch let error as NSError {
-//                    print("error:\(error)")
-//                }
-//            }
-//        }.resume()
-//    }
-//}
 import UIKit
 import GoogleMaps
+import CoreLocation
 
-class ViewController: UIViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+class ViewController: UIViewController, CLLocationManagerDelegate {
 
-        let camera = GMSCameraPosition.camera(withLatitude: -33.8688, longitude: 151.2093, zoom: 14.0)
-        let mapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
-        self.view.addSubview(mapView)
+    @IBOutlet weak var mapContainerView: UIView!
+    var locationManager = CLLocationManager()
+    var mapView: GMSMapView?
+    var currentLocation: CLLocationCoordinate2D?
+    var bestRoute: [String: Any]?
+    var bestDuration: Int = Int.max
+    let semaphore = DispatchSemaphore(value: 0)
 
-        // Define two locations
-        let operaHouseLocation = CLLocationCoordinate2D(latitude: -33.8587, longitude: 151.2140)
-        let harbourBridgeLocation = CLLocationCoordinate2D(latitude: -33.8523, longitude: 151.2108)
+     override func viewDidLoad() {
+         super.viewDidLoad()
 
-        drawRoute(from: operaHouseLocation, to: harbourBridgeLocation, on: mapView)
-    }
+         locationManager.delegate = self
+         locationManager.requestWhenInUseAuthorization()
 
-    private func drawRoute(from start: CLLocationCoordinate2D, to end: CLLocationCoordinate2D, on mapView: GMSMapView) {
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
+         let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 10.0)
+         mapView = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
+
+         if let mapView = mapView {
+             mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+             mapContainerView.addSubview(mapView)
+         }
+     }
+
+     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+         if status == .authorizedWhenInUse || status == .authorizedAlways {
+             locationManager.startUpdatingLocation()
+         }
+     }
+
+     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+         if let location = locations.first, currentLocation == nil {
+             currentLocation = location.coordinate
+
+             if let mapView = mapView {
+                 mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 10.0)
+                 mapView.isMyLocationEnabled = true
+                 mapView.settings.myLocationButton = true
+             }
+
+             locationManager.stopUpdatingLocation()
+         }
+     }
+    func drawRandomRoute(from start: CLLocationCoordinate2D, attempt: Int = 1) {
+        let waypoint1 = CLLocationCoordinate2D(latitude: start.latitude + randomCoordinateOffset(), longitude: start.longitude + randomCoordinateOffset())
+        let waypoint2 = CLLocationCoordinate2D(latitude: start.latitude + randomCoordinateOffset(), longitude: start.longitude + randomCoordinateOffset())
+        let waypoint3 = CLLocationCoordinate2D(latitude: start.latitude + randomCoordinateOffset(), longitude: start.longitude + randomCoordinateOffset())
+
+        let waypoints = [waypoint1, waypoint2, waypoint3].map {
+            "\($0.latitude),\($0.longitude)"
+        }.joined(separator: "|")
 
         let origin = "\(start.latitude),\(start.longitude)"
-        let destination = "\(end.latitude),\(end.longitude)"
-        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc"
-        let url = URL(string: urlString)
+        let encodedWaypoints = waypoints.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(origin)&waypoints=\(encodedWaypoints)&mode=walking&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc"
 
-        let task = session.dataTask(with: url!) { (data, response, error) in
-            guard error == nil else {
-                print(error!.localizedDescription)
-                return
-            }
-            guard let json = try? JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] else {
-                print("Serialization error")
-                return
-            }
-            guard let routes = json["routes"] as? [Any] else {
-                return
-            }
-            guard let route = routes[0] as? [String: Any] else {
-                return
-            }
-            guard let overviewPolyline = route["overview_polyline"] as? [String: Any] else {
-                return
-            }
-            guard let polyString = overviewPolyline["points"] as? String else {
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            if let error = error {
+                print("Network error: \(error.localizedDescription)")
+                self?.semaphore.signal()
                 return
             }
 
-            DispatchQueue.main.async {
-                let path = GMSPath(fromEncodedPath: polyString)
+            guard let data = data else {
+                print("No data received")
+                self?.semaphore.signal()
+                return
+            }
+
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: AnyObject]
+                print("API Response: \(json)") // Debugging
+
+                if let routes = json["routes"] as? [Any], !routes.isEmpty,
+                   let route = routes[0] as? [String: Any],
+                   let legs = route["legs"] as? [[String: AnyObject]],
+                   let distance = legs.first?["distance"] as? [String: AnyObject],
+                   let distanceValue = distance["value"] as? Int {
+                    
+                    let adjustedDuration = (Double(distanceValue) / 1000.0) / 5.0 * 3600 // Time in seconds
+                    let durationMinutes = Int(adjustedDuration) / 60 // Convert to minutes
+
+                    if durationMinutes >= 25 && durationMinutes <= 35 {
+                        if durationMinutes < self?.bestDuration ?? Int.max {
+                            self?.bestRoute = route
+                            self?.bestDuration = durationMinutes
+                        }
+                    }
+                } else {
+                    print("No suitable route found or invalid response.")
+                }
+            } catch let error {
+                print("JSON parsing error: \(error.localizedDescription)")
+            }
+
+            if attempt < 10 {
+                self?.drawRandomRoute(from: start, attempt: attempt + 1)
+            } else if let bestRoute = self?.bestRoute {
+                self?.displayRouteOnMap(route: bestRoute, start: start, durationText: "\(self?.bestDuration ?? 0) min")
+            } else {
+                print("No suitable route found.")
+            }
+            self?.semaphore.signal()
+        }.resume()
+
+        semaphore.wait()
+    }
+
+    func displayRouteOnMap(route: [String: Any], start: CLLocationCoordinate2D, durationText: String) {
+        DispatchQueue.main.async {
+            if let overviewPolyline = route["overview_polyline"] as? [String: Any],
+               let polyString = overviewPolyline["points"] as? String,
+               let path = GMSPath(fromEncodedPath: polyString), let mapView = self.mapView {
+
                 let polyline = GMSPolyline(path: path)
                 polyline.strokeWidth = 5.0
+                polyline.strokeColor = UIColor.systemBlue
                 polyline.map = mapView
+
+                let bounds = GMSCoordinateBounds(path: path)
+                let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+                mapView.animate(with: update)
+
+                let durationMarker = GMSMarker(position: start)
+                durationMarker.title = "Estimated Walking Time"
+                durationMarker.snippet = durationText
+                durationMarker.map = mapView
+                mapView.selectedMarker = durationMarker
+            } else {
+                print("Failed to draw the route on the map.")
             }
         }
-        task.resume()
+    }
+
+    func randomCoordinateOffset() -> Double {
+        return Double.random(in: -0.02...0.02)
     }
 }
-
