@@ -31,7 +31,7 @@ import GooglePlaces
       
           @IBAction func press(_ sender: Any) {
               let placeFields: GMSPlaceField = [.name, .formattedAddress, .types]
-              let language = "ja"
+    
               placesClient.findPlaceLikelihoodsFromCurrentLocation(withPlaceFields: placeFields) { [weak self] (placeLikelihoods, error) in
               guard let strongSelf = self else {
                 return
