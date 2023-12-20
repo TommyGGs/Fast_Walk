@@ -25,7 +25,5 @@
 	<string>We need your location to show it on the map</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>We need your location to enhance your experience even when the app is in the background</string>
-	<key>CFBundleIdentifier</key>
-	<string></string>
 </dict>
 </plist>

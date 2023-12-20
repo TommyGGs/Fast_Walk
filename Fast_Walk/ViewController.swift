@@ -1,7 +1,6 @@
 import UIKit
 import GoogleMaps
 import CoreLocation
-import GooglePlaces
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
 
@@ -13,15 +12,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//force update location status and if so, begin updating location information. If not used, mapview may not load
         locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
+            if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+                locationManager.startUpdatingLocation()
+            } else {
+                locationManager.requestAlwaysAuthorization()
+            }
 
         let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 10.0)
-        mapView = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
+        mapView = GMSMapView.init(frame: mapContainerView.bounds, camera: camera)
         mapView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapContainerView.addSubview(mapView!)
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse || status == .authorizedAlways {
             locationManager.startUpdatingLocation()
@@ -38,11 +42,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 mapView.settings.myLocationButton = true
             }
 
-            locationManager.stopUpdatingLocation()
+            //locationManager.stopUpdatingLocation()
             findBestRoute(from: location.coordinate)
         }
     }
-
     func findBestRoute(from start: CLLocationCoordinate2D) {
         var closestDuration = Int.max
         var bestRouteDetails: (polyString: String, durationText: String)?
