@@ -15,6 +15,7 @@
 		E21292A82B16E61400796BE5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E21292A62B16E61400796BE5 /* Main.storyboard */; };
 		E21292AA2B16E61D00796BE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E21292A92B16E61D00796BE5 /* Assets.xcassets */; };
 		E21292AD2B16E61D00796BE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */; };
+		E2C77FA92B32EE25000266E7 /* RouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C77FA82B32EE24000266E7 /* RouteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		E21292A92B16E61D00796BE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E21292AC2B16E61D00796BE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E21292AE2B16E61D00796BE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2C77FA82B32EE24000266E7 /* RouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */,
 				E21292AE2B16E61D00796BE5 /* Info.plist */,
 				825249252B31863000BB74D1 /* Places_demo.swift */,
+				E2C77FA82B32EE24000266E7 /* RouteViewController.swift */,
 			);
 			path = Fast_Walk;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				825249262B31863000BB74D1 /* Places_demo.swift in Sources */,
 				E21292A52B16E61400796BE5 /* ViewController.swift in Sources */,
 				E21292A12B16E61400796BE5 /* AppDelegate.swift in Sources */,
+				E2C77FA92B32EE25000266E7 /* RouteViewController.swift in Sources */,
 				E21292A32B16E61400796BE5 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
