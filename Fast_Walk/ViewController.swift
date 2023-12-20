@@ -1,6 +1,9 @@
+import Foundation
+
 import UIKit
 import GoogleMaps
 import CoreLocation
+import GooglePlaces
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -36,7 +39,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 mapView.settings.myLocationButton = true
             }
             
-            //locationManager.stopUpdatingLocation()
+            locationManager.stopUpdatingLocation()
             findBestRoute(from: location.coordinate)
         }
     }
@@ -142,7 +145,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func randomCoordinateOffset() -> Double {
-        return Double.random(in: -0.015...0.015)
+        return Double.random(in: -0.005...0.005)
     }
     
     func beginLocationUpdate(){
@@ -154,5 +157,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
+    
+    
 }
+
+
 
