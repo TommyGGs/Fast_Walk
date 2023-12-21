@@ -6,3 +6,10 @@
 //
 
 import Foundation
+import CoreLocation
+
+struct RouteDetails {
+    var polyString: String
+    var durationText: String
+    var startCoordinate: CLLocationCoordinate2D
+}

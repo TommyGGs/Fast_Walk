@@ -1,9 +1,6 @@
-import Foundation
-
 import UIKit
 import GoogleMaps
 import CoreLocation
-import GooglePlaces
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
 
@@ -11,36 +8,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var locationManager = CLLocationManager()
     var mapView: GMSMapView?
     var currentLocation: CLLocationCoordinate2D?
+    var selectedRouteDetails: RouteDetails?
     var currentRoutePolyline: GMSPolyline?
+    var storedRouteDetails: RouteDetails?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
         beginLocationUpdate()
-        
+        setupMapView()
+    }
+
+    func setupMapView() {
         let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 10.0)
         mapView = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
         mapView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapContainerView.addSubview(mapView!)
     }
 
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        beginLocationUpdate()
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first, currentLocation == nil {
-            currentLocation = location.coordinate
-            mapView?.camera = GMSCameraPosition(target: location.coordinate, zoom: 10.0)
-            mapView?.isMyLocationEnabled = true
-            mapView?.settings.myLocationButton = true
-            locationManager.stopUpdatingLocation()
-        }
-    }
-
     func calculateWaypointAdjustment(for desiredTime: Int) -> Double {
-        // Example logic to adjust waypoint range based on desiredTime
-        // This needs to be tuned according to your specific use case
+        // Adjust this logic as needed for your app
         switch desiredTime {
         case 30:
             return 0.005 // Smaller range for shorter routes
@@ -53,17 +40,49 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    @IBAction func searchRoute(_ sender: UIButton) {
-        currentRoutePolyline?.map = nil
-        if let currentLocation = self.currentLocation,
-           let buttonText = sender.titleLabel?.text,
-           let desiredTime = Int(buttonText.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
-            findBestRoute(from: currentLocation, desiredTime: desiredTime)
+    @IBAction func useRoute() {
+        if storedRouteDetails != nil {
+            performSegue(withIdentifier: "showRoute", sender: self)
         } else {
-            print("Current location is not available or invalid route time.")
+            print("No route available to use")
+        }
+    }
+    
+    func beginLocationUpdate() {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+            locationManager.startUpdatingLocation()
+        } else {
+            locationManager.requestWhenInUseAuthorization()
         }
     }
 
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first, currentLocation == nil {
+            currentLocation = location.coordinate
+            updateMapCamera(location.coordinate)
+        }
+    }
+
+    func updateMapCamera(_ coordinate: CLLocationCoordinate2D) {
+        let cameraUpdate = GMSCameraUpdate.setTarget(coordinate, zoom: 10.0)
+        mapView?.animate(with: cameraUpdate)
+        mapView?.isMyLocationEnabled = true
+        mapView?.settings.myLocationButton = true
+    }
+
+    @IBAction func searchRoute(_ sender: UIButton) {
+        currentRoutePolyline?.map = nil
+        currentRoutePolyline = nil
+              if let currentLocation = self.currentLocation,
+                 let buttonText = sender.titleLabel?.text,
+                 let desiredTime = Int(buttonText.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
+                  findBestRoute(from: currentLocation, desiredTime: desiredTime)
+              } else {
+                  print("Current location is not available or invalid route time.")
+              }
+    }
+    
+    
     func findBestRoute(from start: CLLocationCoordinate2D, desiredTime: Int) {
         var closestDuration = Int.max
         var bestRouteDetails: (polyString: String, durationText: String)?
@@ -84,11 +103,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         group.notify(queue: .main) {
             if let routeDetails = bestRouteDetails {
+                self.storedRouteDetails = RouteDetails(
+                    polyString: routeDetails.polyString,
+                    durationText: routeDetails.durationText,
+                    startCoordinate: start
+                )
+
+                // Update the map with the newly found route
                 self.displayRouteOnMap(polyString: routeDetails.polyString, start: start, durationText: routeDetails.durationText)
             }
         }
     }
-
+    
+    
     func generateRandomWaypoints(from start: CLLocationCoordinate2D, count: Int, adjustment: Double) -> [CLLocationCoordinate2D] {
         return (1...count).map { _ in
             CLLocationCoordinate2D(latitude: start.latitude + Double.random(in: -adjustment...adjustment),
@@ -168,19 +195,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func randomCoordinateOffset() -> Double {
         return Double.random(in: -0.005...0.005)
     }
-    
-    func beginLocationUpdate(){
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
-            locationManager.startUpdatingLocation()
-        } else {
-            locationManager.requestAlwaysAuthorization()
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showRoute", let destinationVC = segue.destination as? RouteViewController {
+            destinationVC.routeDetails = storedRouteDetails
         }
     }
-    
-    
-    
-    
 }
-
-
-
