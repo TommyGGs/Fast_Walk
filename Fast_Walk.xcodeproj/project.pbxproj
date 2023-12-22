@@ -10,6 +10,8 @@
 		31D0C0B52B3418C70049F6E1 /* RouteDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D0C0B42B3418C70049F6E1 /* RouteDetails.swift */; };
 		4107E2D6621EBECF55B2344B /* Pods_Fast_Walk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB74AB246AFFBC37173D0E8 /* Pods_Fast_Walk.framework */; };
 		825249262B31863000BB74D1 /* Places_demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825249252B31863000BB74D1 /* Places_demo.swift */; };
+		826DEC1F2B35949300C0157F /* WayPointGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826DEC1E2B35949300C0157F /* WayPointGeneration.swift */; };
+		826DEC222B359E7A00C0157F /* CreateMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826DEC212B359E7A00C0157F /* CreateMarker.swift */; };
 		828C32CF2B343367000C3F7F /* PlaceDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828C32CE2B343367000C3F7F /* PlaceDetails.xib */; };
 		828C32D42B343668000C3F7F /* PlaceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828C32D32B343668000C3F7F /* PlaceDetails.swift */; };
 		E21292A12B16E61400796BE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21292A02B16E61400796BE5 /* AppDelegate.swift */; };
@@ -25,6 +27,8 @@
 		121B8DA9542DEE04D0CA56A5 /* Pods-Fast_Walk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fast_Walk.debug.xcconfig"; path = "Target Support Files/Pods-Fast_Walk/Pods-Fast_Walk.debug.xcconfig"; sourceTree = "<group>"; };
 		31D0C0B42B3418C70049F6E1 /* RouteDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetails.swift; sourceTree = "<group>"; };
 		825249252B31863000BB74D1 /* Places_demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Places_demo.swift; sourceTree = "<group>"; };
+		826DEC1E2B35949300C0157F /* WayPointGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WayPointGeneration.swift; sourceTree = "<group>"; };
+		826DEC212B359E7A00C0157F /* CreateMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMarker.swift; sourceTree = "<group>"; };
 		828C32CE2B343367000C3F7F /* PlaceDetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceDetails.xib; sourceTree = "<group>"; };
 		828C32D32B343668000C3F7F /* PlaceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetails.swift; sourceTree = "<group>"; };
 		B08CDE77980212DCFCD7D2EE /* Pods-Fast_Walk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fast_Walk.release.xcconfig"; path = "Target Support Files/Pods-Fast_Walk/Pods-Fast_Walk.release.xcconfig"; sourceTree = "<group>"; };
@@ -58,6 +62,15 @@
 				DFB74AB246AFFBC37173D0E8 /* Pods_Fast_Walk.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		826DEC202B3594B100C0157F /* route recommendation */ = {
+			isa = PBXGroup;
+			children = (
+				826DEC1E2B35949300C0157F /* WayPointGeneration.swift */,
+				826DEC212B359E7A00C0157F /* CreateMarker.swift */,
+			);
+			path = "route recommendation";
 			sourceTree = "<group>";
 		};
 		828C32D02B3434DE000C3F7F /* places view */ = {
@@ -99,6 +112,7 @@
 		E212929F2B16E61400796BE5 /* Fast_Walk */ = {
 			isa = PBXGroup;
 			children = (
+				826DEC202B3594B100C0157F /* route recommendation */,
 				828C32D02B3434DE000C3F7F /* places view */,
 				E21292A02B16E61400796BE5 /* AppDelegate.swift */,
 				E21292A22B16E61400796BE5 /* SceneDelegate.swift */,
@@ -230,8 +244,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				826DEC222B359E7A00C0157F /* CreateMarker.swift in Sources */,
 				828C32D42B343668000C3F7F /* PlaceDetails.swift in Sources */,
 				825249262B31863000BB74D1 /* Places_demo.swift in Sources */,
+				826DEC1F2B35949300C0157F /* WayPointGeneration.swift in Sources */,
 				E21292A52B16E61400796BE5 /* ViewController.swift in Sources */,
 				E21292A12B16E61400796BE5 /* AppDelegate.swift in Sources */,
 				E2C77FA92B32EE25000266E7 /* RouteViewController.swift in Sources */,
