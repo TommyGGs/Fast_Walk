@@ -15,7 +15,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var selectedRouteDetails: RouteDetails?
     var currentRoutePolyline: GMSPolyline?
     var storedRouteDetails: RouteDetails?
-
+    var marker = Marker()
     
     private var placesClient: GMSPlacesClient! //For Places marker
     
@@ -238,7 +238,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             let restaurantLikelihoods = placeLikelihoods?.filter { $0.place.types?.contains("restaurant") ?? false }
             
             if let topRestaurant = restaurantLikelihoods?.first?.place, let placeID = topRestaurant.placeID {
-                self.createPhoto(placeID)
+                //self.createPhoto(placeID)
                 self.nameLabel.text = topRestaurant.name
             }
             
@@ -246,6 +246,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             if let top3RestaurantLikelihoods = restaurantLikelihoods?.prefix(3) {
                 for likelihood in top3RestaurantLikelihoods {
                     if let placeID = likelihood.place.placeID {
+                        marker.addMarker(likelihood.place, mapView: mapView!)
                         self.createPhoto(placeID)
                         
                     }
@@ -279,7 +280,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                         DispatchQueue.main.async {
                             self.photoView.image = photo
                             self.photoLabel.attributedText = photoMetadata.attributions
-                            self.addMarker(place: place)
                         }
                     }
                 })
@@ -287,27 +287,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         })
     }
     
-//    private func addMarker(place: GMSPlace, photoMetadata: GMSPlacePhotoMetadata?) {
-//        guard let mapView = mapView else { return }
-//        let marker = GMSMarker()
-//        marker.position = place.coordinate
-//        marker.title = place.name
-//        marker.snippet = place.types?.joined(separator: ",\n")
-//        marker.map = mapView
-//        marker.icon = GMSMarker.markerImage(with: .black)
-//        marker.userData = photoMetadata
-//        print("marker loaded")
-//    }
-    private func addMarker(place: GMSPlace) {
-        guard let mapView = mapView else { return }
-        let marker = GMSMarker()
-        marker.position = place.coordinate
-        marker.title = place.name
-        marker.snippet = place.types?.joined(separator: ",\n")
-        marker.map = mapView
-        marker.icon = GMSMarker.markerImage(with: .black)
-        print("marker loaded")
-    }
+    
     
 //    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
 //        print("returned info")
