@@ -1,10 +1,11 @@
 import UIKit
 import GoogleMaps
 
-class RouteViewController: UIViewController {
+class RouteViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var mapContainerView: UIView!
     @IBOutlet var currentMode: UILabel!
     @IBOutlet var currentTime: UILabel!
+    @IBOutlet var nextMode: UILabel!
     var routeDetails: RouteDetails?
     var mapView: GMSMapView?
     
@@ -13,11 +14,15 @@ class RouteViewController: UIViewController {
     var countdown: Int = 0
     var start: String = "start"
     
+    var locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let routeDetails = routeDetails {
             setupAndDisplayRouteOnMap(routeDetails: routeDetails)
         }
+        modeText()
+        configureLocationManager()
     }
     
     @IBAction func startTimer() {
@@ -34,9 +39,15 @@ class RouteViewController: UIViewController {
         }
     }
     
+    @IBAction func endTimer() {
+        timer.invalidate()
+        
+    }
+    
     func startTimer(resume: Bool)  {
+
         if resume != true {
-            countdown = 180
+            countdown = 10
         }
         if timer == nil {
             // Starting or resuming the timer
@@ -55,11 +66,42 @@ class RouteViewController: UIViewController {
         if countdown < 0 {
             if mode == "slow"{
                 mode = "fast"
+                modeText()
             } else {
                 mode = "slow"
+                modeText()
             }
             startTimer(resume: false)
         }
+    }
+    
+    func modeText() {
+        if mode == "slow" {
+            currentMode.text = "ゆっくり歩き"
+            nextMode.text = "さっさか歩き"
+        } else if mode == "fast" {
+            currentMode.text = "さっさか歩き"
+            nextMode.text = "ゆっくり歩き"
+        }
+    }
+    
+    func configureLocationManager() {
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            let cameraUpdate = GMSCameraUpdate.setTarget(location.coordinate, zoom: 10.0)
+            mapView?.animate(with: cameraUpdate)
+            mapView?.isMyLocationEnabled = true
+            mapView?.settings.myLocationButton = true
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to find user's location: \(error.localizedDescription)")
     }
 
     func setupAndDisplayRouteOnMap(routeDetails: RouteDetails) {
@@ -78,8 +120,9 @@ class RouteViewController: UIViewController {
             polyline.strokeColor = UIColor.systemBlue
             polyline.map = mapView
 
+            // Fit the camera to the bounds of the route
             let bounds = GMSCoordinateBounds(path: path)
-            let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+            let update = GMSCameraUpdate.fit(bounds, withPadding: 50) // Adjust padding as needed
             mapView?.animate(with: update)
             
             let durationMarker = GMSMarker(position: routeDetails.startCoordinate)
