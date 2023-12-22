@@ -1,5 +1,6 @@
 import UIKit
 import GoogleMaps
+import CoreLocation 
 
 class RouteViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var mapContainerView: UIView!
@@ -15,14 +16,29 @@ class RouteViewController: UIViewController, CLLocationManagerDelegate {
     var start: String = "start"
     
     var locationManager = CLLocationManager()
-    
+    var currentLocation: CLLocationCoordinate2D?
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager.delegate = self
+        beginLocationUpdate() // Start location updates
+
         if let routeDetails = routeDetails {
             setupAndDisplayRouteOnMap(routeDetails: routeDetails)
         }
+
         modeText()
         configureLocationManager()
+        
+        setupCircularProgressView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let routeDetails = routeDetails {
+            setupAndDisplayRouteOnMap(routeDetails: routeDetails)
+        }
     }
     
     @IBAction func startTimer() {
@@ -93,6 +109,7 @@ class RouteViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
+            currentLocation = location.coordinate
             let cameraUpdate = GMSCameraUpdate.setTarget(location.coordinate, zoom: 10.0)
             mapView?.animate(with: cameraUpdate)
             mapView?.isMyLocationEnabled = true
@@ -114,16 +131,21 @@ class RouteViewController: UIViewController, CLLocationManagerDelegate {
         mapContainerView.addSubview(mapView!)
 
         // Display the route
+
         if let path = GMSPath(fromEncodedPath: routeDetails.polyString) {
             let polyline = GMSPolyline(path: path)
+
             polyline.strokeWidth = 5.0
             polyline.strokeColor = UIColor.systemBlue
             polyline.map = mapView
 
             // Fit the camera to the bounds of the route
             let bounds = GMSCoordinateBounds(path: path)
+            print("Polyline bounds: \(bounds)")
+            print("Map view frame: \(mapView?.frame ?? CGRect.zero)")
+
             let update = GMSCameraUpdate.fit(bounds, withPadding: 50) // Adjust padding as needed
-            mapView?.animate(with: update)
+                    mapView?.animate(with: update)
             
             let durationMarker = GMSMarker(position: routeDetails.startCoordinate)
             durationMarker.title = "Route Start"
@@ -131,5 +153,32 @@ class RouteViewController: UIViewController, CLLocationManagerDelegate {
             durationMarker.map = mapView
             mapView?.selectedMarker = durationMarker
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            if let path = GMSPath(fromEncodedPath: routeDetails.polyString) {
+                let bounds = GMSCoordinateBounds(path: path)
+                let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+                self.mapView?.animate(with: update)
+            }
+        }
     }
+    
+    func beginLocationUpdate() {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+            locationManager.startUpdatingLocation()
+        } else {
+            locationManager.requestWhenInUseAuthorization()
+        }
+    }
+    
+    func setupCircularProgressView() {
+        let circularProgressView = CircularProgressView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        circularProgressView.center = CGPoint(x: view.center.x, y: view.center.y + 150) // Adjust position as needed
+        circularProgressView.progressColor = .blue // Customize the progress color
+        circularProgressView.trackColor = .lightGray // Customize the track color
+        circularProgressView.setProgress(to: 0.0) // Initial progress
+        view.addSubview(circularProgressView) // Add it to the view
+    }
+
+
 }
