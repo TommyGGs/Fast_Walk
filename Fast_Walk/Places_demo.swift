@@ -38,17 +38,17 @@ class Places_demo : UIViewController {
                 print("Current place error: \(error?.localizedDescription ?? "")")
                 return
             }
-            guard let place = placeLikelihoods?[2].place else {
+            guard let place = placeLikelihoods?[0].place else {
                 strongSelf.nameLabel.text = "No current place"
                 strongSelf.addressLabel.text = ""
                 return
             }
-//            if let likelihoods = placeLikelihoods?.prefix(3) { // Get the first three places
-//                for likelihood in likelihoods {
-//                    let place = likelihood.place
-//                    strongSelf.addMarker(place: place)
-//                }
-//            }
+            if let likelihoods = placeLikelihoods?.prefix(3) { // Get the first three places
+                for likelihood in likelihoods {
+                    let location = likelihood.place
+                    //strongSelf.addMarker(place: place)
+                }
+            }
             
             
             dump(placeLikelihoods)
