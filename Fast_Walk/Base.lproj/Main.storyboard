@@ -137,10 +137,13 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hwT-Fe-fZt">
-                                <rect key="frame" x="311" y="605" width="54" height="35"/>
+                                <rect key="frame" x="298" y="602" width="67" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="End"/>
+                                <connections>
+                                    <segue destination="n7d-qZ-gcw" kind="show" id="1As-vi-Hs6"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gvk-Im-cVz">
                                 <rect key="frame" x="145" y="690" width="110" height="21"/>
@@ -180,7 +183,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Next" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drO-cs-iXw">
-                                <rect key="frame" x="283" y="767" width="91" height="21"/>
+                                <rect key="frame" x="275" y="767" width="99" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -201,6 +204,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x9g-4P-6Sm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1056.9230769230769" y="704.50236966824639"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="rJN-Fs-Zz8">
+            <objects>
+                <viewController id="n7d-qZ-gcw" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="o9L-wy-cOc" customClass="EndViewController">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="ibX-h1-fL2"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Efr-wT-j3P"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ube-Uy-QG2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1969" y="727"/>
         </scene>
         <!--Places demo-->
         <scene sceneID="jOx-Qb-XnZ">
