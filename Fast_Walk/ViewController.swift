@@ -41,17 +41,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     //custom mapview
-    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        let infoWindow = PlaceDetails()
-        infoWindow.loadViewFromNib()
-        infoWindow.placeDetailsLabel.text = marker.title
-
-        if let photoMetadata = marker.userData as? GMSPlacePhotoMetadata {
-            //infoWindow.placePictureView.loadPlacePhoto(photoMetadata)
-        }
-
-        return infoWindow
-    }
+//    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+//        let infoWindow = PlaceDetails()
+//        infoWindow.loadViewFromNib()
+//        infoWindow.placeDetailsLabel.text = marker.title
+//
+//        if let photoMetadata = marker.userData as? GMSPlacePhotoMetadata {
+//            //infoWindow.placePictureView.loadPlacePhoto(photoMetadata)
+//        }
+//
+//        return infoWindow
+//    }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         beginLocationUpdate()

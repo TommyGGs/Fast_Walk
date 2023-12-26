@@ -31,8 +31,9 @@ class DemoViewController: UIViewController, GMSMapViewDelegate {
     }
 
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        let infoWindow = CustomInfoWindow(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        let infoWindow = CustomInfoWindow(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
         infoWindow.titleLabel.text = marker.title
+        infoWindow.snippetLabel.text = marker.snippet
         return infoWindow
     }
 }
