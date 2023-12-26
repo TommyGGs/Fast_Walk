@@ -77,16 +77,16 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HTG-Ia-oEa">
-                                <rect key="frame" x="90" y="775" width="211" height="35"/>
+                                <rect key="frame" x="49" y="775" width="164" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Display restaurant photo"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Display Waypoints"/>
                                 <connections>
                                     <action selector="press:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Cdk-t7-k7x"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dhg-9r-j9c">
-                                <rect key="frame" x="-26" y="0.0" width="390" height="596"/>
+                                <rect key="frame" x="1" y="0.0" width="390" height="596"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9mw-96-Xjs">
@@ -104,7 +104,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="separatorColor"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -259,20 +259,45 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yro-fl-vFI">
+                                <rect key="frame" x="231" y="554" width="75" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <connections>
+                                    <segue destination="QEQ-c2-7mg" kind="show" id="KpC-G5-WF8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="o2h-c1-JBo"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="cWg-7r-vVY"/>
                     <connections>
-                        <outlet property="addressLabel" destination="Ms1-cK-od2" id="O7d-2D-Ydd"/>
-                        <outlet property="nameLabel" destination="eU7-kg-4xG" id="yA8-lA-Z65"/>
+                        <outlet property="addressLabel" destination="Ms1-cK-od2" id="nfD-UA-YEE"/>
+                        <outlet property="nameLabel" destination="eU7-kg-4xG" id="z2Z-sX-0Et"/>
                         <outlet property="ratingLabel" destination="brS-k2-FTa" id="sGf-rs-ums"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xTu-BP-Sqh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1713.8461538461538" y="23.459715639810426"/>
+            <point key="canvasLocation" x="1723" y="-100"/>
+        </scene>
+        <!--Demo View Controller-->
+        <scene sceneID="51e-j9-EkY">
+            <objects>
+                <viewController id="QEQ-c2-7mg" customClass="DemoViewController" customModule="Fast_Walk" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uPg-z3-SFv">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="b78-2l-bvx"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LKL-lR-D55"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x60-cE-lXZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2434" y="-63"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aL4-wm-NZg">
@@ -294,6 +319,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="separatorColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

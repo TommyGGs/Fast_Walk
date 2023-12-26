@@ -11,20 +11,25 @@ import GoogleMaps
 import GooglePlaces
 
 class Marker: UIViewController {
-    let wayPoints = WayPointGeneration()
     
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    func addMarker(_ place: GMSPlace, mapView: GMSMapView) {
-        //guard let mapView = mapView else { return }
+    
+    
+    func addMarker(_ place: GMSPlace, _ mapView: GMSMapView?) {
+        /* guard let mapView = mapView else {
+            return } */
+        print("marker loaded")
         let marker = GMSMarker()
         marker.position = place.coordinate
         marker.title = place.name
         marker.snippet = place.types?.joined(separator: ",\n")
         marker.map = mapView
         marker.icon = GMSMarker.markerImage(with: .black)
-        print("marker loaded")
+        
     }
 }

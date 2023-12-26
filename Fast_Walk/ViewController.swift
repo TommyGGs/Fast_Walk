@@ -4,29 +4,31 @@ import CoreLocation
 import GooglePlaces
 
 class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
-    
     @IBOutlet weak var mapContainerView: UIView!
     @IBOutlet private var nameLabel: UILabel! //from places
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var photoLabel: UILabel!
     var locationManager = CLLocationManager()
-    var mapView: GMSMapView?
+    var mapView: GMSMapView? //static throughout scope of entire program
     var currentLocation: CLLocationCoordinate2D?
     var selectedRouteDetails: RouteDetails?
     var currentRoutePolyline: GMSPolyline?
     var storedRouteDetails: RouteDetails?
     var marker = Marker()
+    var wayPointGeneration = WayPointGeneration()
+    var randomwaypoint: randomWayPoint!
     
     private var placesClient: GMSPlacesClient! //For Places marker
     
     override func viewDidLoad() {
         super.viewDidLoad()
         placesClient = GMSPlacesClient.shared() //Places
+        randomwaypoint = randomWayPoint()
         locationManager.delegate = self
         beginLocationUpdate()
         setupMapView()
     }
-
+    
     func setupMapView() {
         let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 10.0)
         mapView = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
@@ -36,6 +38,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         
         mapContainerView.addSubview(mapView!)
         beginLocationUpdate()
+    }
+    
+    //custom mapview
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        let infoWindow = PlaceDetails()
+        infoWindow.loadViewFromNib()
+        infoWindow.placeDetailsLabel.text = marker.title
+
+        if let photoMetadata = marker.userData as? GMSPlacePhotoMetadata {
+            //infoWindow.placePictureView.loadPlacePhoto(photoMetadata)
+        }
+
+        return infoWindow
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -52,6 +67,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             mapView?.settings.zoomGestures = true //allows for zoom
             locationManager.stopUpdatingLocation() //why is this here? stop updating location
         }
+    }
+    
+    func beginLocationUpdate() {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+            locationManager.startUpdatingLocation()
+        } else {
+            locationManager.requestWhenInUseAuthorization()
+        }
+    }
+    
+    func updateMapCamera(_ coordinate: CLLocationCoordinate2D) {
+        let cameraUpdate = GMSCameraUpdate.setTarget(coordinate, zoom: 10.0)
+        mapView?.animate(with: cameraUpdate)
+        mapView?.isMyLocationEnabled = true
+        mapView?.settings.myLocationButton = true
     }
     
     func calculateWaypointAdjustment(for desiredTime: Int) -> Double {
@@ -76,31 +106,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
     
-    func beginLocationUpdate() {
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
-            locationManager.startUpdatingLocation()
-        } else {
-            locationManager.requestWhenInUseAuthorization()
-        }
-    }
-
-    func updateMapCamera(_ coordinate: CLLocationCoordinate2D) {
-        let cameraUpdate = GMSCameraUpdate.setTarget(coordinate, zoom: 10.0)
-        mapView?.animate(with: cameraUpdate)
-        mapView?.isMyLocationEnabled = true
-        mapView?.settings.myLocationButton = true
-    }
-
+    
+    
     @IBAction func searchRoute(_ sender: UIButton) {
         currentRoutePolyline?.map = nil
         currentRoutePolyline = nil
-              if let currentLocation = self.currentLocation,
-                 let buttonText = sender.titleLabel?.text,
-                 let desiredTime = Int(buttonText.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
-                  findBestRoute(from: currentLocation, desiredTime: desiredTime)
-              } else {
-                  print("Current location is not available or invalid route time.")
-              }
+        if let currentLocation = self.currentLocation,
+           let buttonText = sender.titleLabel?.text,
+           let desiredTime = Int(buttonText.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
+            findBestRoute(from: currentLocation, desiredTime: desiredTime)
+        } else {
+            print("Current location is not available or invalid route time.")
+        }
     }
     
     
@@ -129,7 +146,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                     durationText: routeDetails.durationText,
                     startCoordinate: start
                 )
-
+                
                 // Update the map with the newly found route
                 self.displayRouteOnMap(polyString: routeDetails.polyString, start: start, durationText: routeDetails.durationText)
             }
@@ -216,7 +233,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     func randomCoordinateOffset() -> Double {
         return Double.random(in: -0.005...0.005)
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showRoute", let destinationVC = segue.destination as? RouteViewController {
             destinationVC.routeDetails = storedRouteDetails
@@ -225,36 +242,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     //places recommendation for restaurants
     @IBAction func press (_ sender: Any){
-        let placeFields: GMSPlaceField = [.name, .formattedAddress, .placeID, .coordinate, .types]
         
-        placesClient.findPlaceLikelihoodsFromCurrentLocation(withPlaceFields: placeFields) { [weak self] (placeLikelihoods, error) in
-            guard let self = self else { return }
-            
-            if let error = error {
-                print("Current place error: \(error.localizedDescription)")
-                return
-            }
-            
-            let restaurantLikelihoods = placeLikelihoods?.filter { $0.place.types?.contains("restaurant") ?? false }
-            
-            if let topRestaurant = restaurantLikelihoods?.first?.place, let placeID = topRestaurant.placeID {
-                //self.createPhoto(placeID)
-                self.nameLabel.text = topRestaurant.name
-            }
-            
-            // Add markers for the top 3 restaurants
-            if let top3RestaurantLikelihoods = restaurantLikelihoods?.prefix(3) {
-                for likelihood in top3RestaurantLikelihoods {
-                    if let placeID = likelihood.place.placeID {
-                        marker.addMarker(likelihood.place, mapView: mapView!)
-                        self.createPhoto(placeID)
-                        
-                    }
+        var coordinate: CLLocationCoordinate2D = locationManager.location!.coordinate
+        randomwaypoint.findRoute(3, coordinate) { places in
+            for place in places {
+                if let place = place {
+                    print("Fetched place: \(place.name ?? "Unknown")")
+                    self.marker.addMarker (place, self.mapView)
+                } else {
+                    print("A place was nil")
                 }
             }
-            
         }
-        
+        mapView?.animate(toZoom: 15)
     }
     
     
@@ -289,34 +289,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     
     
-//    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-//        print("returned info")
-//        guard let infoWindow = Bundle.main.loadNibNamed("PlaceDetails", owner: self, options: nil)?.first as? PlaceDetails else { return nil }
-//        infoWindow.placeDetailsLabel.text = marker.title
-//        
-//        if let photoMetadata = marker.userData as? GMSPlacePhotoMetadata {
-//            infoWindow.placePictureView.loadPlacePhoto(photoMetadata)
-//        }
-//        
-//        return infoWindow
-//    }
-//}
-//
-//
-//
-//extension UIImageView {
-//    func loadPlacePhoto(_ photoMetadata: GMSPlacePhotoMetadata) {
-//        GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: { (photo, error) -> Void in
-//            if let error = error {
-//                print("Error loading photo metadata: \(error.localizedDescription)")
-//                return
-//            }
-//            
-//            if let photo = photo {
-//                DispatchQueue.main.async {
-//                    self.image = photo
-//                }
-//            }
-//        })
-//    }
+        
+    //
+    //
+    //
+    //extension UIImageView {
+    //    func loadPlacePhoto(_ photoMetadata: GMSPlacePhotoMetadata) {
+    //        GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: { (photo, error) -> Void in
+    //            if let error = error {
+    //                print("Error loading photo metadata: \(error.localizedDescription)")
+    //                return
+    //            }
+    //
+    //            if let photo = photo {
+    //                DispatchQueue.main.async {
+    //                    self.image = photo
+    //                }
+    //            }
+    //        })
+    //    }
 }

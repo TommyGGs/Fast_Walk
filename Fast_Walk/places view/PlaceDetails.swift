@@ -16,15 +16,13 @@ class PlaceDetails: UIView {
     
     override init(frame: CGRect) {
             super.init(frame: frame)
-            loadViewFromNib()
         }
 
         required init?(coder: NSCoder) {
             super.init(coder: coder)
-            loadViewFromNib()
         }
 
-    private func loadViewFromNib() {
+    func loadViewFromNib() {
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: "PlaceDetails", bundle: bundle)
         if let view = nib.instantiate(withOwner: self, options: nil).first as? UIView {

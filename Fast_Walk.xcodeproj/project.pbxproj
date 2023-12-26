@@ -11,6 +11,9 @@
 		31D0C0B72B3592A90049F6E1 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D0C0B62B3592A90049F6E1 /* EndViewController.swift */; };
 		31D0C0B92B3595590049F6E1 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D0C0B82B3595590049F6E1 /* CircularProgressView.swift */; };
 		4107E2D6621EBECF55B2344B /* Pods_Fast_Walk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB74AB246AFFBC37173D0E8 /* Pods_Fast_Walk.framework */; };
+		824332A02B3991FB00D24094 /* randomWayPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243329F2B3991FB00D24094 /* randomWayPoint.swift */; };
+		824332A42B3AA8FA00D24094 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824332A32B3AA8FA00D24094 /* DemoViewController.swift */; };
+		824332A62B3AA95000D24094 /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824332A52B3AA95000D24094 /* CustomInfoWindow.swift */; };
 		825249262B31863000BB74D1 /* Places_demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825249252B31863000BB74D1 /* Places_demo.swift */; };
 		826DEC1F2B35949300C0157F /* WayPointGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826DEC1E2B35949300C0157F /* WayPointGeneration.swift */; };
 		826DEC222B359E7A00C0157F /* CreateMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826DEC212B359E7A00C0157F /* CreateMarker.swift */; };
@@ -30,6 +33,9 @@
 		31D0C0B42B3418C70049F6E1 /* RouteDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetails.swift; sourceTree = "<group>"; };
 		31D0C0B62B3592A90049F6E1 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
 		31D0C0B82B3595590049F6E1 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		8243329F2B3991FB00D24094 /* randomWayPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = randomWayPoint.swift; sourceTree = "<group>"; };
+		824332A32B3AA8FA00D24094 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		824332A52B3AA95000D24094 /* CustomInfoWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
 		825249252B31863000BB74D1 /* Places_demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Places_demo.swift; sourceTree = "<group>"; };
 		826DEC1E2B35949300C0157F /* WayPointGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WayPointGeneration.swift; sourceTree = "<group>"; };
 		826DEC212B359E7A00C0157F /* CreateMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMarker.swift; sourceTree = "<group>"; };
@@ -72,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				826DEC1E2B35949300C0157F /* WayPointGeneration.swift */,
+				8243329F2B3991FB00D24094 /* randomWayPoint.swift */,
 				826DEC212B359E7A00C0157F /* CreateMarker.swift */,
 			);
 			path = "route recommendation";
@@ -80,6 +87,8 @@
 		828C32D02B3434DE000C3F7F /* places view */ = {
 			isa = PBXGroup;
 			children = (
+				824332A52B3AA95000D24094 /* CustomInfoWindow.swift */,
+				824332A32B3AA8FA00D24094 /* DemoViewController.swift */,
 				828C32CE2B343367000C3F7F /* PlaceDetails.xib */,
 				828C32D32B343668000C3F7F /* PlaceDetails.swift */,
 			);
@@ -250,11 +259,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				824332A02B3991FB00D24094 /* randomWayPoint.swift in Sources */,
 				826DEC222B359E7A00C0157F /* CreateMarker.swift in Sources */,
+				824332A62B3AA95000D24094 /* CustomInfoWindow.swift in Sources */,
 				828C32D42B343668000C3F7F /* PlaceDetails.swift in Sources */,
 				825249262B31863000BB74D1 /* Places_demo.swift in Sources */,
 				826DEC1F2B35949300C0157F /* WayPointGeneration.swift in Sources */,
 				E21292A52B16E61400796BE5 /* ViewController.swift in Sources */,
+				824332A42B3AA8FA00D24094 /* DemoViewController.swift in Sources */,
 				31D0C0B92B3595590049F6E1 /* CircularProgressView.swift in Sources */,
 				E21292A12B16E61400796BE5 /* AppDelegate.swift in Sources */,
 				31D0C0B72B3592A90049F6E1 /* EndViewController.swift in Sources */,

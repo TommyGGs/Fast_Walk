@@ -3,45 +3,44 @@ import GoogleMaps
 import GooglePlaces
 
 class WayPointGeneration {
-
+    
     private var placesClient: GMSPlacesClient
     private var nextCoordinate: CLLocationCoordinate2D?
-
+    private var marker = Marker()
+    
     init() {
         placesClient = GMSPlacesClient.shared()
     }
     
-    func findRoute() {
-        fetchRoute { place in
-            // Handle the response here
-            if let place = place {
-                print("Found place: \(place.name)")
-                // Update your UI accordingly
+    func findRoute(_ waypoints: Int, completion: @escaping ([GMSPlace]) -> Void) {
+        fetchLikelihoodList { currentLocation in
+            if let currentLocation = currentLocation {
+                let places: [GMSPlace] = [currentLocation]
+                self.fetchNearbyPlaces(waypoints - 1, from: currentLocation.coordinate, places: places, completion: completion)
             } else {
-                print("No place found")
+                completion([])
             }
         }
     }
     
-    
-    private func fetchRoute(completion: @escaping (GMSPlace?) -> Void) {
-        fetchLikelihoodList { [weak self] topPlace in
-            guard let self = self, let topPlace = topPlace else {
-                completion(nil)
-                return
-            }
-            
-            self.performNearbySearch(from: topPlace.coordinate) { nextTopPlace in
-                guard let nextTopPlace = nextTopPlace else {
-                    completion(nil)
-                    return
-                }
-
-                self.performNearbySearch(from: nextTopPlace.coordinate, completion: completion)
+    private func fetchNearbyPlaces(_ waypointsRemaining: Int, from coordinate: CLLocationCoordinate2D, places: [GMSPlace], completion: @escaping ([GMSPlace]) -> Void) {
+        if waypointsRemaining == 0 {
+            completion(places)
+            return
+        }
+        
+        performNearbySearch(from: coordinate) { newPlace in
+            if let newPlace = newPlace {
+                var updatedPlaces = places
+                updatedPlaces.append(newPlace)
+                self.fetchNearbyPlaces(waypointsRemaining - 1, from: newPlace.coordinate, places: updatedPlaces, completion: completion)
+                print(newPlace.name)
+            } else {
+                completion(places)
             }
         }
     }
-
+    
     private func fetchLikelihoodList(completion: @escaping (GMSPlace?) -> Void) {
         let placeFields: GMSPlaceField = [.name, .formattedAddress, .placeID, .coordinate, .types]
         placesClient.findPlaceLikelihoodsFromCurrentLocation(withPlaceFields: placeFields) { (placeLikelihoods, error) in
@@ -51,23 +50,23 @@ class WayPointGeneration {
                 return
             }
             
-            let topPlace = placeLikelihoods?.first?.place
-            completion(topPlace)
+            let currentPlace = placeLikelihoods?.first?.place
+            completion(currentPlace)
         }
     }
-
-    private func performNearbySearch(from coordinate: CLLocationCoordinate2D, completion: @escaping (GMSPlace?) -> Void) {
-        let radius: Double = 1000 // Search within 1000 meters of the coordinate
-        let type = "restaurant" // Specify the type of place you are looking for
-
-        let urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radius)&type=\(type)&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc"
     
+    private func performNearbySearch(from coordinate: CLLocationCoordinate2D, completion: @escaping (GMSPlace?) -> Void) {
+        let radius: Double = 200 // Search within 1000 meters of the coordinate
+        let type = "restaurant" // Specify the type of place you are looking for
+        
+        let urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radius)&type=\(type)&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc"
+        
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             completion(nil)
             return
         }
-    
+        
         URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             if let error = error {
                 print("Network error: \(error.localizedDescription)")
@@ -90,7 +89,7 @@ class WayPointGeneration {
                     completion(nil)
                     return
                 }
-
+                //add filter algorithm to find top rating and needed categories
                 let firstResult = results[0]
                 if let placeID = firstResult["place_id"] as? String {
                     self?.fetchPlaceDetails(placeID: placeID, completion: completion)
@@ -104,7 +103,7 @@ class WayPointGeneration {
             }
         }.resume()
     }
-
+    
     private func fetchPlaceDetails(placeID: String, completion: @escaping (GMSPlace?) -> Void) {
         placesClient.lookUpPlaceID(placeID) { (place, error) in
             if let error = error {
