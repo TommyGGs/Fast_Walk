@@ -109,36 +109,53 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     
     @IBAction func searchRoute(_ sender: UIButton) {
+        print("Search button pressed")
+        
         currentRoutePolyline?.map = nil
         currentRoutePolyline = nil
         if let currentLocation = self.currentLocation,
            let buttonText = sender.titleLabel?.text,
            let desiredTime = Int(buttonText.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
+            print("Current location is available: \(currentLocation)")
+            print("Desired time: \(desiredTime)")
             findBestRoute(from: currentLocation, desiredTime: desiredTime)
         } else {
             print("Current location is not available or invalid route time.")
         }
     }
     
-    
     func findBestRoute(from start: CLLocationCoordinate2D, desiredTime: Int) {
         var closestDuration = Int.max
         var bestRouteDetails: (polyString: String, durationText: String)?
         let group = DispatchGroup()
-        
-        for _ in 1...2 {
-            group.enter()
-            let waypoints = generateRandomWaypoints(from: start, count: 2, adjustment: calculateWaypointAdjustment(for: desiredTime))
-            requestRoute(from: start, waypoints: waypoints) { polyString, duration in
-                let durationInMinutes = duration / 60
-                if abs(durationInMinutes - desiredTime) < abs(closestDuration - desiredTime) {
-                    closestDuration = durationInMinutes
-                    bestRouteDetails = (polyString, "\(durationInMinutes) min")
+
+        // Generate random waypoints for restaurants
+        randomwaypoint.findRoute(2, start) { places in
+            var restaurantWaypoints: [CLLocationCoordinate2D] = []
+
+            for place in places {
+                if let place = place {
+                    print("Fetched restaurant: \(place.name ?? "Unknown")")
+                    restaurantWaypoints.append(place.coordinate)
+                } else {
+                    print("A restaurant place was nil")
                 }
-                group.leave()
+            }
+
+            for _ in 1...2 {
+                group.enter()
+                let waypoints = self.generateRandomWaypoints(from: start, count: 2, adjustment: self.calculateWaypointAdjustment(for: desiredTime))
+                self.requestRoute(from: start, waypoints: waypoints) { polyString, duration in
+                    let durationInMinutes = duration / 60
+                    if abs(durationInMinutes - desiredTime) < abs(closestDuration - desiredTime) {
+                        closestDuration = durationInMinutes
+                        bestRouteDetails = (polyString, "\(durationInMinutes) min")
+                    }
+                    group.leave()
+                }
             }
         }
-        
+
         group.notify(queue: .main) {
             if let routeDetails = bestRouteDetails {
                 self.storedRouteDetails = RouteDetails(
@@ -146,11 +163,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                     durationText: routeDetails.durationText,
                     startCoordinate: start
                 )
-                
+
                 // Update the map with the newly found route
                 self.displayRouteOnMap(polyString: routeDetails.polyString, start: start, durationText: routeDetails.durationText)
+            } else {
+                print("No best route found, displaying the first route anyway.")
+                
+                // Generate random waypoints for the first route
+                let firstWaypoints = self.generateRandomWaypoints(from: start, count: 2, adjustment: self.calculateWaypointAdjustment(for: desiredTime))
+                
+                // Check if firstWaypoints is not nil before using it
+                if !firstWaypoints.isEmpty {
+                    self.requestRoute(from: start, waypoints: firstWaypoints) { polyString, duration in
+                        self.displayRouteOnMap(polyString: polyString, start: start, durationText: "\(duration / 60) min")
+                    }
+                } else {
+                    print("Failed to generate random waypoints for the first route.")
+                }
             }
         }
+
     }
     
     
@@ -241,8 +273,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     //places recommendation for restaurants
-    @IBAction func press (_ sender: Any){
-        
+   @IBAction func use() {
         var coordinate: CLLocationCoordinate2D = locationManager.location!.coordinate
         randomwaypoint.findRoute(3, coordinate) { places in
             for place in places {
