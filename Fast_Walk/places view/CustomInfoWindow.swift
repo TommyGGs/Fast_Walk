@@ -12,7 +12,7 @@ class CustomInfoWindow: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var snippetLabel: UILabel!
 
-    var contentView: UIView!
+    @IBOutlet weak var contentView: UIView!
     override init(frame: CGRect) {
             super.init(frame: frame)
             commonInit()
@@ -29,5 +29,15 @@ class CustomInfoWindow: UIView {
             addSubview(contentView)
             contentView.frame = self.bounds
             contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        }
+    func requiredSize(view: UIView?) -> CGSize {
+        guard let view = view else {
+            print ("error in requiredSize")
+            return CGSize(width: 0.0, height: 0.0)
+               }
+        view.setNeedsLayout()
+            view.layoutIfNeeded() // Force layout pass
+        print(view.bounds.size.height, view.bounds.size.width)
+            return view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         }
 }
