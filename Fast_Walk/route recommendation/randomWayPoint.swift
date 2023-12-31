@@ -24,7 +24,7 @@ class randomWayPoint {
         let radius = calculateRadiusBasedOnTime(desiredTime)
         performNearbySearch(from: coordinate, radius: radius, type: "restaurant") { places in
             let shuffledPlaces = places.shuffled() // Shuffle the places to randomize them
-            let placeInfos = shuffledPlaces.prefix(2).compactMap { place -> PlaceInfo? in // Limit to 3 places
+            let placeInfos = shuffledPlaces.prefix(3).compactMap { place -> PlaceInfo? in // Limit to 3 places
                 if let place = place {
                     return PlaceInfo(coordinate: place.coordinate, name: place.name ?? "Unknown")
                 }

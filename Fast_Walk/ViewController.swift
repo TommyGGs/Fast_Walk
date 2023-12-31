@@ -125,8 +125,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         var closestDuration = Int.max
         var bestRouteDetails: (polyString: String, durationText: String)?
         let group = DispatchGroup()
-        
-        for _ in 1...2 {
+//
+//        for _ in 1...2 {
             group.enter()
             randomwaypoint.findRoute(start, desiredTime: desiredTime) { placeInfos in
                 for placeInfo in placeInfos {
@@ -146,7 +146,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                     group.leave()
                 }
             }
-        }
+//        }
         
         group.notify(queue: .main) {
             if let routeDetails = bestRouteDetails {
