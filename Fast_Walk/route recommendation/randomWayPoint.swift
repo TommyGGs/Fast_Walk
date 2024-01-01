@@ -20,17 +20,12 @@ class randomWayPoint {
         placesClient = GMSPlacesClient.shared()
     }
     
-    func findRoute(_ coordinate: CLLocationCoordinate2D, desiredTime: Int, completion: @escaping ([PlaceInfo]) -> Void) {
+    func findRoute(_ coordinate: CLLocationCoordinate2D, desiredTime: Int, completion: @escaping ([GMSPlace?]) -> Void) {
         let radius = calculateRadiusBasedOnTime(desiredTime)
         performNearbySearch(from: coordinate, radius: radius, type: "restaurant") { places in
             let shuffledPlaces = places.shuffled() // Shuffle the places to randomize them
-            let placeInfos = shuffledPlaces.prefix(3).compactMap { place -> PlaceInfo? in // Limit to 3 places
-                if let place = place {
-                    return PlaceInfo(coordinate: place.coordinate, name: place.name ?? "Unknown")
-                }
-                return nil
-            }
-            completion(placeInfos)
+            let placeInfos = Array(shuffledPlaces.prefix(3))
+            completion (placeInfos)
         }
     }
 

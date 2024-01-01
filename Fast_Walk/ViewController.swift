@@ -41,17 +41,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     //custom mapview
-//    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-//        let infoWindow = PlaceDetails()
-//        infoWindow.loadViewFromNib()
-//        infoWindow.placeDetailsLabel.text = marker.title
-//
-//        if let photoMetadata = marker.userData as? GMSPlacePhotoMetadata {
-//            //infoWindow.placePictureView.loadPlacePhoto(photoMetadata)
-//        }
-//
-//        return infoWindow
-//    }
+    //    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+    //        let infoWindow = PlaceDetails()
+    //        infoWindow.loadViewFromNib()
+    //        infoWindow.placeDetailsLabel.text = marker.title
+    //
+    //        if let photoMetadata = marker.userData as? GMSPlacePhotoMetadata {
+    //            //infoWindow.placePictureView.loadPlacePhoto(photoMetadata)
+    //        }
+    //
+    //        return infoWindow
+    //    }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         beginLocationUpdate()
@@ -129,29 +129,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         var closestDuration = Int.max
         var bestRouteDetails: (polyString: String, durationText: String)?
         let group = DispatchGroup()
-//
-//        for _ in 1...2 {
-            group.enter()
-            randomwaypoint.findRoute(start, desiredTime: desiredTime) { placeInfos in
-                for placeInfo in placeInfos {
-                    let waypointMarker = GMSMarker()
-                    waypointMarker.position = placeInfo.coordinate
-                    waypointMarker.title = placeInfo.name
-                    waypointMarker.map = self.mapView
-                    waypointMarker.icon = GMSMarker.markerImage(with: .blue)
-                }
+        //
+        //        for _ in 1...2 {
+        group.enter()
+        randomwaypoint.findRoute(start, desiredTime: desiredTime) { placeInfos in
+            for placeInfo in placeInfos {
+                let waypointMarker = GMSMarker()
+                waypointMarker.position = placeInfo!.coordinate
+                waypointMarker.title = placeInfo!.name
+                waypointMarker.map = self.mapView
+                waypointMarker.icon = GMSMarker.markerImage(with: .blue)
             }
-
-                self.requestRoute(from: start, waypoints: placeInfos.map { $0.coordinate }) { polyString, duration in
-                    let durationInMinutes = duration / 60
-                    if abs(durationInMinutes - desiredTime) < abs(closestDuration - desiredTime) {
-                        closestDuration = durationInMinutes
-                        bestRouteDetails = (polyString, "\(durationInMinutes) 分")
-                    }
-                    group.leave()
+            self.requestRoute(from: start, waypoints: placeInfos.map(\.!.coordinate)) { polyString, duration in
+                let durationInMinutes = duration / 60
+                if abs(durationInMinutes - desiredTime) < abs(closestDuration - desiredTime) {
+                    closestDuration = durationInMinutes
+                    bestRouteDetails = (polyString, "\(durationInMinutes) 分")
                 }
+                
+                group.leave()
             }
-//        }
+        }
+        
+        
+        
+        
+        //        }
         
         group.notify(queue: .main) {
             if let routeDetails = bestRouteDetails {
@@ -160,7 +163,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                     durationText: routeDetails.durationText,
                     startCoordinate: start
                 )
-
+                
                 // Update the map with the newly found route
                 self.displayRouteOnMap(polyString: routeDetails.polyString, start: start, durationText: routeDetails.durationText)
             } else {
@@ -179,10 +182,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                 }
             }
         }
-
     }
-
-
+    
+    
     
     
     func generateRandomWaypoints(from start: CLLocationCoordinate2D, count: Int, adjustment: Double) -> [CLLocationCoordinate2D] {
@@ -272,9 +274,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     //places recommendation for restaurants
-   @IBAction func use() {
+    @IBAction func use() {
         var coordinate: CLLocationCoordinate2D = locationManager.location!.coordinate
-        randomwaypoint.findRoute(3, coordinate) { places in
+        randomwaypoint.findRoute(coordinate, desiredTime: 45) { places in
             for place in places {
                 if let place = place {
                     print("Fetched place: \(place.name ?? "Unknown")")
