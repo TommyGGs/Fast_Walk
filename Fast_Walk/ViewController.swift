@@ -113,6 +113,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         
         currentRoutePolyline?.map = nil
         currentRoutePolyline = nil
+        mapView?.clear()
         if let currentLocation = self.currentLocation,
            let buttonText = sender.titleLabel?.text,
            let desiredTime = Int(buttonText.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
@@ -128,34 +129,30 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         var closestDuration = Int.max
         var bestRouteDetails: (polyString: String, durationText: String)?
         let group = DispatchGroup()
-
-        // Generate random waypoints for restaurants
-        randomwaypoint.findRoute(2, start) { places in
-            var restaurantWaypoints: [CLLocationCoordinate2D] = []
-
-            for place in places {
-                if let place = place {
-                    print("Fetched restaurant: \(place.name ?? "Unknown")")
-                    restaurantWaypoints.append(place.coordinate)
-                } else {
-                    print("A restaurant place was nil")
+//
+//        for _ in 1...2 {
+            group.enter()
+            randomwaypoint.findRoute(start, desiredTime: desiredTime) { placeInfos in
+                for placeInfo in placeInfos {
+                    let waypointMarker = GMSMarker()
+                    waypointMarker.position = placeInfo.coordinate
+                    waypointMarker.title = placeInfo.name
+                    waypointMarker.map = self.mapView
+                    waypointMarker.icon = GMSMarker.markerImage(with: .blue)
                 }
             }
 
-            for _ in 1...2 {
-                group.enter()
-                let waypoints = self.generateRandomWaypoints(from: start, count: 2, adjustment: self.calculateWaypointAdjustment(for: desiredTime))
-                self.requestRoute(from: start, waypoints: waypoints) { polyString, duration in
+                self.requestRoute(from: start, waypoints: placeInfos.map { $0.coordinate }) { polyString, duration in
                     let durationInMinutes = duration / 60
                     if abs(durationInMinutes - desiredTime) < abs(closestDuration - desiredTime) {
                         closestDuration = durationInMinutes
-                        bestRouteDetails = (polyString, "\(durationInMinutes) min")
+                        bestRouteDetails = (polyString, "\(durationInMinutes) 分")
                     }
                     group.leave()
                 }
             }
-        }
-
+//        }
+        
         group.notify(queue: .main) {
             if let routeDetails = bestRouteDetails {
                 self.storedRouteDetails = RouteDetails(
@@ -184,6 +181,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
 
     }
+
+
     
     
     func generateRandomWaypoints(from start: CLLocationCoordinate2D, count: Int, adjustment: Double) -> [CLLocationCoordinate2D] {
@@ -253,8 +252,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             mapView?.animate(with: update)
             
             let durationMarker = GMSMarker(position: start)
-            durationMarker.title = "Route Start"
-            durationMarker.snippet = "Estimated Total Walking Time: \(durationText)"
+            durationMarker.title = "開始地点"
+            durationMarker.snippet = "予測時間: \(durationText)"
             durationMarker.map = mapView
             mapView?.selectedMarker = durationMarker
         } else {
@@ -317,26 +316,4 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             }
         })
     }
-    
-    
-    
-        
-    //
-    //
-    //
-    //extension UIImageView {
-    //    func loadPlacePhoto(_ photoMetadata: GMSPlacePhotoMetadata) {
-    //        GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: { (photo, error) -> Void in
-    //            if let error = error {
-    //                print("Error loading photo metadata: \(error.localizedDescription)")
-    //                return
-    //            }
-    //
-    //            if let photo = photo {
-    //                DispatchQueue.main.async {
-    //                    self.image = photo
-    //                }
-    //            }
-    //        })
-    //    }
 }
