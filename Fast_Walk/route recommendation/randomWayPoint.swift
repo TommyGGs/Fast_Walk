@@ -111,6 +111,7 @@ class randomWayPoint {
     
     private func fetchPlaceDetails(placeID: String, completion: @escaping (GMSPlace?) -> Void) {
         print ("called fetchPlaceDetails")
+        //CONTINUE:: placesClient.
         placesClient.lookUpPlaceID(placeID) { (place, error) in
             if let error = error {
                 print("Error fetching place details: \(error.localizedDescription)")
