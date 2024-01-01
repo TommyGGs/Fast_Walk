@@ -13,3 +13,8 @@ struct RouteDetails {
     var durationText: String
     var startCoordinate: CLLocationCoordinate2D
 }
+
+struct PlaceInfo {
+    var coordinate: CLLocationCoordinate2D
+    var name: String
+}
