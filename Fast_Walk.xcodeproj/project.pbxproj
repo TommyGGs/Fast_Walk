@@ -10,6 +10,7 @@
 		31D0C0B52B3418C70049F6E1 /* RouteDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D0C0B42B3418C70049F6E1 /* RouteDetails.swift */; };
 		31D0C0B72B3592A90049F6E1 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D0C0B62B3592A90049F6E1 /* EndViewController.swift */; };
 		31D0C0B92B3595590049F6E1 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D0C0B82B3595590049F6E1 /* CircularProgressView.swift */; };
+		31F47F4E2B42AE2600971D6A /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = 31F47F4D2B42AE2600971D6A /* image.png */; };
 		4107E2D6621EBECF55B2344B /* Pods_Fast_Walk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB74AB246AFFBC37173D0E8 /* Pods_Fast_Walk.framework */; };
 		824332A02B3991FB00D24094 /* randomWayPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243329F2B3991FB00D24094 /* randomWayPoint.swift */; };
 		824332A42B3AA8FA00D24094 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824332A32B3AA8FA00D24094 /* DemoViewController.swift */; };
@@ -32,6 +33,7 @@
 		31D0C0B42B3418C70049F6E1 /* RouteDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetails.swift; sourceTree = "<group>"; };
 		31D0C0B62B3592A90049F6E1 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
 		31D0C0B82B3595590049F6E1 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		31F47F4D2B42AE2600971D6A /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
 		8243329F2B3991FB00D24094 /* randomWayPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = randomWayPoint.swift; sourceTree = "<group>"; };
 		824332A32B3AA8FA00D24094 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		824332A52B3AA95000D24094 /* CustomInfoWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		E212929F2B16E61400796BE5 /* Fast_Walk */ = {
 			isa = PBXGroup;
 			children = (
+				31F47F4D2B42AE2600971D6A /* image.png */,
 				826DEC202B3594B100C0157F /* route recommendation */,
 				828C32D02B3434DE000C3F7F /* places view */,
 				E21292A02B16E61400796BE5 /* AppDelegate.swift */,
@@ -201,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				828C32CF2B343367000C3F7F /* PlaceDetails.xib in Resources */,
+				31F47F4E2B42AE2600971D6A /* image.png in Resources */,
 				E21292AD2B16E61D00796BE5 /* LaunchScreen.storyboard in Resources */,
 				E21292AA2B16E61D00796BE5 /* Assets.xcassets in Resources */,
 				E21292A82B16E61400796BE5 /* Main.storyboard in Resources */,

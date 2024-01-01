@@ -12,9 +12,8 @@ import GooglePlaces
 
 class randomWayPoint {
     
-    private var placesClient: GMSPlacesClient
+    private var placesClient: GMSPlacesClient!
     private var nextCoordinate: CLLocationCoordinate2D?
-    private var marker = Marker()
     
     init() {
         placesClient = GMSPlacesClient.shared()
@@ -28,6 +27,8 @@ class randomWayPoint {
             completion (placeInfos)
         }
     }
+    
+    
 
     
     private func performNearbySearch(from coordinate: CLLocationCoordinate2D, radius: Double, type: String, completion: @escaping ([GMSPlace?]) -> Void) {
@@ -69,7 +70,7 @@ class randomWayPoint {
                 let dispatchGroup = DispatchGroup()
                 var wayPoints: [GMSPlace?] = []
                 
-                for result in results {
+                for result in results.prefix(10) {
                     if let placeID = result["place_id"] as? String {
                         dispatchGroup.enter() // Enter the group
                         self?.fetchPlaceDetails(placeID: placeID) { placeDetail in
@@ -115,3 +116,4 @@ class randomWayPoint {
         }
     }
 }
+

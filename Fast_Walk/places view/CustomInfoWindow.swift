@@ -11,7 +11,8 @@ import UIKit
 class CustomInfoWindow: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var snippetLabel: UILabel!
-
+    @IBOutlet weak var pictureView: UIImageView!
+    
     @IBOutlet weak var contentView: UIView!
     override init(frame: CGRect) {
             super.init(frame: frame)
