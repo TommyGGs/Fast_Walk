@@ -17,12 +17,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey("AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc")
         GMSPlacesClient.provideAPIKey("AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc")
 
-        
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let initialViewController = storyboard.instantiateViewController(withIdentifier: "DeciderViewController")
-        window?.rootViewController = initialViewController
-        window?.makeKeyAndVisible()
+        GIDSignIn.sharedInstance.restorePreviousSignIn { [weak self] user, error in
+            DispatchQueue.main.async {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                if user != nil {
+                    // Set MainNavigationController as root
+                    let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as! UINavigationController
+                    mainNavController.modalPresentationStyle = .fullScreen
+                    self?.window?.rootViewController = mainNavController
+                } else {
+                    // Set LoginViewController as root
+                    let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                    loginVC.modalPresentationStyle = .fullScreen
+                    self?.window?.rootViewController = loginVC
+                }
+                self?.window?.makeKeyAndVisible()
+            }
+        }
         
         return true
     }
