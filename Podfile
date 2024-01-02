@@ -8,4 +8,5 @@ target 'Fast_Walk' do
 
   pod 'GoogleMaps', '8.3.0'
   pod 'GooglePlaces', '8.3.0'
+  pod 'GoogleSignIn'
 end
