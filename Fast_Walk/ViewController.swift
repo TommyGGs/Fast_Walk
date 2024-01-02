@@ -2,6 +2,7 @@ import UIKit
 import GoogleMaps
 import CoreLocation
 import GooglePlaces
+import GoogleSignIn
 
 class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var mapContainerView: UIView!
@@ -317,5 +318,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                 })
             }
         })
+    }
+    
+    @IBAction func signOut(sender: Any) {
+      GIDSignIn.sharedInstance.signOut()
+        
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+      loginVC.modalPresentationStyle = .fullScreen  // Ensuring it covers the full screen
+      self.present(loginVC, animated: true, completion: nil)
     }
 }
