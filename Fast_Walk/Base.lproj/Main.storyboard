@@ -23,7 +23,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Places"/>
                                 <connections>
-                                    <segue destination="bOM-b7-eFJ" kind="show" id="Idb-jp-VRa"/>
+                                    <segue destination="bOM-b7-eFJ" kind="show" id="ylz-9b-GEn"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fqc-Cx-zfz">
@@ -121,7 +121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="968" y="-16"/>
+            <point key="canvasLocation" x="967.69230769230762" y="-16.350710900473931"/>
         </scene>
         <!--Route View Controller-->
         <scene sceneID="NFx-Jt-kkR">
@@ -221,51 +221,30 @@
             </objects>
             <point key="canvasLocation" x="1969" y="727"/>
         </scene>
-        <!--Places demo-->
+        <!--View Controller-->
         <scene sceneID="jOx-Qb-XnZ">
             <objects>
-                <viewController id="bOM-b7-eFJ" customClass="Places_demo" customModule="Fast_Walk" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="bOM-b7-eFJ" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ot4-Yl-oWj">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location Name" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eU7-kg-4xG">
-                                <rect key="frame" x="67" y="297" width="155" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5r6-J0-hrX">
-                                <rect key="frame" x="106" y="482" width="179" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yro-fl-vFI">
+                                <rect key="frame" x="107" y="420" width="177" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Fetch nearest place."/>
+                                <buttonConfiguration key="configuration" style="filled" title="Go to Pop-up Demo"/>
                                 <connections>
-                                    <action selector="press:" destination="bOM-b7-eFJ" eventType="touchUpInside" id="c7Z-lT-QeX"/>
+                                    <segue destination="QEQ-c2-7mg" kind="show" id="b5M-rS-aTa"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Second Location" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brS-k2-FTa">
-                                <rect key="frame" x="67" y="374" width="256" height="62"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ms1-cK-od2">
-                                <rect key="frame" x="221" y="334" width="63" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yro-fl-vFI">
-                                <rect key="frame" x="231" y="554" width="75" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyO-qh-Ics">
+                                <rect key="frame" x="103" y="597" width="185" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Go to HealthKitDemo"/>
                                 <connections>
-                                    <segue destination="QEQ-c2-7mg" kind="show" id="KpC-G5-WF8"/>
+                                    <segue destination="sXD-gX-Qg9" kind="show" identifier="" id="iF1-Jc-vYi"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -273,11 +252,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="cWg-7r-vVY"/>
-                    <connections>
-                        <outlet property="addressLabel" destination="Ms1-cK-od2" id="nfD-UA-YEE"/>
-                        <outlet property="nameLabel" destination="eU7-kg-4xG" id="z2Z-sX-0Et"/>
-                        <outlet property="ratingLabel" destination="brS-k2-FTa" id="sGf-rs-ums"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xTu-BP-Sqh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -316,6 +290,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rOO-wP-wA8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="116.92307692307692" y="3.5545023696682461"/>
+        </scene>
+        <!--HealthKitDemoViewController-->
+        <scene sceneID="xTb-Ep-98z">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HealthKitDemo" referencedIdentifier="HealthKitDemoViewController" id="sXD-gX-Qg9" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="tdt-sb-Lvv"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dAl-wR-TXT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1815" y="303"/>
         </scene>
     </scenes>
     <resources>

@@ -29,7 +29,7 @@ class CustomInfoWindow: UIView {
             Bundle.main.loadNibNamed("PlaceDetails", owner: self, options: nil)
             addSubview(contentView)
             contentView.frame = self.bounds
-            contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         }
     func requiredSize(view: UIView?) -> CGSize {
         guard let view = view else {

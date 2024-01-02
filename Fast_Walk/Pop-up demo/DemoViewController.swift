@@ -28,7 +28,7 @@ class DemoViewController: UIViewController, GMSMapViewDelegate {
         // Add a marker
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: 40.7128, longitude: -74.0060)
-        marker.title = "New York City"
+        marker.title = "ニューヨーク"
         marker.snippet = "The Big Apple"
         marker.map = mapView
     }
@@ -37,8 +37,8 @@ class DemoViewController: UIViewController, GMSMapViewDelegate {
         let infoWindow = CustomInfoWindow()
         infoWindow.titleLabel.text = marker.title
         infoWindow.snippetLabel.text = marker.snippet
-        infoWindow.pictureView.image = UIImage(named:"image")
-        infoWindow.frame = CGRect(x:0, y:0, width: 300, height: 200)
+        infoWindow.pictureView.image = UIImage(named: "Liberty")
+        infoWindow.frame = CGRect(x:0, y:0, width: 250, height: 300)
         return infoWindow
     }
     
