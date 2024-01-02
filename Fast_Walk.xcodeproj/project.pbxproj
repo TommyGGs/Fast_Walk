@@ -30,6 +30,7 @@
 		E21292AD2B16E61D00796BE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */; };
 		E2C77FA92B32EE25000266E7 /* RouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C77FA82B32EE24000266E7 /* RouteViewController.swift */; };
 		E2FAACF22B44548E00189291 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FAACF12B44548E00189291 /* LoginViewController.swift */; };
+		E2FAACF62B4471C000189291 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FAACF52B4471C000189291 /* ImageCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		E21292AE2B16E61D00796BE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2C77FA82B32EE24000266E7 /* RouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteViewController.swift; sourceTree = "<group>"; };
 		E2FAACF12B44548E00189291 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = ../../LoginViewController.swift; sourceTree = "<group>"; };
+		E2FAACF52B4471C000189291 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCache.swift; path = ../../ImageCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 				E21292AE2B16E61D00796BE5 /* Info.plist */,
 				31E7A2962B43D9540091BCF0 /* Assets */,
 				E2FAACF12B44548E00189291 /* LoginViewController.swift */,
+				E2FAACF52B4471C000189291 /* ImageCache.swift */,
 			);
 			path = Fast_Walk;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 			files = (
 				824332A02B3991FB00D24094 /* randomWayPoint.swift in Sources */,
 				826DEC222B359E7A00C0157F /* CreateMarker.swift in Sources */,
+				E2FAACF62B4471C000189291 /* ImageCache.swift in Sources */,
 				824332A62B3AA95000D24094 /* CustomInfoWindow.swift in Sources */,
 				825249262B31863000BB74D1 /* Places_demo.swift in Sources */,
 				826DEC1F2B35949300C0157F /* WayPointGeneration.swift in Sources */,

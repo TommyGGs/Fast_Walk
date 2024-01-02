@@ -9,6 +9,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     @IBOutlet private var nameLabel: UILabel! //from places
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var photoLabel: UILabel!
+    @IBOutlet weak var profilePic: UIButton!
     var locationManager = CLLocationManager()
     var mapView: GMSMapView? //static throughout scope of entire program
     var currentLocation: CLLocationCoordinate2D?
@@ -28,6 +29,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         locationManager.delegate = self
         beginLocationUpdate()
         setupMapView()
+        fetchGoogleUserInfo()
+        print("passed")
     }
     
     func setupMapView() {
@@ -40,20 +43,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         mapContainerView.addSubview(mapView!)
         beginLocationUpdate()
     }
-    
-    //custom mapview
-    //    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-    //        let infoWindow = PlaceDetails()
-    //        infoWindow.loadViewFromNib()
-    //        infoWindow.placeDetailsLabel.text = marker.title
-    //
-    //        if let photoMetadata = marker.userData as? GMSPlacePhotoMetadata {
-    //            //infoWindow.placePictureView.loadPlacePhoto(photoMetadata)
-    //        }
-    //
-    //        return infoWindow
-    //    }
-    
+
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         beginLocationUpdate()
     }
@@ -274,22 +264,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
     
-    //places recommendation for restaurants
-    @IBAction func use() {
-        var coordinate: CLLocationCoordinate2D = locationManager.location!.coordinate
-        randomwaypoint.findRoute(coordinate, desiredTime: 45) { places in
-            for place in places {
-                if let place = place {
-                    print("Fetched place: \(place.name ?? "Unknown")")
-                    self.marker.addMarker (place, self.mapView)
-                } else {
-                    print("A place was nil")
-                }
-            }
-        }
-        mapView?.animate(toZoom: 15)
-    }
-    
     
     func createPhoto(_ placeid: String) {
         let fields: GMSPlaceField = [.photos]
@@ -328,4 +302,53 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
       loginVC.modalPresentationStyle = .fullScreen  // Ensuring it covers the full screen
       self.present(loginVC, animated: true, completion: nil)
     }
+    
+    func fetchGoogleUserInfo() {
+        if let user = GIDSignIn.sharedInstance.currentUser {
+            // User is already signed in; proceed to fetch profile information
+            updateProfileInfo(user: user)
+        } else {
+            print("User is not signed in.")
+            // Handle the case where user is not signed in
+        }
+    }
+
+    func updateProfileInfo(user: GIDGoogleUser) {
+        // Assuming you want the profile image URL
+        if let imageUrl = user.profile?.imageURL(withDimension: 80) {
+            downloadImage(from: imageUrl) { image in
+                DispatchQueue.main.async {
+                    self.profilePic.setImage(image, for: .normal)
+                }
+            }
+        }
+    }
+
+    func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        let urlNS = url as NSURL
+        if let cachedImage = ImageCache.getImage(url: urlNS) {
+            completion(cachedImage)
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error downloading image: \(error)")
+                completion(nil)
+                return
+            }
+
+            guard let data = data, let image = UIImage(data: data) else {
+                print("Failed to convert data to image.")
+                completion(nil)
+                return
+            }
+
+            ImageCache.setImage(url: urlNS, image: image)
+            completion(image)
+        }.resume()
+    }
+
+
+    
 }
