@@ -352,7 +352,4 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             completion(image)
         }.resume()
     }
-
-
-    
 }
