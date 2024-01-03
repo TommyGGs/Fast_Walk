@@ -319,6 +319,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             downloadImage(from: imageUrl) { image in
                 DispatchQueue.main.async {
                     self.profilePic.setImage(image, for: .normal)
+                    self.profilePic.imageView?.contentMode = .scaleToFill
+                    
+                    self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
+                    self.profilePic.clipsToBounds = true
                 }
             }
         }
