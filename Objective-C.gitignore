@@ -21,7 +21,9 @@ xcuserdata/
 #
 # Pods/
 #
- *.xcworkspace
+*.xcworkspace
+*.xcuserstate
+project.xcworkspace/
 
 # Carthage
 #
