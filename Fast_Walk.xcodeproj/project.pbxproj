@@ -178,11 +178,11 @@
 				31D0C0B42B3418C70049F6E1 /* RouteDetails.swift */,
 				31D0C0B62B3592A90049F6E1 /* EndViewController.swift */,
 				31D0C0B82B3595590049F6E1 /* CircularProgressView.swift */,
-				E21292AE2B16E61D00796BE5 /* Info.plist */,
-				31E7A2962B43D9540091BCF0 /* Assets */,
 				E2FAACF12B44548E00189291 /* LoginViewController.swift */,
 				E2FAACF52B4471C000189291 /* ImageCache.swift */,
 				E2001CC62B453CB800B24999 /* WelcomViewController.swift */,
+				E21292AE2B16E61D00796BE5 /* Info.plist */,
+				31E7A2962B43D9540091BCF0 /* Assets */,
 			);
 			path = Fast_Walk;
 			sourceTree = "<group>";
