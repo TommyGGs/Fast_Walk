@@ -11,5 +11,7 @@ import HealthKit
 class HealthKitData {
     static let healthStore: HKHealthStore = HKHealthStore()
     
-    
+    func addGraph (){
+        
+    }
 }
