@@ -33,6 +33,7 @@ class HealthKitDemoViewController: UIViewController {
             }
         }
     }
+    //Authorize HealthKit
     func authorizeHealthKit() {
         guard HKHealthStore.isHealthDataAvailable() else {
             return
@@ -47,7 +48,7 @@ class HealthKitDemoViewController: UIViewController {
             }
         }
     }
-    
+    //fetchSteps for last 7 days, by day.
     func fetchStepData(completion: @escaping ([Int]) -> Void) {
         guard let stepsQuantityType = HKQuantityType.quantityType(forIdentifier: .stepCount) else {
             completion([])
