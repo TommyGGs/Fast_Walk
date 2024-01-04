@@ -190,6 +190,7 @@
 				E212929A2B16E61400796BE5 /* Frameworks */,
 				E212929B2B16E61400796BE5 /* Resources */,
 				6870750A98315C4536888E53 /* [CP] Copy Pods Resources */,
+				3680B5ACC9B061B7E8F6FEB1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -250,6 +251,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3680B5ACC9B061B7E8F6FEB1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fast_Walk/Pods-Fast_Walk-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fast_Walk/Pods-Fast_Walk-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fast_Walk/Pods-Fast_Walk-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6870750A98315C4536888E53 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
