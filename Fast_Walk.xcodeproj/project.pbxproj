@@ -22,6 +22,7 @@
 		826DEC1F2B35949300C0157F /* WayPointGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826DEC1E2B35949300C0157F /* WayPointGeneration.swift */; };
 		826DEC222B359E7A00C0157F /* CreateMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826DEC212B359E7A00C0157F /* CreateMarker.swift */; };
 		828C32CF2B343367000C3F7F /* PlaceDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828C32CE2B343367000C3F7F /* PlaceDetails.xib */; };
+		E2001CC72B453CB900B24999 /* WelcomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2001CC62B453CB800B24999 /* WelcomViewController.swift */; };
 		E21292A12B16E61400796BE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21292A02B16E61400796BE5 /* AppDelegate.swift */; };
 		E21292A32B16E61400796BE5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21292A22B16E61400796BE5 /* SceneDelegate.swift */; };
 		E21292A52B16E61400796BE5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21292A42B16E61400796BE5 /* ViewController.swift */; };
@@ -52,6 +53,7 @@
 		828C32CE2B343367000C3F7F /* PlaceDetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceDetails.xib; sourceTree = "<group>"; };
 		B08CDE77980212DCFCD7D2EE /* Pods-Fast_Walk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fast_Walk.release.xcconfig"; path = "Target Support Files/Pods-Fast_Walk/Pods-Fast_Walk.release.xcconfig"; sourceTree = "<group>"; };
 		DFB74AB246AFFBC37173D0E8 /* Pods_Fast_Walk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fast_Walk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2001CC62B453CB800B24999 /* WelcomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WelcomViewController.swift; path = ../../WelcomViewController.swift; sourceTree = "<group>"; };
 		E212929D2B16E61400796BE5 /* Fast_Walk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fast_Walk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E21292A02B16E61400796BE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E21292A22B16E61400796BE5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				31E7A2962B43D9540091BCF0 /* Assets */,
 				E2FAACF12B44548E00189291 /* LoginViewController.swift */,
 				E2FAACF52B4471C000189291 /* ImageCache.swift */,
+				E2001CC62B453CB800B24999 /* WelcomViewController.swift */,
 			);
 			path = Fast_Walk;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				31E7A29E2B43E2E50091BCF0 /* HealthKitData.swift in Sources */,
 				31D0C0B52B3418C70049F6E1 /* RouteDetails.swift in Sources */,
 				E21292A32B16E61400796BE5 /* SceneDelegate.swift in Sources */,
+				E2001CC72B453CB900B24999 /* WelcomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

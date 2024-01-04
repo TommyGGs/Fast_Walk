@@ -4,7 +4,6 @@ import GoogleMaps
 import GooglePlaces
 
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -34,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self?.window?.makeKeyAndVisible()
             }
         }
-        
         return true
     }
 
@@ -57,3 +55,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       return false
     }
 }
+

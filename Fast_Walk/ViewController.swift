@@ -295,6 +295,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     @IBAction func signOut(sender: Any) {
+        
       GIDSignIn.sharedInstance.signOut()
         
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
