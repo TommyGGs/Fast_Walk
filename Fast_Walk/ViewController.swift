@@ -2,12 +2,14 @@ import UIKit
 import GoogleMaps
 import CoreLocation
 import GooglePlaces
+import GoogleSignIn
 
 class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var mapContainerView: UIView!
     @IBOutlet private var nameLabel: UILabel! //from places
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var photoLabel: UILabel!
+    @IBOutlet weak var profilePic: UIButton!
     var locationManager = CLLocationManager()
     var mapView: GMSMapView? //static throughout scope of entire program
     var currentLocation: CLLocationCoordinate2D?
@@ -17,6 +19,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var marker = Marker()
     var wayPointGeneration = WayPointGeneration()
     var randomwaypoint: randomWayPoint!
+    var window: UIWindow?
+
     
     private var placesClient: GMSPlacesClient! //For Places marker
     
@@ -27,6 +31,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         locationManager.delegate = self
         beginLocationUpdate()
         setupMapView()
+        fetchGoogleUserInfo()
+        print("passed")
     }
     
     func setupMapView() {
@@ -39,20 +45,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         mapContainerView.addSubview(mapView!)
         beginLocationUpdate()
     }
-    
-    //custom mapview
-    //    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-    //        let infoWindow = PlaceDetails()
-    //        infoWindow.loadViewFromNib()
-    //        infoWindow.placeDetailsLabel.text = marker.title
-    //
-    //        if let photoMetadata = marker.userData as? GMSPlacePhotoMetadata {
-    //            //infoWindow.placePictureView.loadPlacePhoto(photoMetadata)
-    //        }
-    //
-    //        return infoWindow
-    //    }
-    
+
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         beginLocationUpdate()
     }
@@ -273,22 +266,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
     
-    //places recommendation for restaurants
-    @IBAction func use() {
-        var coordinate: CLLocationCoordinate2D = locationManager.location!.coordinate
-        randomwaypoint.findRoute(coordinate, desiredTime: 45) { places in
-            for place in places {
-                if let place = place {
-                    print("Fetched place: \(place.name ?? "Unknown")")
-                    self.marker.addMarker (place, self.mapView)
-                } else {
-                    print("A place was nil")
-                }
-            }
-        }
-        mapView?.animate(toZoom: 15)
-    }
-    
     
     func createPhoto(_ placeid: String) {
         let fields: GMSPlaceField = [.photos]
@@ -317,5 +294,70 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                 })
             }
         })
+    }
+    
+    @IBAction func signOut(sender: Any) {
+        
+      GIDSignIn.sharedInstance.signOut()
+        
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+      loginVC.modalPresentationStyle = .fullScreen  // Ensuring it covers the full screen
+      self.present(loginVC, animated: true, completion: nil)
+    }
+    
+    func fetchGoogleUserInfo() {
+        if let user = GIDSignIn.sharedInstance.currentUser {
+            // User is already signed in; proceed to fetch profile information
+            updateProfileInfo(user: user)
+        } else {
+            print("User is not signed in.")
+            window = UIWindow(frame: UIScreen.main.bounds)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+            let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            loginVC.modalPresentationStyle = .fullScreen
+            self.window?.rootViewController = loginVC
+        }
+    }
+
+    func updateProfileInfo(user: GIDGoogleUser) {
+        // Assuming you want the profile image URL
+        if let imageUrl = user.profile?.imageURL(withDimension: 80) {
+            downloadImage(from: imageUrl) { image in
+                DispatchQueue.main.async {
+                    self.profilePic.setImage(image, for: .normal)
+                    self.profilePic.imageView?.contentMode = .scaleToFill
+                    
+                    self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
+                    self.profilePic.clipsToBounds = true
+                }
+            }
+        }
+    }
+
+    func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        let urlNS = url as NSURL
+        if let cachedImage = ImageCache.getImage(url: urlNS) {
+            completion(cachedImage)
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error downloading image: \(error)")
+                completion(nil)
+                return
+            }
+
+            guard let data = data, let image = UIImage(data: data) else {
+                print("Failed to convert data to image.")
+                completion(nil)
+                return
+            }
+
+            ImageCache.setImage(url: urlNS, image: image)
+            completion(image)
+        }.resume()
     }
 }

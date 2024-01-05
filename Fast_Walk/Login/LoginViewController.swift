@@ -7,7 +7,6 @@
 
 import UIKit
 import GoogleSignIn
-import AuthenticationServices
 
 class LoginViewController: UIViewController {
     
@@ -23,14 +22,21 @@ class LoginViewController: UIViewController {
 
     
     @IBAction func signIn(sender: Any) {
-      GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
-          guard error == nil else { print("error logging in");return }
-       if signInResult != nil {
-           let storyboard = UIStoryboard(name: "Main", bundle: nil)
-           let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as! UINavigationController
-           mainNavController.modalPresentationStyle = .fullScreen
-           self.present(mainNavController, animated: false, completion: nil)
-       }
-      }
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
+            guard error == nil else {
+                print("Error logging in: \(error?.localizedDescription ?? "")")
+                return
+            }
+
+            if signInResult != nil {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
+                    welcomeVC.modalPresentationStyle = .fullScreen
+                    self.present(welcomeVC, animated: true, completion: nil)
+                } else {
+                    print("Could not instantiate WelcomeViewController from storyboard.")
+                }
+            }
+        }
     }
 }

@@ -21,7 +21,6 @@
 		824332A02B3991FB00D24094 /* randomWayPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243329F2B3991FB00D24094 /* randomWayPoint.swift */; };
 		824332A42B3AA8FA00D24094 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824332A32B3AA8FA00D24094 /* DemoViewController.swift */; };
 		824332A62B3AA95000D24094 /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824332A52B3AA95000D24094 /* CustomInfoWindow.swift */; };
-		825249262B31863000BB74D1 /* Places_demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825249252B31863000BB74D1 /* Places_demo.swift */; };
 		826DEC1F2B35949300C0157F /* WayPointGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826DEC1E2B35949300C0157F /* WayPointGeneration.swift */; };
 		826DEC222B359E7A00C0157F /* CreateMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826DEC212B359E7A00C0157F /* CreateMarker.swift */; };
 		828C32CF2B343367000C3F7F /* PlaceDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828C32CE2B343367000C3F7F /* PlaceDetails.xib */; };
@@ -50,7 +49,6 @@
 		8243329F2B3991FB00D24094 /* randomWayPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = randomWayPoint.swift; sourceTree = "<group>"; };
 		824332A32B3AA8FA00D24094 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		824332A52B3AA95000D24094 /* CustomInfoWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
-		825249252B31863000BB74D1 /* Places_demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Places_demo.swift; sourceTree = "<group>"; };
 		826DEC1E2B35949300C0157F /* WayPointGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WayPointGeneration.swift; sourceTree = "<group>"; };
 		826DEC212B359E7A00C0157F /* CreateMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMarker.swift; sourceTree = "<group>"; };
 		828C32CE2B343367000C3F7F /* PlaceDetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceDetails.xib; sourceTree = "<group>"; };
@@ -88,7 +86,6 @@
 		31E7A2952B43D8DB0091BCF0 /* Deprecated */ = {
 			isa = PBXGroup;
 			children = (
-				825249252B31863000BB74D1 /* Places_demo.swift */,
 			);
 			path = Deprecated;
 			sourceTree = "<group>";
@@ -144,6 +141,7 @@
 		8291C5912B47A48F0058AE71 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				313A0BC42B440D8B0097BC66 /* Liberty.png */,
 				8291C58F2B47A47B0058AE71 /* Assets.xcassets 11-42-14-782.xcassets */,
 			);
 			path = Assets;
@@ -179,26 +177,33 @@
 		E212929F2B16E61400796BE5 /* Fast_Walk */ = {
 			isa = PBXGroup;
 			children = (
+				E25A7B7A2B47C41F00BC2C9B /* Route */,
 				8291C57B2B47A0D20058AE71 /* Login */,
 				31E7A29C2B43E1E40091BCF0 /* Fast_Walk.entitlements */,
-				313A0BC42B440D8B0097BC66 /* Liberty.png */,
 				8291C5922B47A4EB0058AE71 /* ViewController.swift */,
 				8291C5942B47A5290058AE71 /* AppDelegate.swift */,
 				E21292A22B16E61400796BE5 /* SceneDelegate.swift */,
 				8291C5882B47A30F0058AE71 /* Main.storyboard */,
+				E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */,
 				826DEC202B3594B100C0157F /* waypoints & markers */,
 				828C32D02B3434DE000C3F7F /* Pop-up demo */,
-				E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */,
 				31E7A2972B43DF460091BCF0 /* HealthKit demo */,
 				31E7A2952B43D8DB0091BCF0 /* Deprecated */,
-				E2C77FA82B32EE24000266E7 /* RouteViewController.swift */,
-				31D0C0B42B3418C70049F6E1 /* RouteDetails.swift */,
-				31D0C0B62B3592A90049F6E1 /* EndViewController.swift */,
-				31D0C0B82B3595590049F6E1 /* CircularProgressView.swift */,
 				E21292AE2B16E61D00796BE5 /* Info.plist */,
 				8291C5912B47A48F0058AE71 /* Assets */,
 			);
 			path = Fast_Walk;
+			sourceTree = "<group>";
+		};
+		E25A7B7A2B47C41F00BC2C9B /* Route */ = {
+			isa = PBXGroup;
+			children = (
+				31D0C0B82B3595590049F6E1 /* CircularProgressView.swift */,
+				31D0C0B42B3418C70049F6E1 /* RouteDetails.swift */,
+				E2C77FA82B32EE24000266E7 /* RouteViewController.swift */,
+				31D0C0B62B3592A90049F6E1 /* EndViewController.swift */,
+			);
+			path = Route;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,7 +357,6 @@
 				826DEC222B359E7A00C0157F /* CreateMarker.swift in Sources */,
 				8291C57F2B47A0D20058AE71 /* ImageCache.swift in Sources */,
 				824332A62B3AA95000D24094 /* CustomInfoWindow.swift in Sources */,
-				825249262B31863000BB74D1 /* Places_demo.swift in Sources */,
 				826DEC1F2B35949300C0157F /* WayPointGeneration.swift in Sources */,
 				824332A42B3AA8FA00D24094 /* DemoViewController.swift in Sources */,
 				31D0C0B92B3595590049F6E1 /* CircularProgressView.swift in Sources */,
