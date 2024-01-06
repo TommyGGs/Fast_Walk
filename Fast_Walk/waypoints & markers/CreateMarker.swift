@@ -10,14 +10,13 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
-class Marker: UIViewController {
+class Marker {
     
     var placesClient: GMSPlacesClient!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    init() {
         placesClient = GMSPlacesClient.shared()
-        print ("view did load")
     }
     
     
@@ -25,21 +24,25 @@ class Marker: UIViewController {
     func addMarker(_ place: GMSPlace, _ mapView: GMSMapView?) {
         let marker = GMSMarker()
         marker.position = place.coordinate
-        marker.title = place.name
-        marker.snippet = place.types?.joined(separator: ",\n")
-        marker.map = mapView
+        if let name = place.name, let type = place.types?.first{
+            marker.title = name
+            marker.snippet = "評価：" + String(Int(place.rating)) + ", \(type)"
+        }
         
+        marker.map = mapView
+        marker.appearAnimation = .pop
+        //make photometadata
         createPhoto(place.placeID!) { placePhoto in
             if let placePhoto = placePhoto {
                 DispatchQueue.main.async {
-                    marker.icon = placePhoto
+                    marker.userData = placePhoto
                 }
                 print("marker loaded")
             }
         }
     }
 
-    func createPhoto(_ placeid: String, completion: @escaping (UIImage?) -> Void) {
+    func createPhoto(_ placeid: String, completion: @escaping (GMSPlacePhotoMetadata?) -> Void) {
         let fields: GMSPlaceField = [.photos]
         
         guard let placesClient = self.placesClient else {
@@ -56,8 +59,9 @@ class Marker: UIViewController {
                 return
             }
             if let place = place, let photoMetadata = place.photos?.first {
-                print (photoMetadata)
-                self.loadPhoto(photoMetadata, completion: completion)
+                    print ("photos' metadata fetched")
+                    completion(photoMetadata)
+                
             }
         })
     }
@@ -70,6 +74,7 @@ class Marker: UIViewController {
                 return
             }
             if let photo = photo {
+                print("photo metadata loaded")
                 completion(photo)
             }
         })

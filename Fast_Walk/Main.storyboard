@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="K2o-0v-ofn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="K2o-0v-ofn">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -33,6 +33,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Kn-tc-uSt">
+                                <rect key="frame" x="158" y="405" width="75" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <connections>
+                                    <segue destination="lRH-3E-7iq" kind="show" id="eZy-4b-pb6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="VGl-3D-eVQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -47,7 +56,7 @@
             <objects>
                 <viewController storyboardIdentifier="WelcomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lRH-3E-7iq" customClass="WelcomeViewController" customModule="Fast_Walk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8hP-5y-cvb">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CZQ-G8-xSO">
@@ -94,6 +103,7 @@
                         <viewLayoutGuide key="safeArea" id="IX5-rZ-0yh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="PCc-k6-BcD"/>
                     <connections>
                         <outlet property="userIcon" destination="CZQ-G8-xSO" id="sAO-KY-dHw"/>
                         <outlet property="welcomeMessage" destination="Y5m-Df-m3K" id="QDF-9f-b0o"/>
@@ -358,7 +368,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Go to Pop-up Demo"/>
                                 <connections>
-                                    <segue destination="QEQ-c2-7mg" kind="show" id="b5M-rS-aTa"/>
+                                    <segue destination="QEQ-c2-7mg" kind="showDetail" id="b5M-rS-aTa"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyO-qh-Ics">
@@ -385,16 +395,47 @@
             <objects>
                 <viewController id="QEQ-c2-7mg" customClass="DemoViewController" customModule="Fast_Walk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uPg-z3-SFv">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Fy-ph-e7w">
+                                <rect key="frame" x="157.66666666666666" y="749" width="75" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="LNg-uH-5Uo"/>
+                                    <constraint firstAttribute="height" constant="35" id="cyu-Zs-PCX"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="press" destination="QEQ-c2-7mg" eventType="touchUpInside" id="D2v-XW-yEI"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7os-sE-0jb">
+                                <rect key="frame" x="0.0" y="10" width="390" height="535"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="390" id="eNc-qI-or3"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="b78-2l-bvx"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="b78-2l-bvx" firstAttribute="bottom" secondItem="7os-sE-0jb" secondAttribute="bottom" constant="289" id="JZx-Jn-bfo"/>
+                            <constraint firstItem="7os-sE-0jb" firstAttribute="top" secondItem="b78-2l-bvx" secondAttribute="top" constant="10" id="m3V-tU-xki"/>
+                            <constraint firstItem="7os-sE-0jb" firstAttribute="centerX" secondItem="uPg-z3-SFv" secondAttribute="centerX" id="qgc-vR-cAZ"/>
+                            <constraint firstItem="b78-2l-bvx" firstAttribute="bottom" secondItem="1Fy-ph-e7w" secondAttribute="bottom" constant="50" id="rPi-ML-yfv"/>
+                            <constraint firstItem="1Fy-ph-e7w" firstAttribute="centerX" secondItem="uPg-z3-SFv" secondAttribute="centerX" id="sQ5-w5-LAD"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="LKL-lR-D55"/>
+                    <connections>
+                        <outlet property="mapContainerView" destination="7os-sE-0jb" id="cF0-i1-WIB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x60-cE-lXZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2434" y="-63"/>
+            <point key="canvasLocation" x="2433.8461538461538" y="-63.270142180094787"/>
         </scene>
         <!--Wait View Controller-->
         <scene sceneID="OQe-pp-WxG">

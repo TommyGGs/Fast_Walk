@@ -108,7 +108,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         currentRoutePolyline?.map = nil
         currentRoutePolyline = nil
         mapView?.clear()
-        if let currentLocation = self.currentLocation,
+        if var currentLocation = self.currentLocation,
            let buttonText = sender.titleLabel?.text,
            let desiredTime = Int(buttonText.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
             print("Current location is available: \(currentLocation)")
@@ -128,11 +128,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         group.enter()
         randomwaypoint.findRoute(start, desiredTime: desiredTime) { placeInfos in
             for placeInfo in placeInfos {
-                let waypointMarker = GMSMarker()
-                waypointMarker.position = placeInfo!.coordinate
-                waypointMarker.title = placeInfo!.name
-                waypointMarker.map = self.mapView
-                waypointMarker.icon = GMSMarker.markerImage(with: .blue)
+                if let placeInfo = placeInfo{
+                    DispatchQueue.main.async{
+                        self.marker.addMarker(placeInfo, self.mapView)
+                    }
+                }
+                
+//                let waypointMarker = GMSMarker()
+//                waypointMarker.position = placeInfo!.coordinate
+//                waypointMarker.title = placeInfo!.name
+//                waypointMarker.map = self.mapView
+//                waypointMarker.icon = GMSMarker.markerImage(with: .blue)
             }
             self.requestRoute(from: start, waypoints: placeInfos.map(\.!.coordinate)) { polyString, duration in
                 let durationInMinutes = duration / 60
@@ -267,36 +273,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
     
-    
-    func createPhoto(_ placeid: String) {
-        let fields: GMSPlaceField = [.photos]
-        
-        placesClient?.fetchPlace(fromPlaceID: placeid, placeFields: fields, sessionToken: nil, callback: {
-            [weak self] (place: GMSPlace?, error: Error?) in
-            guard let self = self else { return }
-            
-            if let error = error {
-                print("An error occurred: \(error.localizedDescription)")
-                return
-            }
-            
-            if let place = place, let photoMetadata = place.photos?.first {
-                self.placesClient?.loadPlacePhoto(photoMetadata, callback: { (photo, error) -> Void in
-                    if let error = error {
-                        print("Error loading photo metadata: \(error.localizedDescription)")
-                        return
-                    }
-                    if let photo = photo {
-                        DispatchQueue.main.async {
-                            self.photoView.image = photo
-                            self.photoLabel.attributedText = photoMetadata.attributions
-                        }
-                    }
-                })
-            }
-        })
-    }
-    
     @IBAction func signOut(sender: Any) {
         
       GIDSignIn.sharedInstance.signOut()
@@ -345,6 +321,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
 
+    
     func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
         let urlNS = url as NSURL
         if let cachedImage = ImageCache.getImage(url: urlNS) {
@@ -368,5 +345,30 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             ImageCache.setImage(url: urlNS, image: image)
             completion(image)
         }.resume()
+    }
+    
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        let infoWindow = CustomInfoWindow()
+        infoWindow.frame = CGRect(x:0, y:0, width: 300, height: 200)
+        infoWindow.titleLabel.text = marker.title
+        infoWindow.snippetLabel.text = marker.snippet
+        
+       
+        
+        if let metaData = marker.userData as? GMSPlacePhotoMetadata {
+                print("Userdata is valid")
+            self.marker.loadPhoto(metaData) { photo in
+                    if let photo = photo {
+                        DispatchQueue.main.async {
+                            marker.tracksInfoWindowChanges = true
+                            infoWindow.pictureView.image = photo
+                            marker.tracksInfoWindowChanges = false
+                        }
+                    }
+                }
+            }
+        //animate
+        
+            return infoWindow
     }
 }
