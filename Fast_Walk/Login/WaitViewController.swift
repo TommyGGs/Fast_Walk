@@ -16,44 +16,45 @@ class WaitViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        userState()
-        lineState()
+        checkUserState()
     }
     
-    func userState() {
+    func checkUserState() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
+        // Check if the user is logged in with Google
         if GIDSignIn.sharedInstance.currentUser != nil {
-            print("User already signed in")
+            print("User already signed in with Google")
+            presentMainNavigationController()
+            return
+        }
 
-            if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
-                mainNavController.modalPresentationStyle = .fullScreen
-                self.present(mainNavController, animated: true, completion: nil)
-            }
-        }
-        else {
-            print("User not signed in")
-            if let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
-                loginVC.modalPresentationStyle = .fullScreen
-                self.present(loginVC, animated: true, completion: nil)
+        // Check if the user is logged in with LINE
+        API.getProfile { [weak self] result in
+            switch result {
+            case .success(_):
+                print("User logged in with LINE")
+                self?.presentMainNavigationController()
+            case .failure(_):
+                print("User not logged in with LINE")
+                self?.presentLoginViewController()
             }
         }
     }
-    
-    func lineState() {
-        if let _ = AccessTokenStore.shared.current {
-            print("User is logged in with LINE")
-            // User is logged in, proceed to main navigation controller
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
-                mainNavController.modalPresentationStyle = .fullScreen
-                self.present(mainNavController, animated: true, completion: nil)
-            }
-        } else {
-            print("User is not logged in with LINE")
-            // User is not logged in with LINE, show login view controller or perform other appropriate action
-            // Optionally, you can redirect the user to the LoginViewController or stay on the current view
+
+    private func presentMainNavigationController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
+            mainNavController.modalPresentationStyle = .fullScreen
+            self.present(mainNavController, animated: true, completion: nil)
         }
     }
-            
+
+    private func presentLoginViewController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
+            loginVC.modalPresentationStyle = .fullScreen
+            self.present(loginVC, animated: true, completion: nil)
+        }
+    }
 }
