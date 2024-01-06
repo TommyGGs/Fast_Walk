@@ -1,14 +1,15 @@
 import UIKit
 import GoogleMaps
-import CoreLocation 
+import CoreLocation
 
-class RouteViewController: UIViewController, CLLocationManagerDelegate {
+class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegate {
     @IBOutlet weak var mapContainerView: UIView!
     @IBOutlet var currentMode: UILabel!
     @IBOutlet var currentTime: UILabel!
     @IBOutlet var nextMode: UILabel!
     var routeDetails: RouteDetails?
     var mapView: GMSMapView?
+    
     
     var mode: String = "slow"
     var timer: Timer!
@@ -28,10 +29,17 @@ class RouteViewController: UIViewController, CLLocationManagerDelegate {
             setupAndDisplayRouteOnMap(routeDetails: routeDetails)
         }
 
-        modeText()
+        modeSwitch()
         configureLocationManager()
         
         setupCircularProgressView()
+        //setup timer circle view shape.
+        currentTime.layer.backgroundColor = UIColor.white.cgColor
+        currentTime.layer.borderWidth = 8
+        currentTime.layer.borderColor = UIColor.systemBlue.cgColor
+        currentTime.textColor = .systemBlue
+        currentTime.layer.cornerRadius = currentTime.frame.size.height / 2
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -42,6 +50,8 @@ class RouteViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func startTimer() {
+        super.startWorkoutSession()
+        
         if start == "start"{
             startTimer(resume: false)
             start = "running"
@@ -56,7 +66,11 @@ class RouteViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func endTimer() {
-        timer.invalidate()
+        if timer != nil{
+            timer.invalidate()
+        }
+        
+       
         
     }
     
@@ -82,22 +96,23 @@ class RouteViewController: UIViewController, CLLocationManagerDelegate {
         if countdown < 0 {
             if mode == "slow"{
                 mode = "fast"
-                modeText()
+                modeSwitch()
             } else {
                 mode = "slow"
-                modeText()
+                modeSwitch()
             }
             startTimer(resume: false)
         }
     }
     
-    func modeText() {
+    func modeSwitch() {
+        super.fetchStepData()
         if mode == "slow" {
             currentMode.text = "ゆっくり歩き"
-            nextMode.text = "さっさか歩き"
+            nextMode.text = "Next: さっさか歩き"
         } else if mode == "fast" {
             currentMode.text = "さっさか歩き"
-            nextMode.text = "ゆっくり歩き"
+            nextMode.text = "Next: ゆっくり歩き"
         }
     }
     
@@ -173,7 +188,7 @@ class RouteViewController: UIViewController, CLLocationManagerDelegate {
     
     func setupCircularProgressView() {
         let circularProgressView = CircularProgressView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        circularProgressView.center = CGPoint(x: view.center.x, y: view.center.y + 150) // Adjust position as needed
+        circularProgressView.center = CGPoint(x: view.center.x, y: view.center.y - 150) // Adjust position as needed
         circularProgressView.progressColor = .blue // Customize the progress color
         circularProgressView.trackColor = .lightGray // Customize the track color
         circularProgressView.setProgress(to: 0.0) // Initial progress
@@ -182,3 +197,4 @@ class RouteViewController: UIViewController, CLLocationManagerDelegate {
 
 
 }
+
