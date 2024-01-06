@@ -7,10 +7,13 @@ import LineSDK
 
 class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var mapContainerView: UIView!
-    @IBOutlet private var nameLabel: UILabel! //from places
-    @IBOutlet weak var photoView: UIImageView!
-    @IBOutlet weak var photoLabel: UILabel!
     @IBOutlet weak var profilePic: UIButton!
+    @IBOutlet weak var navigationView: UIView!
+    @IBOutlet weak var button30: UIButton!
+    @IBOutlet weak var button45: UIButton!
+    @IBOutlet weak var button60: UIButton!
+    @IBOutlet weak var button90: UIButton!
+    @IBOutlet weak var startButton: UIButton!
     var locationManager = CLLocationManager()
     var mapView: GMSMapView? //static throughout scope of entire program
     var currentLocation: CLLocationCoordinate2D?
@@ -34,6 +37,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         setupMapView()
         fetchGoogleUserInfo()
         fetchLineUserInfo()
+        setupStyle()
         print("passed")
     }
     
@@ -105,7 +109,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     @IBAction func searchRoute(_ sender: UIButton) {
         print("Search button pressed")
-        
         currentRoutePolyline?.map = nil
         currentRoutePolyline = nil
         mapView?.clear()
@@ -396,5 +399,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         //animate
         
             return infoWindow
+    }
+    func setupStyle() {
+        navigationView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8272664657)
+        setupBorder(button30)
+        setupBorder(button45)
+        setupBorder(button60)
+        setupBorder(button90)
+        setupBorder(startButton)
+    }
+    func setupBorder (_ a: UIButton){
+        a.layer.borderWidth = 4
+        a.layer.borderColor = #colorLiteral(red: 0.5058823529, green: 0.6274509804, blue: 0.9098039216, alpha: 1)
+        a.layer.cornerRadius = a.frame.width / 2
     }
 }

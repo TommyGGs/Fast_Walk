@@ -46,7 +46,7 @@ class CustomInfoWindow: UIView {
     }
     private func setupStyle() {
         contentView.layer.cornerRadius = 40
-        contentView.backgroundColor = #colorLiteral(red: 1, green: 0.8, blue: 0, alpha: 1)
+        contentView.backgroundColor = #colorLiteral(red: 0.8862745098, green: 0.9411764706, blue: 0.9882352941, alpha: 0.868413862)
         pictureView.layer.cornerRadius = 20
         pictureView.layer.opacity = 1
         
