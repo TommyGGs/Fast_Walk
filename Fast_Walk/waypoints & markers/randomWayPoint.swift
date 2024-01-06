@@ -14,6 +14,7 @@ class randomWayPoint {
     
     private var placesClient: GMSPlacesClient!
     private var nextCoordinate: CLLocationCoordinate2D?
+    private let wayPointNumber = 3
     
     init() {
         placesClient = GMSPlacesClient.shared()
@@ -23,7 +24,7 @@ class randomWayPoint {
         let radius = calculateRadiusBasedOnTime(desiredTime)
         performNearbySearch(from: coordinate, radius: radius, type: "restaurant") { places in
             let shuffledPlaces = places.shuffled() // Shuffle the places to randomize them
-            let placeInfos = Array(shuffledPlaces.prefix(3))
+            let placeInfos = Array(shuffledPlaces.prefix(self.wayPointNumber)) //change here when increasing number of waypoint results
             completion (placeInfos)
         }
     }
@@ -33,9 +34,9 @@ class randomWayPoint {
     
     private func performNearbySearch(from coordinate: CLLocationCoordinate2D, radius: Double, type: String, completion: @escaping ([GMSPlace?]) -> Void) {
         print ("called performNearbySearch")
-        let radius: Double = 1000 // Search within 1000 meters of the coordinate
-        let type = "point_of_interest" // Specify the type of place you are looking for
-        let urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radius)&type=restaurant&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc"
+        //let radius: Double = 1000 // Search within 1000 meters of the coordinate
+        let type = "restaurant" // Specify the type of place you are looking for
+        let urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radius)" + "&type=\(type)&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc"
         
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
@@ -70,7 +71,7 @@ class randomWayPoint {
                 let dispatchGroup = DispatchGroup()
                 var wayPoints: [GMSPlace?] = []
                 
-                for result in results.prefix(10) {
+                for result in results.prefix(7) {//change here when increasing number of results
                     if let placeID = result["place_id"] as? String {
                         dispatchGroup.enter() // Enter the group
                         self?.fetchPlaceDetails(placeID: placeID) { placeDetail in
@@ -109,9 +110,9 @@ class randomWayPoint {
     private func calculateRadiusBasedOnTime(_ desiredTime: Int) -> Double {
         // Adjust the radius based on desired time
         switch desiredTime {
-        case 30: return 500 // Example radius for 30 minutes
-        case 45: return 750 // Example radius for 45 minutes
-        case 60, 90: return 1000 // Example radius for 60 or 90 minutes
+        case 30: return 750 // Example radius for 30 minutes
+        case 45: return 1000 // Example radius for 45 minutes
+        case 60, 90: return 1500 // Example radius for 60 or 90 minutes
         default: return 500
         }
     }

@@ -103,8 +103,9 @@ class EndScreenViewController: UIViewController {
         let chartView = OCKCartesianChartView(type: .bar)
         chartView.translatesAutoresizingMaskIntoConstraints = false
         chartView.headerView.titleLabel.text = "Steps"
+        
         chartView.graphView.horizontalAxisMarkers = help.createHorizontalAxisMarkers()
-
+        
         chartView.graphView.dataSeries = [series]
         view.addSubview(chartView)
         }

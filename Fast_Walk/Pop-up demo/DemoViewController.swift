@@ -14,20 +14,25 @@ class DemoViewController: UIViewController, GMSMapViewDelegate {
     
     var mapView: GMSMapView!
     var placesClient: GMSPlacesClient!
-    
+    @IBOutlet var mapContainerView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         placesClient = GMSPlacesClient.shared()
         
         // Set initial location to New York City
         let camera = GMSCameraPosition.camera(withLatitude: 40.7128, longitude: -74.0060, zoom: 10.0)
-        mapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
+        mapView = GMSMapView.map(withFrame: self.mapContainerView.frame, camera: camera)
         mapView.delegate = self
-        view.addSubview(mapView)
+        mapContainerView.addSubview(mapView)
         
         // Add a marker
+        // Select the marker to trigger animation
+        
+    }
+    @IBAction func press(){
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: 40.7128, longitude: -74.0060)
+        marker.appearAnimation = .pop
         marker.title = "ニューヨーク"
         marker.snippet = "The Big Apple"
         marker.map = mapView
@@ -38,8 +43,22 @@ class DemoViewController: UIViewController, GMSMapViewDelegate {
         infoWindow.titleLabel.text = marker.title
         infoWindow.snippetLabel.text = marker.snippet
         infoWindow.pictureView.image = UIImage(named: "Liberty")
-        infoWindow.frame = CGRect(x:0, y:0, width: 250, height: 300)
+        infoWindow.frame = CGRect(x:0, y:0, width: 300, height: 200)
+        
         return infoWindow
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
+        mapView.selectedMarker = marker
+        
+        if let title = marker.title {
+            
+            if let snippet = marker.snippet {
+                print("marker title: \(title): snippet: \(snippet)")
+            }
+        }
+        return true
     }
     
     
