@@ -521,13 +521,16 @@
 				CODE_SIGN_ENTITLEMENTS = Fast_Walk/Fast_Walk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XJH3A7SY36;
+				DEVELOPMENT_TEAM = C7H6C6723R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Fast_Walk/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please give us health data to try the health functionalities";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to enhance your experience even when the app is in the background";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show it on the map";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -539,7 +542,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "app.chen.tom.Fast-Walk";
+				PRODUCT_BUNDLE_IDENTIFIER = "app.jiaxu.zhao.Fast-Walk";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -556,13 +559,16 @@
 				CODE_SIGN_ENTITLEMENTS = Fast_Walk/Fast_Walk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XJH3A7SY36;
+				DEVELOPMENT_TEAM = C7H6C6723R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Fast_Walk/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please give us health data to try the health functionalities";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to enhance your experience even when the app is in the background";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show it on the map";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -574,7 +580,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "app.chen.tom.Fast-Walk";
+				PRODUCT_BUNDLE_IDENTIFIER = "app.jiaxu.zhao.Fast-Walk";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
