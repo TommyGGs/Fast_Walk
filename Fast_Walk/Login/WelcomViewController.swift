@@ -43,11 +43,11 @@ class WelcomeViewController: UIViewController {
     
     
     
-    @IBAction func continueButton() {
-        print("continue button pressed")
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
-            self.navigationController?.pushViewController(mainNavController.viewControllers.first!, animated: true)
-        }
-    }
+//    @IBAction func continueButton() {
+//        print("continue button pressed")
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
+//            self.navigationController?.pushViewController(mainNavController.viewControllers.first!, animated: true)
+//        }
+//    }
 }

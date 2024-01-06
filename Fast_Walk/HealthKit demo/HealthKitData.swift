@@ -54,5 +54,6 @@ class HealthAndCareKitHelp {
             return titles
         }
     }
+    func createConstraints(){}
 }
 

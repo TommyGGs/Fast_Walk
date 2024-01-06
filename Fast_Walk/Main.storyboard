@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="K2o-0v-ofn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="K2o-0v-ofn">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
-<capability name="Image references" minToolsVersion="12.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -87,7 +87,6 @@
                                     <fontDescription key="titleFontDescription" type="system" pointSize="28"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="continueButton" destination="lRH-3E-7iq" eventType="touchUpInside" id="83J-og-GXv"/>
                                     <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="wuX-f9-xWw"/>
                                 </connections>
                             </button>
@@ -228,7 +227,7 @@
         <!--Route View Controller-->
         <scene sceneID="NFx-Jt-kkR">
             <objects>
-                <viewController id="5Oe-OB-C1X" customClass="RouteViewController" customModule="Fast_Walk" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="5Oe-OB-C1X" customClass="RouteViewController" customModule="Fast_Walk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BH6-Wf-kE3" customClass="RouteViewController">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -238,65 +237,65 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-<label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gvk-Im-cVz">
-    <rect key="frame" x="40" y="754.33333333333337" width="58" height="21"/>
-    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-    <nil key="textColor"/>
-    <nil key="highlightedColor"/>
-</label>
-<label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3:00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14s-Rl-VrW">
-    <rect key="frame" x="95" y="440" width="200" height="200"/>
-    <constraints>
-        <constraint firstAttribute="height" constant="200" id="N7m-WY-nRO"/>
-        <constraint firstAttribute="width" constant="200" id="hil-PU-1fd"/>
-    </constraints>
-    <fontDescription key="fontDescription" name="NotoSansKannada-Bold" family="Noto Sans Kannada" pointSize="58"/>
-    <nil key="textColor"/>
-    <nil key="highlightedColor"/>
-</label>
-<label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiU-10-KHL">
-    <rect key="frame" x="173" y="641" width="44" height="20.333333333333371"/>
-    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-    <nil key="textColor"/>
-    <nil key="highlightedColor"/>
-</label>
-<label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drO-cs-iXw">
-    <rect key="frame" x="280" y="754.66666666666663" width="70" height="20.333333333333371"/>
-    <constraints>
-        <constraint firstAttribute="width" constant="70" id="Rq5-ge-Jod"/>
-    </constraints>
-    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-    <nil key="textColor"/>
-    <nil key="highlightedColor"/>
-</label>
-<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2c-DZ-l6j">
-    <rect key="frame" x="175" y="571" width="40" height="40"/>
-    <constraints>
-        <constraint firstAttribute="height" constant="40" id="XeE-ko-AMt"/>
-        <constraint firstAttribute="width" constant="40" id="aAq-7Y-FsH"/>
-    </constraints>
-    <state key="normal" title="Button"/>
-    <buttonConfiguration key="configuration" style="filled" title=" " imagePadding="0.0">
-        <imageReference key="image" image="playpause.fill" catalog="system" symbolScale="large"/>
-        <color key="baseForegroundColor" name="AccentColor"/>
-        <color key="baseBackgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-    </buttonConfiguration>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gvk-Im-cVz">
+                                <rect key="frame" x="40" y="754.33333333333337" width="58" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3:00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14s-Rl-VrW">
+                                <rect key="frame" x="95" y="440" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="N7m-WY-nRO"/>
+                                    <constraint firstAttribute="width" constant="200" id="hil-PU-1fd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSansKannada-Bold" family="Noto Sans Kannada" pointSize="58"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiU-10-KHL">
+                                <rect key="frame" x="173" y="641" width="44" height="20.333333333333371"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drO-cs-iXw">
+                                <rect key="frame" x="280" y="754.66666666666663" width="70" height="20.333333333333371"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="Rq5-ge-Jod"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2c-DZ-l6j">
+                                <rect key="frame" x="175" y="571" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="XeE-ko-AMt"/>
+                                    <constraint firstAttribute="width" constant="40" id="aAq-7Y-FsH"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title=" " imagePadding="0.0">
+                                    <imageReference key="image" image="playpause.fill" catalog="system" symbolScale="large"/>
+                                    <color key="baseForegroundColor" name="AccentColor"/>
+                                    <color key="baseBackgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="startTimer" destination="5Oe-OB-C1X" eventType="touchUpInside" id="fH9-3d-4Fs"/>
                                 </connections>
                             </button>
-<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hwT-Fe-fZt">
-    <rect key="frame" x="148" y="670" width="94" height="40"/>
-    <constraints>
-        <constraint firstAttribute="width" constant="94" id="1i3-7y-viU"/>
-    </constraints>
-    <state key="normal" title="Button"/>
-    <buttonConfiguration key="configuration" style="filled" image="stop.circle.fill" catalog="system" imagePlacement="leading" title="End" imagePadding="15"/>
-    <connections>
-        <action selector="endTimer" destination="5Oe-OB-C1X" eventType="touchUpInside" id="RLw-um-04w"/>
-        <segue destination="n7d-qZ-gcw" kind="show" id="1As-vi-Hs6"/>
-    </connections>
-</button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hwT-Fe-fZt">
+                                <rect key="frame" x="148" y="670" width="94" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="94" id="1i3-7y-viU"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="stop.circle.fill" catalog="system" imagePlacement="leading" title="End" imagePadding="15"/>
+                                <connections>
+                                    <action selector="endTimer" destination="5Oe-OB-C1X" eventType="touchUpInside" id="RLw-um-04w"/>
+                                    <segue destination="n7d-qZ-gcw" kind="show" id="1As-vi-Hs6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qdJ-BB-eZ2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -329,10 +328,10 @@
             </objects>
             <point key="canvasLocation" x="1056.9230769230769" y="704.50236966824639"/>
         </scene>
-        <!--View Controller-->
+        <!--End View Controller-->
         <scene sceneID="rJN-Fs-Zz8">
             <objects>
-                <viewController id="n7d-qZ-gcw" customClass="EndViewController" customModule="Fast_Walk" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="n7d-qZ-gcw" customClass="EndViewController" customModule="Fast_Walk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o9L-wy-cOc">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -420,6 +419,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rvG-f0-TI8">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <navigationBarAppearance key="standardAppearance"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
