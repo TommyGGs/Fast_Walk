@@ -13,61 +13,76 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var welcomeMessage: UILabel!
     @IBOutlet weak var userIcon: UIImageView!
     
-    var window: UIWindow?
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         userInformation()
     }
     
-    func userInformation() {
-        print("printing welcome image")
-        if let user = GIDSignIn.sharedInstance.currentUser, let userName = user.profile?.name {
-            let fullText = "ようこそ、\(userName) さん！"
-            print(fullText)
-            let boldPart = userName
-            
-            // Create a range for the bold part
-            let range = (fullText as NSString).range(of: boldPart)
-            
-            // Create a mutable attributed string with the full text
-            let attributedString = NSMutableAttributedString(string: fullText)
-            
-            // Set the font and any other attributes for the bold part
-            attributedString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: range)
-            
-            // Assign the attributed string to your label
-            welcomeMessage.attributedText = attributedString
-        } else {
-            API.getProfile { result in
-                switch result {
-                case .success(let profile):
-                    print("User ID: \(profile.userID)")
-                    print("User Display Name: \(profile.displayName)")
-                    print("User Status Message: \(profile.statusMessage)")
-                    print("User Icon: \(String(describing: profile.pictureURL))")
-                    
-                    let fullText = "ようこそ、\(profile.displayName) さん！"
-                    print(fullText)
-                    let boldPart = profile.displayName
-                    
-                    // Create a range for the bold part
-                    let range = (fullText as NSString).range(of: boldPart)
-                    
-                    // Create a mutable attributed string with the full text
-                    let attributedString = NSMutableAttributedString(string: fullText)
-                    
-                    // Set the font and any other attributes for the bold part
-                    attributedString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: range)
-                    
-                    // Assign the attributed string to your label
-                    self.welcomeMessage.attributedText = attributedString
-                case .failure(let error):
-                    print(error)
+    func fetchLineUserInfo() {
+        API.getProfile { result in
+            switch result {
+            case .success(let profile):
+                if let url = profile.pictureURL {
+                    self.downloadImage(from: url) { image in
+                        DispatchQueue.main.async {
+                            self.userIcon.image = image
+                            self.userIcon.layer.cornerRadius = self.userIcon.frame.size.width / 2
+                            self.userIcon.clipsToBounds = true
+                        }
+                    }
+                }
+                self.updateWelcomeMessage(withName: profile.displayName)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func fetchGoogleUserInfo() {
+        if let user = GIDSignIn.sharedInstance.currentUser, let imageUrl = user.profile?.imageURL(withDimension: 80) {
+            downloadImage(from: imageUrl) { image in
+                DispatchQueue.main.async {
+                    self.userIcon.image = image
+                    self.userIcon.layer.cornerRadius = self.userIcon.frame.size.width / 2
+                    self.userIcon.clipsToBounds = true
                 }
             }
-
         }
+    }
+
+    func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error downloading image: \(error)")
+                completion(nil)
+                return
+            }
+            guard let data = data, let image = UIImage(data: data) else {
+                print("Failed to convert data to image.")
+                completion(nil)
+                return
+            }
+            DispatchQueue.main.async {
+                completion(image)
+            }
+        }.resume()
+    }
+    
+    func userInformation() {
+        if let user = GIDSignIn.sharedInstance.currentUser, let userName = user.profile?.name {
+            updateWelcomeMessage(withName: userName)
+            fetchGoogleUserInfo()
+        } else {
+            fetchLineUserInfo()
+        }
+    }
+
+    func updateWelcomeMessage(withName name: String) {
+        let fullText = "ようこそ、\(name) さん！"
+        let boldPart = name
+        let range = (fullText as NSString).range(of: boldPart)
+        let attributedString = NSMutableAttributedString(string: fullText)
+        attributedString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: range)
+        welcomeMessage.attributedText = attributedString
     }
 }

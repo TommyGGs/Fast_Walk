@@ -33,6 +33,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         beginLocationUpdate()
         setupMapView()
         fetchGoogleUserInfo()
+        fetchLineUserInfo()
         print("passed")
     }
     
@@ -305,6 +306,31 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             self.window?.rootViewController = loginVC
         }
     }
+    
+    
+    func fetchLineUserInfo() {
+        API.getProfile { result in
+            switch result {
+            case .success(let profile):
+                if let url = profile.pictureURL {
+                    self.downloadImage(from: url) { image in
+                        DispatchQueue.main.async {
+                            // Set the image for the button's normal state
+                            self.profilePic.setImage(image, for: .normal)
+                            // Set the imageView's content mode
+                            self.profilePic.imageView?.contentMode = .scaleAspectFill
+                            // Apply corner radius to make it circular
+                            self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
+                            self.profilePic.clipsToBounds = true
+                        }
+                    }
+                }
+            case .failure(let error):
+                print("Error fetching LINE user info: \(error)")
+            }
+        }
+    }
+
 
     func updateProfileInfo(user: GIDGoogleUser) {
         // Assuming you want the profile image URL
