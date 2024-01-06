@@ -7,6 +7,7 @@
 
 import UIKit
 import GoogleSignIn
+import LineSDK
 
 class WaitViewController: UIViewController {
     override func viewDidLoad() {
@@ -16,6 +17,7 @@ class WaitViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         userState()
+        lineState()
     }
     
     func userState() {
@@ -28,7 +30,8 @@ class WaitViewController: UIViewController {
                 mainNavController.modalPresentationStyle = .fullScreen
                 self.present(mainNavController, animated: true, completion: nil)
             }
-        } else {
+        }
+        else {
             print("User not signed in")
             if let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
                 loginVC.modalPresentationStyle = .fullScreen
@@ -36,4 +39,21 @@ class WaitViewController: UIViewController {
             }
         }
     }
+    
+    func lineState() {
+        if let _ = AccessTokenStore.shared.current {
+            print("User is logged in with LINE")
+            // User is logged in, proceed to main navigation controller
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
+                mainNavController.modalPresentationStyle = .fullScreen
+                self.present(mainNavController, animated: true, completion: nil)
+            }
+        } else {
+            print("User is not logged in with LINE")
+            // User is not logged in with LINE, show login view controller or perform other appropriate action
+            // Optionally, you can redirect the user to the LoginViewController or stay on the current view
+        }
+    }
+            
 }

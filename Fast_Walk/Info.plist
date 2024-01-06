@@ -33,12 +33,26 @@
     <string>503499248889-jb3cpasrmc02g0bqf8q2hdmt2cie7s18.apps.googleusercontent.com</string>
     <key>CFBundleURLTypes</key>
     <array>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>com.googleusercontent.apps.503499248889-jb3cpasrmc02g0bqf8q2hdmt2cie7s18</string>
-        </array>
-      </dict>
+        <!-- Google Sign-In URL Scheme -->
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.503499248889-jb3cpasrmc02g0bqf8q2hdmt2cie7s18</string>
+            </array>
+        </dict>
+        <!-- LINE URL Scheme -->
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>line3rdp.$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+            </array>
+        </dict>
     </array>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <!-- LINE URL Scheme for launching LINE app -->
+        <string>lineauth2</string>
+    </array>
+
 </dict>
 </plist>

@@ -3,6 +3,7 @@ import GoogleMaps
 import CoreLocation
 import GooglePlaces
 import GoogleSignIn
+import LineSDK
 
 class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var mapContainerView: UIView!
@@ -299,6 +300,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     @IBAction func signOut(sender: Any) {
         
       GIDSignIn.sharedInstance.signOut()
+    LoginManager.shared.logout { result in
+        switch result {
+        case .success:
+            print("Logout from LINE")
+        case .failure(let error):
+            print(error)
+        }
+    }
         
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
       let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController

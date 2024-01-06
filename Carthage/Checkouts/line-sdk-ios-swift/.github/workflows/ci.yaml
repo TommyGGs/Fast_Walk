@@ -1,0 +1,83 @@
+name: "LINE SDK CI"
+
+on: [push, pull_request]
+
+jobs:
+  test_sdk:
+    name: Test LINE SDK
+    runs-on: macos-13
+    strategy:
+      matrix:
+        swift-version: ["5.0", "4.2"]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Bundle Install
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+      - name: Test SDK
+        env:
+          SWIFT_VERSION: ${{ matrix.swift-version }}
+        run: bundle exec fastlane sdk_tests
+  lint_pod:
+    name: Lint CocoaPods
+    runs-on: macos-13
+    strategy:
+      matrix:
+        swift-version: ["5.0", "4.2"]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+    - name: Bundle Install
+      run: |
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
+    - name: Lint CocoaPods
+      env:
+        SWIFT_VERSION: ${{ matrix.swift-version }}
+      run: bundle exec fastlane lint_pod
+  lint_spm:
+    name: Lint Swift Package Manager
+    runs-on: macos-13
+    steps:
+        - uses: actions/checkout@v2
+        - uses: actions/cache@v1
+          with:
+            path: vendor/bundle
+            key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+            restore-keys: |
+              ${{ runner.os }}-gems-
+        - name: Bundle Install
+          run: |
+            bundle config path vendor/bundle
+            bundle install --jobs 4 --retry 3
+        - name: Lint Swift Package Manager
+          run: bundle exec fastlane lint_spm
+  xcframework:
+    name: Build XCFramework
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Bundle Install
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+      - name: Build XCFramework
+        run: bundle exec fastlane xcframework version:ci
