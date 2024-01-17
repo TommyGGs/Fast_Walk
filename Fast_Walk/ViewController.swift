@@ -384,17 +384,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         
        
         
-        if let metaData = marker.userData as? GMSPlacePhotoMetadata {
+        if let photo = marker.userData as? UIImage {
                 print("Userdata is valid")
-            self.marker.loadPhoto(metaData) { photo in
-                    if let photo = photo {
-                        DispatchQueue.main.async {
-                            marker.tracksInfoWindowChanges = true
-                            infoWindow.pictureView.image = photo
-                            marker.tracksInfoWindowChanges = false
-                        }
-                    }
-                }
+            DispatchQueue.main.async {
+                marker.tracksInfoWindowChanges = true
+                infoWindow.pictureView.image = photo
+                marker.tracksInfoWindowChanges = false
+            }
+//            self.marker.loadPhoto(metaData) { photo in
+//                    if let photo = photo {
+//                        DispatchQueue.main.async {
+//                            marker.tracksInfoWindowChanges = true
+//                            infoWindow.pictureView.image = photo
+//                            marker.tracksInfoWindowChanges = false
+//                        }
+//                    }
+//                }
             }
         //animate
         

@@ -84,6 +84,7 @@ class EndScreenViewController: UIViewController {
             statsCollection.enumerateStatistics(from: startDate!, to: endDate) { statistics, stop in
                 let count = statistics.sumQuantity()?.doubleValue(for: HKUnit.count()) ?? 0
                 dailySteps.append(Int(count))
+                print(Int(count)) //debug
             }
 
             completion(dailySteps)
@@ -103,12 +104,18 @@ class EndScreenViewController: UIViewController {
         let chartView = OCKCartesianChartView(type: .bar)
         chartView.translatesAutoresizingMaskIntoConstraints = false
         chartView.headerView.titleLabel.text = "Steps"
-        
         chartView.graphView.horizontalAxisMarkers = help.createHorizontalAxisMarkers()
-        
         chartView.graphView.dataSeries = [series]
+        
         view.addSubview(chartView)
-        }
+
+        NSLayoutConstraint.activate([
+            chartView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            chartView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            chartView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8), // Adjust width as per requirement
+            chartView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3) // Adjust height as per requirement
+        ])
+    }
     
     
 }
