@@ -7,6 +7,10 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     @IBOutlet var currentMode: UILabel!
     @IBOutlet var currentTime: UILabel!
     @IBOutlet var nextMode: UILabel!
+    //countdown
+    var overlayView: UIView!
+    var countdownLabel: UILabel!
+    //countdown
     var routeDetails: RouteDetails?
     var mapView: GMSMapView?
     
@@ -18,17 +22,19 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     
     var locationManager = CLLocationManager()
     var currentLocation: CLLocationCoordinate2D?
-
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         locationManager.delegate = self
         beginLocationUpdate() // Start location updates
-
+        
         if let routeDetails = routeDetails {
             setupAndDisplayRouteOnMap(routeDetails: routeDetails)
         }
-
+        
         modeSwitch()
         configureLocationManager()
         
@@ -40,6 +46,20 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         currentTime.textColor = .systemBlue
         currentTime.layer.cornerRadius = currentTime.frame.size.height / 2
         
+        //countdown animation
+        overlayView = UIView(frame: view.bounds)
+        overlayView.backgroundColor = UIColor.white.withAlphaComponent(0.5) // Half-transparent black
+        overlayView.isHidden = true // Initially hidden
+        
+        // Countdown Label
+        countdownLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        countdownLabel.center = view.center
+        countdownLabel.textAlignment = .center
+        countdownLabel.font = UIFont.systemFont(ofSize: 80, weight: .black)
+        countdownLabel.textColor = .systemIndigo
+        
+        overlayView.addSubview(countdownLabel)
+        view.addSubview(overlayView)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -47,6 +67,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         if let routeDetails = routeDetails {
             setupAndDisplayRouteOnMap(routeDetails: routeDetails)
         }
+        //countdown animation
+        startCountdown()
     }
     
     @IBAction func startTimer() {
@@ -70,12 +92,12 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             timer.invalidate()
         }
         
-       
+        
         
     }
     
     func startTimer(resume: Bool)  {
-
+        
         if resume != true {
             countdown = 180 //change for timer interval
         }
@@ -135,7 +157,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find user's location: \(error.localizedDescription)")
     }
-
+    
     func setupAndDisplayRouteOnMap(routeDetails: RouteDetails) {
         // Set up the map view with the start coordinate of the route
         let camera = GMSCameraPosition.camera(withLatitude: routeDetails.startCoordinate.latitude,
@@ -144,23 +166,23 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         mapView = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
         mapView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapContainerView.addSubview(mapView!)
-
+        
         // Display the route
-
+        
         if let path = GMSPath(fromEncodedPath: routeDetails.polyString) {
             let polyline = GMSPolyline(path: path)
-
+            
             polyline.strokeWidth = 5.0
             polyline.strokeColor = UIColor.systemBlue
             polyline.map = mapView
-
+            
             // Fit the camera to the bounds of the route
             let bounds = GMSCoordinateBounds(path: path)
             print("Polyline bounds: \(bounds)")
             print("Map view frame: \(mapView?.frame ?? CGRect.zero)")
-
+            
             let update = GMSCameraUpdate.fit(bounds, withPadding: 50) // Adjust padding as needed
-                    mapView?.animate(with: update)
+            mapView?.animate(with: update)
             
             let durationMarker = GMSMarker(position: routeDetails.startCoordinate)
             durationMarker.title = "Route Start"
@@ -194,7 +216,39 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         circularProgressView.setProgress(to: 0.0) // Initial progress
         view.addSubview(circularProgressView) // Add it to the view
     }
+    
+    func startCountdown() {
+        let countdownNumbers = ["3", "2", "1"]
+        var index = 0
 
+        overlayView.isHidden = false
+        countdownLabel.isHidden = false
 
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+            guard let self = self else { return }
+
+            if index < countdownNumbers.count {
+                self.countdownLabel.text = countdownNumbers[index]
+                self.animateLabel(self.countdownLabel)
+                
+                index += 1
+            } else {
+                timer.invalidate()
+                self.overlayView.isHidden = true
+                self.startTimer()
+            }
+        }
+    }
+    
+    func animateLabel(_ label: UILabel) {
+        label.alpha = 0
+        UIView.animate(withDuration: 0.5, animations: {
+            label.alpha = 1
+        }) { _ in
+            UIView.animate(withDuration: 0.5) {
+                label.alpha = 0
+            }
+        }
+    }
 }
 

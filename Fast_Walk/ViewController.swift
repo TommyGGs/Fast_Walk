@@ -102,6 +102,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             performSegue(withIdentifier: "showRoute", sender: self)
         } else {
             print("No route available to use")
+            performSegue(withIdentifier: "showRoute", sender: self)
         }
     }
     

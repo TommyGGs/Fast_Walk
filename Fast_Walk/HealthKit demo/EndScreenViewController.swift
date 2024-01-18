@@ -17,6 +17,8 @@ import UIKit
 import HealthKit
 import CareKitUI
 import CareKit
+import CoreMotion
+
 
 class EndScreenViewController: UIViewController {
     
@@ -30,7 +32,7 @@ class EndScreenViewController: UIViewController {
         authorizeHealthKit()
         fetchStepData() { results in
             DispatchQueue.main.async{
-                self.createChart(results)
+                self.createCharts(results)
             }
             
         }
@@ -93,7 +95,7 @@ class EndScreenViewController: UIViewController {
         store.execute(query)
     }
     
-    func createChart(_ stepsArray: [Int]) {
+    func createCharts(_ stepsArray: [Int]) {
         let series = OCKDataSeries(
                 values: stepsArray.map { CGFloat($0) },
                 title: "Steps",
@@ -115,6 +117,7 @@ class EndScreenViewController: UIViewController {
             chartView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8), // Adjust width as per requirement
             chartView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3) // Adjust height as per requirement
         ])
+        
     }
     
     

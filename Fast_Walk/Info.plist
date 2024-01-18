@@ -42,5 +42,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSMotionUsageDescription</key>
+	<string>歩数や距離データの取得。</string>
 </dict>
 </plist>
