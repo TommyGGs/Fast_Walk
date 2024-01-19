@@ -34,7 +34,6 @@
 		8291C5952B47A5290058AE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8291C5942B47A5290058AE71 /* AppDelegate.swift */; };
 		82CD0D122B4818380027A327 /* EndScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CD0D112B4818380027A327 /* EndScreenViewController.swift */; };
 		E070179A2B5A1A090068960A /* ChooseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07017992B5A1A090068960A /* ChooseViewController.swift */; };
-		E070179E2B5A1ED00068960A /* sasaka logo4.png in Resources */ = {isa = PBXBuildFile; fileRef = E070179D2B5A1ED00068960A /* sasaka logo4.png */; };
 		E21292A32B16E61400796BE5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21292A22B16E61400796BE5 /* SceneDelegate.swift */; };
 		E21292AD2B16E61D00796BE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */; };
 		E2C77FA92B32EE25000266E7 /* RouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C77FA82B32EE24000266E7 /* RouteViewController.swift */; };
@@ -80,11 +79,11 @@
 		82CD0D112B4818380027A327 /* EndScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndScreenViewController.swift; sourceTree = "<group>"; };
 		B08CDE77980212DCFCD7D2EE /* Pods-Fast_Walk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fast_Walk.release.xcconfig"; path = "Target Support Files/Pods-Fast_Walk/Pods-Fast_Walk.release.xcconfig"; sourceTree = "<group>"; };
 		DFB74AB246AFFBC37173D0E8 /* Pods_Fast_Walk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fast_Walk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E070178C2B5A067A0068960A /* NotoSansJP-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansJP-Medium.ttf"; path = "../../../Downloads/Noto/static/NotoSansJP-Medium.ttf"; sourceTree = "<group>"; };
-		E070178D2B5A06820068960A /* NotoSansJP-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansJP-Regular.ttf"; path = "../../../Downloads/Noto/static/NotoSansJP-Regular.ttf"; sourceTree = "<group>"; };
-		E070178E2B5A08D10068960A /* NotoSansJP-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansJP-Bold.ttf"; path = "../../../Downloads/Noto/static/NotoSansJP-Bold.ttf"; sourceTree = "<group>"; };
 		E07017992B5A1A090068960A /* ChooseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseViewController.swift; sourceTree = "<group>"; };
-		E070179D2B5A1ED00068960A /* sasaka logo4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sasaka logo4.png"; path = "../../../Downloads/UI design/sasaka logo4.png"; sourceTree = "<group>"; };
+		E0AE6E712B5A74DF005B31A9 /* NotoSansJP-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-Medium.ttf"; sourceTree = "<group>"; };
+		E0AE6E722B5A74E0005B31A9 /* NotoSansJP-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-Regular.ttf"; sourceTree = "<group>"; };
+		E0AE6E732B5A74E0005B31A9 /* NotoSansJP-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-Bold.ttf"; sourceTree = "<group>"; };
+		E0AE6E742B5A7505005B31A9 /* sasaka logo4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sasaka logo4.png"; sourceTree = "<group>"; };
 		E212929D2B16E61400796BE5 /* Fast_Walk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fast_Walk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E21292A22B16E61400796BE5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E21292AC2B16E61D00796BE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -160,6 +159,10 @@
 		8291C5912B47A48F0058AE71 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				E0AE6E742B5A7505005B31A9 /* sasaka logo4.png */,
+				E0AE6E712B5A74DF005B31A9 /* NotoSansJP-Medium.ttf */,
+				E0AE6E732B5A74E0005B31A9 /* NotoSansJP-Bold.ttf */,
+				E0AE6E722B5A74E0005B31A9 /* NotoSansJP-Regular.ttf */,
 				313A0BC42B440D8B0097BC66 /* Liberty.png */,
 				8291C58F2B47A47B0058AE71 /* Assets.xcassets 11-42-14-782.xcassets */,
 			);
@@ -196,10 +199,6 @@
 		E212929F2B16E61400796BE5 /* Fast_Walk */ = {
 			isa = PBXGroup;
 			children = (
-				E070178C2B5A067A0068960A /* NotoSansJP-Medium.ttf */,
-				E070178E2B5A08D10068960A /* NotoSansJP-Bold.ttf */,
-				E070178D2B5A06820068960A /* NotoSansJP-Regular.ttf */,
-				E070179D2B5A1ED00068960A /* sasaka logo4.png */,
 				E25A7B7A2B47C41F00BC2C9B /* Route */,
 				8291C57B2B47A0D20058AE71 /* Login */,
 				31E7A29C2B43E1E40091BCF0 /* Fast_Walk.entitlements */,
@@ -302,7 +301,6 @@
 				31E3658D2B493324002AFFCF /* Main.storyboard in Resources */,
 				313A0BC52B440D8B0097BC66 /* Liberty.png in Resources */,
 				31E7A29B2B43E0600091BCF0 /* HealthKitDemo.storyboard in Resources */,
-				E070179E2B5A1ED00068960A /* sasaka logo4.png in Resources */,
 				828C32CF2B343367000C3F7F /* PlaceDetails.xib in Resources */,
 				8291C5902B47A47B0058AE71 /* Assets.xcassets 11-42-14-782.xcassets in Resources */,
 				E21292AD2B16E61D00796BE5 /* LaunchScreen.storyboard in Resources */,
