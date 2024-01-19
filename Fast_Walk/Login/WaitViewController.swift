@@ -10,6 +10,10 @@ import GoogleSignIn
 import LineSDK
 
 class WaitViewController: UIViewController {
+    
+    var countdownTimer: Timer!
+    var remainingSeconds = 3
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setGradientBackground()
@@ -17,7 +21,7 @@ class WaitViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        checkUserState()
+        startCountdown()
     }
     
     func checkUserState() {
@@ -76,5 +80,19 @@ class WaitViewController: UIViewController {
         // Add the gradient layer to your view's layer
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
-
+    
+    func startCountdown() {
+        print("startCountdo")
+        countdownTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCountdown), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateCountdown() {
+        remainingSeconds -= 1
+        print (remainingSeconds)
+        if remainingSeconds <= 0 {
+            countdownTimer.invalidate()
+            checkUserState()
+        }
+    }
+    
 }
