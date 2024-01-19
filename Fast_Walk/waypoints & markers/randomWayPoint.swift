@@ -14,7 +14,8 @@ class randomWayPoint {
     
     private var placesClient: GMSPlacesClient!
     private var nextCoordinate: CLLocationCoordinate2D?
-    private let wayPointNumber = 3
+    private let wayPointNumber: Int! = 3
+    
     
     init() {
         placesClient = GMSPlacesClient.shared()
@@ -33,6 +34,9 @@ class randomWayPoint {
 
     
     private func performNearbySearch(from coordinate: CLLocationCoordinate2D, radius: Double, type: String, completion: @escaping ([GMSPlace?]) -> Void) {
+        
+        let optionNumber = 5 //change here when increasing number of results
+        
         print ("called performNearbySearch")
         //let radius: Double = 1000 // Search within 1000 meters of the coordinate
         let type = "restaurant" // Specify the type of place you are looking for
@@ -71,7 +75,7 @@ class randomWayPoint {
                 let dispatchGroup = DispatchGroup()
                 var wayPoints: [GMSPlace?] = []
                 
-                for result in results.prefix(7) {//change here when increasing number of results
+                for result in results.prefix(optionNumber) {
                     if let placeID = result["place_id"] as? String {
                         dispatchGroup.enter() // Enter the group
                         self?.fetchPlaceDetails(placeID: placeID) { placeDetail in

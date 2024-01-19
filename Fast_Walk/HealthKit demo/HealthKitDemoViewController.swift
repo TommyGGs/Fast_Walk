@@ -23,7 +23,8 @@ class HealthKitDemoViewController: UIViewController {
     
     func startWorkoutSession() {
         startObservingSteps()
-        //        timer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(updateStepCount), userInfo: nil, repeats: true)
+        print("workoutsession works")
+//        timer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(updateStepCount), userInfo: nil, repeats: true)
     }
     
     func endWorkoutSession() {
