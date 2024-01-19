@@ -22,15 +22,14 @@ import CoreMotion
 
 class EndScreenViewController: UIViewController {
     
-    @IBOutlet weak var steps: UILabel!
-    @IBOutlet weak var stepcounter: UILabel!
     
-    let pedometer = CMPedometer()
+    
+    
     let store = HealthAndCareKitHelp.healthStore
     var help = HealthAndCareKitHelp()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         authorizeHealthKit()
         fetchStepData() { results in
@@ -39,9 +38,9 @@ class EndScreenViewController: UIViewController {
             }
             
         }
-        startPedometerUpdates()
-        print ("view did appear, loaded pedometer")
+        
     }
+    
     //Authorize HealthKit
     func authorizeHealthKit() {
         guard HKHealthStore.isHealthDataAvailable() else {
@@ -123,43 +122,7 @@ class EndScreenViewController: UIViewController {
         
     }
     
-    func startPedometerUpdates() {
-        if CMPedometer.isStepCountingAvailable() {
-            pedometer.startUpdates(from: Date()) { [weak self] data, error in
-                guard let strongSelf = self, let pedometerData = data, error == nil else {
-                    print("There was an error retrieving the data: \(error?.localizedDescription ?? "Unknown error")")
-                    return
-                }
-
-                // Update your UI with pedometer data
-                DispatchQueue.main.async {
-                    // Example: Update step count label
-                    strongSelf.updateUI(with: pedometerData)
-                    print("UI Updated")
-                }
-            }
-        } else {
-            print("Step counting not available")
-        }
-    }
-
-    func updateUI(with data: CMPedometerData) {
-        stepcounter.text = "Steps: \(data.numberOfSteps)"
-        print(data.numberOfSteps)
-        // Example: Update a label with the step count
-        // yourStepCountLabel.text = "Steps: \(data.numberOfSteps)"
-    }
     
-    func stopPedometerUpdates() {
-        pedometer.stopUpdates()
-    }
-
-       
-
-       override func viewWillDisappear(_ animated: Bool) {
-           super.viewWillDisappear(animated)
-           stopPedometerUpdates()
-       }
 
     
 
