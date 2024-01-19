@@ -33,6 +33,7 @@
 		8291C5932B47A4EB0058AE71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8291C5922B47A4EB0058AE71 /* ViewController.swift */; };
 		8291C5952B47A5290058AE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8291C5942B47A5290058AE71 /* AppDelegate.swift */; };
 		82CD0D122B4818380027A327 /* EndScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CD0D112B4818380027A327 /* EndScreenViewController.swift */; };
+		B6CD4EE82B5A79C4004F0BDB /* PedometerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */; };
 		E21292A32B16E61400796BE5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21292A22B16E61400796BE5 /* SceneDelegate.swift */; };
 		E21292AD2B16E61D00796BE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */; };
 		E2C77FA92B32EE25000266E7 /* RouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C77FA82B32EE24000266E7 /* RouteViewController.swift */; };
@@ -73,10 +74,11 @@
 		8291C57D2B47A0D20058AE71 /* WelcomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomViewController.swift; sourceTree = "<group>"; };
 		8291C57E2B47A0D20058AE71 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8291C58F2B47A47B0058AE71 /* Assets.xcassets 11-42-14-782.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets 11-42-14-782.xcassets"; sourceTree = "<group>"; };
-		8291C5922B47A4EB0058AE71 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../../../Documents/Fast_Walk/Fast_Walk/ViewController.swift; sourceTree = "<group>"; };
+		8291C5922B47A4EB0058AE71 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8291C5942B47A5290058AE71 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../../../Documents/Fast_Walk/Fast_Walk/AppDelegate.swift; sourceTree = "<group>"; };
 		82CD0D112B4818380027A327 /* EndScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndScreenViewController.swift; sourceTree = "<group>"; };
 		B08CDE77980212DCFCD7D2EE /* Pods-Fast_Walk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fast_Walk.release.xcconfig"; path = "Target Support Files/Pods-Fast_Walk/Pods-Fast_Walk.release.xcconfig"; sourceTree = "<group>"; };
+		B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerDemo.swift; sourceTree = "<group>"; };
 		DFB74AB246AFFBC37173D0E8 /* Pods_Fast_Walk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fast_Walk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E212929D2B16E61400796BE5 /* Fast_Walk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fast_Walk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E21292A22B16E61400796BE5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				82CD0D112B4818380027A327 /* EndScreenViewController.swift */,
 				31E7A29D2B43E2E50091BCF0 /* HealthAndCareKitHelp.swift */,
 				31E7A29A2B43E0600091BCF0 /* HealthKitDemo.storyboard */,
+				B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */,
 			);
 			path = "HealthKit demo";
 			sourceTree = "<group>";
@@ -192,8 +195,8 @@
 				E25A7B7A2B47C41F00BC2C9B /* Route */,
 				8291C57B2B47A0D20058AE71 /* Login */,
 				31E7A29C2B43E1E40091BCF0 /* Fast_Walk.entitlements */,
-				31E3658C2B493324002AFFCF /* Main.storyboard */,
 				8291C5922B47A4EB0058AE71 /* ViewController.swift */,
+				31E3658C2B493324002AFFCF /* Main.storyboard */,
 				8291C5942B47A5290058AE71 /* AppDelegate.swift */,
 				E21292A22B16E61400796BE5 /* SceneDelegate.swift */,
 				E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */,
@@ -362,6 +365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6CD4EE82B5A79C4004F0BDB /* PedometerDemo.swift in Sources */,
 				8291C5812B47A0D20058AE71 /* LoginViewController.swift in Sources */,
 				8291C5932B47A4EB0058AE71 /* ViewController.swift in Sources */,
 				8291C5952B47A5290058AE71 /* AppDelegate.swift in Sources */,

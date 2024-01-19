@@ -2,8 +2,9 @@ import UIKit
 import HealthKit
 import CareKit
 import CareKitUI
+import CoreMotion
 
-class HealthKitDemoViewController: UIViewController {
+class HealthKitDemoViewController: PedometerDemoViewController {
     
     @IBOutlet weak var stepsLabel: UILabel!
 
@@ -70,7 +71,9 @@ class HealthKitDemoViewController: UIViewController {
 
         healthStore.execute(query)
     }
-    
+    func startPedometer(){
+        
+    }
 
     // Start Observing Steps
     func startObservingSteps() {
