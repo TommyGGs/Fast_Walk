@@ -12,6 +12,7 @@ import LineSDK
 class WaitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        setGradientBackground()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -37,7 +38,7 @@ class WaitViewController: UIViewController {
                 self?.presentMainNavigationController()
             case .failure(_):
                 print("User not logged in with LINE")
-                self?.presentLoginViewController()
+                self?.presentChooseViewController()
             }
         }
     }
@@ -50,11 +51,30 @@ class WaitViewController: UIViewController {
         }
     }
 
-    private func presentLoginViewController() {
+    private func presentChooseViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
-            loginVC.modalPresentationStyle = .fullScreen
-            self.present(loginVC, animated: true, completion: nil)
+        if let chooseVC = storyboard.instantiateViewController(withIdentifier: "ChooseViewController") as? ChooseViewController {
+            chooseVC.modalPresentationStyle = .fullScreen
+            self.present(chooseVC, animated: true, completion: nil)
         }
     }
+   
+    func setGradientBackground() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        
+        // Set your custom colors
+        gradientLayer.colors = [
+            UIColor(red: 0x45/255.0, green: 0xB1/255.0, blue: 0xFF/255.0, alpha: 1.0).cgColor,
+            UIColor(red: 0x00/255.0, green: 0x21/255.0, blue: 0xCD/255.0, alpha: 1.0).cgColor
+        ]
+
+        // You can customize the direction of the gradient if needed
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.8)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.0)
+
+        // Add the gradient layer to your view's layer
+        view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+
 }
