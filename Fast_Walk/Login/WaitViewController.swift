@@ -16,7 +16,7 @@ class WaitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setGradientBackground()
+//        setGradientBackground()
     }
     
     override func viewDidAppear(_ animated: Bool) {

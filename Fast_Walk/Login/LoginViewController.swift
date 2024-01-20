@@ -8,13 +8,20 @@
 import UIKit
 import GoogleSignIn
 import LineSDK
+import RealmSwift
 
 class LoginViewController: UIViewController, LoginButtonDelegate {
     
-    
+    var users: [User] = []
+    var userExist: Bool = false
+//    var userChecked: Bool = false
+    let realm = try! Realm()
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        users = readUsers()
+
         // Create a custom button for LINE login
         let customLineButton = UIButton(type: .custom)
         customLineButton.setTitle("LINEでログイン", for: .normal) // Set the text
@@ -62,53 +69,10 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         super.viewDidLoad()
         setGradientBackground()
     }
-
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         userState()
-    }
-    
-    @objc func loginWithLine() {
-        // Code to initiate LINE login process
-        // For example, using the LINE SDK's login method
-        
-        LoginManager.shared.login(permissions: [.profile], in: self) {
-            result in
-            switch result {
-            case .success(let loginResult):
-                if let profile = loginResult.userProfile {
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
-                    welcomeVC.modalPresentationStyle = .fullScreen  // Ensuring it covers the full screen
-                    self.present(welcomeVC, animated: true, completion: nil)
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-
-    }
-
-
-    
-    @IBAction func signIn(sender: Any) {
-        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
-            guard error == nil else {
-                print("Error logging in: \(error?.localizedDescription ?? "")")
-                return
-            }
-
-            if signInResult != nil {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
-                    welcomeVC.modalPresentationStyle = .fullScreen
-                    self.present(welcomeVC, animated: true, completion: nil)
-                } else {
-                    print("Could not instantiate WelcomeViewController from storyboard.")
-                }
-            }
-        }
     }
     
     func userState() {
@@ -124,6 +88,96 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         } else {
             print("User not signed in")
             // Additional code if needed for when the user is not signed in
+        }
+    }
+    
+    func readUsers() -> [User] {
+        return Array(realm.objects(User.self))
+    }
+    
+    @objc func loginWithLine() {
+        LoginManager.shared.login(permissions: [.profile], in: self) {
+            result in
+            switch result {
+            case .success(let loginResult):
+                if let profile = loginResult.userProfile {
+                    
+                    for user in self.users {
+                        if user.name == profile.displayName {
+                            self.userExist = true
+                            print("user already exist")
+                            return
+                        }
+                    }
+                    if self.userExist == false {
+                      let user = User()
+                        user.email = ""
+                        user.name = profile.displayName
+                        user.signinMethod = "Line"
+                        user.userID = profile.userID
+                        print("trying to create Line user")
+                        self.createUser(user: user)
+                    }
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
+                    welcomeVC.modalPresentationStyle = .fullScreen
+                    self.present(welcomeVC, animated: true, completion: nil)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+
+    }
+    
+    
+    func createUser(user: User) {
+        try! realm.write{
+            realm.add(user)
+            print("user create succeeded")
+        }
+    }
+
+
+    
+    @IBAction func signIn(sender: Any) {
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
+            guard error == nil else {
+                print("Error logging in: \(error?.localizedDescription ?? "")")
+                return
+            }
+            
+            guard let signInResult = signInResult else{
+                print("no google user")
+                return
+            }
+            
+            let profile = signInResult.user
+            for user in self.users {
+                if user.name == profile.profile?.name {
+                    self.userExist = true
+                    print("user already exist")
+                    return
+                }
+            }
+            if self.userExist == false {
+              let user = User()
+                user.email = profile.profile?.email ?? ""
+                user.name = profile.profile?.name ?? ""
+                user.signinMethod = "Google"
+                user.userID = profile.userID ?? ""
+                print("trying to line create user")
+                self.createUser(user: user)
+            }
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
+                welcomeVC.modalPresentationStyle = .fullScreen
+                self.present(welcomeVC, animated: true, completion: nil)
+            } else {
+                print("Could not instantiate WelcomeViewController from storyboard.")
+            }
         }
     }
 
