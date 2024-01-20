@@ -14,6 +14,28 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+                // Create a UIView for the rectangle
+                let rectangleView = UIView()
+
+                // Set the frame for the rectangle (adjust the values as needed)
+                let rectangleFrame = CGRect(x: 20, y: 250, width: 350, height: 250)
+                rectangleView.frame = rectangleFrame
+
+                // Set the corner radius for rounded corners
+                rectangleView.layer.cornerRadius = 18
+
+                // Set the background color to clear (no filled color)
+                rectangleView.backgroundColor = UIColor.clear
+
+                // Set the border color (E8E8E8 with 39% transparency)
+                rectangleView.layer.borderColor = UIColor(red: 0xE8/255.0, green: 0xE8/255.0, blue: 0xE8/255.0, alpha: 0.39).cgColor
+
+                // Set the border width
+                rectangleView.layer.borderWidth = 1.0
+
+                // Add the rectangle to the view
+                view.addSubview(rectangleView)
         
         // Create a custom button for LINE login
         let customLineButton = UIButton(type: .custom)
@@ -24,8 +46,8 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         customLineButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             customLineButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            customLineButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -130), // Moves the button higher up
-            customLineButton.widthAnchor.constraint(equalToConstant: 230), // Wider button
+            customLineButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20), // Moves the button higher up
+            customLineButton.widthAnchor.constraint(equalToConstant: 233.5), // Wider button
             customLineButton.heightAnchor.constraint(equalToConstant: 40) // Taller button
         ])
         
@@ -43,6 +65,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
             let resizableImage = image.resizableImage(withCapInsets: capInsets, resizingMode: .stretch)
             customLineButton.setBackgroundImage(resizableImage, for: .normal)
         }
+        
         if let image = UIImage(named: "btn_login_pressed") {
             // Adjust these insets to match the thin edge you want to stretch.
             let rightStretchWidth: CGFloat = 5.0 // The thin edge on the left side to be stretched
