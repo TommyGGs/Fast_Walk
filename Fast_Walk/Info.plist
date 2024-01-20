@@ -4,9 +4,9 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>NotoSansJP-Medium.ttf</string>
-		<string>NotoSansJP-Regular.ttf</string>
-		<string>NotoSansJP-Bold.ttf</string>
+		<string>/Users/keeseojung/Documents/Fast_Walk/Fast_Walk/Assets/NotoSansJP-Medium.ttf</string>
+		<string>/Users/keeseojung/Documents/Fast_Walk/Fast_Walk/Assets/NotoSansJP-Regular.ttf</string>
+		<string>/Users/keeseojung/Documents/Fast_Walk/Fast_Walk/Assets/NotoSansJP-Bold.ttf</string>
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
