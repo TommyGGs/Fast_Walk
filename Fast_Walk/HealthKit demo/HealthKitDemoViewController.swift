@@ -4,7 +4,7 @@ import CareKit
 import CareKitUI
 import CoreMotion
 
-class HealthKitDemoViewController: PedometerDemoViewController {
+class HealthKitDemoViewController: UIViewController {
     
     @IBOutlet weak var stepsLabel: UILabel!
     

@@ -560,7 +560,7 @@
 				CODE_SIGN_ENTITLEMENTS = Fast_Walk/Fast_Walk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C7H6C6723R;
+				DEVELOPMENT_TEAM = XJH3A7SY36;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -598,7 +598,7 @@
 				CODE_SIGN_ENTITLEMENTS = Fast_Walk/Fast_Walk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C7H6C6723R;
+				DEVELOPMENT_TEAM = XJH3A7SY36;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
