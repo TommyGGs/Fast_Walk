@@ -8,15 +8,20 @@
 import UIKit
 import CoreMotion
 
+
+
 class EndViewController: EndScreenViewController{
 
     let pedometer = CMPedometer()
     @IBOutlet weak var steps: UILabel!
     @IBOutlet weak var stepcounter: UILabel!
+    var receivedStepCount: Double = 0
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
+    override func viewDidLoad(){
+        super.viewDidLoad()
+        DispatchQueue.main.async{
+            self.steps.text = String(Int(self.receivedStepCount))
+        }
         // Do any additional setup after loading the view.
     }
     

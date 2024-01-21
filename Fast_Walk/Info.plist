@@ -48,5 +48,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSMotionUsageDescription</key>
+	<string>hello. </string>
 </dict>
 </plist>

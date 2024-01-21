@@ -100,24 +100,25 @@ class EndScreenViewController: UIViewController {
     func createCharts(_ stepsArray: [Int]) {
         let series = OCKDataSeries(
                 values: stepsArray.map { CGFloat($0) },
-                title: "Steps",
+                title: "今週の歩数",
                 size: 10,
                 color: .systemBlue
             )
 
         let chartView = OCKCartesianChartView(type: .bar)
         chartView.translatesAutoresizingMaskIntoConstraints = false
-        chartView.headerView.titleLabel.text = "Steps"
+        chartView.headerView.titleLabel.text = "今週の歩数"
         chartView.graphView.horizontalAxisMarkers = help.createHorizontalAxisMarkers()
         chartView.graphView.dataSeries = [series]
+        chartView.headerView.iconImageView?.image = UIImage(named: "sasaka logo4.png")
         
         view.addSubview(chartView)
 
         NSLayoutConstraint.activate([
             chartView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             chartView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            chartView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8), // Adjust width as per requirement
-            chartView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3) // Adjust height as per requirement
+            chartView.widthAnchor.constraint(equalTo: view.widthAnchor), // Adjust width as per requirement
+            chartView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4) // Adjust height as per requirement
         ])
         
     }

@@ -17,15 +17,17 @@ class CustomInfoWindow: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.isUserInteractionEnabled = true
-        heart.isUserInteractionEnabled = true
+        
         commonInit()
+        contentView.isUserInteractionEnabled = true
+        heart.isUserInteractionEnabled = true
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.isUserInteractionEnabled = true
+        
         commonInit()
+        contentView.isUserInteractionEnabled = true
     }
     
     

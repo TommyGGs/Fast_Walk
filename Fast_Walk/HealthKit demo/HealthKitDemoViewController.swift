@@ -7,10 +7,12 @@ import CoreMotion
 class HealthKitDemoViewController: UIViewController {
     
     @IBOutlet weak var stepsLabel: UILabel!
+    let pedometer = CMPedometer()
     
+    var totalSteps: Double = 0
     let healthStore = HKHealthStore()
     var anchor: HKQueryAnchor?
-    //var timer: Timer!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,18 +25,16 @@ class HealthKitDemoViewController: UIViewController {
     }
     
     func startWorkoutSession() {
-        startObservingSteps()
+//        startObservingSteps()
+        startPedometerUpdates()
         print("workoutsession works")
-//        timer = Timer.scheduledTimer(timeInterval: 180, target: self, selector: #selector(updateStepCount), userInfo: nil, repeats: true)
     }
     
     func endWorkoutSession() {
-        //        timer?.invalidate()
-        //        timer = nil
     }
     
     @objc func updateStepCount() {
-        fetchStepData()
+//        fetchStepData()
     }
     
     // Authorization
@@ -54,36 +54,42 @@ class HealthKitDemoViewController: UIViewController {
     }
     
     // Fetch Steps
-    func fetchStepData() {
-        guard let stepsType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
-            return
-        }
-        
-        let query = HKAnchoredObjectQuery(type: stepsType, predicate: nil, anchor: anchor, limit: HKObjectQueryNoLimit) { [weak self] query, sampleObjects, deletedObjects, newAnchor, error in
-            guard let self = self else { return }
-            
-            if let newAnchor = newAnchor {
-                self.anchor = newAnchor
-            }
-            
-            if let samples = sampleObjects as? [HKQuantitySample] {
-                let totalSteps = samples.map { $0.quantity.doubleValue(for: HKUnit.count()) }.reduce(0, +)
-                DispatchQueue.main.async {
-                    self.stepsLabel.text = "Steps: \(Int(totalSteps))"
-                }
-            }
-        }
-        
-        healthStore.execute(query)
-    }
-    func startPedometer(){
-        
-    }
-
-    // Start Observing Steps
-    func startObservingSteps() {
-        fetchStepData()
-    }
+//    func fetchStepData() {
+//        guard let stepsType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
+//            return
+//        }
+//        
+//        // Define the start and end of the day
+//        let calendar = Calendar.current
+//        let startDate = calendar.startOfDay(for: Date()) // Start of the current day
+//        let endDate = calendar.date(byAdding: .day, value: 1, to: startDate) // End of the current day
+//
+//        // Create the predicate
+//        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+//
+//        let query = HKAnchoredObjectQuery(type: stepsType, predicate: predicate, anchor: anchor, limit: HKObjectQueryNoLimit) { [weak self] query, sampleObjects, deletedObjects, newAnchor, error in
+//            guard let self = self else { return }
+//            
+//            if let newAnchor = newAnchor {
+//                self.anchor = newAnchor
+//            }
+//            
+//            if let samples = sampleObjects as? [HKQuantitySample] {
+//                totalSteps = samples.map { $0.quantity.doubleValue(for: HKUnit.count()) }.reduce(0, +)
+//                DispatchQueue.main.async {
+//                    self.stepsLabel.text = "Steps: \(Int(self.totalSteps))"
+//                }
+//            }
+//        }
+//        
+//        healthStore.execute(query)
+//    }
+//    
+//
+//    // Start Observing Steps
+//    func startObservingSteps() {
+//        fetchStepData()
+//    }
     
     
     func setGradientBackground() {
@@ -103,7 +109,66 @@ class HealthKitDemoViewController: UIViewController {
         // Add the gradient layer to your view's layer
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
-
     
+    
+    func startPedometerUpdates() {
+        if CMPedometer.isStepCountingAvailable() {
+            print("Step counting is available")
+
+            pedometer.startUpdates(from: Date()) { [weak self] data, error in
+                if let error = error {
+                    print("There was an error retrieving the data: \(error.localizedDescription)")
+                    return
+                }
+
+                guard let pedometerData = data else {
+                    print("No pedometer data received")
+                    return
+                }
+//printing out received data
+                print("Pedometer data received: \(pedometerData.numberOfSteps)")
+                print("Pedometer data received: \(pedometerData.distance)")
+                print("Pedometer data received: \(pedometerData.currentPace)")
+                print("Pedometer data received: \(pedometerData.currentCadence)")
+                
+                
+                DispatchQueue.main.async {
+                    self?.stepsLabel.text = "Steps: \(pedometerData.numberOfSteps)"
+                    print("UI Updated")
+                    self?.totalSteps = Double(pedometerData.numberOfSteps)
+                }
+            }
+        } else {
+            print("Step counting is not available")
+        }
+    }
+
+    func updateUI(with data: CMPedometerData) {
+        stepsLabel.text = "Steps: \(data.numberOfSteps)"
+        print(data.numberOfSteps)
+        
+        // Example: Update a label with the step count
+        // yourStepCountLabel.text = "Steps: \(data.numberOfSteps)"
+    }
+    
+    func stopPedometerUpdates() {
+        pedometer.stopUpdates()
+    }
+
+       
+
+       override func viewWillDisappear(_ animated: Bool) {
+           stopPedometerUpdates()
+           print("stopped")
+           super.viewWillDisappear(animated)
+           
+       }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+
+        if let endVC = segue.destination as? EndViewController {
+            endVC.receivedStepCount = self.totalSteps
+        }
+    }
 }
 

@@ -3,6 +3,7 @@ import GoogleMaps
 import CoreLocation
 
 class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegate {
+    
     @IBOutlet weak var mapContainerView: UIView!
     @IBOutlet var currentMode: UILabel!
     @IBOutlet var currentTime: UILabel!
@@ -128,7 +129,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     
     func modeSwitch() {
-        super.fetchStepData()
+//        super.fetchStepData()
         if mode == "slow" {
             currentMode.text = "ゆっくり歩き"
             nextMode.text = "Next: さっさか歩き"
@@ -250,5 +251,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             }
         }
     }
+    
+    
 }
 
