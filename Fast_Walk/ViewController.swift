@@ -4,6 +4,7 @@ import CoreLocation
 import GooglePlaces
 import GoogleSignIn
 import LineSDK
+import RealmSwift
 
 class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var mapContainerView: UIView!
@@ -24,8 +25,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var wayPointGeneration = WayPointGeneration()
     var randomwaypoint: randomWayPoint!
     var window: UIWindow?
-
-    
+        
     private var placesClient: GMSPlacesClient! //For Places marker
     
     override func viewDidLoad() {
@@ -40,6 +40,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         setupStyle()
         print("passed")
     }
+    
     
     func setupMapView() {
         let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 10.0)
@@ -102,6 +103,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             performSegue(withIdentifier: "showRoute", sender: self)
         } else {
             print("No route available to use")
+            performSegue(withIdentifier: "showRoute", sender: self)
         }
     }
     
@@ -384,17 +386,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         
        
         
-        if let metaData = marker.userData as? GMSPlacePhotoMetadata {
+        if let photo = marker.userData as? UIImage {
                 print("Userdata is valid")
-            self.marker.loadPhoto(metaData) { photo in
-                    if let photo = photo {
-                        DispatchQueue.main.async {
-                            marker.tracksInfoWindowChanges = true
-                            infoWindow.pictureView.image = photo
-                            marker.tracksInfoWindowChanges = false
-                        }
-                    }
-                }
+            DispatchQueue.main.async {
+                marker.tracksInfoWindowChanges = true
+                infoWindow.pictureView.image = photo
+                marker.tracksInfoWindowChanges = false
+            }
+//            self.marker.loadPhoto(metaData) { photo in
+//                    if let photo = photo {
+//                        DispatchQueue.main.async {
+//                            marker.tracksInfoWindowChanges = true
+//                            infoWindow.pictureView.image = photo
+//                            marker.tracksInfoWindowChanges = false
+//                        }
+//                    }
+//                }
             }
         //animate
         
@@ -413,4 +420,5 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         a.layer.borderColor = #colorLiteral(red: 0.5058823529, green: 0.6274509804, blue: 0.9098039216, alpha: 1)
         a.layer.cornerRadius = a.frame.width / 2
     }
+
 }

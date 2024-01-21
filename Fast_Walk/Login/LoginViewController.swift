@@ -8,10 +8,16 @@
 import UIKit
 import GoogleSignIn
 import LineSDK
+import RealmSwift
 
 class LoginViewController: UIViewController, LoginButtonDelegate {
     
-    
+    var users: [User] = []
+    var userExist: Bool = false
+//    var userChecked: Bool = false
+    let realm = try! Realm()
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,6 +42,8 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
 
                 // Add the rectangle to the view
                 view.addSubview(rectangleView)
+
+        users = readUsers()
 
         // Create a custom button for LINE login
         let customLineButton = UIButton(type: .custom)
@@ -92,25 +100,59 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         super.viewDidLoad()
         setGradientBackground()
     }
-
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         userState()
     }
     
-    @objc func loginWithLine() {
-        // Code to initiate LINE login process
-        // For example, using the LINE SDK's login method
+    func userState() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
+        if GIDSignIn.sharedInstance.currentUser != nil {
+            print("User already signed in")
+
+            if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
+                mainNavController.modalPresentationStyle = .fullScreen
+                self.present(mainNavController, animated: true, completion: nil)
+            }
+        } else {
+            print("User not signed in")
+            // Additional code if needed for when the user is not signed in
+        }
+    }
+    
+    func readUsers() -> [User] {
+        return Array(realm.objects(User.self))
+    }
+    
+    @objc func loginWithLine() {
         LoginManager.shared.login(permissions: [.profile], in: self) {
             result in
             switch result {
             case .success(let loginResult):
                 if let profile = loginResult.userProfile {
+                    
+                    for user in self.users {
+                        if user.name == profile.displayName {
+                            self.userExist = true
+                            print("user already exist")
+                            return
+                        }
+                    }
+                    if self.userExist == false {
+                      let user = User()
+                        user.email = ""
+                        user.name = profile.displayName
+                        user.signinMethod = "Line"
+                        user.userID = profile.userID
+                        print("trying to create Line user")
+                        self.createUser(user: user)
+                    }
+                    
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
-                    welcomeVC.modalPresentationStyle = .fullScreen  // Ensuring it covers the full screen
+                    welcomeVC.modalPresentationStyle = .fullScreen
                     self.present(welcomeVC, animated: true, completion: nil)
                 }
             case .failure(let error):
@@ -118,6 +160,14 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
             }
         }
 
+    }
+    
+    
+    func createUser(user: User) {
+        try! realm.write{
+            realm.add(user)
+            print("user create succeeded")
+        }
     }
 
 
