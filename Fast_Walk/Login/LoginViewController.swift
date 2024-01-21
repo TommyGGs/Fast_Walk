@@ -36,13 +36,13 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
 
                 // Add the rectangle to the view
                 view.addSubview(rectangleView)
-        
+
         // Create a custom button for LINE login
         let customLineButton = UIButton(type: .custom)
         customLineButton.setTitle("LINEでログイン", for: .normal) // Set the text
         
         // Set the custom font
-               if let customFont = UIFont(name: "NotoSansJP-Regular.ttf", size: 17.0) {
+               if let customFont = UIFont(name: "NotoSansJP-Regular", size: 16.0) {
                    customLineButton.titleLabel?.font = customFont
                } else {
                    print("Font not available")
@@ -55,7 +55,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
             customLineButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             customLineButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -10), // Moves the button higher up
             customLineButton.widthAnchor.constraint(equalToConstant: 240), // Wider button
-            customLineButton.heightAnchor.constraint(equalToConstant: 50) // Taller button
+            customLineButton.heightAnchor.constraint(equalToConstant: 45) // Taller button
         ])
         
         // Set the images for different button states after adding the button to the view
@@ -158,6 +158,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     }
 
 }
+
 
 extension LoginViewController {
     func loginButton(_ button: LoginButton, didSucceedLogin loginResult: LoginResult) {
