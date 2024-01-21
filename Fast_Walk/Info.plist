@@ -4,9 +4,14 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>NotoSansJP-Bold.ttf</string>
+		<string>NotoSansJP-ExtraBold.ttf</string>
+		<string>NotoSansJP-ExtraLight.ttf</string>
+		<string>NotoSansJP-Light.ttf</string>
 		<string>NotoSansJP-Medium.ttf</string>
 		<string>NotoSansJP-Regular.ttf</string>
-		<string>NotoSansJP-Bold.ttf</string>
+		<string>NotoSansJP-SemiBold.ttf</string>
+		<string>NotoSansJP-Thin.ttf</string>
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>

@@ -20,20 +20,50 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+                // Create a UIView for the rectangle
+                let rectangleView = UIView()
+
+                // Set the frame for the rectangle (adjust the values as needed)
+                let rectangleFrame = CGRect(x: 20, y: 270, width: 350, height: 220)
+                rectangleView.frame = rectangleFrame
+
+                // Set the corner radius for rounded corners
+                rectangleView.layer.cornerRadius = 18
+
+                // Set the background color to clear (no filled color)
+                rectangleView.backgroundColor = UIColor.clear
+
+                // Set the border color (E8E8E8 with 39% transparency)
+                rectangleView.layer.borderColor = UIColor(red: 0xE8/255.0, green: 0xE8/255.0, blue: 0xE8/255.0, alpha: 0.39).cgColor
+
+                // Set the border width
+                rectangleView.layer.borderWidth = 1.0
+
+                // Add the rectangle to the view
+                view.addSubview(rectangleView)
+
         users = readUsers()
 
         // Create a custom button for LINE login
         let customLineButton = UIButton(type: .custom)
         customLineButton.setTitle("LINEでログイン", for: .normal) // Set the text
         
+        // Set the custom font
+               if let customFont = UIFont(name: "NotoSansJP-Regular", size: 16.0) {
+                   customLineButton.titleLabel?.font = customFont
+               } else {
+                   print("Font not available")
+               }
+        
         // Add button to view and layout it
         view.addSubview(customLineButton)
         customLineButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             customLineButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            customLineButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -130), // Moves the button higher up
-            customLineButton.widthAnchor.constraint(equalToConstant: 230), // Wider button
-            customLineButton.heightAnchor.constraint(equalToConstant: 40) // Taller button
+            customLineButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -10), // Moves the button higher up
+            customLineButton.widthAnchor.constraint(equalToConstant: 240), // Wider button
+            customLineButton.heightAnchor.constraint(equalToConstant: 45) // Taller button
         ])
         
         // Set the images for different button states after adding the button to the view
@@ -50,6 +80,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
             let resizableImage = image.resizableImage(withCapInsets: capInsets, resizingMode: .stretch)
             customLineButton.setBackgroundImage(resizableImage, for: .normal)
         }
+        
         if let image = UIImage(named: "btn_login_pressed") {
             // Adjust these insets to match the thin edge you want to stretch.
             let rightStretchWidth: CGFloat = 5.0 // The thin edge on the left side to be stretched
@@ -147,41 +178,37 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                 print("Error logging in: \(error?.localizedDescription ?? "")")
                 return
             }
-            
-            guard let signInResult = signInResult else{
-                print("no google user")
-                return
-            }
-            
-            let profile = signInResult.user
-            for user in self.users {
-                if user.name == profile.profile?.name {
-                    self.userExist = true
-                    print("user already exist")
-                    return
+
+            if signInResult != nil {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
+                    welcomeVC.modalPresentationStyle = .fullScreen
+                    self.present(welcomeVC, animated: true, completion: nil)
+                } else {
+                    print("Could not instantiate WelcomeViewController from storyboard.")
                 }
             }
-            if self.userExist == false {
-              let user = User()
-                user.email = profile.profile?.email ?? ""
-                user.name = profile.profile?.name ?? ""
-                user.signinMethod = "Google"
-                user.userID = profile.userID ?? ""
-                print("trying to line create user")
-                self.createUser(user: user)
+        }
+    }
+    
+    func userState() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        if GIDSignIn.sharedInstance.currentUser != nil {
+            print("User already signed in")
+
+            if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
+                mainNavController.modalPresentationStyle = .fullScreen
+                self.present(mainNavController, animated: true, completion: nil)
             }
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
-                welcomeVC.modalPresentationStyle = .fullScreen
-                self.present(welcomeVC, animated: true, completion: nil)
-            } else {
-                print("Could not instantiate WelcomeViewController from storyboard.")
-            }
+        } else {
+            print("User not signed in")
+            // Additional code if needed for when the user is not signed in
         }
     }
 
 }
+
 
 extension LoginViewController {
     func loginButton(_ button: LoginButton, didSucceedLogin loginResult: LoginResult) {
