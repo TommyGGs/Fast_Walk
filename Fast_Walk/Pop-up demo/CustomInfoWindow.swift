@@ -12,16 +12,30 @@ class CustomInfoWindow: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var snippetLabel: UILabel!
     @IBOutlet weak var pictureView: UIImageView!
-    
     @IBOutlet weak var contentView: UIView!
+    @IBOutlet var heart: UIButton!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.isUserInteractionEnabled = true
+        heart.isUserInteractionEnabled = true
         commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.isUserInteractionEnabled = true
         commonInit()
+    }
+    
+    
+    @IBAction func likeLocation(){
+        if let heartButton = heart {
+            print("clicked")
+            heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            print("Heart button is nil")
+        }
     }
     
     private func commonInit() {

@@ -215,6 +215,7 @@
 		E212929F2B16E61400796BE5 /* Fast_Walk */ = {
 			isa = PBXGroup;
 			children = (
+				E22FE3B22B5BC33F00DC8D0C /* User Data */,
 				E25A7B7A2B47C41F00BC2C9B /* Route */,
 				8291C57B2B47A0D20058AE71 /* Login */,
 				31E7A29C2B43E1E40091BCF0 /* Fast_Walk.entitlements */,
@@ -228,12 +229,19 @@
 				31E7A2972B43DF460091BCF0 /* HealthKit demo */,
 				E21292AE2B16E61D00796BE5 /* Info.plist */,
 				8291C5912B47A48F0058AE71 /* Assets */,
-				E22AA3FC2B5A8BC200AE06BD /* User.swift */,
-				E22AA3FE2B5A973400AE06BD /* UserTableViewCell.swift */,
-				E22AA3FF2B5A973400AE06BD /* UserTableViewCell.xib */,
-				E22AA4022B5B93C600AE06BD /* UserViewController.swift */,
 			);
 			path = Fast_Walk;
+			sourceTree = "<group>";
+		};
+		E22FE3B22B5BC33F00DC8D0C /* User Data */ = {
+			isa = PBXGroup;
+			children = (
+				E22AA3FC2B5A8BC200AE06BD /* User.swift */,
+				E22AA4022B5B93C600AE06BD /* UserViewController.swift */,
+				E22AA3FE2B5A973400AE06BD /* UserTableViewCell.swift */,
+				E22AA3FF2B5A973400AE06BD /* UserTableViewCell.xib */,
+			);
+			path = "User Data";
 			sourceTree = "<group>";
 		};
 		E25A7B7A2B47C41F00BC2C9B /* Route */ = {
