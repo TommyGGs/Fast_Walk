@@ -20,31 +20,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-                // Create a UIView for the rectangle
-                let rectangleView = UIView()
-
-                // Set the frame for the rectangle (adjust the values as needed)
-                let rectangleFrame = CGRect(x: 20, y: 270, width: 350, height: 220)
-                rectangleView.frame = rectangleFrame
-
-                // Set the corner radius for rounded corners
-                rectangleView.layer.cornerRadius = 18
-
-                // Set the background color to clear (no filled color)
-                rectangleView.backgroundColor = UIColor.clear
-
-                // Set the border color (E8E8E8 with 39% transparency)
-                rectangleView.layer.borderColor = UIColor(red: 0xE8/255.0, green: 0xE8/255.0, blue: 0xE8/255.0, alpha: 0.39).cgColor
-
-                // Set the border width
-                rectangleView.layer.borderWidth = 1.0
-
-                // Add the rectangle to the view
-                view.addSubview(rectangleView)
-
-        users = readUsers()
-
+        
         // Create a custom button for LINE login
         let customLineButton = UIButton(type: .custom)
         customLineButton.setTitle("LINEでログイン", for: .normal) // Set the text
@@ -178,20 +154,39 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                 print("Error logging in: \(error?.localizedDescription ?? "")")
                 return
             }
-
-            if signInResult != nil {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
-                    welcomeVC.modalPresentationStyle = .fullScreen
-                    self.present(welcomeVC, animated: true, completion: nil)
-                } else {
-                    print("Could not instantiate WelcomeViewController from storyboard.")
+            
+            guard let signInResult = signInResult else{
+                print("no google user")
+                return
+            }
+            
+            let profile = signInResult.user
+            for user in self.users {
+                if user.name == profile.profile?.name {
+                    self.userExist = true
+                    print("user already exist")
+                    return
                 }
+            }
+            if self.userExist == false {
+              let user = User()
+                user.email = profile.profile?.email ?? ""
+                user.name = profile.profile?.name ?? ""
+                user.signinMethod = "Google"
+                user.userID = profile.userID ?? ""
+                print("trying to line create user")
+                self.createUser(user: user)
+            }
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
+                welcomeVC.modalPresentationStyle = .fullScreen
+                self.present(welcomeVC, animated: true, completion: nil)
+            } else {
+                print("Could not instantiate WelcomeViewController from storyboard.")
             }
         }
     }
-    
-    
 
 }
 

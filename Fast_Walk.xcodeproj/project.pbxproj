@@ -23,6 +23,7 @@
 		824332A02B3991FB00D24094 /* randomWayPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243329F2B3991FB00D24094 /* randomWayPoint.swift */; };
 		824332A42B3AA8FA00D24094 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824332A32B3AA8FA00D24094 /* DemoViewController.swift */; };
 		824332A62B3AA95000D24094 /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824332A52B3AA95000D24094 /* CustomInfoWindow.swift */; };
+		825536102B5D3F50009E4D03 /* NotoSansJP-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8255360F2B5D3F50009E4D03 /* NotoSansJP-Bold.ttf */; };
 		826DEC1F2B35949300C0157F /* WayPointGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826DEC1E2B35949300C0157F /* WayPointGeneration.swift */; };
 		826DEC222B359E7A00C0157F /* CreateMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826DEC212B359E7A00C0157F /* CreateMarker.swift */; };
 		828C32CF2B343367000C3F7F /* PlaceDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828C32CE2B343367000C3F7F /* PlaceDetails.xib */; };
@@ -41,7 +42,6 @@
 		E0AE6E952B5D1ED7005B31A9 /* NotoSansJP-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0AE6E8D2B5D1ED7005B31A9 /* NotoSansJP-Medium.ttf */; };
 		E0AE6E962B5D1ED7005B31A9 /* NotoSansJP-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0AE6E8E2B5D1ED7005B31A9 /* NotoSansJP-ExtraBold.ttf */; };
 		E0AE6E982B5D1F21005B31A9 /* NotoSansJP-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0AE6E972B5D1F21005B31A9 /* NotoSansJP-Light.ttf */; };
-		E0AE6E9A2B5D1FFD005B31A9 /* NotoSansJP-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0AE6E992B5D1FFD005B31A9 /* NotoSansJP-Bold.ttf */; };
 		E0AE6E9C2B5D200C005B31A9 /* NotoSansJP-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0AE6E9B2B5D200C005B31A9 /* NotoSansJP-Regular.ttf */; };
 		E21292A32B16E61400796BE5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21292A22B16E61400796BE5 /* SceneDelegate.swift */; };
 		E21292AD2B16E61D00796BE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */; };
@@ -82,6 +82,7 @@
 		8243329F2B3991FB00D24094 /* randomWayPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = randomWayPoint.swift; sourceTree = "<group>"; };
 		824332A32B3AA8FA00D24094 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		824332A52B3AA95000D24094 /* CustomInfoWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
+		8255360F2B5D3F50009E4D03 /* NotoSansJP-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-Bold.ttf"; sourceTree = "<group>"; };
 		826DEC1E2B35949300C0157F /* WayPointGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WayPointGeneration.swift; sourceTree = "<group>"; };
 		826DEC212B359E7A00C0157F /* CreateMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMarker.swift; sourceTree = "<group>"; };
 		828C32CE2B343367000C3F7F /* PlaceDetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceDetails.xib; sourceTree = "<group>"; };
@@ -103,8 +104,7 @@
 		E0AE6E8D2B5D1ED7005B31A9 /* NotoSansJP-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-Medium.ttf"; sourceTree = "<group>"; };
 		E0AE6E8E2B5D1ED7005B31A9 /* NotoSansJP-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-ExtraBold.ttf"; sourceTree = "<group>"; };
 		E0AE6E972B5D1F21005B31A9 /* NotoSansJP-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-Light.ttf"; sourceTree = "<group>"; };
-		E0AE6E992B5D1FFD005B31A9 /* NotoSansJP-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansJP-Bold.ttf"; path = "../../../../Downloads/Noto/static/NotoSansJP-Bold.ttf"; sourceTree = "<group>"; };
-		E0AE6E9B2B5D200C005B31A9 /* NotoSansJP-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansJP-Regular.ttf"; path = "../../../../Downloads/Noto/static/NotoSansJP-Regular.ttf"; sourceTree = "<group>"; };
+		E0AE6E9B2B5D200C005B31A9 /* NotoSansJP-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-Regular.ttf"; sourceTree = "<group>"; };
 		E212929D2B16E61400796BE5 /* Fast_Walk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fast_Walk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E21292A22B16E61400796BE5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E21292AC2B16E61D00796BE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -188,8 +188,8 @@
 		8291C5912B47A48F0058AE71 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				E0AE6E992B5D1FFD005B31A9 /* NotoSansJP-Bold.ttf */,
 				E0AE6E8E2B5D1ED7005B31A9 /* NotoSansJP-ExtraBold.ttf */,
+				8255360F2B5D3F50009E4D03 /* NotoSansJP-Bold.ttf */,
 				E0AE6E872B5D1ED6005B31A9 /* NotoSansJP-ExtraLight.ttf */,
 				E0AE6E972B5D1F21005B31A9 /* NotoSansJP-Light.ttf */,
 				E0AE6E8D2B5D1ED7005B31A9 /* NotoSansJP-Medium.ttf */,
@@ -353,11 +353,11 @@
 				E0AE6E9C2B5D200C005B31A9 /* NotoSansJP-Regular.ttf in Resources */,
 				31E7A29B2B43E0600091BCF0 /* HealthKitDemo.storyboard in Resources */,
 				E22AA4012B5A973400AE06BD /* UserTableViewCell.xib in Resources */,
+				825536102B5D3F50009E4D03 /* NotoSansJP-Bold.ttf in Resources */,
 				828C32CF2B343367000C3F7F /* PlaceDetails.xib in Resources */,
 				E0AE6E8F2B5D1ED7005B31A9 /* NotoSansJP-ExtraLight.ttf in Resources */,
 				8291C5902B47A47B0058AE71 /* Assets.xcassets 11-42-14-782.xcassets in Resources */,
 				E0AE6E962B5D1ED7005B31A9 /* NotoSansJP-ExtraBold.ttf in Resources */,
-				E0AE6E9A2B5D1FFD005B31A9 /* NotoSansJP-Bold.ttf in Resources */,
 				E0AE6E922B5D1ED7005B31A9 /* NotoSansJP-Thin.ttf in Resources */,
 				E0AE6E982B5D1F21005B31A9 /* NotoSansJP-Light.ttf in Resources */,
 				E21292AD2B16E61D00796BE5 /* LaunchScreen.storyboard in Resources */,

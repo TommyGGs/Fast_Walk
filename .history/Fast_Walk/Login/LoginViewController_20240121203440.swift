@@ -191,10 +191,23 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         }
     }
     
-    
+    func userState() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        if GIDSignIn.sharedInstance.currentUser != nil {
+            print("User already signed in")
+
+            if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
+                mainNavController.modalPresentationStyle = .fullScreen
+                self.present(mainNavController, animated: true, completion: nil)
+            }
+        } else {
+            print("User not signed in")
+            // Additional code if needed for when the user is not signed in
+        }
+    }
 
 }
-
 
 extension LoginViewController {
     func loginButton(_ button: LoginButton, didSucceedLogin loginResult: LoginResult) {

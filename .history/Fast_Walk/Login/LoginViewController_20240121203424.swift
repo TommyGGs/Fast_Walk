@@ -178,20 +178,39 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                 print("Error logging in: \(error?.localizedDescription ?? "")")
                 return
             }
-
-            if signInResult != nil {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
-                    welcomeVC.modalPresentationStyle = .fullScreen
-                    self.present(welcomeVC, animated: true, completion: nil)
-                } else {
-                    print("Could not instantiate WelcomeViewController from storyboard.")
+            
+            guard let signInResult = signInResult else{
+                print("no google user")
+                return
+            }
+            
+            let profile = signInResult.user
+            for user in self.users {
+                if user.name == profile.profile?.name {
+                    self.userExist = true
+                    print("user already exist")
+                    return
                 }
+            }
+            if self.userExist == false {
+              let user = User()
+                user.email = profile.profile?.email ?? ""
+                user.name = profile.profile?.name ?? ""
+                user.signinMethod = "Google"
+                user.userID = profile.userID ?? ""
+                print("trying to line create user")
+                self.createUser(user: user)
+            }
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
+                welcomeVC.modalPresentationStyle = .fullScreen
+                self.present(welcomeVC, animated: true, completion: nil)
+            } else {
+                print("Could not instantiate WelcomeViewController from storyboard.")
             }
         }
     }
-    
-    
 
 }
 
