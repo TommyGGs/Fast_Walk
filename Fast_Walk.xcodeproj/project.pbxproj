@@ -95,8 +95,8 @@
 		E0AE6E8D2B5D1ED7005B31A9 /* NotoSansJP-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-Medium.ttf"; sourceTree = "<group>"; };
 		E0AE6E8E2B5D1ED7005B31A9 /* NotoSansJP-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-ExtraBold.ttf"; sourceTree = "<group>"; };
 		E0AE6E972B5D1F21005B31A9 /* NotoSansJP-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-Light.ttf"; sourceTree = "<group>"; };
-		E0AE6E992B5D1FFD005B31A9 /* NotoSansJP-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansJP-Bold.ttf"; path = "../../../../Downloads/Noto/static/NotoSansJP-Bold.ttf"; sourceTree = "<group>"; };
-		E0AE6E9B2B5D200C005B31A9 /* NotoSansJP-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansJP-Regular.ttf"; path = "../../../../Downloads/Noto/static/NotoSansJP-Regular.ttf"; sourceTree = "<group>"; };
+		E0AE6E992B5D1FFD005B31A9 /* NotoSansJP-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansJP-Bold.ttf"; path = "../../../../Downloads/NotoSansJP-Bold.ttf"; sourceTree = "<group>"; };
+		E0AE6E9B2B5D200C005B31A9 /* NotoSansJP-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NotoSansJP-Regular.ttf"; path = "../../../../Downloads/NotoSansJP-Regular.ttf"; sourceTree = "<group>"; };
 		E212929D2B16E61400796BE5 /* Fast_Walk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fast_Walk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E21292A22B16E61400796BE5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E21292AC2B16E61D00796BE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };

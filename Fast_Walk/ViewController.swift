@@ -24,7 +24,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var wayPointGeneration = WayPointGeneration()
     var randomwaypoint: randomWayPoint!
     var window: UIWindow?
-
+    
     
     private var placesClient: GMSPlacesClient! //For Places marker
     
@@ -39,7 +39,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         fetchLineUserInfo()
         setupStyle()
         print("passed")
+        let navView = UIView()
+        navView.backgroundColor = UIColor.lightGray
+        navView.layer.cornerRadius = 2
+        view.addSubview(navView)
+
+        // Create a heart button
+        let heartButton = UIButton(type: .system)
+        let heartSize: CGFloat = 30  // Set the size of the heart button
+        let buttonX = navView.bounds.width - heartSize - 10
+        let buttonY: CGFloat = 10
+        let buttonFrame = CGRect(x: buttonX, y: buttonY, width: heartSize, height: heartSize)
+        heartButton.frame = buttonFrame
+        heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        navView.addSubview(heartButton)
+
+        // Send navView to the back
+        view.sendSubviewToBack(navView)
     }
+    
     
     func setupMapView() {
         let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 10.0)
@@ -51,7 +69,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         mapContainerView.addSubview(mapView!)
         beginLocationUpdate()
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         beginLocationUpdate()
     }
@@ -138,11 +156,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                     }
                 }
                 
-//                let waypointMarker = GMSMarker()
-//                waypointMarker.position = placeInfo!.coordinate
-//                waypointMarker.title = placeInfo!.name
-//                waypointMarker.map = self.mapView
-//                waypointMarker.icon = GMSMarker.markerImage(with: .blue)
+                //                let waypointMarker = GMSMarker()
+                //                waypointMarker.position = placeInfo!.coordinate
+                //                waypointMarker.title = placeInfo!.name
+                //                waypointMarker.map = self.mapView
+                //                waypointMarker.icon = GMSMarker.markerImage(with: .blue)
             }
             self.requestRoute(from: start, waypoints: placeInfos.map(\.!.coordinate)) { polyString, duration in
                 let durationInMinutes = duration / 60
@@ -279,20 +297,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     @IBAction func signOut(sender: Any) {
         
-      GIDSignIn.sharedInstance.signOut()
-    LoginManager.shared.logout { result in
-        switch result {
-        case .success:
-            print("Logout from LINE")
-        case .failure(let error):
-            print(error)
+        GIDSignIn.sharedInstance.signOut()
+        LoginManager.shared.logout { result in
+            switch result {
+            case .success:
+                print("Logout from LINE")
+            case .failure(let error):
+                print(error)
+            }
         }
-    }
         
-      let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-      loginVC.modalPresentationStyle = .fullScreen  // Ensuring it covers the full screen
-      self.present(loginVC, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        loginVC.modalPresentationStyle = .fullScreen  // Ensuring it covers the full screen
+        self.present(loginVC, animated: true, completion: nil)
     }
     
     func fetchGoogleUserInfo() {
@@ -303,7 +321,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             print("User is not signed in.")
             window = UIWindow(frame: UIScreen.main.bounds)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-
+            
             let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
             loginVC.modalPresentationStyle = .fullScreen
             self.window?.rootViewController = loginVC
@@ -333,8 +351,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             }
         }
     }
-
-
+    
+    
     func updateProfileInfo(user: GIDGoogleUser) {
         // Assuming you want the profile image URL
         if let imageUrl = user.profile?.imageURL(withDimension: 80) {
@@ -349,7 +367,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             }
         }
     }
-
+    
     
     func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
         let urlNS = url as NSURL
@@ -357,20 +375,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             completion(cachedImage)
             return
         }
-
+        
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error downloading image: \(error)")
                 completion(nil)
                 return
             }
-
+            
             guard let data = data, let image = UIImage(data: data) else {
                 print("Failed to convert data to image.")
                 completion(nil)
                 return
             }
-
+            
             ImageCache.setImage(url: urlNS, image: image)
             completion(image)
         }.resume()
@@ -382,23 +400,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         infoWindow.titleLabel.text = marker.title
         infoWindow.snippetLabel.text = marker.snippet
         
-       
+        
         
         if let metaData = marker.userData as? GMSPlacePhotoMetadata {
-                print("Userdata is valid")
+            print("Userdata is valid")
             self.marker.loadPhoto(metaData) { photo in
-                    if let photo = photo {
-                        DispatchQueue.main.async {
-                            marker.tracksInfoWindowChanges = true
-                            infoWindow.pictureView.image = photo
-                            marker.tracksInfoWindowChanges = false
-                        }
+                if let photo = photo {
+                    DispatchQueue.main.async {
+                        marker.tracksInfoWindowChanges = true
+                        infoWindow.pictureView.image = photo
+                        marker.tracksInfoWindowChanges = false
                     }
                 }
             }
+        }
         //animate
         
-            return infoWindow
+        return infoWindow
     }
     func setupStyle() {
         navigationView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8272664657)
@@ -413,4 +431,5 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         a.layer.borderColor = #colorLiteral(red: 0.5058823529, green: 0.6274509804, blue: 0.9098039216, alpha: 1)
         a.layer.cornerRadius = a.frame.width / 2
     }
+    
 }
