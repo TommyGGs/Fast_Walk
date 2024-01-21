@@ -19,7 +19,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                 let rectangleView = UIView()
 
                 // Set the frame for the rectangle (adjust the values as needed)
-                let rectangleFrame = CGRect(x: 20, y: 250, width: 350, height: 250)
+                let rectangleFrame = CGRect(x: 20, y: 270, width: 350, height: 220)
                 rectangleView.frame = rectangleFrame
 
                 // Set the corner radius for rounded corners
@@ -41,14 +41,21 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         let customLineButton = UIButton(type: .custom)
         customLineButton.setTitle("LINEでログイン", for: .normal) // Set the text
         
+        // Set the custom font
+               if let customFont = UIFont(name: "NotoSansJP-Regular.ttf", size: 17.0) {
+                   customLineButton.titleLabel?.font = customFont
+               } else {
+                   print("Font not available")
+               }
+        
         // Add button to view and layout it
         view.addSubview(customLineButton)
         customLineButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             customLineButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            customLineButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20), // Moves the button higher up
-            customLineButton.widthAnchor.constraint(equalToConstant: 233.5), // Wider button
-            customLineButton.heightAnchor.constraint(equalToConstant: 40) // Taller button
+            customLineButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -10), // Moves the button higher up
+            customLineButton.widthAnchor.constraint(equalToConstant: 240), // Wider button
+            customLineButton.heightAnchor.constraint(equalToConstant: 50) // Taller button
         ])
         
         // Set the images for different button states after adding the button to the view

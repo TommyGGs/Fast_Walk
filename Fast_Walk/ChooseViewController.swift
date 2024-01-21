@@ -49,7 +49,24 @@ class ChooseViewController: UIViewController{
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.8)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.0)
         
-        // Add the gradient layer to your view's layer
-        view.layer.insertSublayer(gradientLayer, at: 0)
+            // Add the gradient layer to your view's layer
+            view.layer.insertSublayer(gradientLayer, at: 0)
+            
+            // Set the thickness of the line
+            let lineWidth: CGFloat = 2.0
+            
+            // Create a UIView for the line
+            let lineView = UIView()
+            lineView.backgroundColor = UIColor.white.withAlphaComponent(0.21) // White with 21% transparency
+            lineView.frame = CGRect(x: 190, y: 490, width: lineWidth, height: 59)
+
+            // Rotate the line to be vertical
+            let rotationAngle = CGFloat.pi / 2.0
+                    lineView.transform = CGAffineTransform(rotationAngle: rotationAngle)
+            
+            // Add the line to the view controller's view
+            view.addSubview(lineView)
     }
+    
 }
+
