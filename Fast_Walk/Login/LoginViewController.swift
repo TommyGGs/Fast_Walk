@@ -14,37 +14,24 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     
     var users: [User] = []
     var userExist: Bool = false
-//    var userChecked: Bool = false
     let realm = try! Realm()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-                // Create a UIView for the rectangle
-                let rectangleView = UIView()
-
-                // Set the frame for the rectangle (adjust the values as needed)
-                let rectangleFrame = CGRect(x: 20, y: 270, width: 350, height: 220)
-                rectangleView.frame = rectangleFrame
-
-                // Set the corner radius for rounded corners
-                rectangleView.layer.cornerRadius = 18
-
-                // Set the background color to clear (no filled color)
-                rectangleView.backgroundColor = UIColor.clear
-
-                // Set the border color (E8E8E8 with 39% transparency)
-                rectangleView.layer.borderColor = UIColor(red: 0xE8/255.0, green: 0xE8/255.0, blue: 0xE8/255.0, alpha: 0.39).cgColor
-
-                // Set the border width
-                rectangleView.layer.borderWidth = 1.0
-
-                // Add the rectangle to the view
-                view.addSubview(rectangleView)
-        view.sendSubviewToBack(rectangleView)
         users = readUsers()
+        rectangleView()
+        lineButton()
+        setGradientBackground()
+    }
 
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        userState()
+    }
+    
+    func lineButton() {
         // Create a custom button for LINE login
         let customLineButton = UIButton(type: .custom)
         customLineButton.setTitle("LINEでログイン", for: .normal) // Set the text
@@ -96,14 +83,30 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         }
         
         customLineButton.addTarget(self, action: #selector(loginWithLine), for: .touchUpInside)
-       
-        super.viewDidLoad()
-        setGradientBackground()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        userState()
+    func rectangleView() {
+        // Create a UIView for the rectangle
+        let rectangleView = UIView()
+
+        // Set the frame for the rectangle (adjust the values as needed)
+        let rectangleFrame = CGRect(x: 20, y: 270, width: 350, height: 220)
+        rectangleView.frame = rectangleFrame
+
+        // Set the corner radius for rounded corners
+        rectangleView.layer.cornerRadius = 18
+
+        // Set the background color to clear (no filled color)
+        rectangleView.backgroundColor = UIColor.clear
+
+        // Set the border color (E8E8E8 with 39% transparency)
+        rectangleView.layer.borderColor = UIColor(red: 0xE8/255.0, green: 0xE8/255.0, blue: 0xE8/255.0, alpha: 0.39).cgColor
+
+        // Set the border width
+        rectangleView.layer.borderWidth = 1.0
+
+        // Add the rectangle to the view
+        view.insertSubview(rectangleView, at: 0)
     }
     
     func userState() {
@@ -173,6 +176,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
 
     
     @IBAction func signIn(sender: Any) {
+        print("clicked google signin")
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
             guard error == nil else {
                 print("Error logging in: \(error?.localizedDescription ?? "")")

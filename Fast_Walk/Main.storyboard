@@ -104,11 +104,8 @@
                                 <rect key="frame" x="74" y="316" width="243" height="129"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" button="YES"/>
-                                </accessibility>
                                 <connections>
-                                    <action selector="signInSender:" destination="1ru-YU-8Mr" eventType="valueChanged" id="4jv-kT-6fe"/>
+                                    <action selector="signInSender:" destination="1ru-YU-8Mr" eventType="touchUpInside" id="KXl-am-2oL"/>
                                 </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ログイン" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Vp-Ol-U0Q">
@@ -205,7 +202,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b8Z-oG-ODK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1591" y="-798"/>
+            <point key="canvasLocation" x="1634" y="-1430"/>
         </scene>
         <!--personal info view-->
         <scene sceneID="XEa-S5-vHB">
@@ -370,7 +367,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nB-cR-24s">
-                                        <rect key="frame" x="285" y="29.666666666666632" width="75" height="40.333333333333343"/>
+                                        <rect key="frame" x="285" y="35.666666666666629" width="75" height="34.333333333333343"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Places"/>
                                         <connections>
@@ -378,7 +375,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYH-ZJ-x8w">
-                                        <rect key="frame" x="30" y="29.666666666666632" width="78" height="40.333333333333343"/>
+                                        <rect key="frame" x="30" y="35.666666666666629" width="78" height="34.333333333333343"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Logout"/>
                                         <connections>
@@ -538,6 +535,23 @@
                                     <segue destination="n7d-qZ-gcw" kind="show" id="1As-vi-Hs6"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiZ-eu-WYS">
+                                <rect key="frame" x="102" y="778" width="51" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system" title=""/>
+                                <connections>
+                                    <action selector="likeLocation" destination="5Oe-OB-C1X" eventType="touchUpInside" id="OgJ-3n-LDp"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="スポットを保存する" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnQ-JT-iKX">
+                                <rect key="frame" x="144" y="785" width="144" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qdJ-BB-eZ2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -561,6 +575,7 @@
                     <connections>
                         <outlet property="currentMode" destination="Gvk-Im-cVz" id="UmW-uV-Ggr"/>
                         <outlet property="currentTime" destination="14s-Rl-VrW" id="Ygh-u0-Kr1"/>
+                        <outlet property="heartBtn" destination="IiZ-eu-WYS" id="sef-Im-ZSj"/>
                         <outlet property="mapContainerView" destination="nsc-rK-tJr" id="YXa-Kw-cQW"/>
                         <outlet property="nextMode" destination="drO-cs-iXw" id="aFD-l9-NkG"/>
                         <outlet property="stepsLabel" destination="qiU-10-KHL" id="LvH-32-Tgb"/>
@@ -774,7 +789,7 @@
                 <navigationController storyboardIdentifier="MainNavigationController" title="Hello" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hTy-OS-LMY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="rvG-f0-TI8">
-                        <rect key="frame" x="0.0" y="47" width="390" height="97"/>
+                        <rect key="frame" x="0.0" y="47" width="390" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <navigationBarAppearance key="standardAppearance"/>
                     </navigationBar>
@@ -799,11 +814,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="1As-vi-Hs6"/>
         <segue reference="Jyg-pS-Qog"/>
         <segue reference="a36-K0-U9a"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="google.png" width="18" height="18"/>
+        <image name="heart" catalog="system" width="128" height="107"/>
         <image name="playpause.fill" catalog="system" width="128" height="69"/>
         <image name="stop.circle.fill" catalog="system" width="128" height="123"/>
         <namedColor name="AccentColor">

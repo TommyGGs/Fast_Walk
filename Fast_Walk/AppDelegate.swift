@@ -16,8 +16,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSPlacesClient.provideAPIKey("AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc")
         LoginManager.shared.setup(channelID: "2002641031", universalLinkURL: nil)
         
-        let config = Realm.Configuration(schemaVersion: 1)
-        Realm.Configuration.defaultConfiguration = config
+        Realm.Configuration.defaultConfiguration = Realm.Configuration(
+            schemaVersion: 2, // Increment whenever schema changes
+            migrationBlock: { migration, oldSchemaVersion in
+                if oldSchemaVersion < 1 {
+                    // Migrate from 'xCoordinate' and 'yCoordinate' to 'latitude' and 'longitude'
+                    migration.enumerateObjects(ofType: FavoriteSpot.className()) { oldObject, newObject in
+                        let xCoordinate = oldObject!["xCoordinate"] as! Double
+                        let yCoordinate = oldObject!["yCoordinate"] as! Double
+                        newObject!["latitude"] = xCoordinate
+                        newObject!["longitude"] = yCoordinate
+                    }
+                }
+            },
+            deleteRealmIfMigrationNeeded: false // Set to true to delete the realm if migration is not possible
+        )
 
         return true
     }

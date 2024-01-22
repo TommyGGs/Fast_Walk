@@ -1,54 +1,71 @@
 import UIKit
 import GoogleMaps
 import CoreLocation
+import GooglePlaces
+import RealmSwift
+import GoogleSignIn
+import LineSDK
 
-class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegate {
-    
+
+class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegate,  GMSMapViewDelegate {
     @IBOutlet weak var mapContainerView: UIView!
     @IBOutlet var currentMode: UILabel!
     @IBOutlet var currentTime: UILabel!
     @IBOutlet var nextMode: UILabel!
-    //countdown
+    @IBOutlet var heartBtn: UIButton!
+    var waypoints: [GMSPlace] = []
     var overlayView: UIView!
     var countdownLabel: UILabel!
-    //countdown
     var routeDetails: RouteDetails?
     var mapView: GMSMapView?
-    
-    
+    var marker = Marker()
     var mode: String = "slow"
     var timer: Timer!
     var countdown: Int = 0
     var start: String = "start"
     var totalSeconds = 0
-    
     var locationManager = CLLocationManager()
     var currentLocation: CLLocationCoordinate2D?
+    var favorites: [FavoriteSpot] = []
+    var currentUser: User = User()
+    var currentSpot: CLLocationCoordinate2D = CLLocationCoordinate2D()
+    var userID: String = ""
     
-    
-    
+    let realm = try! Realm()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        currentUser = readUsers()
+
         locationManager.delegate = self
         beginLocationUpdate() // Start location updates
         
         if let routeDetails = routeDetails {
             setupAndDisplayRouteOnMap(routeDetails: routeDetails)
         }
-        
         modeSwitch()
         configureLocationManager()
-        
         setupCircularProgressView()
-        //setup timer circle view shape.
+        setUpTimerView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let routeDetails = routeDetails {
+            setupAndDisplayRouteOnMap(routeDetails: routeDetails)
+            for waypoint in waypoints {
+                self.marker.addMarker(waypoint, self.mapView)
+            }
+        }
+        startCountdown()
+    }
+    
+    func setUpTimerView() {
         currentTime.layer.backgroundColor = UIColor.white.cgColor
         currentTime.layer.borderWidth = 8
         currentTime.layer.borderColor = UIColor.systemBlue.cgColor
         currentTime.textColor = .systemBlue
         currentTime.layer.cornerRadius = currentTime.frame.size.height / 2
-        
-        //countdown animation
         overlayView = UIView(frame: view.bounds)
         overlayView.backgroundColor = UIColor.white.withAlphaComponent(0.5) // Half-transparent black
         overlayView.isHidden = true // Initially hidden
@@ -64,13 +81,79 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         view.addSubview(overlayView)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if let routeDetails = routeDetails {
-            setupAndDisplayRouteOnMap(routeDetails: routeDetails)
+    func checkUser() -> String{
+        if let profile = GIDSignIn.sharedInstance.currentUser {
+            guard let profileID = profile.userID else {
+                var profileID: String = ""
+                API.getProfile { result in
+                    switch result {
+                    case .success(let profile):
+                    profileID = profile.userID
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+                print("line user id\(profileID)")
+                return profileID
+            }
+            print("google user id\(profileID)")
+            return profileID
+        } else {
+            print("can't find user")
+            return("error")
         }
-        //countdown animation
-        startCountdown()
+    }
+    
+    func readUsers() -> User {
+        var users = Array(realm.objects(User.self))
+        for user in users {
+            if user.userID == checkUser() {
+                return user
+            }
+        }
+        print("error in finding userID from users, returning first user")
+        return users[0]
+    }
+    
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        print("setting up pop-up")
+        let infoWindow = CustomInfoWindow()
+        infoWindow.frame = CGRect(x:0, y:0, width: 300, height: 200)
+        infoWindow.titleLabel.text = marker.title
+        infoWindow.snippetLabel.text = marker.snippet
+        currentSpot = marker.position
+        
+        if let photo = marker.userData as? UIImage {
+                print("Userdata is valid")
+            DispatchQueue.main.async {
+                marker.tracksInfoWindowChanges = true
+                infoWindow.pictureView.image = photo
+                marker.tracksInfoWindowChanges = false
+            }
+        }
+        return infoWindow
+    }
+    
+    @IBAction func likeLocation() {
+        print("button pressed")
+        if heartBtn.imageView?.image == UIImage(systemName: "heart") {
+            heartBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            
+            let fav = FavoriteSpot(coordinate: currentSpot)
+            fav.userName = currentUser.name
+            fav.userID = currentUser.userID
+            favorites.append(fav)
+            print("fav appended")
+        } else {
+            heartBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+    }
+    
+    func createFavorites(favorite: FavoriteSpot) {
+        try! realm.write{
+            realm.add(favorite)
+            print("favorite create succeeded")
+        }
     }
     
     @IBAction func startTimer() {
@@ -93,9 +176,12 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         if timer != nil{
             timer.invalidate()
         }
-        
-        
-        
+        try! realm.write{
+            for favorite in favorites {
+                realm.add(favorite)
+                print("favorites create succeeded")
+            }
+        }
     }
     
     func startTimer(resume: Bool)  {
@@ -161,13 +247,14 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     
     func setupAndDisplayRouteOnMap(routeDetails: RouteDetails) {
-        // Set up the map view with the start coordinate of the route
+        
         let camera = GMSCameraPosition.camera(withLatitude: routeDetails.startCoordinate.latitude,
                                               longitude: routeDetails.startCoordinate.longitude,
                                               zoom: 10.0)
         mapView = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
         mapView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapContainerView.addSubview(mapView!)
+        mapView?.delegate = self
         
         // Display the route
         
@@ -252,7 +339,5 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             }
         }
     }
-    
-    
 }
 

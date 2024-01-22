@@ -6,6 +6,8 @@ import GoogleSignIn
 import LineSDK
 import RealmSwift
 
+
+
 class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var mapContainerView: UIView!
     @IBOutlet weak var profilePic: UIButton!
@@ -15,6 +17,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     @IBOutlet weak var button60: UIButton!
     @IBOutlet weak var button90: UIButton!
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet var heart: UIButton!
     var locationManager = CLLocationManager()
     var mapView: GMSMapView? //static throughout scope of entire program
     var currentLocation: CLLocationCoordinate2D?
@@ -25,6 +28,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var wayPointGeneration = WayPointGeneration()
     var randomwaypoint: randomWayPoint!
     var window: UIWindow?
+    var passWaypoint: [GMSPlace] = []
+
         
     private var placesClient: GMSPlacesClient! //For Places marker
     
@@ -40,6 +45,35 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         setupStyle()
         print("passed")
     }
+    
+    @IBAction func likeLocation() {
+        print("pressed heart")
+        heart.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+    }
+    
+    func errorLabel(){
+        let labelWidth: CGFloat = 250
+        let labelHeight: CGFloat = 50
+
+        // Assuming this code is inside a ViewController method
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+
+        let labelX = (screenWidth / 2) - (labelWidth / 2)
+//        let labelY = screenHeight * 0.5
+
+        let myLabel = UILabel(frame: CGRect(x: labelX, y: 55, width: labelWidth, height: labelHeight))
+        myLabel.text = "散歩時間を設定してください"
+        myLabel.textAlignment = .center
+        myLabel.backgroundColor = .red // For visibility
+        myLabel.textColor = .white
+        myLabel.layer.cornerRadius = 10
+        myLabel.layer.masksToBounds = true
+        myLabel.alpha = 0.8
+
+        view.addSubview(myLabel)
+    }
+    
     
     
     func setupMapView() {
@@ -102,8 +136,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         if storedRouteDetails != nil {
             performSegue(withIdentifier: "showRoute", sender: self)
         } else {
-            print("No route available to use")
-            performSegue(withIdentifier: "showRoute", sender: self)
+            errorLabel()
         }
     }
     
@@ -138,13 +171,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                     DispatchQueue.main.async{
                         self.marker.addMarker(placeInfo, self.mapView)
                     }
+                    self.passWaypoint.append(placeInfo)
                 }
-                
-//                let waypointMarker = GMSMarker()
-//                waypointMarker.position = placeInfo!.coordinate
-//                waypointMarker.title = placeInfo!.name
-//                waypointMarker.map = self.mapView
-//                waypointMarker.icon = GMSMarker.markerImage(with: .blue)
             }
             self.requestRoute(from: start, waypoints: placeInfos.map(\.!.coordinate)) { polyString, duration in
                 let durationInMinutes = duration / 60
@@ -274,11 +302,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showRoute", let destinationVC = segue.destination as? RouteViewController {
+        if segue.identifier == "showRoute",
+           let destinationVC = segue.destination as? RouteViewController,
+           let _ = storedRouteDetails {
             destinationVC.routeDetails = storedRouteDetails
+            // Assuming storedRouteDetails has the waypoints
+            print("passed waypoint")
+            destinationVC.waypoints = passWaypoint
+            // Replace with actual way to access waypoints
         }
     }
-    
     @IBAction func signOut(sender: Any) {
         
       GIDSignIn.sharedInstance.signOut()

@@ -17,7 +17,6 @@ class WaitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Call the functions to set up the gradient layer and add the image view
         setGradientBackground()
         addImageView()
     }
