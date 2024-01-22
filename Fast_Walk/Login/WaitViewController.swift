@@ -16,7 +16,6 @@ class WaitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setGradientBackground()
         addImageView()
     }
@@ -34,19 +33,23 @@ class WaitViewController: UIViewController {
             print("User already signed in with Google")
             presentMainNavigationController()
             return
+        } else if let token = AccessTokenStore.shared.current {
+            print("user already logged in with Line" + token.value)
+            presentMainNavigationController()
+            return
         }
 
         // Check if the user is logged in with LINE
-        API.getProfile { [weak self] result in
-            switch result {
-            case .success(_):
-                print("User logged in with LINE")
-                self?.presentMainNavigationController()
-            case .failure(_):
-                print("User not logged in with LINE")
-                self?.presentChooseViewController()
-            }
-        }
+//        API.getProfile { [weak self] result in
+//            switch result {
+//            case .success(_):
+//                print("User logged in with LINE")
+//                self?.presentMainNavigationController()
+//            case .failure(_):
+//                print("User not logged in with LINE")
+//                self?.presentChooseViewController()
+//            }
+//        }
     }
 
     private func presentMainNavigationController() {
@@ -106,6 +109,7 @@ class WaitViewController: UIViewController {
     func startCountdown() {
         print("startCountdo")
         countdownTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCountdown), userInfo: nil, repeats: true)
+        checkUserState()
     }
     
     @objc func updateCountdown() {

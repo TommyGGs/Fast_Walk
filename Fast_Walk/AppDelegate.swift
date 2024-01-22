@@ -15,6 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey("AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc")
         GMSPlacesClient.provideAPIKey("AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc")
         LoginManager.shared.setup(channelID: "2002641031", universalLinkURL: nil)
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+            if error != nil || user == nil {
+                print("user not signed in with google")
+            } else {
+                print("user now signed in with google")
+            }
+        }
+        
         
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
             schemaVersion: 2, // Increment whenever schema changes
