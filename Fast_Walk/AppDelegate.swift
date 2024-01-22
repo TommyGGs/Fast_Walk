@@ -3,6 +3,7 @@ import GoogleSignIn
 import GoogleMaps
 import GooglePlaces
 import LineSDK
+import RealmSwift
 
 
 @UIApplicationMain
@@ -14,6 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey("AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc")
         GMSPlacesClient.provideAPIKey("AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc")
         LoginManager.shared.setup(channelID: "2002641031", universalLinkURL: nil)
+        
+        let config = Realm.Configuration(schemaVersion: 1)
+        Realm.Configuration.defaultConfiguration = config
 
         return true
     }

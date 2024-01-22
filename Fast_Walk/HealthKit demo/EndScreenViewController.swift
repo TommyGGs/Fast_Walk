@@ -17,26 +17,30 @@ import UIKit
 import HealthKit
 import CareKitUI
 import CareKit
+import CoreMotion
+
 
 class EndScreenViewController: UIViewController {
+    
+    
     
     
     let store = HealthAndCareKitHelp.healthStore
     var help = HealthAndCareKitHelp()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         authorizeHealthKit()
         fetchStepData() { results in
             DispatchQueue.main.async{
-                self.createChart(results)
+                self.createCharts(results)
             }
             
         }
         
-        
     }
+    
     //Authorize HealthKit
     func authorizeHealthKit() {
         guard HKHealthStore.isHealthDataAvailable() else {
@@ -84,6 +88,7 @@ class EndScreenViewController: UIViewController {
             statsCollection.enumerateStatistics(from: startDate!, to: endDate) { statistics, stop in
                 let count = statistics.sumQuantity()?.doubleValue(for: HKUnit.count()) ?? 0
                 dailySteps.append(Int(count))
+                print(Int(count)) //debug
             }
 
             completion(dailySteps)
@@ -92,24 +97,36 @@ class EndScreenViewController: UIViewController {
         store.execute(query)
     }
     
-    func createChart(_ stepsArray: [Int]) {
+    func createCharts(_ stepsArray: [Int]) {
         let series = OCKDataSeries(
                 values: stepsArray.map { CGFloat($0) },
-                title: "Steps",
+                title: "今週の歩数",
                 size: 10,
                 color: .systemBlue
             )
 
         let chartView = OCKCartesianChartView(type: .bar)
         chartView.translatesAutoresizingMaskIntoConstraints = false
-        chartView.headerView.titleLabel.text = "Steps"
-        
+        chartView.headerView.titleLabel.text = "今週の歩数"
         chartView.graphView.horizontalAxisMarkers = help.createHorizontalAxisMarkers()
-        
         chartView.graphView.dataSeries = [series]
+        chartView.headerView.iconImageView?.image = UIImage(named: "sasaka logo4.png")
+        
         view.addSubview(chartView)
-        }
+
+        NSLayoutConstraint.activate([
+            chartView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            chartView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            chartView.widthAnchor.constraint(equalTo: view.widthAnchor), // Adjust width as per requirement
+            chartView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4) // Adjust height as per requirement
+        ])
+        
+    }
     
+    
+
+    
+
     
 }
 

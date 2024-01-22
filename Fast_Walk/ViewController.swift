@@ -4,6 +4,7 @@ import CoreLocation
 import GooglePlaces
 import GoogleSignIn
 import LineSDK
+import RealmSwift
 
 class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var mapContainerView: UIView!
@@ -25,7 +26,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var randomwaypoint: randomWayPoint!
     var window: UIWindow?
     
-    
     private var placesClient: GMSPlacesClient! //For Places marker
     
     override func viewDidLoad() {
@@ -43,7 +43,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         navView.backgroundColor = UIColor.lightGray
         navView.layer.cornerRadius = 2
         view.addSubview(navView)
-
+        
         // Create a heart button
         let heartButton = UIButton(type: .system)
         let heartSize: CGFloat = 30  // Set the size of the heart button
@@ -53,7 +53,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         heartButton.frame = buttonFrame
         heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         navView.addSubview(heartButton)
-
+        
         // Send navView to the back
         view.sendSubviewToBack(navView)
     }
@@ -120,6 +120,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             performSegue(withIdentifier: "showRoute", sender: self)
         } else {
             print("No route available to use")
+            performSegue(withIdentifier: "showRoute", sender: self)
         }
     }
     
@@ -402,6 +403,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         
         
         
+
         if let metaData = marker.userData as? GMSPlacePhotoMetadata {
             print("Userdata is valid")
             self.marker.loadPhoto(metaData) { photo in
@@ -412,24 +414,43 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                         marker.tracksInfoWindowChanges = false
                     }
                 }
+   
+                if let photo = marker.userData as? UIImage {
+                    print("Userdata is valid")
+                    DispatchQueue.main.async {
+                        marker.tracksInfoWindowChanges = true
+                        infoWindow.pictureView.image = photo
+                        marker.tracksInfoWindowChanges = false
+                    }
+                    //            self.marker.loadPhoto(metaData) { photo in
+                    //                    if let photo = photo {
+                    //                        DispatchQueue.main.async {
+                    //                            marker.tracksInfoWindowChanges = true
+                    //                            infoWindow.pictureView.image = photo
+                    //                            marker.tracksInfoWindowChanges = false
+                    //                        }
+                    //                    }
+                    //                }
+                }
             }
+            //animate
+            
+            return infoWindow
         }
-        //animate
+        func setupStyle() {
+            navigationView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8272664657)
+            setupBorder(button30)
+            setupBorder(button45)
+            setupBorder(button60)
+            setupBorder(button90)
+            setupBorder(startButton)
+        }
+        func setupBorder (_ a: UIButton){
+            a.layer.borderWidth = 4
+            a.layer.borderColor = #colorLiteral(red: 0.5058823529, green: 0.6274509804, blue: 0.9098039216, alpha: 1)
+            a.layer.cornerRadius = a.frame.width / 2
+        }
         
-        return infoWindow
+        
     }
-    func setupStyle() {
-        navigationView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8272664657)
-        setupBorder(button30)
-        setupBorder(button45)
-        setupBorder(button60)
-        setupBorder(button90)
-        setupBorder(startButton)
-    }
-    func setupBorder (_ a: UIButton){
-        a.layer.borderWidth = 4
-        a.layer.borderColor = #colorLiteral(red: 0.5058823529, green: 0.6274509804, blue: 0.9098039216, alpha: 1)
-        a.layer.cornerRadius = a.frame.width / 2
-    }
-    
 }
