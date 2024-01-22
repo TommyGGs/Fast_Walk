@@ -23,6 +23,8 @@ import CoreMotion
 class EndScreenViewController: UIViewController {
     
     
+    @IBOutlet weak var chartFrame: UIView!
+    
     
     
     let store = HealthAndCareKitHelp.healthStore
@@ -112,13 +114,13 @@ class EndScreenViewController: UIViewController {
         chartView.graphView.dataSeries = [series]
         chartView.headerView.iconImageView?.image = UIImage(named: "sasaka logo4.png")
         
-        view.addSubview(chartView)
+        chartFrame.addSubview(chartView)
 
         NSLayoutConstraint.activate([
-            chartView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            chartView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            chartView.widthAnchor.constraint(equalTo: view.widthAnchor), // Adjust width as per requirement
-            chartView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4) // Adjust height as per requirement
+            chartView.centerXAnchor.constraint(equalTo: chartFrame.centerXAnchor),
+            chartView.centerYAnchor.constraint(equalTo: chartFrame.centerYAnchor),
+            chartView.widthAnchor.constraint(equalTo: chartFrame.widthAnchor), // Adjust width as per requirement
+            chartView.heightAnchor.constraint(equalTo: chartFrame.heightAnchor, multiplier: 1) // Adjust height as per requirement
         ])
         
     }

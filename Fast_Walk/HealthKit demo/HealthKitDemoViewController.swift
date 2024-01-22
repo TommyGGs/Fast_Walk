@@ -10,6 +10,7 @@ class HealthKitDemoViewController: UIViewController {
     let pedometer = CMPedometer()
     
     var totalSteps: Double = 0
+    var totalDistance: Double = 0
     let healthStore = HKHealthStore()
     var anchor: HKQueryAnchor?
     
@@ -127,16 +128,21 @@ class HealthKitDemoViewController: UIViewController {
                 }
 //printing out received data
                 print("Pedometer data received: \(pedometerData.numberOfSteps)")
-                print("Pedometer data received: \(pedometerData.distance)")
-                print("Pedometer data received: \(pedometerData.currentPace)")
-                print("Pedometer data received: \(pedometerData.currentCadence)")
+                print("Pedometer distance received: \(pedometerData.distance)")
+                print("Pedometer current pace received: \(pedometerData.currentPace)")
+                print("Pedometer current cadence received: \(pedometerData.currentCadence)")
                 
                 
                 DispatchQueue.main.async {
                     self?.stepsLabel.text = "Steps: \(pedometerData.numberOfSteps)"
                     print("UI Updated")
-                    self?.totalSteps = Double(pedometerData.numberOfSteps)
                 }
+                self?.totalSteps = Double(pedometerData.numberOfSteps)
+                
+                if let distance = pedometerData.distance{
+                    self?.totalDistance = Double(distance)
+                }
+                
             }
         } else {
             print("Step counting is not available")
@@ -168,6 +174,8 @@ class HealthKitDemoViewController: UIViewController {
 
         if let endVC = segue.destination as? EndViewController {
             endVC.receivedStepCount = self.totalSteps
+            endVC.receivedDistance = self.totalDistance
+            
         }
     }
 }

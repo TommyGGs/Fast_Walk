@@ -13,15 +13,18 @@ import CoreMotion
 class EndViewController: EndScreenViewController{
 
     let pedometer = CMPedometer()
-    @IBOutlet weak var steps: UILabel!
-    @IBOutlet weak var stepcounter: UILabel!
+    @IBOutlet weak var stepsLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
     var receivedStepCount: Double = 0
-    
+    var receivedDistance: Double = 0
     override func viewDidLoad(){
         super.viewDidLoad()
+        
         DispatchQueue.main.async{
-            self.steps.text = String(Int(self.receivedStepCount))
+            self.stepsLabel.text = String(Int(self.receivedStepCount))
+            self.distanceLabel.text = ( "距離：" + String(self.receivedDistance) + "m")
         }
+        setupLabels()
         // Do any additional setup after loading the view.
     }
     
@@ -49,7 +52,7 @@ class EndViewController: EndScreenViewController{
                 print("Pedometer data received: \(pedometerData.numberOfSteps)")
                 
                 DispatchQueue.main.async {
-                    self?.stepcounter.text = "Steps: \(pedometerData.numberOfSteps)"
+                    self?.stepsLabel.text = "Steps: \(pedometerData.numberOfSteps)"
                     print("UI Updated")
                 }
             }
@@ -59,7 +62,7 @@ class EndViewController: EndScreenViewController{
     }
 
     func updateUI(with data: CMPedometerData) {
-        stepcounter.text = "Steps: \(data.numberOfSteps)"
+        stepsLabel.text = "Steps: \(data.numberOfSteps)"
         print(data.numberOfSteps)
         // Example: Update a label with the step count
         // yourStepCountLabel.text = "Steps: \(data.numberOfSteps)"
@@ -67,6 +70,14 @@ class EndViewController: EndScreenViewController{
     
     func stopPedometerUpdates() {
         pedometer.stopUpdates()
+    }
+    
+    func setupLabels(){
+        stepsLabel.layer.cornerRadius = 20
+        distanceLabel.layer.cornerRadius = 20
+        distanceLabel.clipsToBounds = true
+        distanceLabel.clipsToBounds = true
+        
     }
 
        

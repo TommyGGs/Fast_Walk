@@ -42,7 +42,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
 
                 // Add the rectangle to the view
                 view.addSubview(rectangleView)
-
+        view.sendSubviewToBack(rectangleView)
         users = readUsers()
 
         // Create a custom button for LINE login

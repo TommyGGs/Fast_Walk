@@ -20,6 +20,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     var timer: Timer!
     var countdown: Int = 0
     var start: String = "start"
+    var totalSeconds = 0
     
     var locationManager = CLLocationManager()
     var currentLocation: CLLocationCoordinate2D?
