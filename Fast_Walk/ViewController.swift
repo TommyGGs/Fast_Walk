@@ -39,7 +39,116 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         fetchLineUserInfo()
         setupStyle()
         print("passed")
+        
+        
+        // Create a control bar
+         let controlBar = UIView()
+        controlBar.backgroundColor = UIColor(red: 173/255, green: 216/255, blue: 230/255, alpha: 0.8)
+        controlBar.layer.cornerRadius = 20 // Adjust the corner radius as needed
+        view.addSubview(controlBar)
+
+         // Add constraints to set the control bar's position and size
+         controlBar.translatesAutoresizingMaskIntoConstraints = false
+         NSLayoutConstraint.activate([
+             controlBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+             controlBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+             controlBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor), // Move to the bottom
+             controlBar.heightAnchor.constraint(equalToConstant: 50) // Adjust the height as needed
+         ])
+
+         // Create buttons for the control bar
+         let favoritesButton = createBarButton(title: "お気に入り")
+         let homeButton = createBarButton(title: "ホーム")
+         let analysisButton = createBarButton(title: "分析")
+         let accountButton = createBarButton(title: "アカウント")
+
+         // Add buttons to the control bar
+         controlBar.addSubview(favoritesButton)
+         controlBar.addSubview(homeButton)
+         controlBar.addSubview(analysisButton)
+         controlBar.addSubview(accountButton)
+
+         // Add constraints to position the buttons within the control bar
+         let buttonWidth = (view.frame.width - 40) / 4 // Adjust spacing as needed
+         let buttonHeight: CGFloat = 44
+
+         favoritesButton.translatesAutoresizingMaskIntoConstraints = false
+         homeButton.translatesAutoresizingMaskIntoConstraints = false
+         analysisButton.translatesAutoresizingMaskIntoConstraints = false
+         accountButton.translatesAutoresizingMaskIntoConstraints = false
+
+         NSLayoutConstraint.activate([
+             favoritesButton.leadingAnchor.constraint(equalTo: controlBar.leadingAnchor, constant: 10),
+             favoritesButton.centerYAnchor.constraint(equalTo: controlBar.centerYAnchor),
+             favoritesButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+             favoritesButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+
+             homeButton.leadingAnchor.constraint(equalTo: favoritesButton.trailingAnchor, constant: 10),
+             homeButton.centerYAnchor.constraint(equalTo: controlBar.centerYAnchor),
+             homeButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+             homeButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+
+             analysisButton.leadingAnchor.constraint(equalTo: homeButton.trailingAnchor, constant: 10),
+             analysisButton.centerYAnchor.constraint(equalTo: controlBar.centerYAnchor),
+             analysisButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+             analysisButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+
+             accountButton.leadingAnchor.constraint(equalTo: analysisButton.trailingAnchor, constant: 10),
+             accountButton.centerYAnchor.constraint(equalTo: controlBar.centerYAnchor),
+             accountButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+             accountButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+         ])
+     }
+
+     func createBarButton(title: String) -> UIButton {
+         let button = UIButton(type: .system)
+         button.setTitle(title, for: .normal)
+         button.setTitleColor(UIColor.black, for: .normal)
+         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+         return button
+            
+        
+        
+        
+        
+        
+        
+        //コース変更
+        let courseChangeButton = UIButton(type: .system)
+                courseChangeButton.setTitle("コース変更", for: .normal)
+                courseChangeButton.backgroundColor = UIColor(white: 1.0, alpha: 0.4)
+                courseChangeButton.layer.cornerRadius = 8
+                courseChangeButton.setTitleColor(UIColor.black, for: .normal)
+
+                view.addSubview(courseChangeButton)
+
+                courseChangeButton.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    courseChangeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                    courseChangeButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
+                    courseChangeButton.widthAnchor.constraint(equalToConstant: 130),
+                    courseChangeButton.heightAnchor.constraint(equalToConstant: 30)
+                ])
+
+                courseChangeButton.addTarget(self, action: #selector(courseChangeButtonTapped), for: .touchUpInside)
+            }
+
+    @objc func courseChangeButtonTapped() {
+        print("コース変更 button tapped")
+        // Implement your action for the button tap here
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
+        
     
     
     func setupMapView() {
