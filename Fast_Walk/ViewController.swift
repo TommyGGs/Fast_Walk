@@ -15,6 +15,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     @IBOutlet weak var button60: UIButton!
     @IBOutlet weak var button90: UIButton!
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet var heartButton: UIButton!
+    @IBOutlet var homeButton: UIButton!
+    @IBOutlet var dataButton: UIButton!
+    @IBOutlet var accountButton: UIButton!
+    
     var locationManager = CLLocationManager()
     var mapView: GMSMapView? //static throughout scope of entire program
     var currentLocation: CLLocationCoordinate2D?
@@ -39,81 +44,98 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         fetchLineUserInfo()
         setupStyle()
         print("passed")
-        
+        navBar()
+        changeRouteButton()
+        self.view.bringSubviewToFront(heartButton)
+        self.view.bringSubviewToFront(homeButton)
+        self.view.bringSubviewToFront(dataButton)
+        self.view.bringSubviewToFront(accountButton)
+        self.view.sendSubviewToBack(mapContainerView)
+     }
+
+    func navBar() {
         
         // Create a control bar
-         let controlBar = UIView()
-        controlBar.backgroundColor = UIColor(red: 173/255, green: 216/255, blue: 230/255, alpha: 0.8)
+        let controlBar = UIView()
+        controlBar.backgroundColor = UIColor(red: 204/255, green: 217/255, blue: 245/255, alpha: 0.34)
         controlBar.layer.cornerRadius = 20 // Adjust the corner radius as needed
         view.addSubview(controlBar)
 
          // Add constraints to set the control bar's position and size
          controlBar.translatesAutoresizingMaskIntoConstraints = false
          NSLayoutConstraint.activate([
-             controlBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-             controlBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-             controlBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor), // Move to the bottom
-             controlBar.heightAnchor.constraint(equalToConstant: 50) // Adjust the height as needed
+            controlBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            controlBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            controlBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5), // Move lower
+            controlBar.heightAnchor.constraint(equalToConstant: 60) //ここでバーの高さ変更（大きい数＝した）
          ])
 
-         // Create buttons for the control bar
-         let favoritesButton = createBarButton(title: "お気に入り")
-         let homeButton = createBarButton(title: "ホーム")
-         let analysisButton = createBarButton(title: "分析")
-         let accountButton = createBarButton(title: "アカウント")
+        // Add image buttons to the control bar
+          controlBar.addSubview(heartButton)
+          controlBar.addSubview(homeButton)
+          controlBar.addSubview(dataButton)
+          controlBar.addSubview(accountButton)
 
-         // Add buttons to the control bar
-         controlBar.addSubview(favoritesButton)
-         controlBar.addSubview(homeButton)
-         controlBar.addSubview(analysisButton)
-         controlBar.addSubview(accountButton)
+        // Add constraints to position the image buttons within the control bar
+        let buttonWidth = (view.frame.width - 40) / 4 // Adjust spacing as needed
+        let buttonHeight: CGFloat = 30 //ここでボタンの高さ変えて（小さい数=もっと高く）
 
-         // Add constraints to position the buttons within the control bar
-         let buttonWidth = (view.frame.width - 40) / 4 // Adjust spacing as needed
-         let buttonHeight: CGFloat = 44
+        heartButton.translatesAutoresizingMaskIntoConstraints = false
+        homeButton.translatesAutoresizingMaskIntoConstraints = false
+        dataButton.translatesAutoresizingMaskIntoConstraints = false
+        accountButton.translatesAutoresizingMaskIntoConstraints = false
 
-         favoritesButton.translatesAutoresizingMaskIntoConstraints = false
-         homeButton.translatesAutoresizingMaskIntoConstraints = false
-         analysisButton.translatesAutoresizingMaskIntoConstraints = false
-         accountButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            heartButton.leadingAnchor.constraint(equalTo: controlBar.leadingAnchor, constant: 10),
+            heartButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+            heartButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            heartButton.heightAnchor.constraint(equalToConstant: buttonHeight),
 
-         NSLayoutConstraint.activate([
-             favoritesButton.leadingAnchor.constraint(equalTo: controlBar.leadingAnchor, constant: 10),
-             favoritesButton.centerYAnchor.constraint(equalTo: controlBar.centerYAnchor),
-             favoritesButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-             favoritesButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            homeButton.leadingAnchor.constraint(equalTo: homeButton.trailingAnchor, constant: 10),
+            homeButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+            homeButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            homeButton.heightAnchor.constraint(equalToConstant: buttonHeight),
 
-             homeButton.leadingAnchor.constraint(equalTo: favoritesButton.trailingAnchor, constant: 10),
-             homeButton.centerYAnchor.constraint(equalTo: controlBar.centerYAnchor),
-             homeButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-             homeButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            dataButton.leadingAnchor.constraint(equalTo: homeButton.trailingAnchor, constant: 10),
+            dataButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+            dataButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            dataButton.heightAnchor.constraint(equalToConstant: buttonHeight),
 
-             analysisButton.leadingAnchor.constraint(equalTo: homeButton.trailingAnchor, constant: 10),
-             analysisButton.centerYAnchor.constraint(equalTo: controlBar.centerYAnchor),
-             analysisButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-             analysisButton.heightAnchor.constraint(equalToConstant: buttonHeight),
-
-             accountButton.leadingAnchor.constraint(equalTo: analysisButton.trailingAnchor, constant: 10),
-             accountButton.centerYAnchor.constraint(equalTo: controlBar.centerYAnchor),
-             accountButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-             accountButton.heightAnchor.constraint(equalToConstant: buttonHeight),
-         ])
-     }
-
-     func createBarButton(title: String) -> UIButton {
-         let button = UIButton(type: .system)
-         button.setTitle(title, for: .normal)
-         button.setTitleColor(UIColor.black, for: .normal)
-         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-         return button
+            accountButton.leadingAnchor.constraint(equalTo: dataButton.trailingAnchor, constant: 10),
+            accountButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+            accountButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            accountButton.heightAnchor.constraint(equalToConstant: buttonHeight),
             
+            // Add trailing constraint to the last button
+            accountButton.trailingAnchor.constraint(equalTo: controlBar.trailingAnchor, constant: -10),
+        ])
+    }
+    
+    
+    func createBarButton(title: String, imageName: String, fontSize: CGFloat) -> UIButton {
+        let button = UIButton(type: .system)
         
+        if let image = UIImage(named: imageName) {
+            button.setImage(image, for: .normal)
+            button.imageView?.contentMode = .scaleAspectFit
+            button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0) // Adjust as needed
+        }
         
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
+        button.titleLabel?.textAlignment = .center
         
+        return button
+    }
         
-        
-        
-        //コース変更
+
+
+    
+    
+    
+    //コース変更
+    func changeRouteButton(){
         let courseChangeButton = UIButton(type: .system)
                 courseChangeButton.setTitle("コース変更", for: .normal)
                 courseChangeButton.backgroundColor = UIColor(white: 1.0, alpha: 0.4)
@@ -127,29 +149,51 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                     courseChangeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                     courseChangeButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
                     courseChangeButton.widthAnchor.constraint(equalToConstant: 130),
-                    courseChangeButton.heightAnchor.constraint(equalToConstant: 30)
+                    courseChangeButton.heightAnchor.constraint(equalToConstant: 50)
                 ])
 
                 courseChangeButton.addTarget(self, action: #selector(courseChangeButtonTapped), for: .touchUpInside)
-            }
+        
+        
+        //faded backgroundだよ
+        view.backgroundColor = UIColor.white // Replace with your desired color
+
+        let yOffset: CGFloat = 50
+        let squareView = UIView(frame: CGRect(x: 0, y:  mapContainerView.bounds.height, width: view.bounds.width, height: 100))
+        squareView.layer.cornerRadius = 10
+        squareView.clipsToBounds = true
+
+        // Create a gradient layer
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = squareView.bounds
+        gradientLayer.colors = [UIColor.white.cgColor, UIColor.clear.cgColor]
+        gradientLayer.locations = [0.8, 3.0] // Adjust the locations to control the fading
+
+        // Adjust startPoint and endPoint to make the gradient upside down
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 1)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
+
+        // Add the gradient layer to the square view's layer
+        squareView.layer.addSublayer(gradientLayer)
+
+        // Add the square view to the main view
+        view.addSubview(squareView)
+        
+        // Move the square view to the back of the view hierarchy
+        view.sendSubviewToBack(squareView)
+
+
+
+        }
 
     @objc func courseChangeButtonTapped() {
         print("コース変更 button tapped")
         // Implement your action for the button tap here
         
         
-        
-        
-        
-        
-        
-        
-        
-        
+    
         
     }
-        
-    
     
     func setupMapView() {
         let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 10.0)
