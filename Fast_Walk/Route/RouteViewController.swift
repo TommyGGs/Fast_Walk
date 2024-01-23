@@ -27,6 +27,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     var locationManager = CLLocationManager()
     var currentLocation: CLLocationCoordinate2D?
     var favorites: [FavoriteSpot] = []
+    var user_favorites: [FavoriteSpot] = []
     var currentUser: User = User()
     var currentSpot: CLLocationCoordinate2D = CLLocationCoordinate2D()
     var userID: String = ""
@@ -36,6 +37,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         currentUser = readUsers()
+        user_favorites = readFavorites()
 
         locationManager.delegate = self
         beginLocationUpdate() // Start location updates
@@ -104,8 +106,20 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         }
     }
     
+    func readFavorites() -> [FavoriteSpot] {
+        var favorites = Array(realm.objects(FavoriteSpot.self))
+        var findFavorites: [FavoriteSpot] = []
+        for favorite in favorites {
+            if favorite.userID == checkUser() {
+                print("found user favorites")
+                findFavorites.append(favorite)
+            }
+        }
+        return findFavorites
+    }
+    
     func readUsers() -> User {
-        var users = Array(realm.objects(User.self))
+        let users = Array(realm.objects(User.self))
         for user in users {
             if user.userID == checkUser() {
                 return user
@@ -133,6 +147,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         }
         return infoWindow
     }
+
     
     @IBAction func likeLocation() {
         print("button pressed")

@@ -8,11 +8,14 @@
 import UIKit
 import GoogleSignIn
 import LineSDK
+import RealmSwift
 
 class WaitViewController: UIViewController {
     
     var countdownTimer: Timer!
     var remainingSeconds = 3
+    
+    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,29 +30,20 @@ class WaitViewController: UIViewController {
     
     func checkUserState() {
         _ = UIStoryboard(name: "Main", bundle: nil)
-        
-        // Check if the user is logged in with Google
-        if GIDSignIn.sharedInstance.currentUser != nil {
-            print("User already signed in with Google")
-            presentMainNavigationController()
-            return
-        } else if let token = AccessTokenStore.shared.current {
-            print("user already logged in with Line" + token.value)
-            presentMainNavigationController()
-            return
-        }
 
-        // Check if the user is logged in with LINE
-//        API.getProfile { [weak self] result in
-//            switch result {
-//            case .success(_):
-//                print("User logged in with LINE")
-//                self?.presentMainNavigationController()
-//            case .failure(_):
-//                print("User not logged in with LINE")
-//                self?.presentChooseViewController()
-//            }
-//        }
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+            if error != nil || user == nil {
+                print("user not signed in with google")
+                self.presentMainNavigationController()
+            } else if let token = AccessTokenStore.shared.current {
+                print("user already logged in with Line" + token.value)
+                self.presentMainNavigationController()
+            }
+            else {
+                print("present user to choose viewcontroller")
+                self.presentChooseViewController()
+            }
+        }
     }
 
     private func presentMainNavigationController() {
@@ -107,17 +101,17 @@ class WaitViewController: UIViewController {
     }
     
     func startCountdown() {
-        print("startCountdo")
+        print("startCountdown")
         countdownTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCountdown), userInfo: nil, repeats: true)
-        checkUserState()
+//        checkUserState()
     }
     
     @objc func updateCountdown() {
         remainingSeconds -= 1
         print (remainingSeconds)
-        if remainingSeconds <= 0 {
-            countdownTimer.invalidate()
+        if remainingSeconds == 0 {
             checkUserState()
+            countdownTimer.invalidate()
         }
     }
     
