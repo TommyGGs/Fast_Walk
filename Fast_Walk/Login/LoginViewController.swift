@@ -14,37 +14,24 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     
     var users: [User] = []
     var userExist: Bool = false
-//    var userChecked: Bool = false
     let realm = try! Realm()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-                // Create a UIView for the rectangle
-                let rectangleView = UIView()
-
-                // Set the frame for the rectangle (adjust the values as needed)
-                let rectangleFrame = CGRect(x: 20, y: 270, width: 350, height: 220)
-                rectangleView.frame = rectangleFrame
-
-                // Set the corner radius for rounded corners
-                rectangleView.layer.cornerRadius = 18
-
-                // Set the background color to clear (no filled color)
-                rectangleView.backgroundColor = UIColor.clear
-
-                // Set the border color (E8E8E8 with 39% transparency)
-                rectangleView.layer.borderColor = UIColor(red: 0xE8/255.0, green: 0xE8/255.0, blue: 0xE8/255.0, alpha: 0.39).cgColor
-
-                // Set the border width
-                rectangleView.layer.borderWidth = 1.0
-
-                // Add the rectangle to the view
-                view.addSubview(rectangleView)
-        view.sendSubviewToBack(rectangleView)
         users = readUsers()
+        rectangleView()
+        lineButton()
+        setGradientBackground()
+    }
 
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        userGoogleState()
+    }
+    
+    func lineButton() {
         // Create a custom button for LINE login
         let customLineButton = UIButton(type: .custom)
         customLineButton.setTitle("LINEでログイン", for: .normal) // Set the text
@@ -96,29 +83,44 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         }
         
         customLineButton.addTarget(self, action: #selector(loginWithLine), for: .touchUpInside)
-       
-        super.viewDidLoad()
-        setGradientBackground()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        userState()
-    }
-    
-    func userState() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        if GIDSignIn.sharedInstance.currentUser != nil {
-            print("User already signed in")
+    func rectangleView() {
+        // Create a UIView for the rectangle
+        let rectangleView = UIView()
 
-            if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
-                mainNavController.modalPresentationStyle = .fullScreen
-                self.present(mainNavController, animated: true, completion: nil)
+        // Set the frame for the rectangle (adjust the values as needed)
+        let rectangleFrame = CGRect(x: 20, y: 270, width: 350, height: 220)
+        rectangleView.frame = rectangleFrame
+
+        // Set the corner radius for rounded corners
+        rectangleView.layer.cornerRadius = 18
+
+        // Set the background color to clear (no filled color)
+        rectangleView.backgroundColor = UIColor.clear
+
+        // Set the border color (E8E8E8 with 39% transparency)
+        rectangleView.layer.borderColor = UIColor(red: 0xE8/255.0, green: 0xE8/255.0, blue: 0xE8/255.0, alpha: 0.39).cgColor
+
+        // Set the border width
+        rectangleView.layer.borderWidth = 1.0
+
+        // Add the rectangle to the view
+        view.insertSubview(rectangleView, at: 0)
+    }
+    
+    func userGoogleState() {
+        if let signInResult = GIDSignIn.sharedInstance.currentUser {
+            print("User already signed in")
+            for user in users {
+                if user.userID == signInResult.userID {
+                    print("google user already exist")
+                    userExist = true
+                } else {
+                    print("User not signed in")
+                    userExist = false
+                }
             }
-        } else {
-            print("User not signed in")
-            // Additional code if needed for when the user is not signed in
         }
     }
     
@@ -134,7 +136,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                 if let profile = loginResult.userProfile {
                     
                     for user in self.users {
-                        if user.name == profile.displayName {
+                        if user.userID == profile.userID {
                             self.userExist = true
                             print("user already exist")
                             return
@@ -173,25 +175,47 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
 
     
     @IBAction func signIn(sender: Any) {
+        print("clicked google signin")
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
             guard error == nil else {
                 print("Error logging in: \(error?.localizedDescription ?? "")")
                 return
             }
-
             if signInResult != nil {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
-                    welcomeVC.modalPresentationStyle = .fullScreen
-                    self.present(welcomeVC, animated: true, completion: nil)
-                } else {
-                    print("Could not instantiate WelcomeViewController from storyboard.")
+                if self.userExist == false {
+                    self.saveGoogleUser()
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
+                        welcomeVC.modalPresentationStyle = .fullScreen
+                        self.present(welcomeVC, animated: true, completion: nil)
+                    } else {
+                        print("Could not instantiate WelcomeViewController from storyboard.")
+                    }
+                } else if self.userExist == true {
+                    print("this google user exists taking to main screen")
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
+                        mainNavController.modalPresentationStyle = .fullScreen
+                        self.present(mainNavController, animated: true, completion: nil)
+                    }
                 }
             }
         }
     }
     
-    
+    func saveGoogleUser() {
+        if let googleSign = GIDSignIn.sharedInstance.currentUser {
+            let userGoogle = User()
+            if let email = googleSign.profile?.email,
+               let name = googleSign.profile?.name,
+               let userID = googleSign.userID {
+                userGoogle.email = email
+                userGoogle.name = name
+                userGoogle.userID = userID
+                self.createUser(user: userGoogle)
+            }
+        }
+    }
 
 }
 

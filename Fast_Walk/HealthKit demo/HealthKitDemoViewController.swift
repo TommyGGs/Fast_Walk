@@ -13,6 +13,7 @@ class HealthKitDemoViewController: UIViewController {
     var totalDistance: Double = 0
     let healthStore = HKHealthStore()
     var anchor: HKQueryAnchor?
+    var averagePace: Float = 0
     
     
     override func viewDidLoad() {
@@ -138,9 +139,12 @@ class HealthKitDemoViewController: UIViewController {
                     print("UI Updated")
                 }
                 self?.totalSteps = Double(pedometerData.numberOfSteps)
-                
                 if let distance = pedometerData.distance{
                     self?.totalDistance = Double(distance)
+                }
+                if let pace = pedometerData.averageActivePace{
+                    self?.averagePace = Float(pace)
+                    print("pace is" + String(describing: pace))
                 }
                 
             }
@@ -160,6 +164,10 @@ class HealthKitDemoViewController: UIViewController {
     func stopPedometerUpdates() {
         pedometer.stopUpdates()
     }
+    
+    func calculateAvgPace(){
+        
+    }
 
        
 
@@ -175,7 +183,7 @@ class HealthKitDemoViewController: UIViewController {
         if let endVC = segue.destination as? EndViewController {
             endVC.receivedStepCount = self.totalSteps
             endVC.receivedDistance = self.totalDistance
-            
+            endVC.receivedAvgPace = self.averagePace
         }
     }
 }
