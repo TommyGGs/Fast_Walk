@@ -576,6 +576,7 @@
                         <outlet property="currentMode" destination="Gvk-Im-cVz" id="UmW-uV-Ggr"/>
                         <outlet property="currentTime" destination="14s-Rl-VrW" id="Ygh-u0-Kr1"/>
                         <outlet property="heartBtn" destination="IiZ-eu-WYS" id="sef-Im-ZSj"/>
+                        <outlet property="likeLabel" destination="fnQ-JT-iKX" id="zJK-eM-OOE"/>
                         <outlet property="mapContainerView" destination="nsc-rK-tJr" id="YXa-Kw-cQW"/>
                         <outlet property="nextMode" destination="drO-cs-iXw" id="aFD-l9-NkG"/>
                         <outlet property="stepsLabel" destination="qiU-10-KHL" id="LvH-32-Tgb"/>
@@ -814,6 +815,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="1As-vi-Hs6"/>
         <segue reference="Jyg-pS-Qog"/>
         <segue reference="a36-K0-U9a"/>
     </inferredMetricsTieBreakers>

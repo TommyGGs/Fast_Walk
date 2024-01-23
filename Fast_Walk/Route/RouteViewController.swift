@@ -13,6 +13,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     @IBOutlet var currentTime: UILabel!
     @IBOutlet var nextMode: UILabel!
     @IBOutlet var heartBtn: UIButton!
+    @IBOutlet var likeLabel: UILabel!
     var waypoints: [GMSPlace] = []
     var overlayView: UIView!
     var countdownLabel: UILabel!
@@ -28,6 +29,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     var currentLocation: CLLocationCoordinate2D?
     var favorites: [FavoriteSpot] = []
     var user_favorites: [FavoriteSpot] = []
+    var isFavAlready: Bool = false
     var currentUser: User = User()
     var currentSpot: CLLocationCoordinate2D = CLLocationCoordinate2D()
     var userID: String = ""
@@ -49,6 +51,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         configureLocationManager()
         setupCircularProgressView()
         setUpTimerView()
+        likeLabel.isHidden = true                
+        heartBtn.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -136,6 +140,19 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         infoWindow.titleLabel.text = marker.title
         infoWindow.snippetLabel.text = marker.snippet
         currentSpot = marker.position
+        for user_fav in user_favorites {
+            if user_fav.userID == checkUser(){
+                isFavAlready = true
+                likeLabel.isHidden = false
+                heartBtn.isHidden = false
+                heartBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            } else {
+                likeLabel.isHidden = false
+                heartBtn.isHidden = false
+                heartBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+            }
+        }
+
         
         if let photo = marker.userData as? UIImage {
                 print("Userdata is valid")
@@ -146,6 +163,12 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             }
         }
         return infoWindow
+    }
+    // when tapped map but not marker
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        likeLabel.isHidden = false
+        heartBtn.isHidden = false
+        print("Map didn't tap marker")
     }
 
     
@@ -200,7 +223,6 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     
     func startTimer(resume: Bool)  {
-        
         if resume != true {
             countdown = 180 //change for timer interval
         }

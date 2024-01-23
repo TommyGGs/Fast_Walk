@@ -112,16 +112,17 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     func userState() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        if GIDSignIn.sharedInstance.currentUser != nil {
+        if let signInResult = GIDSignIn.sharedInstance.currentUser {
             print("User already signed in")
-
-            if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
-                mainNavController.modalPresentationStyle = .fullScreen
-                self.present(mainNavController, animated: true, completion: nil)
+            for user in users {
+                if user.userID == signInResult.userID {
+                    print("google user already exist")
+                    userExist = true
+                } else {
+                    print("User not signed in")
+                    userExist = false
+                }
             }
-        } else {
-            print("User not signed in")
-            // Additional code if needed for when the user is not signed in
         }
     }
     
@@ -182,20 +183,36 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                 print("Error logging in: \(error?.localizedDescription ?? "")")
                 return
             }
-
             if signInResult != nil {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
-                    welcomeVC.modalPresentationStyle = .fullScreen
-                    self.present(welcomeVC, animated: true, completion: nil)
-                } else {
-                    print("Could not instantiate WelcomeViewController from storyboard.")
+                if self.userExist == false {
+                    self.getUserInfo()
+                } else if self.userExist == true {
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
+                        welcomeVC.modalPresentationStyle = .fullScreen
+                        self.present(welcomeVC, animated: true, completion: nil)
+                    } else {
+                        print("Could not instantiate WelcomeViewController from storyboard.")
+                    }
                 }
             }
         }
     }
     
-    
+    func getUserInfo() {
+        if let googleSign = GIDSignIn.sharedInstance.currentUser {
+            let userGoogle = User()
+            if let email = googleSign.profile?.email,
+               let name = googleSign.profile?.name,
+               let userID = googleSign.userID {
+                userGoogle.email = email
+                userGoogle.name = name
+                userGoogle.userID = userID
+                self.createUser(user: userGoogle)
+            }
+
+        }
+    }
 
 }
 
