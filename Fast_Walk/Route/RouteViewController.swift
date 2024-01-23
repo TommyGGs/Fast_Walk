@@ -23,8 +23,10 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     var mode: String = "slow"
     var timer: Timer!
     var countdown: Int = 0
+    var duration: Int = 0
+    
     var start: String = "start"
-    var totalSeconds = 0
+    
     var locationManager = CLLocationManager()
     var currentLocation: CLLocationCoordinate2D?
     var favorites: [FavoriteSpot] = []
@@ -242,9 +244,13 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     @objc func onTimerCalled(){
         let remainingMinutes: Int = countdown / 60
         let remainingSeconds: Int = countdown % 60
-        
+        let durationMinutes: Int = duration / 60
+        let durationSeconds: Int = duration % 60
         currentTime.text = String(format: "%02d:%02d", remainingMinutes, remainingSeconds)
         countdown -= 1
+        duration += 1
+        
+        print (String(format: "%02d:%02d", durationMinutes, durationSeconds))
         
         if countdown < 0 {
             if mode == "slow"{
@@ -379,6 +385,14 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             UIView.animate(withDuration: 0.5) {
                 label.alpha = 0
             }
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+
+        if let endVC = segue.destination as? EndViewController {
+            endVC.receivedTime = duration
+            
         }
     }
 }

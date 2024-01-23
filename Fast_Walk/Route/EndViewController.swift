@@ -15,14 +15,26 @@ class EndViewController: EndScreenViewController{
     let pedometer = CMPedometer()
     @IBOutlet weak var stepsLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var paceLabel: UILabel!
     var receivedStepCount: Double = 0
     var receivedDistance: Double = 0
+    var receivedTime: Int = 0
+    var receivedAvgPace: Float = 0
+    
     override func viewDidLoad(){
         super.viewDidLoad()
         
+        let durationMinutes: Int = self.receivedTime / 60
+        let durationSeconds: Int = self.receivedTime % 60
+        let roundedAvgPace = round(receivedAvgPace * 100) / 100.0
+        
         DispatchQueue.main.async{
-            self.stepsLabel.text = String(Int(self.receivedStepCount))
-            self.distanceLabel.text = ( "距離：" + String(self.receivedDistance) + "m")
+            self.stepsLabel.text = (String(Int(self.receivedStepCount)) + " 歩")
+            self.distanceLabel.text = ( "距離：\n" + String(Int(self.receivedDistance)) + "m")
+            self.timeLabel.text =  String(format: "%02d分%02d秒", durationMinutes, durationSeconds)
+            self.paceLabel.text = (String(1 / self.receivedAvgPace) + "m/s")
+            
         }
         setupLabels()
         // Do any additional setup after loading the view.
