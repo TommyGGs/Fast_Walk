@@ -178,11 +178,11 @@
 		8291C57B2B47A0D20058AE71 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				E07017992B5A1A090068960A /* ChooseViewController.swift */,
-				8291C57C2B47A0D20058AE71 /* ImageCache.swift */,
-				8291C57D2B47A0D20058AE71 /* WelcomViewController.swift */,
-				8291C57E2B47A0D20058AE71 /* LoginViewController.swift */,
 				310B58E02B47EE3000ACDE69 /* WaitViewController.swift */,
+				E07017992B5A1A090068960A /* ChooseViewController.swift */,
+				8291C57E2B47A0D20058AE71 /* LoginViewController.swift */,
+				8291C57D2B47A0D20058AE71 /* WelcomViewController.swift */,
+				8291C57C2B47A0D20058AE71 /* ImageCache.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";

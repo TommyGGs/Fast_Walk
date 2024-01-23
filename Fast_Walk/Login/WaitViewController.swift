@@ -34,14 +34,17 @@ class WaitViewController: UIViewController {
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
             if error != nil || user == nil {
                 print("user not signed in with google")
-                self.presentMainNavigationController()
+                self.presentLoginViewController()
             } else if let token = AccessTokenStore.shared.current {
                 print("user already logged in with Line" + token.value)
                 self.presentMainNavigationController()
             }
-            else {
-                print("present user to choose viewcontroller")
-                self.presentChooseViewController()
+            else if user != nil || error != nil {
+                print("user previously signed in with google")
+                self.presentMainNavigationController()
+            } else {
+                print("present user to login viewcontroller")
+                self.presentLoginViewController()
             }
         }
     }
@@ -51,6 +54,14 @@ class WaitViewController: UIViewController {
         if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
             mainNavController.modalPresentationStyle = .fullScreen
             self.present(mainNavController, animated: true, completion: nil)
+        }
+    }
+    
+    private func presentLoginViewController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
+            loginViewController.modalPresentationStyle = .fullScreen
+            self.present(loginViewController, animated: true, completion: nil)
         }
     }
 
@@ -103,7 +114,6 @@ class WaitViewController: UIViewController {
     func startCountdown() {
         print("startCountdown")
         countdownTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCountdown), userInfo: nil, repeats: true)
-//        checkUserState()
     }
     
     @objc func updateCountdown() {

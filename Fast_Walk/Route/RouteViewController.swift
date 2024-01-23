@@ -166,8 +166,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     // when tapped map but not marker
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        likeLabel.isHidden = false
-        heartBtn.isHidden = false
+        likeLabel.isHidden = true
+        heartBtn.isHidden = true
         print("Map didn't tap marker")
     }
 
@@ -184,6 +184,12 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             print("fav appended")
         } else {
             heartBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+            for favorite in favorites {
+//                if favorite.latitude == currentSpot.latitude, favorite.longitude == currentSpot.longitude {
+//                    favorites.remove favorite
+//                    break
+//                }
+            }
         }
     }
     
@@ -253,7 +259,6 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     
     func modeSwitch() {
-//        super.fetchStepData()
         if mode == "slow" {
             currentMode.text = "ゆっくり歩き"
             nextMode.text = "Next: さっさか歩き"
