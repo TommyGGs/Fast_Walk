@@ -35,16 +35,6 @@ class CustomInfoWindow: UIView {
         contentView.isUserInteractionEnabled = true
     }
     
-    
-//    @IBAction func likeLocation(){
-//        if let heartButton = heart {
-//            print("clicked")
-//            heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-//        } else {
-//            print("Heart button is nil")
-//        }
-//    }
-    
     private func commonInit() {
         // Load the view from the XIB
         Bundle.main.loadNibNamed("PlaceDetails", owner: self, options: nil)
@@ -54,6 +44,7 @@ class CustomInfoWindow: UIView {
         
         addSubview(contentView)
     }
+    
     func requiredSize(view: UIView?) -> CGSize {
         guard let view = view else {
             print ("error in requiredSize")
@@ -65,6 +56,7 @@ class CustomInfoWindow: UIView {
         print(view.bounds.size.height, view.bounds.size.width)
         return view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
     }
+    
     private func setupStyle() {
         contentView.layer.cornerRadius = 40
         contentView.backgroundColor = #colorLiteral(red: 0.8862745098, green: 0.9411764706, blue: 0.9882352941, alpha: 0.868413862)

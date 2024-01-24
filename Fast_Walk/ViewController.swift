@@ -58,6 +58,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         self.view.bringSubviewToFront(accountButton)
         self.view.sendSubviewToBack(mapContainerView)
      }
+    
+    
+    @objc func heartView() {
+        print("heart clicked")
+        let storyboard = UIStoryboard(name: "Favorite", bundle: nil)
+        if let heartVC = storyboard.instantiateViewController(withIdentifier: "HeartViewController") as? HeartViewController {
+            heartVC.modalPresentationStyle = .automatic
+            self.present(heartVC, animated: true, completion: nil)
+        }
+    }
+
 
     
     
@@ -94,7 +105,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         homeButton.translatesAutoresizingMaskIntoConstraints = false
         dataButton.translatesAutoresizingMaskIntoConstraints = false
         accountButton.translatesAutoresizingMaskIntoConstraints = false
-        
+        heartButton.addTarget(self, action: #selector(heartView), for: .touchUpInside)
+
         NSLayoutConstraint.activate([
             heartButton.leadingAnchor.constraint(equalTo: controlBar.leadingAnchor, constant: 10),
             heartButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor

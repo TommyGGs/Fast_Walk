@@ -42,30 +42,6 @@ class Marker {
         }
     }
 
-//    func createPhoto(_ placeid: String, completion: @escaping (GMSPlacePhotoMetadata?) -> Void) {
-//        let fields: GMSPlaceField = [.photos]
-//        
-//        guard let placesClient = self.placesClient else {
-//                print("PlacesClient is nil")
-//                completion(nil)
-//                return
-//            }
-//        
-//        placesClient.fetchPlace(fromPlaceID: placeid, placeFields: fields, sessionToken: nil, callback: {
-//            (place: GMSPlace?, error: Error?) in
-//            if let error = error {
-//                print("An error occurred: \(error.localizedDescription)")
-//                completion(nil)
-//                return
-//            }
-//            if let place = place, let photoMetadata = place.photos?.first {
-//                    print ("photos' metadata fetched")
-//                    completion(photoMetadata)
-//                
-//            }
-//        })
-//    }
-
     func loadPhoto(_ metadata: GMSPlacePhotoMetadata?, completion: @escaping (UIImage?) -> Void) {
         guard let metadata = metadata else {
             print("photo metadata is nil")

@@ -149,16 +149,42 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         currentSpot = marker.position
         likeLabel.isHidden = false
         heartBtn.isHidden = false
-        for user_fav in user_favorites {
-            if user_fav.latitude == currentSpot.latitude, user_fav.longitude == currentSpot.longitude  {
-                print("is favorite")
-                isFavAlready = true
+        
+        var inArrayAlready: Bool = false
+        
+        // MARK: find if it is already in favorite array
+        for favorite in favorites {
+            if favorite.coordinate.latitude == currentSpot.latitude, favorite.longitude == currentSpot.longitude {
+                inArrayAlready = true
+                print("is fav array already")
                 heartBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            } else {
-                print("is not favorite")
-                heartBtn.setImage(UIImage(systemName: "heart"), for: .normal)
             }
         }
+        
+        //MARK: find if it is already in user Array, or remove array
+        if inArrayAlready != true {
+            for user_fav in user_favorites {
+                if user_fav.latitude == currentSpot.latitude, user_fav.longitude == currentSpot.longitude  {
+                    isFavAlready = true
+                    print("is fav already")
+                }
+            }
+            for remove_user_favorite in remove_user_favorites {
+                if remove_user_favorite.longitude == currentSpot.longitude, remove_user_favorite.latitude == currentSpot.latitude {
+                    heartBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+                    print("was in remove already")
+                    isFavAlready = false
+                }
+            }
+        }
+        
+        print(favorites, remove_user_favorites)
+        if isFavAlready == true {
+            heartBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else if isFavAlready == false{
+            heartBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+        
 
         
         if let photo = marker.userData as? UIImage {
@@ -187,7 +213,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             heartBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             for remove_favorite in remove_user_favorites{
                 if let index = remove_user_favorites.firstIndex(where: {
-                    $0.latitude == remove_favorite.latitude && $0.longitude == remove_favorite.longitude}) {
+                    $0.latitude == currentSpot.latitude && $0.longitude == currentSpot.longitude}) {
                     remove_user_favorites.remove(at: index)
                     print("spot removed from remove array")
                 }
