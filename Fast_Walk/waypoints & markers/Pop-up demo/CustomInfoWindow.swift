@@ -13,6 +13,11 @@ class CustomInfoWindow: UIView {
     @IBOutlet weak var snippetLabel: UILabel!
     @IBOutlet weak var pictureView: UIImageView!
     @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var star1: UIImageView!
+    @IBOutlet weak var star2: UIImageView!
+    @IBOutlet weak var star3: UIImageView!
+    @IBOutlet weak var star4: UIImageView!
+    @IBOutlet weak var star5: UIImageView!
 //    @IBOutlet var heart: UIButton!
     
     override init(frame: CGRect) {

@@ -138,6 +138,10 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         print("setting up pop-up")
+        if marker.title == "Route Start"{
+            //print ("is start thing clicked")
+            return nil
+        }
         let infoWindow = CustomInfoWindow()
         infoWindow.frame = CGRect(x:0, y:0, width: 300, height: 200)
         infoWindow.titleLabel.text = marker.title

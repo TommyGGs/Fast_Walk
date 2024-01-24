@@ -417,7 +417,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="523"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nB-cR-24s">
-                                        <rect key="frame" x="285" y="21.000000000000004" width="75" height="34.333333333333343"/>
+                                        <rect key="frame" x="285" y="15.000000000000004" width="75" height="40.333333333333343"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Places"/>
                                         <connections>
@@ -425,7 +425,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYH-ZJ-x8w">
-                                        <rect key="frame" x="30" y="21.000000000000004" width="78" height="34.333333333333343"/>
+                                        <rect key="frame" x="30" y="15.000000000000004" width="78" height="40.333333333333343"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Logout"/>
                                         <connections>
@@ -519,7 +519,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="歩数" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiU-10-KHL">
-                                <rect key="frame" x="177.66666666666666" y="550" width="34.666666666666657" height="20.333333333333371"/>
+                                <rect key="frame" x="179" y="550" width="32" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -700,10 +700,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BO6-MY-Sfc">
-                                <rect key="frame" x="16" y="344" width="343" height="110"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </stackView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0Rr-c3-i7Y">
+                                <rect key="frame" x="70" y="420" width="250" height="4"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="8xg-ay-S5a"/>
+                                </constraints>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ibX-h1-fL2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -716,6 +718,8 @@
                             <constraint firstItem="CN1-hr-BYR" firstAttribute="top" secondItem="O80-Bt-N17" secondAttribute="bottom" constant="10" id="6oL-BA-6IU"/>
                             <constraint firstItem="lrz-UO-KTH" firstAttribute="top" secondItem="ibX-h1-fL2" secondAttribute="top" constant="20" id="B9r-NC-fao"/>
                             <constraint firstItem="al9-LM-Rpz" firstAttribute="height" secondItem="O80-Bt-N17" secondAttribute="height" id="V88-Qc-8AP"/>
+                            <constraint firstItem="0Rr-c3-i7Y" firstAttribute="centerX" secondItem="o9L-wy-cOc" secondAttribute="centerX" id="b9h-dM-TnE"/>
+                            <constraint firstItem="0Rr-c3-i7Y" firstAttribute="centerY" secondItem="o9L-wy-cOc" secondAttribute="centerY" id="eHP-SH-o8f"/>
                             <constraint firstItem="al9-LM-Rpz" firstAttribute="width" secondItem="O80-Bt-N17" secondAttribute="width" id="epa-0d-5nI"/>
                             <constraint firstItem="al9-LM-Rpz" firstAttribute="centerY" secondItem="O80-Bt-N17" secondAttribute="centerY" id="ra2-r5-9L3"/>
                         </constraints>
@@ -724,7 +728,7 @@
                     <connections>
                         <outlet property="chartFrame" destination="lrz-UO-KTH" id="mQO-2v-aCn"/>
                         <outlet property="diseaseLabel" destination="ghx-qm-dAb" id="UdL-NG-Sqg"/>
-                        <outlet property="diseaseStackView" destination="BO6-MY-Sfc" id="ciP-Gl-x6s"/>
+                        <outlet property="diseaseProgressView" destination="0Rr-c3-i7Y" id="86v-ZA-qGd"/>
                         <outlet property="distanceLabel" destination="al9-LM-Rpz" id="UCu-QF-MEV"/>
                         <outlet property="paceLabel" destination="O80-Bt-N17" id="1u8-e3-tZY"/>
                         <outlet property="stepsLabel" destination="PtR-9V-dVu" id="Iby-FX-gbU"/>
@@ -848,7 +852,7 @@
                 <navigationController storyboardIdentifier="MainNavigationController" title="Hello" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hTy-OS-LMY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="rvG-f0-TI8">
-                        <rect key="frame" x="0.0" y="47" width="390" height="96"/>
+                        <rect key="frame" x="0.0" y="47" width="390" height="97"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <navigationBarAppearance key="standardAppearance"/>
                     </navigationBar>

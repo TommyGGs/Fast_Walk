@@ -613,6 +613,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        if marker.title == "開始地点"{
+            //print ("is start thing clicked")
+            return nil
+        }
         let infoWindow = CustomInfoWindow()
         infoWindow.frame = CGRect(x:0, y:0, width: 300, height: 200)
         infoWindow.titleLabel.text = marker.title

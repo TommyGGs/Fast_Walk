@@ -25,10 +25,12 @@ class EndScreenViewController: UIViewController {
     
     @IBOutlet weak var chartFrame: UIView!
     @IBOutlet weak var diseaseLabel: UILabel!
-    @IBOutlet weak var diseaseStackView: UIStackView!
+    
+    @IBOutlet weak var diseaseProgressView: UIProgressView!
     
     var stepButtons: [UIButton] = []
     var todaySteps: Int = 0
+    var progressNodes: [UIView] = []
     //
     let progressView = UIProgressView(progressViewStyle: .default)
        
@@ -176,32 +178,52 @@ class EndScreenViewController: UIViewController {
     }
     
     func setupProgressView() {
-            // Customize your progress view and add it to your view
-            progressView.progressTintColor = .blue
-            progressView.trackTintColor = .lightGray
-            progressView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(progressView)
+        // Add nodes to the progress view
+        let nodePositions = [0, 3000, 6000, 9000, 12000]  // The step values for each node
+        let progressViewWidth = diseaseProgressView.frame.width  // Assuming 20 points padding on each side
+        let totalSteps = Float(maximumSteps)
+
+        for stepValue in nodePositions {
+            let nodeView = UIView()
+            nodeView.backgroundColor = .gray  // Default color
+            nodeView.layer.cornerRadius = 5  // Half the height to make it circular
+            nodeView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(nodeView)
             
-            // Constraints for the progress view
+            // Calculate the x position of the node based on step values
+            let xPosition = progressViewWidth * CGFloat(Float(stepValue) / totalSteps)
+            
             NSLayoutConstraint.activate([
-                progressView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                progressView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                progressView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+                nodeView.centerXAnchor.constraint(equalTo: diseaseProgressView.leadingAnchor, constant: xPosition),
+                nodeView.centerYAnchor.constraint(equalTo: diseaseProgressView.centerYAnchor),
+                nodeView.widthAnchor.constraint(equalToConstant: 20),
+                nodeView.heightAnchor.constraint(equalToConstant: 20),
+                diseaseProgressView.heightAnchor.constraint(equalToConstant: 10)
             ])
             
-            // Disable user interaction
-            progressView.isUserInteractionEnabled = false
+            // Store the node in an array for later reference
+            progressNodes.append(nodeView)
         }
-    
+    }
     func updateProgressView(with steps: Int) {
-            let progress = Float(steps) / Float(maximumSteps)
-            progressView.setProgress(progress, animated: true)
-            
-            // Call the function to get diseases prevented and do something with the results
-            let diseasesPrevented = getDiseasesPrevented(steps: steps)
-            // Update UI or perform other actions with the diseasesPrevented array
+        let progress = Float(steps) / Float(maximumSteps)
+        diseaseProgressView.setProgress(progress, animated: true)
+        
+        // Update the nodes colors based on current steps
+        for (index, node) in progressNodes.enumerated() {
+            let stepThresholds = [0, 3000, 6000, 9000, 12000]
+            if steps >= stepThresholds[index] {
+                node.backgroundColor = .blue  // Color when the step threshold is reached
+            } else {
+                node.backgroundColor = .gray  // Default color
+            }
         }
-    
+        
+        // Call the function to get diseases prevented and do something with the results
+        let diseasesPrevented = getDiseasesPrevented(steps: steps)
+        // Update the disease label with the latest disease that can be prevented
+        diseaseLabel.text = diseasesPrevented.last
+    }
 
     
 }
