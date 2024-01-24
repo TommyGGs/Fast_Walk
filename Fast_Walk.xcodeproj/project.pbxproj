@@ -113,7 +113,7 @@
 		E0AE6E8E2B5D1ED7005B31A9 /* NotoSansJP-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-ExtraBold.ttf"; sourceTree = "<group>"; };
 		E0AE6E972B5D1F21005B31A9 /* NotoSansJP-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-Light.ttf"; sourceTree = "<group>"; };
 		E0AE6E9B2B5D200C005B31A9 /* NotoSansJP-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-Regular.ttf"; sourceTree = "<group>"; };
-		E0F164862B5FD911004E1D36 /* Backbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Backbutton.png; path = ../../../Fast_Walk1/Fast_Walk/Assets/Backbutton.png; sourceTree = "<group>"; };
+		E0F164862B5FD911004E1D36 /* Backbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Backbutton.png; sourceTree = "<group>"; };
 		E0F164892B5FD945004E1D36 /* sasaka logo megabig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sasaka logo megabig.png"; sourceTree = "<group>"; };
 		E0F1648A2B5FD94A004E1D36 /* sasaka logo big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sasaka logo big.png"; sourceTree = "<group>"; };
 		E0F1648B2B5FD94D004E1D36 /* sasaka logo small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sasaka logo small.png"; sourceTree = "<group>"; };
