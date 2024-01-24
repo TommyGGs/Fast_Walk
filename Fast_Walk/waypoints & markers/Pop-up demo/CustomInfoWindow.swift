@@ -13,14 +13,14 @@ class CustomInfoWindow: UIView {
     @IBOutlet weak var snippetLabel: UILabel!
     @IBOutlet weak var pictureView: UIImageView!
     @IBOutlet weak var contentView: UIView!
-    @IBOutlet var heart: UIButton!
+//    @IBOutlet var heart: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         commonInit()
         contentView.isUserInteractionEnabled = true
-        heart.isUserInteractionEnabled = true
+//        heart.isUserInteractionEnabled = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,14 +31,14 @@ class CustomInfoWindow: UIView {
     }
     
     
-    @IBAction func likeLocation(){
-        if let heartButton = heart {
-            print("clicked")
-            heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        } else {
-            print("Heart button is nil")
-        }
-    }
+//    @IBAction func likeLocation(){
+//        if let heartButton = heart {
+//            print("clicked")
+//            heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+//        } else {
+//            print("Heart button is nil")
+//        }
+//    }
     
     private func commonInit() {
         // Load the view from the XIB

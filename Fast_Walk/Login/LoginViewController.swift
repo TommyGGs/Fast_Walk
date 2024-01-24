@@ -30,7 +30,6 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        userGoogleState()
     }
     
 
@@ -81,7 +80,6 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     }
     
     func lineButton() {
-        // Create a custom button for LINE login
         let customLineButton = UIButton(type: .custom)
         customLineButton.setTitle("LINEでログイン", for: .normal) // Set the text
         
@@ -198,7 +196,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                         user.signinMethod = "Line"
                         user.userID = profile.userID
                         print("trying to create Line user")
-                        self.createUser(user: user)
+                        self.createUser(userPar: user)
                     }
                     
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -214,10 +212,18 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     }
     
     
-    func createUser(user: User) {
-        try! realm.write{
-            realm.add(user)
-            print("user create succeeded")
+    func createUser(userPar: User) {
+        var userAuth: Bool = true
+        for user in users {
+            if user.userID == userPar.userID {
+                userAuth = false
+            }
+        }
+        if userAuth == true {
+            try! realm.write{
+                realm.add(userPar)
+                print("user create succeeded")
+            }
         }
     }
 
@@ -226,13 +232,28 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     @IBAction func signIn(sender: Any) {
         print("clicked google signin")
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
-            guard error == nil else {
-                print("Error logging in: \(error?.localizedDescription ?? "")")
-                return
+            guard error == nil else { return }
+            guard let signInResult = signInResult else { return }
+            let profile = signInResult.user
+            
+            for user in self.users {
+                if user.userID == profile.userID{
+                    self.userExist = true
+                    print("user exists")
+                }
             }
-            if signInResult != nil {
                 if self.userExist == false {
-                    self.saveGoogleUser()
+                    print("user doesnt exist")
+                    let userGoogle = User()
+                    if let email = profile.profile?.email,
+                    let name = profile.profile?.name,
+                    let userID = profile.userID {
+                        userGoogle.email = email
+                        userGoogle.name = name
+                        userGoogle.userID = userID
+                        print("saving google user")
+                        self.createUser(userPar: userGoogle)
+                    }
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
                         welcomeVC.modalPresentationStyle = .fullScreen
@@ -241,6 +262,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                         print("Could not instantiate WelcomeViewController from storyboard.")
                     }
                 } else if self.userExist == true {
+                    print("user already exists")
                     print("this google user exists taking to main screen")
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
@@ -248,22 +270,9 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                         self.present(mainNavController, animated: true, completion: nil)
                     }
                 }
-            }
         }
-    }
-    
-    func saveGoogleUser() {
-        if let googleSign = GIDSignIn.sharedInstance.currentUser {
-            let userGoogle = User()
-            if let email = googleSign.profile?.email,
-               let name = googleSign.profile?.name,
-               let userID = googleSign.userID {
-                userGoogle.email = email
-                userGoogle.name = name
-                userGoogle.userID = userID
-                self.createUser(user: userGoogle)
-            }
-        }
+
+
     }
 
 }

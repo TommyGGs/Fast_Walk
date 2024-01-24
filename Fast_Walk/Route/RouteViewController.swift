@@ -31,6 +31,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     var currentLocation: CLLocationCoordinate2D?
     var favorites: [FavoriteSpot] = []
     var user_favorites: [FavoriteSpot] = []
+    var remove_user_favorites: [FavoriteSpot] = []
     var isFavAlready: Bool = false
     var currentUser: User = User()
     var currentSpot: CLLocationCoordinate2D = CLLocationCoordinate2D()
@@ -104,8 +105,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
                 print("line user id\(profileID)")
                 return profileID
             }
-            print("google user id\(profileID)")
-            return profileID
+            print("google user id\(String(describing: profile.userID))")
+            return profile.userID ?? "error"
         } else {
             print("can't find user")
             return("error")
@@ -142,15 +143,15 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         infoWindow.titleLabel.text = marker.title
         infoWindow.snippetLabel.text = marker.snippet
         currentSpot = marker.position
+        likeLabel.isHidden = false
+        heartBtn.isHidden = false
         for user_fav in user_favorites {
-            if user_fav.userID == checkUser(){
+            if user_fav.latitude == currentSpot.latitude, user_fav.longitude == currentSpot.longitude  {
+                print("is favorite")
                 isFavAlready = true
-                likeLabel.isHidden = false
-                heartBtn.isHidden = false
                 heartBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             } else {
-                likeLabel.isHidden = false
-                heartBtn.isHidden = false
+                print("is not favorite")
                 heartBtn.setImage(UIImage(systemName: "heart"), for: .normal)
             }
         }
@@ -173,12 +174,20 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         print("Map didn't tap marker")
     }
 
+// pressed when not fill: append favorite to array, if it was at "remove array" remove it
+// pressed when fill: if user already had the spot as favorite, append spot to remove array, if it was at "favorite array", remove it
     
     @IBAction func likeLocation() {
         print("button pressed")
         if heartBtn.imageView?.image == UIImage(systemName: "heart") {
             heartBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            
+            for remove_favorite in remove_user_favorites{
+                if let index = remove_user_favorites.firstIndex(where: {
+                    $0.latitude == remove_favorite.latitude && $0.longitude == remove_favorite.longitude}) {
+                    remove_user_favorites.remove(at: index)
+                    print("spot removed from remove array")
+                }
+            }
             let fav = FavoriteSpot(coordinate: currentSpot)
             fav.userName = currentUser.name
             fav.userID = currentUser.userID
@@ -187,18 +196,22 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         } else {
             heartBtn.setImage(UIImage(systemName: "heart"), for: .normal)
             for favorite in favorites {
-//                if favorite.latitude == currentSpot.latitude, favorite.longitude == currentSpot.longitude {
-//                    favorites.remove favorite
-//                    break
-//                }
+                if let index = favorites.firstIndex(where: {
+                    $0.latitude == currentSpot.latitude && $0.longitude == currentSpot.longitude
+                }) {
+                    print("remove spot from favorite array")
+                    favorites.remove(at: index)
+                }
             }
-        }
-    }
-    
-    func createFavorites(favorite: FavoriteSpot) {
-        try! realm.write{
-            realm.add(favorite)
-            print("favorite create succeeded")
+            for user_favorite in user_favorites {
+                if user_favorite.latitude == currentSpot.latitude, user_favorite.longitude == currentSpot.longitude{
+                    let unfav = FavoriteSpot(coordinate: currentSpot)
+                    unfav.userName = currentUser.name
+                    unfav.userID = currentUser.userID
+                    remove_user_favorites.append(unfav)
+                    print("added already liked spot to remove array")
+                }
+            }
         }
     }
     
@@ -218,6 +231,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         }
     }
     
+    
+    // add favorite arrays to data base and remove remove array from data base
     @IBAction func endTimer() {
         if timer != nil{
             timer.invalidate()
@@ -226,6 +241,10 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             for favorite in favorites {
                 realm.add(favorite)
                 print("favorites create succeeded")
+            }
+            for remove_favorite in remove_user_favorites {
+                realm.delete(remove_favorite)
+                print("favorites removed")
             }
         }
     }
