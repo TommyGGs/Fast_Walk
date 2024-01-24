@@ -34,7 +34,7 @@ class WaitViewController: UIViewController {
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
             if error != nil || user == nil {
                 print("user not signed in with google")
-                self.presentLoginViewController()
+                self.presentChooseViewController()
             } else if let token = AccessTokenStore.shared.current {
                 print("user already logged in with Line" + token.value)
                 self.presentMainNavigationController()

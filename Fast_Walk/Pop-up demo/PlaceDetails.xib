@@ -13,7 +13,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomInfoWindow" customModule="Fast_Walk" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="uC8-Bm-N69"/>
-                <outlet property="heart" destination="cLA-b0-gnv" id="3YS-9d-PLk"/>
                 <outlet property="pictureView" destination="5Vd-sp-gJ2" id="3l8-Nx-Ngh"/>
                 <outlet property="snippetLabel" destination="41V-T6-m4I" id="xyV-VE-PeD"/>
                 <outlet property="titleLabel" destination="XMR-G0-fN0" id="x1b-pg-kmi"/>
@@ -73,15 +72,6 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cLA-b0-gnv">
-                    <rect key="frame" x="16" y="114" width="51" height="35"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system" title=""/>
-                    <connections>
-                        <action selector="likeLocation" destination="-1" eventType="touchUpInside" id="lVb-On-suY"/>
-                    </connections>
-                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -91,7 +81,6 @@
         </view>
     </objects>
     <resources>
-        <image name="heart" catalog="system" width="128" height="107"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="star.fill.left" catalog="system" width="128" height="116"/>
