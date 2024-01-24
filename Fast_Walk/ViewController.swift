@@ -50,6 +50,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         //        setupStyle()
         print("passed")
         navBar()
+        setupStyle()
         changeRouteButton()
         self.view.bringSubviewToFront(heartButton)
         self.view.bringSubviewToFront(homeButton)

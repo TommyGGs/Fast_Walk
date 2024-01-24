@@ -291,45 +291,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dhg-9r-j9c">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="513"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nB-cR-24s">
-                                        <rect key="frame" x="285" y="5" width="75" height="40.333333333333336"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Places"/>
-                                        <connections>
-                                            <segue destination="bOM-b7-eFJ" kind="presentation" modalPresentationStyle="fullScreen" id="ylz-9b-GEn"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYH-ZJ-x8w">
-                                        <rect key="frame" x="30" y="5" width="78" height="40.333333333333336"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Logout"/>
-                                        <connections>
-                                            <action selector="signOutWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Te-ih-ohV"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WS4-0F-Bx5">
-                                        <rect key="frame" x="147" y="21" width="97" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="DataBase"/>
-                                        <connections>
-                                            <segue destination="p6Q-Vq-oDQ" kind="presentation" modalPresentationStyle="fullScreen" id="vCs-Es-z7y"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="separatorColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="AYH-ZJ-x8w" secondAttribute="bottom" constant="467.66666666666663" id="Mwg-xe-L43"/>
-                                    <constraint firstAttribute="bottom" secondItem="6nB-cR-24s" secondAttribute="bottom" constant="467.66666666666663" id="OmR-0O-Qqe"/>
-                                    <constraint firstItem="AYH-ZJ-x8w" firstAttribute="leading" secondItem="Dhg-9r-j9c" secondAttribute="leading" constant="30" id="e3u-NV-cjY"/>
-                                    <constraint firstAttribute="trailing" secondItem="6nB-cR-24s" secondAttribute="trailing" constant="30" id="qR8-sr-C6n"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFA-RH-qf9">
-                                <rect key="frame" x="0.0" y="824" width="390" height="0.0"/>
+                                <rect key="frame" x="0.0" y="514" width="390" height="310"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Toc-sN-16Q">
                                         <rect key="frame" x="30" y="281" width="45" height="55"/>
@@ -356,7 +319,7 @@
                                         <buttonConfiguration key="configuration" style="plain" image="shoeprints.fill" catalog="system" title=""/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xn-gT-2dV">
-                                        <rect key="frame" x="115" y="-255" width="160" height="160"/>
+                                        <rect key="frame" x="115" y="55" width="160" height="160"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="160" id="boF-NR-XS9"/>
                                             <constraint firstAttribute="width" constant="160" id="yG9-3O-N4f"/>
@@ -372,7 +335,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGd-wc-gna">
-                                        <rect key="frame" x="295" y="-280" width="65" height="65"/>
+                                        <rect key="frame" x="295" y="30" width="65" height="65"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="45" cornerStyle="capsule">
                                             <fontDescription key="titleFontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="20"/>
@@ -384,7 +347,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fqc-Cx-zfz">
-                                        <rect key="frame" x="30" y="-280" width="65" height="65"/>
+                                        <rect key="frame" x="30" y="30" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="bem-Si-6wu"/>
                                             <constraint firstAttribute="height" constant="65" id="xxv-sP-nN6"/>
@@ -400,7 +363,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7K-AR-U7A">
-                                        <rect key="frame" x="30" y="-135" width="65" height="65"/>
+                                        <rect key="frame" x="30" y="175" width="65" height="65"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="60" cornerStyle="capsule">
                                             <fontDescription key="titleFontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="20"/>
@@ -412,7 +375,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yek-0c-FkO">
-                                        <rect key="frame" x="295" y="-135" width="65" height="65"/>
+                                        <rect key="frame" x="295" y="175" width="65" height="65"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="90" cornerStyle="capsule">
                                             <fontDescription key="titleFontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="20"/>
@@ -424,7 +387,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="h7K-AR-U7A" firstAttribute="width" secondItem="Fqc-Cx-zfz" secondAttribute="width" id="0mF-0g-dzY"/>
                                     <constraint firstItem="6Xn-gT-2dV" firstAttribute="centerY" secondItem="AGd-wc-gna" secondAttribute="bottom" constant="40" id="31I-qk-taz"/>
@@ -433,7 +395,7 @@
                                     <constraint firstItem="yek-0c-FkO" firstAttribute="top" secondItem="6Xn-gT-2dV" secondAttribute="centerY" constant="40" id="AVc-Xu-cbt"/>
                                     <constraint firstItem="yek-0c-FkO" firstAttribute="width" secondItem="Fqc-Cx-zfz" secondAttribute="width" id="Cdh-XE-Grw"/>
                                     <constraint firstItem="AGd-wc-gna" firstAttribute="leading" secondItem="6Xn-gT-2dV" secondAttribute="centerX" constant="100" id="Duk-KI-igz"/>
-                                    <constraint firstAttribute="height" id="G3Y-e5-X06"/>
+                                    <constraint firstAttribute="height" constant="310" id="G3Y-e5-X06"/>
                                     <constraint firstItem="AGd-wc-gna" firstAttribute="width" secondItem="Fqc-Cx-zfz" secondAttribute="width" id="GRm-In-4m5"/>
                                     <constraint firstItem="6Xn-gT-2dV" firstAttribute="centerX" secondItem="Fqc-Cx-zfz" secondAttribute="trailing" constant="100" id="Gb8-qk-8qU"/>
                                     <constraint firstItem="h7K-AR-U7A" firstAttribute="height" secondItem="Fqc-Cx-zfz" secondAttribute="height" id="LH3-ci-2QY"/>
@@ -444,6 +406,43 @@
                                     <constraint firstItem="h7K-AR-U7A" firstAttribute="top" secondItem="6Xn-gT-2dV" secondAttribute="centerY" constant="40" id="ldn-90-Cxl"/>
                                     <constraint firstAttribute="bottom" secondItem="6Xn-gT-2dV" secondAttribute="bottom" constant="95" id="mhR-uB-s6L"/>
                                     <constraint firstItem="6Xn-gT-2dV" firstAttribute="centerX" secondItem="GFA-RH-qf9" secondAttribute="centerX" id="oba-XN-6gH"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dhg-9r-j9c">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="513"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nB-cR-24s">
+                                        <rect key="frame" x="285" y="11" width="75" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Places"/>
+                                        <connections>
+                                            <segue destination="bOM-b7-eFJ" kind="presentation" modalPresentationStyle="fullScreen" id="ylz-9b-GEn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYH-ZJ-x8w">
+                                        <rect key="frame" x="30" y="11" width="78" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Logout"/>
+                                        <connections>
+                                            <action selector="signOutWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Te-ih-ohV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WS4-0F-Bx5">
+                                        <rect key="frame" x="147" y="21" width="97" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="DataBase"/>
+                                        <connections>
+                                            <segue destination="p6Q-Vq-oDQ" kind="presentation" modalPresentationStyle="fullScreen" id="vCs-Es-z7y"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="separatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="AYH-ZJ-x8w" secondAttribute="bottom" constant="467.66666666666663" id="Mwg-xe-L43"/>
+                                    <constraint firstAttribute="bottom" secondItem="6nB-cR-24s" secondAttribute="bottom" constant="467.66666666666663" id="OmR-0O-Qqe"/>
+                                    <constraint firstItem="AYH-ZJ-x8w" firstAttribute="leading" secondItem="Dhg-9r-j9c" secondAttribute="leading" constant="30" id="e3u-NV-cjY"/>
+                                    <constraint firstAttribute="trailing" secondItem="6nB-cR-24s" secondAttribute="trailing" constant="30" id="qR8-sr-C6n"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ShJ-gr-Sfc">
@@ -831,7 +830,7 @@
                 <navigationController storyboardIdentifier="MainNavigationController" title="Hello" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hTy-OS-LMY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="rvG-f0-TI8">
-                        <rect key="frame" x="0.0" y="47" width="390" height="97"/>
+                        <rect key="frame" x="0.0" y="47" width="390" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <navigationBarAppearance key="standardAppearance"/>
                     </navigationBar>
