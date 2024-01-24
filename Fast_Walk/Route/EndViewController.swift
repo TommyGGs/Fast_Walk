@@ -40,6 +40,7 @@ class EndViewController: EndScreenViewController{
         // Do any additional setup after loading the view.
     }
     
+    
     @IBAction func updatePedometer(_ sender: Any) {
         
         startPedometerUpdates()

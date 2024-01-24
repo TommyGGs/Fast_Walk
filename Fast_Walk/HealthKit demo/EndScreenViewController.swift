@@ -24,9 +24,17 @@ class EndScreenViewController: UIViewController {
     
     
     @IBOutlet weak var chartFrame: UIView!
+    @IBOutlet weak var diseaseLabel: UILabel!
+    @IBOutlet weak var diseaseStackView: UIStackView!
     
-    
-    
+    var stepButtons: [UIButton] = []
+    var todaySteps: Int = 0
+    //
+    let progressView = UIProgressView(progressViewStyle: .default)
+       
+       // Define the maximum step count for 100% progress
+       let maximumSteps = 12000
+    //
     let store = HealthAndCareKitHelp.healthStore
     var help = HealthAndCareKitHelp()
     
@@ -34,12 +42,24 @@ class EndScreenViewController: UIViewController {
         super.viewDidLoad()
         
         authorizeHealthKit()
+        setupProgressView()
         fetchStepData() { results in
-            DispatchQueue.main.async{
-                self.createCharts(results)
+            if let today = results.last{
+                self.todaySteps = today
+                //
+                
+                //
+                let diseasesPrevented = self.getDiseasesPrevented(steps: today)
+                print(diseasesPrevented)
             }
             
+            DispatchQueue.main.async{
+                self.createCharts(results)
+                self.updateProgressView(with: self.todaySteps)
+            }
         }
+        
+        
         
     }
     
@@ -94,6 +114,9 @@ class EndScreenViewController: UIViewController {
             }
 
             completion(dailySteps)
+            
+            print(dailySteps.last) //most recent steps
+            
         }
 
         store.execute(query)
@@ -125,8 +148,59 @@ class EndScreenViewController: UIViewController {
         
     }
     
+    func getDiseasesPrevented(steps: Int) -> [String] {
+        switch steps {
+        case ..<2000:
+            return []
+        case 2000..<4000:
+            return ["寝たきり"]
+        case 4000..<5000:
+            return ["うつ病"]
+        case 5000..<7000:
+            return ["要支援・要介護", "認知症", "心疾患", "脳卒中"]
+        case 7000..<7500:
+            return ["ガン", "動脈硬化", "骨粗しょう症", "骨折"]
+        case 7500..<8000:
+            return ["筋減少症", "体力の低下"]
+        case 8000..<9000:
+            return ["高血圧", "糖尿病", "脂質異常症", "メタボ（75歳以上）"]
+        case 9000..<10000:
+            return ["高血圧（正常高値血圧）", "高血糖"]
+        case 10000..<12000:
+            return ["メタボリックシンドローム（75歳未満）"]
+        case 12000...:
+            return ["肥満"]
+        default:
+            return []
+        }
+    }
     
-
+    func setupProgressView() {
+            // Customize your progress view and add it to your view
+            progressView.progressTintColor = .blue
+            progressView.trackTintColor = .lightGray
+            progressView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(progressView)
+            
+            // Constraints for the progress view
+            NSLayoutConstraint.activate([
+                progressView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                progressView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                progressView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            ])
+            
+            // Disable user interaction
+            progressView.isUserInteractionEnabled = false
+        }
+    
+    func updateProgressView(with steps: Int) {
+            let progress = Float(steps) / Float(maximumSteps)
+            progressView.setProgress(progress, animated: true)
+            
+            // Call the function to get diseases prevented and do something with the results
+            let diseasesPrevented = getDiseasesPrevented(steps: steps)
+            // Update UI or perform other actions with the diseasesPrevented array
+        }
     
 
     
