@@ -49,7 +49,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         fetchLineUserInfo()
         //        setupStyle()
         print("passed")
-        navBar()
         setupStyle()
         changeRouteButton()
 //        self.view.bringSubviewToFront(heartButton)
