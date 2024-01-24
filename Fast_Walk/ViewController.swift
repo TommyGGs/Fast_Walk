@@ -49,72 +49,72 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         fetchLineUserInfo()
         //        setupStyle()
         print("passed")
-        navBar()
+//        navBar()
         changeRouteButton()
-        self.view.bringSubviewToFront(heartButton)
-        self.view.bringSubviewToFront(homeButton)
-        self.view.bringSubviewToFront(dataButton)
-        self.view.bringSubviewToFront(accountButton)
-        self.view.sendSubviewToBack(mapContainerView)
+//        self.view.bringSubviewToFront(heartButton)
+//        self.view.bringSubviewToFront(homeButton)
+//        self.view.bringSubviewToFront(dataButton)
+//        self.view.bringSubviewToFront(accountButton)
+//        self.view.sendSubviewToBack(mapContainerView)
      }
 
-    func navBar() {
-        
-        // Create a control bar
-        let controlBar = UIView()
-        controlBar.backgroundColor = UIColor(red: 204/255, green: 217/255, blue: 245/255, alpha: 0.34)
-        controlBar.layer.cornerRadius = 20 // Adjust the corner radius as needed
-        view.addSubview(controlBar)
-
-         // Add constraints to set the control bar's position and size
-         controlBar.translatesAutoresizingMaskIntoConstraints = false
-         NSLayoutConstraint.activate([
-            controlBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            controlBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            controlBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5), // Move lower
-            controlBar.heightAnchor.constraint(equalToConstant: 60) //ここでバーの高さ変更（大きい数＝した）
-         ])
-
-        // Add image buttons to the control bar
-          controlBar.addSubview(heartButton)
-          controlBar.addSubview(homeButton)
-          controlBar.addSubview(dataButton)
-          controlBar.addSubview(accountButton)
-
-        // Add constraints to position the image buttons within the control bar
-        let buttonWidth = (view.frame.width - 40) / 4 // Adjust spacing as needed
-        let buttonHeight: CGFloat = 30 //ここでボタンの高さ変えて（小さい数=もっと高く）
-
-        heartButton.translatesAutoresizingMaskIntoConstraints = false
-        homeButton.translatesAutoresizingMaskIntoConstraints = false
-        dataButton.translatesAutoresizingMaskIntoConstraints = false
-        accountButton.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            heartButton.leadingAnchor.constraint(equalTo: controlBar.leadingAnchor, constant: 10),
-            heartButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
-            heartButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-            heartButton.heightAnchor.constraint(equalToConstant: buttonHeight),
-
-            homeButton.leadingAnchor.constraint(equalTo: homeButton.trailingAnchor, constant: 10),
-            homeButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
-            homeButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-            homeButton.heightAnchor.constraint(equalToConstant: buttonHeight),
-
-            dataButton.leadingAnchor.constraint(equalTo: homeButton.trailingAnchor, constant: 10),
-            dataButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
-            dataButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-            dataButton.heightAnchor.constraint(equalToConstant: buttonHeight),
-
-            accountButton.leadingAnchor.constraint(equalTo: dataButton.trailingAnchor, constant: 10),
-            accountButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
-            accountButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-            accountButton.heightAnchor.constraint(equalToConstant: buttonHeight),
-            
-            // Add trailing constraint to the last button
-            accountButton.trailingAnchor.constraint(equalTo: controlBar.trailingAnchor, constant: -10),
-        ])
-    }
+//    func navBar() {
+//        
+//        // Create a control bar
+//        let controlBar = UIView()
+//        controlBar.backgroundColor = UIColor(red: 204/255, green: 217/255, blue: 245/255, alpha: 0.34)
+//        controlBar.layer.cornerRadius = 20 // Adjust the corner radius as needed
+//        view.addSubview(controlBar)
+//
+//         // Add constraints to set the control bar's position and size
+//         controlBar.translatesAutoresizingMaskIntoConstraints = false
+//         NSLayoutConstraint.activate([
+//            controlBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            controlBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            controlBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5), // Move lower
+//            controlBar.heightAnchor.constraint(equalToConstant: 60) //ここでバーの高さ変更（大きい数＝した）
+//         ])
+//
+//        // Add image buttons to the control bar
+//          controlBar.addSubview(heartButton)
+//          controlBar.addSubview(homeButton)
+//          controlBar.addSubview(dataButton)
+//          controlBar.addSubview(accountButton)
+//
+//        // Add constraints to position the image buttons within the control bar
+//        let buttonWidth = (view.frame.width - 40) / 4 // Adjust spacing as needed
+//        let buttonHeight: CGFloat = 30 //ここでボタンの高さ変えて（小さい数=もっと高く）
+//
+//        heartButton.translatesAutoresizingMaskIntoConstraints = false
+//        homeButton.translatesAutoresizingMaskIntoConstraints = false
+//        dataButton.translatesAutoresizingMaskIntoConstraints = false
+//        accountButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//        NSLayoutConstraint.activate([
+//            heartButton.leadingAnchor.constraint(equalTo: controlBar.leadingAnchor, constant: 10),
+//            heartButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+//            heartButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+//            heartButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+//
+//            homeButton.leadingAnchor.constraint(equalTo: homeButton.trailingAnchor, constant: 10),
+//            homeButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+//            homeButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+//            homeButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+//
+//            dataButton.leadingAnchor.constraint(equalTo: homeButton.trailingAnchor, constant: 10),
+//            dataButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+//            dataButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+//            dataButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+//
+//            accountButton.leadingAnchor.constraint(equalTo: dataButton.trailingAnchor, constant: 10),
+//            accountButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+//            accountButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+//            accountButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+//            
+//            // Add trailing constraint to the last button
+//            accountButton.trailingAnchor.constraint(equalTo: controlBar.trailingAnchor, constant: -10),
+//        ])
+//    }
     
     @IBAction func likeLocation() {
         print("pressed heart")

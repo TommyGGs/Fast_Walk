@@ -19,6 +19,10 @@ class WaitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        try! realm.write {
+            let allUsers = realm.objects(User.self)
+            realm.delete(allUsers)
+        }
         setGradientBackground()
         addImageView()
     }
@@ -34,7 +38,7 @@ class WaitViewController: UIViewController {
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
             if error != nil || user == nil {
                 print("user not signed in with google")
-                self.presentLoginViewController()
+                self.presentChooseViewController()
             } else if let token = AccessTokenStore.shared.current {
                 print("user already logged in with Line" + token.value)
                 self.presentMainNavigationController()
@@ -72,9 +76,7 @@ class WaitViewController: UIViewController {
             self.present(chooseVC, animated: true, completion: nil)
         }
     }
-
-   
-       func addImageView() {
+func addImageView() {
            let imageView = UIImageView()
            
            // Set the desired size for the image view

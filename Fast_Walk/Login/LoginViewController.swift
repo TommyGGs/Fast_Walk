@@ -23,12 +23,61 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         rectangleView()
         lineButton()
         setGradientBackground()
+        addImageView()
+        setupUI()
     }
 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         userGoogleState()
+    }
+    
+
+        func setupUI() {
+            // Add your other UI setup code here
+
+            // Create a custom back button
+            let backButton = UIButton(type: .system)
+            backButton.setImage(UIImage(named: "Backbutton.png"), for: .normal)
+            backButton.tintColor = UIColor(red: 246/255.0, green: 246/255.0, blue: 246/255.0, alpha: 0.57)
+            backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+
+            // Add constraints or frame for the button
+            // For example, if you want to position it at the top left corner:
+            backButton.frame = CGRect(x: 20, y: 65, width: 30, height: 30)
+
+            // Add the button to the view
+            view.addSubview(backButton)
+            view.bringSubviewToFront(backButton)
+        }
+    @objc func backButtonTapped() {
+        print("button tapped")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let chooseVC = storyboard.instantiateViewController(withIdentifier: "ChooseViewController") as? ChooseViewController {
+            chooseVC.modalPresentationStyle = .fullScreen
+            self.present(chooseVC, animated: true, completion: nil)
+        }    }
+
+
+    func addImageView() {
+        let imageView = UIImageView()
+
+        // Set the image
+        imageView.image = UIImage(named: "sasaka logo megabig.png")
+        
+        // Set the desired size for the image view
+        let imageViewSize = CGSize(width: 25.0, height: 45.0)
+
+        // Calculate the centered origin point for the resized image view
+        let originX = (view.bounds.width - imageViewSize.width) / 2.0
+        let originY = (view.bounds.height - imageViewSize.height) / 7.0
+
+        imageView.frame = CGRect(origin: CGPoint(x: originX, y: originY), size: imageViewSize)
+
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        view.addSubview(imageView)
     }
     
     func lineButton() {

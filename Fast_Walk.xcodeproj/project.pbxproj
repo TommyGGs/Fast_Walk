@@ -44,6 +44,12 @@
 		E0AE6E962B5D1ED7005B31A9 /* NotoSansJP-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0AE6E8E2B5D1ED7005B31A9 /* NotoSansJP-ExtraBold.ttf */; };
 		E0AE6E982B5D1F21005B31A9 /* NotoSansJP-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0AE6E972B5D1F21005B31A9 /* NotoSansJP-Light.ttf */; };
 		E0AE6E9C2B5D200C005B31A9 /* NotoSansJP-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0AE6E9B2B5D200C005B31A9 /* NotoSansJP-Regular.ttf */; };
+		E0F164872B5FD911004E1D36 /* Backbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = E0F164862B5FD911004E1D36 /* Backbutton.png */; };
+		E0F1648E2B5FD94F004E1D36 /* sasaka logo megabig.png in Resources */ = {isa = PBXBuildFile; fileRef = E0F164892B5FD945004E1D36 /* sasaka logo megabig.png */; };
+		E0F1648F2B5FD94F004E1D36 /* sasaka logo big.png in Resources */ = {isa = PBXBuildFile; fileRef = E0F1648A2B5FD94A004E1D36 /* sasaka logo big.png */; };
+		E0F164902B5FD94F004E1D36 /* sasaka logo small.png in Resources */ = {isa = PBXBuildFile; fileRef = E0F1648B2B5FD94D004E1D36 /* sasaka logo small.png */; };
+		E0F164912B5FD94F004E1D36 /* sasaka logo megasmall.png in Resources */ = {isa = PBXBuildFile; fileRef = E0F1648C2B5FD94F004E1D36 /* sasaka logo megasmall.png */; };
+		E0F164932B5FDCFD004E1D36 /* PersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F164922B5FDCFD004E1D36 /* PersonalViewController.swift */; };
 		E21292A32B16E61400796BE5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21292A22B16E61400796BE5 /* SceneDelegate.swift */; };
 		E21292AD2B16E61D00796BE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */; };
 		E22AA3F92B5A8B0F00AE06BD /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = E22AA3F82B5A8B0F00AE06BD /* Realm */; };
@@ -107,6 +113,12 @@
 		E0AE6E8E2B5D1ED7005B31A9 /* NotoSansJP-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-ExtraBold.ttf"; sourceTree = "<group>"; };
 		E0AE6E972B5D1F21005B31A9 /* NotoSansJP-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-Light.ttf"; sourceTree = "<group>"; };
 		E0AE6E9B2B5D200C005B31A9 /* NotoSansJP-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-Regular.ttf"; sourceTree = "<group>"; };
+		E0F164862B5FD911004E1D36 /* Backbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Backbutton.png; path = ../../../Fast_Walk1/Fast_Walk/Assets/Backbutton.png; sourceTree = "<group>"; };
+		E0F164892B5FD945004E1D36 /* sasaka logo megabig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sasaka logo megabig.png"; sourceTree = "<group>"; };
+		E0F1648A2B5FD94A004E1D36 /* sasaka logo big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sasaka logo big.png"; sourceTree = "<group>"; };
+		E0F1648B2B5FD94D004E1D36 /* sasaka logo small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sasaka logo small.png"; sourceTree = "<group>"; };
+		E0F1648C2B5FD94F004E1D36 /* sasaka logo megasmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sasaka logo megasmall.png"; sourceTree = "<group>"; };
+		E0F164922B5FDCFD004E1D36 /* PersonalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewController.swift; sourceTree = "<group>"; };
 		E212929D2B16E61400796BE5 /* Fast_Walk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fast_Walk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E21292A22B16E61400796BE5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E21292AC2B16E61D00796BE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -158,6 +170,7 @@
 		826DEC202B3594B100C0157F /* waypoints & markers */ = {
 			isa = PBXGroup;
 			children = (
+				828C32D02B3434DE000C3F7F /* Pop-up demo */,
 				826DEC1E2B35949300C0157F /* WayPointGeneration.swift */,
 				8243329F2B3991FB00D24094 /* randomWayPoint.swift */,
 				826DEC212B359E7A00C0157F /* CreateMarker.swift */,
@@ -181,6 +194,7 @@
 				310B58E02B47EE3000ACDE69 /* WaitViewController.swift */,
 				E07017992B5A1A090068960A /* ChooseViewController.swift */,
 				8291C57E2B47A0D20058AE71 /* LoginViewController.swift */,
+				E0F164922B5FDCFD004E1D36 /* PersonalViewController.swift */,
 				8291C57D2B47A0D20058AE71 /* WelcomViewController.swift */,
 				8291C57C2B47A0D20058AE71 /* ImageCache.swift */,
 			);
@@ -190,6 +204,7 @@
 		8291C5912B47A48F0058AE71 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				E0F164862B5FD911004E1D36 /* Backbutton.png */,
 				E0AE6E8E2B5D1ED7005B31A9 /* NotoSansJP-ExtraBold.ttf */,
 				8255360F2B5D3F50009E4D03 /* NotoSansJP-Bold.ttf */,
 				E0AE6E872B5D1ED6005B31A9 /* NotoSansJP-ExtraLight.ttf */,
@@ -199,6 +214,10 @@
 				E0AE6E892B5D1ED6005B31A9 /* NotoSansJP-SemiBold.ttf */,
 				E0AE6E8A2B5D1ED6005B31A9 /* NotoSansJP-Thin.ttf */,
 				E0AE6E742B5A7505005B31A9 /* sasaka logo4.png */,
+				E0F1648A2B5FD94A004E1D36 /* sasaka logo big.png */,
+				E0F164892B5FD945004E1D36 /* sasaka logo megabig.png */,
+				E0F1648C2B5FD94F004E1D36 /* sasaka logo megasmall.png */,
+				E0F1648B2B5FD94D004E1D36 /* sasaka logo small.png */,
 				313A0BC42B440D8B0097BC66 /* Liberty.png */,
 				8291C58F2B47A47B0058AE71 /* Assets.xcassets 11-42-14-782.xcassets */,
 			);
@@ -245,7 +264,6 @@
 				E21292A22B16E61400796BE5 /* SceneDelegate.swift */,
 				E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */,
 				826DEC202B3594B100C0157F /* waypoints & markers */,
-				828C32D02B3434DE000C3F7F /* Pop-up demo */,
 				31E7A2972B43DF460091BCF0 /* HealthKit demo */,
 				E21292AE2B16E61D00796BE5 /* Info.plist */,
 				8291C5912B47A48F0058AE71 /* Assets */,
@@ -359,11 +377,16 @@
 				825536102B5D3F50009E4D03 /* NotoSansJP-Bold.ttf in Resources */,
 				828C32CF2B343367000C3F7F /* PlaceDetails.xib in Resources */,
 				E0AE6E8F2B5D1ED7005B31A9 /* NotoSansJP-ExtraLight.ttf in Resources */,
+				E0F164902B5FD94F004E1D36 /* sasaka logo small.png in Resources */,
+				E0F1648F2B5FD94F004E1D36 /* sasaka logo big.png in Resources */,
+				E0F164912B5FD94F004E1D36 /* sasaka logo megasmall.png in Resources */,
 				8291C5902B47A47B0058AE71 /* Assets.xcassets 11-42-14-782.xcassets in Resources */,
 				E0AE6E962B5D1ED7005B31A9 /* NotoSansJP-ExtraBold.ttf in Resources */,
 				E0AE6E922B5D1ED7005B31A9 /* NotoSansJP-Thin.ttf in Resources */,
 				E0AE6E982B5D1F21005B31A9 /* NotoSansJP-Light.ttf in Resources */,
+				E0F164872B5FD911004E1D36 /* Backbutton.png in Resources */,
 				E21292AD2B16E61D00796BE5 /* LaunchScreen.storyboard in Resources */,
+				E0F1648E2B5FD94F004E1D36 /* sasaka logo megabig.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +478,7 @@
 				31E7A29E2B43E2E50091BCF0 /* HealthAndCareKitHelp.swift in Sources */,
 				31D0C0B52B3418C70049F6E1 /* RouteDetails.swift in Sources */,
 				82CD0D122B4818380027A327 /* EndScreenViewController.swift in Sources */,
+				E0F164932B5FDCFD004E1D36 /* PersonalViewController.swift in Sources */,
 				B67DF6182B5E7D0D002589EA /* CircleEndView.swift in Sources */,
 				E22AA4032B5B93C600AE06BD /* UserViewController.swift in Sources */,
 				E21292A32B16E61400796BE5 /* SceneDelegate.swift in Sources */,
