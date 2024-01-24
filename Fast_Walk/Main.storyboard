@@ -288,11 +288,11 @@
             <objects>
                 <viewController storyboardIdentifier="MainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="Fast_Walk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="834"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFA-RH-qf9">
-                                <rect key="frame" x="0.0" y="514" width="390" height="310"/>
+                                <rect key="frame" x="0.0" y="524" width="390" height="310"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Toc-sN-16Q">
                                         <rect key="frame" x="30" y="281" width="45" height="55"/>
@@ -409,10 +409,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dhg-9r-j9c">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="513"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="523"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nB-cR-24s">
-                                        <rect key="frame" x="285" y="5" width="75" height="40.333333333333336"/>
+                                        <rect key="frame" x="285" y="21.000000000000004" width="75" height="34.333333333333343"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Places"/>
                                         <connections>
@@ -420,7 +420,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYH-ZJ-x8w">
-                                        <rect key="frame" x="30" y="5" width="78" height="40.333333333333336"/>
+                                        <rect key="frame" x="30" y="21.000000000000004" width="78" height="34.333333333333343"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Logout"/>
                                         <connections>
@@ -660,7 +660,7 @@
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="Jyg-pS-Qog"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="Jyg-pS-Qog"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="スピード" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O80-Bt-N17">
@@ -843,7 +843,7 @@
                 <navigationController storyboardIdentifier="MainNavigationController" title="Hello" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hTy-OS-LMY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="rvG-f0-TI8">
-                        <rect key="frame" x="0.0" y="47" width="390" height="97"/>
+                        <rect key="frame" x="0.0" y="47" width="390" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <navigationBarAppearance key="standardAppearance"/>
                     </navigationBar>
@@ -868,6 +868,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="2FV-9Q-hMr"/>
         <segue reference="Jyg-pS-Qog"/>
         <segue reference="a36-K0-U9a"/>
     </inferredMetricsTieBreakers>
