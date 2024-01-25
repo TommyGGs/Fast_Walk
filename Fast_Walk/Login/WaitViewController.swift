@@ -19,10 +19,6 @@ class WaitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        try! realm.write {
-            let allUsers = realm.objects(User.self)
-            realm.delete(allUsers)
-        }
         setGradientBackground()
         addImageView()
     }

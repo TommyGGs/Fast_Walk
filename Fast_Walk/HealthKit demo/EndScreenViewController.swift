@@ -153,7 +153,7 @@ class EndScreenViewController: UIViewController {
     func getDiseasesPrevented(steps: Int) -> [String] {
         switch steps {
         case ..<2000:
-            return []
+            return ["なし"]
         case 2000..<4000:
             return ["寝たきり"]
         case 4000..<5000:
@@ -186,7 +186,7 @@ class EndScreenViewController: UIViewController {
         for stepValue in nodePositions {
             let nodeView = UIView()
             nodeView.backgroundColor = .gray  // Default color
-            nodeView.layer.cornerRadius = 5  // Half the height to make it circular
+              // Half the height to make it circular
             nodeView.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(nodeView)
             
@@ -200,6 +200,8 @@ class EndScreenViewController: UIViewController {
                 nodeView.heightAnchor.constraint(equalToConstant: 20),
                 diseaseProgressView.heightAnchor.constraint(equalToConstant: 10)
             ])
+            
+            nodeView.layer.cornerRadius = 10
             
             // Store the node in an array for later reference
             progressNodes.append(nodeView)
@@ -222,7 +224,10 @@ class EndScreenViewController: UIViewController {
         // Call the function to get diseases prevented and do something with the results
         let diseasesPrevented = getDiseasesPrevented(steps: steps)
         // Update the disease label with the latest disease that can be prevented
-        diseaseLabel.text = diseasesPrevented.last
+        DispatchQueue.main.async{
+            self.diseaseLabel.text = diseasesPrevented.last
+        }
+        
     }
 
     

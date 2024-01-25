@@ -17,6 +17,7 @@ class EndViewController: EndScreenViewController{
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var paceLabel: UILabel!
+    
     var receivedStepCount: Double = 0
     var receivedDistance: Double = 0
     var receivedTime: Int = 0
@@ -30,13 +31,14 @@ class EndViewController: EndScreenViewController{
         let roundedAvgPace = round(receivedAvgPace * 100) / 100.0
         
         DispatchQueue.main.async{
+            self.setupLabels()
             self.stepsLabel.text = (String(Int(self.receivedStepCount)) + " 歩")
             self.distanceLabel.text = ( "距離：\n" + String(Int(self.receivedDistance)) + "m")
             self.timeLabel.text =  String(format: "%02d分%02d秒", durationMinutes, durationSeconds)
-            self.paceLabel.text = (String(1 / self.receivedAvgPace) + "m/s")
+            self.paceLabel.text = ("平均速度: " + String(1 / self.receivedAvgPace) + "m/s")
             
         }
-        setupLabels()
+        
         // Do any additional setup after loading the view.
     }
     
@@ -89,7 +91,10 @@ class EndViewController: EndScreenViewController{
         stepsLabel.layer.cornerRadius = 20
         distanceLabel.layer.cornerRadius = 20
         distanceLabel.clipsToBounds = true
-        distanceLabel.clipsToBounds = true
+        distanceLabel.backgroundColor = #colorLiteral(red: 0.6540186405, green: 0.78854388, blue: 0.9540631175, alpha: 1)
+        paceLabel.backgroundColor = #colorLiteral(red: 0.6540186405, green: 0.78854388, blue: 0.9540631175, alpha: 1)
+        paceLabel.layer.cornerRadius = 20
+        paceLabel.clipsToBounds = true
         
     }
 
