@@ -23,6 +23,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     @IBOutlet var accountButton: UIButton!
     
     @IBOutlet var heart: UIButton!
+    
     var locationManager = CLLocationManager()
     var mapView: GMSMapView? //static throughout scope of entire program
     var currentLocation: CLLocationCoordinate2D?
@@ -526,7 +527,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
     @IBAction func signOut(sender: Any) {
-        
         GIDSignIn.sharedInstance.signOut()
         LoginManager.shared.logout { result in
             switch result {
