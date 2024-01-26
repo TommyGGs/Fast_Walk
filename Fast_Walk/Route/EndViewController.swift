@@ -90,20 +90,20 @@ class EndViewController: EndScreenViewController{
     }
     
     func setupLabels(){
+        distanceLabel.backgroundColor = UIColor(red: 0.7765, green: 0.8431, blue: 1.0, alpha: 0.3) // #C6D7FF with 30% transparency
+        paceLabel.backgroundColor = UIColor(red: 0.7765, green: 0.8431, blue: 1.0, alpha: 0.3) // #C6D7FF with 30% transparency
+
+        // Set corner radius and clip to bounds for paceLabel
+        paceLabel.layer.cornerRadius = 20
+        paceLabel.clipsToBounds = true
         stepsLabel.layer.cornerRadius = 20
         distanceLabel.layer.cornerRadius = 20
         distanceLabel.clipsToBounds = true
-        distanceLabel.backgroundColor = #colorLiteral(red: 0.6540186405, green: 0.78854388, blue: 0.9540631175, alpha: 1)
-        paceLabel.backgroundColor = #colorLiteral(red: 0.6540186405, green: 0.78854388, blue: 0.9540631175, alpha: 1)
+        //distanceLabel.backgroundColor = #colorLiteral(red: 0.6540186405, green: 0.78854388, blue: 0.9540631175, alpha: 1)
+        //paceLabel.backgroundColor = #colorLiteral(red: 0.6540186405, green: 0.78854388, blue: 0.9540631175, alpha: 1)
         paceLabel.layer.cornerRadius = 20
         paceLabel.clipsToBounds = true
-        homeButton.backgroundColor = #colorLiteral(red: 0.5374762416, green: 0.7084607482, blue: 0.9500582814, alpha: 1)
-        homeButton.layer.cornerRadius = homeButton.frame.height / 2
-        
     }
-
-       
-
        override func viewWillDisappear(_ animated: Bool) {
            stopPedometerUpdates()
            print("stopped")
@@ -111,4 +111,6 @@ class EndViewController: EndScreenViewController{
            
        }
 }
+
+
 
