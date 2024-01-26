@@ -24,22 +24,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        
-        Realm.Configuration.defaultConfiguration = Realm.Configuration(
-            schemaVersion: 2, // Increment whenever schema changes
+        // MARK: write realm config
+        let config = Realm.Configuration(
+            // Set the new schema version. This must be greater than the previously used
+            // version (if you've never set a schema version before, the version is 0).
+            schemaVersion: 3,
+
+            // Set the block which will be called automatically when opening a Realm
+            // with a schema version lower than the one set above
             migrationBlock: { migration, oldSchemaVersion in
-                if oldSchemaVersion < 1 {
-                    // Migrate from 'xCoordinate' and 'yCoordinate' to 'latitude' and 'longitude'
-                    migration.enumerateObjects(ofType: FavoriteSpot.className()) { oldObject, newObject in
-                        let xCoordinate = oldObject!["xCoordinate"] as! Double
-                        let yCoordinate = oldObject!["yCoordinate"] as! Double
-                        newObject!["latitude"] = xCoordinate
-                        newObject!["longitude"] = yCoordinate
-                    }
+                // We haven’t migrated anything yet, so oldSchemaVersion == 0
+                if (oldSchemaVersion < 1) {
+                    // Nothing to do!
+                    // Realm will automatically detect new properties and removed properties
+                    // And will update the schema on disk automatically
                 }
-            },
-            deleteRealmIfMigrationNeeded: false // Set to true to delete the realm if migration is not possible
+            }
         )
+
+        // Tell Realm to use this new configuration object for the default Realm
+        Realm.Configuration.defaultConfiguration = config
 
         return true
     }

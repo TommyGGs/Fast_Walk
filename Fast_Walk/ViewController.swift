@@ -40,6 +40,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var window: UIWindow?
     var passWaypoint: [GMSPlace] = []
     
+    let realm = try! Realm()
+
     
     
     

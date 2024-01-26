@@ -35,6 +35,17 @@ class ChooseViewController: UIViewController{
         view.addSubview(imageView)
     }
     
+    @IBAction func signUp() {
+        print("signup clicked")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
+            loginViewController.modalPresentationStyle = .fullScreen
+            loginViewController.signUp = true
+            self.present(loginViewController, animated: true, completion: nil)
+            print("signup is true")
+        }
+    }
+    
     func setGradientBackground() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
