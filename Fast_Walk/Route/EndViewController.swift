@@ -98,6 +98,7 @@ class EndViewController: EndScreenViewController{
         paceLabel.layer.cornerRadius = 20
         paceLabel.clipsToBounds = true
         homeButton.backgroundColor = #colorLiteral(red: 0.5374762416, green: 0.7084607482, blue: 0.9500582814, alpha: 1)
+        homeButton.layer.cornerRadius = homeButton.frame.height / 2
         
     }
 

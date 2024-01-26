@@ -47,7 +47,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     let gourmetButton = UIButton()
     let natureButton = UIButton()
     let tourismButton = UIButton()
-    var selectedCategory: [String] = []
     
     
     private var placesClient: GMSPlacesClient! //For Places marker
@@ -67,7 +66,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         changeRouteButton()
         navBar()
         //MARK: Setup route type selection view
-        configurePlaceTypesStackView()
+//        configurePlaceTypesStackView()
         configurePlaceTypesButtons()
         //
         self.view.bringSubviewToFront(heartButton)
@@ -88,12 +87,109 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
 
-    private func configurePlaceTypesStackView() {
-        view.addSubview(typeStackView)
-        typeStackView.axis = .horizontal
-        typeStackView.distribution = .fillEqually
-        typeStackView.alignment = .fill
-        typeStackView.translatesAutoresizingMaskIntoConstraints = false
+//    private func configurePlaceTypesStackView() {
+//        view.addSubview(typeStackView)
+//        typeStackView.axis = .horizontal
+//        typeStackView.distribution = .fillEqually
+//        typeStackView.alignment = .fill
+//        typeStackView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            typeStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+//            typeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+//            typeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10),
+//            typeStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            typeStackView.heightAnchor.constraint(equalToConstant: 50) // You can adjust the height
+//        ])
+//    }
+    
+    private func configurePlaceTypesButtons() {
+        setupButton(shoppingButton, title: "ショップ")
+            setupButton(gourmetButton, title: "グルメ")
+            setupButton(natureButton, title: "自然")
+            setupButton(tourismButton, title: "観光")
+
+            let buttons = [shoppingButton, gourmetButton, natureButton, tourismButton]
+        for button in buttons {
+            view.addSubview(button)
+            button.translatesAutoresizingMaskIntoConstraints = false
+        }
+        let topAnchor = view.safeAreaLayoutGuide.topAnchor
+        let constant: CGFloat = 42
+        let height: CGFloat = 35
+        NSLayoutConstraint.activate([
+            shoppingButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
+            shoppingButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            shoppingButton.heightAnchor.constraint(equalToConstant: height),
+
+               gourmetButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
+            gourmetButton.leadingAnchor.constraint(equalTo: shoppingButton.trailingAnchor, constant: 5),
+               gourmetButton.widthAnchor.constraint(equalTo: shoppingButton.widthAnchor),
+            gourmetButton.heightAnchor.constraint(equalToConstant: height),
+               natureButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
+               natureButton.leadingAnchor.constraint(equalTo: gourmetButton.trailingAnchor, constant: 5),
+               natureButton.widthAnchor.constraint(equalTo: gourmetButton.widthAnchor),
+            natureButton.heightAnchor.constraint(equalToConstant: height),
+               tourismButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
+               tourismButton.leadingAnchor.constraint(equalTo: natureButton.trailingAnchor, constant: 5),
+            tourismButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+               tourismButton.widthAnchor.constraint(equalTo: natureButton.widthAnchor),
+            tourismButton.heightAnchor.constraint(equalToConstant: height),
+           ])
+    }
+    
+    private func setupButton(_ button: UIButton, title: String) {
+        button.setTitle(title, for: .normal)
+        button.backgroundColor = .lightGray // Normal state color
+        button.setTitleColor(.black, for: .normal) // Adjust as needed
+        button.setTitleColor(.white, for: .selected)
+        // Set a different color for the selected state
+        button.setBackgroundImage(imageWithColor(color: .darkGray), for: .selected)
+        
+        button.layer.cornerRadius = 10  // Adjust the corner radius as needed
+            button.clipsToBounds = true
+
+        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+    }
+
+    private func imageWithColor(color: UIColor) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        context!.setFillColor(color.cgColor)
+        context!.fill(rect)
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return img!
+    }
+    
+    @objc func buttonTapped(_ sender: UIButton) {
+        let buttons = [shoppingButton, gourmetButton, natureButton, tourismButton]
+            for button in buttons {
+                button.isSelected = false
+            }
+            sender.isSelected = true
+//        DispatchQueue.main.async{
+//            sender.backgroundColor = .darkGray
+//            sender.setTitleColor(.white, for: .selected)
+//        }
+        
+        
+        switch sender {
+        case shoppingButton:
+            self.chosenType = "clothing_store"
+            print ("shopping")
+        case gourmetButton:
+            self.chosenType = "restaurant"
+            print ("gourmet")
+        case natureButton:
+            self.chosenType = "park"
+            print ("park")
+        case tourismButton:
+            self.chosenType = "tourist_attraction"
+            print ("tourist")
+        default:
+            break
+        }
     }
     //バーのコード
     func navBar() {
@@ -165,48 +261,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             let dataLabel = createLabel("記録", fontSize: 10)
             let accountLabel = createLabel("アカウント", fontSize: 10)
 
-        NSLayoutConstraint.activate([
-            typeStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            typeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            typeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            typeStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            typeStackView.heightAnchor.constraint(equalToConstant: 50) // You can adjust the height
-        ])
+        controlBar.addSubview(heartLabel)
+                        controlBar.addSubview(homeLabel)
+                        controlBar.addSubview(dataLabel)
+                        controlBar.addSubview(accountLabel)
+                
+                NSLayoutConstraint.activate([
+                            heartLabel.topAnchor.constraint(equalTo: heartButton.bottomAnchor, constant: 2),
+                            heartLabel.centerXAnchor.constraint(equalTo: heartButton.centerXAnchor),
+
+                            homeLabel.topAnchor.constraint(equalTo: homeButton.bottomAnchor, constant: 2),
+                            homeLabel.centerXAnchor.constraint(equalTo: homeButton.centerXAnchor),
+
+                            dataLabel.topAnchor.constraint(equalTo: dataButton.bottomAnchor, constant: 2),
+                            dataLabel.centerXAnchor.constraint(equalTo: dataButton.centerXAnchor),
+
+                            accountLabel.topAnchor.constraint(equalTo: accountButton.bottomAnchor, constant: 2),
+                            accountLabel.centerXAnchor.constraint(equalTo: accountButton.centerXAnchor),
+                        ])
     }
 
-    private func configurePlaceTypesButtons() {
-        
-        setupPlaceTypesButton(shoppingButton, title: "ショッピング")
-        setupPlaceTypesButton(gourmetButton, title: "グルメ")
-        setupPlaceTypesButton(natureButton, title: "自然")
-        setupPlaceTypesButton(tourismButton, title: "観光")
-
-        typeStackView.addArrangedSubview(shoppingButton)
-        typeStackView.addArrangedSubview(gourmetButton)
-        typeStackView.addArrangedSubview(natureButton)
-        typeStackView.addArrangedSubview(tourismButton)
-    }
     
-    private func setupPlaceTypesButton(_ button: UIButton, title: String) {
-        button.setTitle(title, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-    }
-    
-    @objc func buttonTapped(_ sender: UIButton) {
-        switch sender {
-        case shoppingButton:
-            self.selectedCategory = ["clothing_store"]
-        case gourmetButton:
-            self.selectedCategory = ["restaurant"]
-        case natureButton:
-            self.selectedCategory = ["park"]
-        case tourismButton:
-            self.selectedCategory = ["tourist_attraction"]
-        default:
-            break
-        }
-    }
     
     
     
@@ -657,7 +732,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         button.backgroundColor = UIColor(red: 0.8588235294, green: 0.8901960784, blue: 1, alpha: 1) // #DBE3FF
 
         // Set button border
-        button.layer.borderWidth = 1
+        button.layer.borderWidth = 5
         button.layer.borderColor = UIColor.white.cgColor
 
         // Set button corner radius
