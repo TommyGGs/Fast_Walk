@@ -120,8 +120,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             button.translatesAutoresizingMaskIntoConstraints = false
         }
         let topAnchor = view.safeAreaLayoutGuide.topAnchor
-        let constant: CGFloat = 46
-        let height: CGFloat = 35
+        let constant: CGFloat = 48
+        let height: CGFloat = 40
         NSLayoutConstraint.activate([
             shoppingButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
             shoppingButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 3),
@@ -154,7 +154,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         
         button.layer.cornerRadius = 10  // Adjust the corner radius as needed
         button.clipsToBounds = true
-        button.layer.borderWidth = 5
+        button.layer.borderWidth = 3
         button.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.4090455762)
         button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
     }
@@ -340,7 +340,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     func changeRouteButton(){
         let courseChangeButton = UIButton(type: .system)
         courseChangeButton.setTitle("コース変更", for: .normal)
-        courseChangeButton.backgroundColor = UIColor(white: 1.0, alpha: 0.4)
+        courseChangeButton.backgroundColor = UIColor(white: 1.0, alpha: 0.7)
         courseChangeButton.layer.cornerRadius = 8
         courseChangeButton.setTitleColor(UIColor.black, for: .normal)
         
