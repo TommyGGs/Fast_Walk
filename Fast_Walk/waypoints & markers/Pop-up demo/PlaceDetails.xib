@@ -15,12 +15,12 @@
                 <outlet property="contentView" destination="iN0-l3-epB" id="uC8-Bm-N69"/>
                 <outlet property="pictureView" destination="5Vd-sp-gJ2" id="3l8-Nx-Ngh"/>
                 <outlet property="snippetLabel" destination="41V-T6-m4I" id="xyV-VE-PeD"/>
-                <outlet property="titleLabel" destination="XMR-G0-fN0" id="x1b-pg-kmi"/>
                 <outlet property="star1" destination="T1q-Bs-EYO" id="SEz-0i-KNr"/>
                 <outlet property="star2" destination="so7-eR-cfu" id="W3v-lc-wUO"/>
                 <outlet property="star3" destination="me1-ct-2Lm" id="oqX-0h-tk7"/>
                 <outlet property="star4" destination="06g-vh-gIX" id="86l-Bb-Vpq"/>
                 <outlet property="star5" destination="ZbY-lC-KiY" id="1nY-en-YXi"/>
+                <outlet property="titleLabel" destination="XMR-G0-fN0" id="x1b-pg-kmi"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -28,7 +28,7 @@
             <rect key="frame" x="0.0" y="0.0" width="300" height="200"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMR-G0-fN0">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMR-G0-fN0">
                     <rect key="frame" x="16" y="27" width="115" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="NotoSansKannada-Bold" family="Noto Sans Kannada" pointSize="19"/>

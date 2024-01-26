@@ -41,8 +41,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var passWaypoint: [GMSPlace] = []
     
     let realm = try! Realm()
-
-    
+//MARK: スポット種類の選択
+    let typeStackView = UIStackView()
+    let shoppingButton = UIButton()
+    let gourmetButton = UIButton()
+    let natureButton = UIButton()
+    let tourismButton = UIButton()
+    var selectedCategory: [String] = []
     
     
     private var placesClient: GMSPlacesClient! //For Places marker
@@ -56,12 +61,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         setupMapView()
         fetchGoogleUserInfo()
         fetchLineUserInfo()
-        //        setupStyle()
         print("passed")
         setupStyle()
         setupChoiceButton()
         changeRouteButton()
         navBar()
+        //MARK: Setup route type selection view
+        configurePlaceTypesStackView()
+        configurePlaceTypesButtons()
+        //
         self.view.bringSubviewToFront(heartButton)
         self.view.bringSubviewToFront(homeButton)
         self.view.bringSubviewToFront(dataButton)
@@ -80,162 +88,56 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
 
+    private func configurePlaceTypesStackView() {
+        view.addSubview(typeStackView)
+        typeStackView.axis = .horizontal
+        typeStackView.distribution = .fillEqually
+        typeStackView.alignment = .fill
+        typeStackView.translatesAutoresizingMaskIntoConstraints = false
 
-    
-    
-    
-    //バーのコード
-    func navBar() {
-        
-        // Create a control bar
-        let controlBar = UIView()
-        controlBar.backgroundColor = UIColor(red: 204/255, green: 217/255, blue: 245/255, alpha: 0.34)
-        controlBar.layer.cornerRadius = 20 // Adjust the corner radius as needed
-        view.addSubview(controlBar)
-        
-        // Add constraints to set the control bar's position and size
-        controlBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            controlBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            controlBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            controlBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5), // Move lower
-            controlBar.heightAnchor.constraint(equalToConstant: 60) //ここでバーの高さ変更（大きい数＝した）
+            typeStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            typeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            typeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            typeStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            typeStackView.heightAnchor.constraint(equalToConstant: 50) // You can adjust the height
         ])
-        
-        // Add image buttons to the control bar
-        controlBar.addSubview(heartButton)
-        controlBar.addSubview(homeButton)
-        controlBar.addSubview(dataButton)
-        controlBar.addSubview(accountButton)
-        
-        // Add constraints to position the image buttons within the control bar
-        let buttonWidth = (view.frame.width - 40) / 4 // Adjust spacing as needed
-        let buttonHeight: CGFloat = 30 //ここでボタンの高さ変えて（小さい数=もっと高く）
-        
-        heartButton.translatesAutoresizingMaskIntoConstraints = false
-        homeButton.translatesAutoresizingMaskIntoConstraints = false
-        dataButton.translatesAutoresizingMaskIntoConstraints = false
-        accountButton.translatesAutoresizingMaskIntoConstraints = false
-        heartButton.addTarget(self, action: #selector(heartView), for: .touchUpInside)
+    }
 
-        NSLayoutConstraint.activate([
-            heartButton.leadingAnchor.constraint(equalTo: controlBar.leadingAnchor, constant: 10),
-            heartButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
-            heartButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-            heartButton.heightAnchor.constraint(equalToConstant: buttonHeight),
-            
-            homeButton.leadingAnchor.constraint(equalTo: homeButton.trailingAnchor, constant: 10),
-            homeButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
-            homeButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-            homeButton.heightAnchor.constraint(equalToConstant: buttonHeight),
-            
-            dataButton.leadingAnchor.constraint(equalTo: homeButton.trailingAnchor, constant: 10),
-            dataButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
-            dataButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-            dataButton.heightAnchor.constraint(equalToConstant: buttonHeight),
-            
-            accountButton.leadingAnchor.constraint(equalTo: dataButton.trailingAnchor, constant: 10),
-            accountButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
-            accountButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-            accountButton.heightAnchor.constraint(equalToConstant: buttonHeight),
-            
-            // Add trailing constraint to the last button
-            accountButton.trailingAnchor.constraint(equalTo: controlBar.trailingAnchor, constant: -10),
-        ])
+    private func configurePlaceTypesButtons() {
         
-        // Set button color to black
-        heartButton.tintColor = UIColor.black
-        homeButton.tintColor = UIColor.black
-        dataButton.tintColor = UIColor.black
-        accountButton.tintColor = UIColor.black
-        
-            let heartLabel = createLabel("お気に入り", fontSize: 10)
-            let homeLabel = createLabel("ホーム", fontSize: 10)
-            let dataLabel = createLabel("記録", fontSize: 10)
-            let accountLabel = createLabel("アカウント", fontSize: 10)
+        setupPlaceTypesButton(shoppingButton, title: "ショッピング")
+        setupPlaceTypesButton(gourmetButton, title: "グルメ")
+        setupPlaceTypesButton(natureButton, title: "自然")
+        setupPlaceTypesButton(tourismButton, title: "観光")
 
-                // Add labels to the control bar
-                controlBar.addSubview(heartLabel)
-                controlBar.addSubview(homeLabel)
-                controlBar.addSubview(dataLabel)
-                controlBar.addSubview(accountLabel)
-        
-        NSLayoutConstraint.activate([
-                    heartLabel.topAnchor.constraint(equalTo: heartButton.bottomAnchor, constant: 2),
-                    heartLabel.centerXAnchor.constraint(equalTo: heartButton.centerXAnchor),
-
-                    homeLabel.topAnchor.constraint(equalTo: homeButton.bottomAnchor, constant: 2),
-                    homeLabel.centerXAnchor.constraint(equalTo: homeButton.centerXAnchor),
-
-                    dataLabel.topAnchor.constraint(equalTo: dataButton.bottomAnchor, constant: 2),
-                    dataLabel.centerXAnchor.constraint(equalTo: dataButton.centerXAnchor),
-
-                    accountLabel.topAnchor.constraint(equalTo: accountButton.bottomAnchor, constant: 2),
-                    accountLabel.centerXAnchor.constraint(equalTo: accountButton.centerXAnchor),
-                ])
-        
-        func createLabel(_ text: String, fontSize: CGFloat) -> UILabel {
-            let label = UILabel()
-            label.text = text
-            label.textColor = UIColor.black
-            label.font = UIFont(name: "NotoSansJP-Regular", size: fontSize) // Fix: added fontSize parameter
-            label.translatesAutoresizingMaskIntoConstraints = false
-            return label
-        }
-
+        typeStackView.addArrangedSubview(shoppingButton)
+        typeStackView.addArrangedSubview(gourmetButton)
+        typeStackView.addArrangedSubview(natureButton)
+        typeStackView.addArrangedSubview(tourismButton)
     }
     
-    
-
-    
-    func createBarButton(title: String, imageName: String, fontSize: CGFloat) -> UIButton {
-        let button = UIButton(type: .system)
-        
-        if let image = UIImage(named: imageName) {
-            button.setImage(image, for: .normal)
-            button.imageView?.contentMode = .scaleAspectFit
-            button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0) // Adjust as needed
-        }
-        
+    private func setupPlaceTypesButton(_ button: UIButton, title: String) {
         button.setTitle(title, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
-        button.titleLabel?.textAlignment = .center
-        
-        return button
-    }
-        
-    
-    @IBAction func likeLocation() {
-        print("pressed heart")
-        heart.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
     }
     
-    func errorLabel(){
-        let labelWidth: CGFloat = 250
-        let labelHeight: CGFloat = 50
-        
-        // Assuming this code is inside a ViewController method
-        let screenWidth = UIScreen.main.bounds.width
-        let screenHeight = UIScreen.main.bounds.height
-        
-        let labelX = (screenWidth / 2) - (labelWidth / 2)
-        //        let labelY = screenHeight * 0.5
-        
-        let myLabel = UILabel(frame: CGRect(x: labelX, y: 55, width: labelWidth, height: labelHeight))
-        myLabel.text = "散歩時間を設定してください"
-        myLabel.textAlignment = .center
-        myLabel.backgroundColor = .red // For visibility
-        myLabel.textColor = .white
-        myLabel.layer.cornerRadius = 10
-        myLabel.layer.masksToBounds = true
-        myLabel.alpha = 0.8
-        
-        view.addSubview(myLabel)
+    @objc func buttonTapped(_ sender: UIButton) {
+        switch sender {
+        case shoppingButton:
+            self.selectedCategory = ["clothing_store"]
+        case gourmetButton:
+            self.selectedCategory = ["restaurant"]
+        case natureButton:
+            self.selectedCategory = ["park"]
+        case tourismButton:
+            self.selectedCategory = ["tourist_attraction"]
+        default:
+            break
+        }
     }
     
-
-
     
     
     
@@ -389,7 +291,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         //
         //        for _ in 1...2 {
         group.enter()
-        randomwaypoint.findRoute(start, desiredTime: desiredTime, types:chosenType ) { placeInfos in
+        randomwaypoint.findRoute(start, desiredTime: desiredTime, types: chosenType ) { placeInfos in
             for placeInfo in placeInfos {
                 if let placeInfo = placeInfo{
                     DispatchQueue.main.async{
@@ -683,4 +585,155 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         typeChoiceButton.showsMenuAsPrimaryAction = true
         typeChoiceButton.changesSelectionAsPrimaryAction = true
     }
+    
+    //バーのコード
+    func navBar() {
+        
+        // Create a control bar
+        let controlBar = UIView()
+        controlBar.backgroundColor = UIColor(red: 204/255, green: 217/255, blue: 245/255, alpha: 0.34)
+        controlBar.layer.cornerRadius = 20 // Adjust the corner radius as needed
+        view.addSubview(controlBar)
+        
+        // Add constraints to set the control bar's position and size
+        controlBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            controlBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            controlBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            controlBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5), // Move lower
+            controlBar.heightAnchor.constraint(equalToConstant: 60) //ここでバーの高さ変更（大きい数＝した）
+        ])
+        
+        // Add image buttons to the control bar
+        controlBar.addSubview(heartButton)
+        controlBar.addSubview(homeButton)
+        controlBar.addSubview(dataButton)
+        controlBar.addSubview(accountButton)
+        
+        // Add constraints to position the image buttons within the control bar
+        let buttonWidth = (view.frame.width - 40) / 4 // Adjust spacing as needed
+        let buttonHeight: CGFloat = 30 //ここでボタンの高さ変えて（小さい数=もっと高く）
+        
+        heartButton.translatesAutoresizingMaskIntoConstraints = false
+        homeButton.translatesAutoresizingMaskIntoConstraints = false
+        dataButton.translatesAutoresizingMaskIntoConstraints = false
+        accountButton.translatesAutoresizingMaskIntoConstraints = false
+        heartButton.addTarget(self, action: #selector(heartView), for: .touchUpInside)
+
+        NSLayoutConstraint.activate([
+            heartButton.leadingAnchor.constraint(equalTo: controlBar.leadingAnchor, constant: 10),
+            heartButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+            heartButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            heartButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            
+            homeButton.leadingAnchor.constraint(equalTo: homeButton.trailingAnchor, constant: 10),
+            homeButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+            homeButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            homeButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            
+            dataButton.leadingAnchor.constraint(equalTo: homeButton.trailingAnchor, constant: 10),
+            dataButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+            dataButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            dataButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            
+            accountButton.leadingAnchor.constraint(equalTo: dataButton.trailingAnchor, constant: 10),
+            accountButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+            accountButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            accountButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            
+            // Add trailing constraint to the last button
+            accountButton.trailingAnchor.constraint(equalTo: controlBar.trailingAnchor, constant: -10),
+        ])
+        
+        // Set button color to black
+        heartButton.tintColor = UIColor.black
+        homeButton.tintColor = UIColor.black
+        dataButton.tintColor = UIColor.black
+        accountButton.tintColor = UIColor.black
+        
+            let heartLabel = createLabel("お気に入り", fontSize: 10)
+            let homeLabel = createLabel("ホーム", fontSize: 10)
+            let dataLabel = createLabel("記録", fontSize: 10)
+            let accountLabel = createLabel("アカウント", fontSize: 10)
+
+                // Add labels to the control bar
+                controlBar.addSubview(heartLabel)
+                controlBar.addSubview(homeLabel)
+                controlBar.addSubview(dataLabel)
+                controlBar.addSubview(accountLabel)
+        
+        NSLayoutConstraint.activate([
+                    heartLabel.topAnchor.constraint(equalTo: heartButton.bottomAnchor, constant: 2),
+                    heartLabel.centerXAnchor.constraint(equalTo: heartButton.centerXAnchor),
+
+                    homeLabel.topAnchor.constraint(equalTo: homeButton.bottomAnchor, constant: 2),
+                    homeLabel.centerXAnchor.constraint(equalTo: homeButton.centerXAnchor),
+
+                    dataLabel.topAnchor.constraint(equalTo: dataButton.bottomAnchor, constant: 2),
+                    dataLabel.centerXAnchor.constraint(equalTo: dataButton.centerXAnchor),
+
+                    accountLabel.topAnchor.constraint(equalTo: accountButton.bottomAnchor, constant: 2),
+                    accountLabel.centerXAnchor.constraint(equalTo: accountButton.centerXAnchor),
+                ])
+        
+        func createLabel(_ text: String, fontSize: CGFloat) -> UILabel {
+            let label = UILabel()
+            label.text = text
+            label.textColor = UIColor.black
+            label.font = UIFont(name: "NotoSansJP-Regular", size: fontSize) // Fix: added fontSize parameter
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }
+
+    }
+    
+    
+
+    
+    func createBarButton(title: String, imageName: String, fontSize: CGFloat) -> UIButton {
+        let button = UIButton(type: .system)
+        
+        if let image = UIImage(named: imageName) {
+            button.setImage(image, for: .normal)
+            button.imageView?.contentMode = .scaleAspectFit
+            button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0) // Adjust as needed
+        }
+        
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
+        button.titleLabel?.textAlignment = .center
+        
+        return button
+    }
+        
+    
+    @IBAction func likeLocation() {
+        print("pressed heart")
+        heart.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+    }
+    
+    func errorLabel(){
+        let labelWidth: CGFloat = 250
+        let labelHeight: CGFloat = 50
+        
+        // Assuming this code is inside a ViewController method
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        
+        let labelX = (screenWidth / 2) - (labelWidth / 2)
+        //        let labelY = screenHeight * 0.5
+        
+        let myLabel = UILabel(frame: CGRect(x: labelX, y: 55, width: labelWidth, height: labelHeight))
+        myLabel.text = "散歩時間を設定してください"
+        myLabel.textAlignment = .center
+        myLabel.backgroundColor = .red // For visibility
+        myLabel.textColor = .white
+        myLabel.layer.cornerRadius = 10
+        myLabel.layer.masksToBounds = true
+        myLabel.alpha = 0.8
+        
+        view.addSubview(myLabel)
+    }
+    
 }
