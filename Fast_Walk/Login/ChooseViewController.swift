@@ -20,7 +20,7 @@ class ChooseViewController: UIViewController{
         let imageView = UIImageView()
         
         // Set the desired size for the image view
-        let imageViewSize = CGSize(width: 47.0, height: 77.0)
+        let imageViewSize = CGSize(width: 47.0, height: 80.0)
         
         // Calculate the centered origin point for the resized image view
         let originX = (view.bounds.width - imageViewSize.width) / 2.0
@@ -30,7 +30,7 @@ class ChooseViewController: UIViewController{
         
         //imageView.frame = view.bounds
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "/Users/keeseojung/Documents/Fast_Walk/Fast_Walk/Assets/sasaka logo4.png")
+        imageView.image = UIImage(named: "sasaka logo big.png")
         imageView.clipsToBounds = true // Add this line
         view.addSubview(imageView)
     }

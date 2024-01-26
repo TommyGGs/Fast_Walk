@@ -76,17 +76,17 @@ func addImageView() {
            let imageView = UIImageView()
            
            // Set the desired size for the image view
-           let imageViewSize = CGSize(width: 47.0, height: 77.0)
+           let imageViewSize = CGSize(width: 67.0, height: 115.0)
            
            // Calculate the centered origin point for the resized image view
            let originX = (view.bounds.width - imageViewSize.width) / 2.0
-           let originY = (view.bounds.height - imageViewSize.height) / 2.5
+    let originY = (view.bounds.height - imageViewSize.height) / 2.7
            
            imageView.frame = CGRect(origin: CGPoint(x: originX, y: originY), size: imageViewSize)
            
            //imageView.frame = view.bounds
            imageView.contentMode = .scaleAspectFill
-           imageView.image = UIImage(named: "/Users/keeseojung/Documents/Fast_Walk/Fast_Walk/Assets/sasaka logo4.png")
+           imageView.image = UIImage(named: "sasaka logo megabig.png")
            imageView.clipsToBounds = true // Add this line
            view.addSubview(imageView)
        }
