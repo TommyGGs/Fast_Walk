@@ -43,14 +43,14 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="お楽しみください！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDr-kr-x8u">
-                                <rect key="frame" x="118.66666666666674" y="352" width="153" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="お楽しみください！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDr-kr-x8u">
+                                <rect key="frame" x="118.66666666666669" y="351" width="153" height="24.666666666666686"/>
                                 <fontDescription key="fontDescription" name="NotoSansJP-Regular" family="Noto Sans JP" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qtb-cD-Z4c">
-                                <rect key="frame" x="200" y="455" width="120" height="48"/>
+                                <rect key="frame" x="200" y="455.66666666666669" width="120" height="47.333333333333314"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="aOI-A0-uMp"/>
                                 </constraints>
@@ -60,11 +60,12 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
+                                    <action selector="signUp" destination="IDS-nh-NWS" eventType="touchUpInside" id="dX8-P5-P1Z"/>
                                     <segue destination="1ru-YU-8Mr" kind="presentation" modalPresentationStyle="fullScreen" id="a36-K0-U9a"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oz9-kd-OIT">
-                                <rect key="frame" x="70" y="455" width="120" height="48"/>
+                                <rect key="frame" x="70" y="455.66666666666669" width="120" height="47.333333333333314"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="ef9-Tj-cRu"/>
                                 </constraints>
@@ -125,7 +126,7 @@
                                     <action selector="signInSender:" destination="1ru-YU-8Mr" eventType="touchUpInside" id="KXl-am-2oL"/>
                                 </connections>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ログイン" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Vp-Ol-U0Q">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Vp-Ol-U0Q">
                                 <rect key="frame" x="124" y="195" width="142" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="NotoSansJP-SemiBold" family="Noto Sans JP" pointSize="26"/>
@@ -161,6 +162,9 @@
                         <viewLayoutGuide key="safeArea" id="VGl-3D-eVQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="signUpText" destination="9Vp-Ol-U0Q" id="6ec-CG-HJd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oxp-kX-zAb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -342,7 +346,7 @@
                                         <buttonConfiguration key="configuration" style="plain" image="shoeprints.fill" catalog="system" title=""/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xn-gT-2dV">
-                                        <rect key="frame" x="115" y="55" width="160" height="160"/>
+                                        <rect key="frame" x="115" y="65" width="160" height="160"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="160" id="boF-NR-XS9"/>
                                             <constraint firstAttribute="width" constant="160" id="yG9-3O-N4f"/>
@@ -358,7 +362,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGd-wc-gna">
-                                        <rect key="frame" x="295" y="30" width="65" height="65"/>
+                                        <rect key="frame" x="295" y="40" width="65" height="65"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="45" cornerStyle="capsule">
                                             <fontDescription key="titleFontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="20"/>
@@ -370,7 +374,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fqc-Cx-zfz">
-                                        <rect key="frame" x="30" y="30" width="65" height="65"/>
+                                        <rect key="frame" x="30" y="40" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="bem-Si-6wu"/>
                                             <constraint firstAttribute="height" constant="65" id="xxv-sP-nN6"/>
@@ -386,7 +390,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7K-AR-U7A">
-                                        <rect key="frame" x="30" y="175" width="65" height="65"/>
+                                        <rect key="frame" x="30" y="185" width="65" height="65"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="60" cornerStyle="capsule">
                                             <fontDescription key="titleFontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="20"/>
@@ -398,7 +402,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yek-0c-FkO">
-                                        <rect key="frame" x="295" y="175" width="65" height="65"/>
+                                        <rect key="frame" x="295" y="185" width="65" height="65"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="90" cornerStyle="capsule">
                                             <fontDescription key="titleFontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="20"/>
@@ -499,7 +503,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Dhg-9r-j9c" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="4kl-ow-vDa"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6Xn-gT-2dV" secondAttribute="bottom" constant="105" id="9Kl-FU-0ld"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6Xn-gT-2dV" secondAttribute="bottom" constant="95" id="9Kl-FU-0ld"/>
                             <constraint firstAttribute="trailing" secondItem="Dhg-9r-j9c" secondAttribute="trailing" id="EG0-lZ-vjW"/>
                             <constraint firstItem="ShJ-gr-Sfc" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="30" id="LjT-fq-znE"/>
                             <constraint firstItem="Dhg-9r-j9c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ahm-lP-Hca"/>
@@ -556,7 +560,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="歩数" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiU-10-KHL">
-                                <rect key="frame" x="177.66666666666666" y="740" width="34.666666666666657" height="20.333333333333371"/>
+                                <rect key="frame" x="179" y="740" width="32" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -683,14 +687,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CN1-hr-BYR">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CN1-hr-BYR">
                                 <rect key="frame" x="140" y="704" width="110" height="110"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="110" id="9TF-qY-Q0w"/>
                                     <constraint firstAttribute="width" constant="110" id="F83-ro-Em4"/>
                                 </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="ホームに戻る" cornerStyle="capsule" titleAlignment="center">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" name="AccentColor"/>
+                                    </backgroundConfiguration>
                                     <fontDescription key="titleFontDescription" name="NotoSansJP-SemiBold" family="Noto Sans JP" pointSize="18"/>
                                 </buttonConfiguration>
                                 <connections>
@@ -916,7 +924,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wuX-f9-xWw"/>
+        <segue reference="Jyg-pS-Qog"/>
         <segue reference="a36-K0-U9a"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -43,10 +43,10 @@ class LikeCollectionViewCell: UICollectionViewCell {
 
         // Set constraints for subviews
         NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20), // Move 20 points to the right
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 50),
-            imageView.heightAnchor.constraint(equalToConstant: 50),
+            imageView.widthAnchor.constraint(equalToConstant: 100), // Increase width to 100
+            imageView.heightAnchor.constraint(equalToConstant: 100), // Increase height to 100
 
             titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -57,5 +57,6 @@ class LikeCollectionViewCell: UICollectionViewCell {
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5)
         ])
     }
+
 }
 

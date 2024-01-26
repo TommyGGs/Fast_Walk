@@ -34,38 +34,33 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     var remove_user_favorites: [FavoriteSpot] = []
     var isFavAlready: Bool = false
     var currentUser: User = User()
+    var allUsers: [User] = []
     var currentSpot: CLLocationCoordinate2D = CLLocationCoordinate2D()
     var userID: String = ""
+    var currentPlaceID: String = ""
     
     let realm = try! Realm()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        allUsers = readAllUsers()
         currentUser = readUsers()
         user_favorites = readFavorites()
 
         locationManager.delegate = self
         beginLocationUpdate() // Start location updates
-        
-        if let routeDetails = routeDetails {
-            setupAndDisplayRouteOnMap(routeDetails: routeDetails)
-        }
         modeSwitch()
         configureLocationManager()
         setupCircularProgressView()
         setUpTimerView()
         likeLabel.isHidden = true                
         heartBtn.isHidden = true
+        print("this is user favorites: \(user_favorites)")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let routeDetails = routeDetails {
-            setupAndDisplayRouteOnMap(routeDetails: routeDetails)
-            for waypoint in waypoints {
-                self.marker.addMarker(waypoint, self.mapView)
-            }
-        }
+        setupMapView()
         startCountdown()
     }
     
@@ -108,26 +103,25 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         view.addSubview(overlayView)*/
     }
     
-    func checkUser() -> String{
-        if let profile = GIDSignIn.sharedInstance.currentUser {
-            guard let profileID = profile.userID else {
-                var profileID: String = ""
-                API.getProfile { result in
-                    switch result {
-                    case .success(let profile):
-                    profileID = profile.userID
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-                print("line user id\(profileID)")
-                return profileID
-            }
+    func checkUser() -> String {
+        print("checking user function")
+        if let profile = GIDSignIn.sharedInstance.currentUser, let profileID = profile.userID {
             print("google user id\(String(describing: profile.userID))")
             return profile.userID ?? "error"
         } else {
-            print("can't find user")
-            return("error")
+            print("error in GID")
+            var profileID: String = ""
+            API.getProfile { result in
+                switch result {
+                case .success(let profile):
+                profileID = profile.userID
+                case .failure(let error):
+                    print(error)
+                print("can't find line user as well")
+                }
+            }
+            print("line user id\(profileID)")
+            return profileID
         }
     }
     
@@ -143,15 +137,26 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         return findFavorites
     }
     
+    
+    func readAllUsers() -> [User] {
+        let allUsers = Array(realm.objects(User.self))
+        print("realm array:\(Array(realm.objects(User.self)))")
+        print("appending all users: \(allUsers)")
+        return allUsers
+    }
+    
     func readUsers() -> User {
-        let users = Array(realm.objects(User.self))
-        for user in users {
-            if user.userID == checkUser() {
-                return user
+        print("reading users")
+        print("this is \(allUsers)")
+        for allUser in allUsers {
+            print("for looping")
+            if allUser.userID == checkUser() {
+                print("found user with same id")
+                return allUser
             }
         }
         print("error in finding userID from users, returning first user")
-        return users[0]
+        return allUsers[0]
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
@@ -165,6 +170,14 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         infoWindow.titleLabel.text = marker.title
         infoWindow.snippetLabel.text = marker.snippet
         currentSpot = marker.position
+        
+// TODO: - have placeID stored in favorites
+        for waypoint in waypoints {
+            if waypoint.coordinate.latitude == currentSpot.latitude, waypoint.coordinate.longitude == currentSpot.longitude {
+                currentPlaceID = waypoint.placeID ?? "nil"
+            }
+        }
+        print("current spot changed\(currentSpot)")
         likeLabel.isHidden = false
         heartBtn.isHidden = false
         
@@ -239,6 +252,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             let fav = FavoriteSpot(coordinate: currentSpot)
             fav.userName = currentUser.name
             fav.userID = currentUser.userID
+            fav.placeID = currentPlaceID
+            print("favorite placeID added to array")
             favorites.append(fav)
             print("fav appended")
         } else {
@@ -256,6 +271,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
                     let unfav = FavoriteSpot(coordinate: currentSpot)
                     unfav.userName = currentUser.name
                     unfav.userID = currentUser.userID
+                    unfav.placeID = currentPlaceID
+                    print("unfavorite placeID added to array")
                     remove_user_favorites.append(unfav)
                     print("added already liked spot to remove array")
                 }
@@ -317,7 +334,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         countdown -= 1
         duration += 1
         
-        print (String(format: "%02d:%02d", durationMinutes, durationSeconds))
+//        print (String(format: "%02d:%02d", durationMinutes, durationSeconds))
         
         if countdown < 0 {
             if mode == "slow"{
@@ -350,8 +367,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             currentLocation = location.coordinate
-            let cameraUpdate = GMSCameraUpdate.setTarget(location.coordinate, zoom: 10.0)
-            mapView?.animate(with: cameraUpdate)
+//            let cameraUpdate = GMSCameraUpdate.setTarget(location.coordinate, zoom: 25)
+//            mapView?.animate(with: cameraUpdate)
             mapView?.isMyLocationEnabled = true
             mapView?.settings.myLocationButton = true
         }
@@ -361,15 +378,27 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         print("Failed to find user's location: \(error.localizedDescription)")
     }
     
-    func setupAndDisplayRouteOnMap(routeDetails: RouteDetails) {
-        
+    func setupMapView() {
+        guard let routeDetails = self.routeDetails else { return }
+
         let camera = GMSCameraPosition.camera(withLatitude: routeDetails.startCoordinate.latitude,
                                               longitude: routeDetails.startCoordinate.longitude,
-                                              zoom: 10.0)
+                                              zoom: 20.0)
         mapView = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
         mapView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapContainerView.addSubview(mapView!)
         mapView?.delegate = self
+        mapContainerView.addSubview(mapView!)
+        mapView?.isMyLocationEnabled = true
+        mapView?.settings.myLocationButton = true
+
+        setupAndDisplayRouteOnMap(routeDetails: routeDetails)
+
+        for waypoint in waypoints {
+            self.marker.addMarker(waypoint, self.mapView)
+        }
+    }
+    
+    func setupAndDisplayRouteOnMap(routeDetails: RouteDetails) {
         
         // Display the route
         
@@ -379,13 +408,12 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             polyline.strokeWidth = 5.0
             polyline.strokeColor = UIColor.systemBlue
             polyline.map = mapView
-            
             // Fit the camera to the bounds of the route
             let bounds = GMSCoordinateBounds(path: path)
             print("Polyline bounds: \(bounds)")
             print("Map view frame: \(mapView?.frame ?? CGRect.zero)")
             
-            let update = GMSCameraUpdate.fit(bounds, withPadding: 20) // Adjust padding as needed
+            let update = GMSCameraUpdate.fit(bounds, withPadding: 50) // Adjust padding as needed
             mapView?.animate(with: update)
             
             let durationMarker = GMSMarker(position: routeDetails.startCoordinate)
@@ -394,19 +422,13 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             durationMarker.map = mapView
             mapView?.selectedMarker = durationMarker
         }
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//            if let path = GMSPath(fromEncodedPath: routeDetails.polyString) {
-//                let bounds = GMSCoordinateBounds(path: path)
-//                let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
-//                self.mapView?.animate(with: update)
-//            }
-//        }
     }
     
     func beginLocationUpdate() {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
             locationManager.startUpdatingLocation()
+            mapView?.isMyLocationEnabled = true
+            mapView?.isMyLocationEnabled = true
         } else {
             locationManager.requestWhenInUseAuthorization()
         }
