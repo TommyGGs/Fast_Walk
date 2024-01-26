@@ -35,7 +35,7 @@ class randomWayPoint {
     
     private func performNearbySearch(from coordinate: CLLocationCoordinate2D, radius: Double, type: String, completion: @escaping ([GMSPlace?]) -> Void) {
         
-        let optionNumber = 10 //change here when increasing number of results
+        let optionNumber = 1 //change here when increasing number of results
         
         print ("called performNearbySearch")
         //let radius: Double = 1000 // Search within 1000 meters of the coordinate
