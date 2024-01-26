@@ -215,7 +215,7 @@ class EndScreenViewController: UIViewController {
         for (index, node) in progressNodes.enumerated() {
             let stepThresholds = [0, 3000, 6000, 9000, 12000]
             if steps >= stepThresholds[index] {
-                node.backgroundColor = .blue  // Color when the step threshold is reached
+                node.backgroundColor = UIColor(red: 83/255, green: 131/255, blue: 236/255, alpha: 1.0) // #5383EC
             } else {
                 node.backgroundColor = .gray  // Default color
             }
