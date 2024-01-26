@@ -28,6 +28,8 @@ class EndScreenViewController: UIViewController {
     
     @IBOutlet weak var diseaseProgressView: UIProgressView!
     
+    @IBOutlet weak var diseaseBackGround: UIView!
+    
     var stepButtons: [UIButton] = []
     var todaySteps: Int = 0
     var progressNodes: [UIView] = []
@@ -60,7 +62,8 @@ class EndScreenViewController: UIViewController {
                 self.updateProgressView(with: self.todaySteps)
             }
         }
-        
+        diseaseBackGround.layer.cornerRadius = 20
+        diseaseBackGround.clipsToBounds = true
         
         
     }
