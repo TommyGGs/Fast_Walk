@@ -95,6 +95,77 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         typeStackView.alignment = .fill
         typeStackView.translatesAutoresizingMaskIntoConstraints = false
 
+    
+    //バーのコード
+    func navBar() {
+        
+        // Create a control bar
+        let controlBar = UIView()
+        controlBar.backgroundColor = UIColor(red: 204/255, green: 217/255, blue: 245/255, alpha: 0.34)
+        controlBar.layer.cornerRadius = 20 // Adjust the corner radius as needed
+        view.addSubview(controlBar)
+        
+        // Add constraints to set the control bar's position and size
+        controlBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            controlBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            controlBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            controlBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5), // Move lower
+            controlBar.heightAnchor.constraint(equalToConstant: 60) //ここでバーの高さ変更（大きい数＝した）
+        ])
+        
+        // Add image buttons to the control bar
+        controlBar.addSubview(heartButton)
+        controlBar.addSubview(homeButton)
+        controlBar.addSubview(dataButton)
+        controlBar.addSubview(accountButton)
+        
+        // Add constraints to position the image buttons within the control bar
+        let buttonWidth = (view.frame.width - 40) / 4 // Adjust spacing as needed
+        let buttonHeight: CGFloat = 30 //ここでボタンの高さ変えて（小さい数=もっと高く）
+        
+        heartButton.translatesAutoresizingMaskIntoConstraints = false
+        homeButton.translatesAutoresizingMaskIntoConstraints = false
+        dataButton.translatesAutoresizingMaskIntoConstraints = false
+        accountButton.translatesAutoresizingMaskIntoConstraints = false
+        heartButton.addTarget(self, action: #selector(heartView), for: .touchUpInside)
+
+        NSLayoutConstraint.activate([
+            heartButton.leadingAnchor.constraint(equalTo: controlBar.leadingAnchor, constant: 10),
+            heartButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+            heartButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            heartButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            
+            homeButton.leadingAnchor.constraint(equalTo: homeButton.trailingAnchor, constant: 10),
+            homeButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+            homeButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            homeButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            
+            dataButton.leadingAnchor.constraint(equalTo: homeButton.trailingAnchor, constant: 10),
+            dataButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+            dataButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            dataButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            
+            accountButton.leadingAnchor.constraint(equalTo: dataButton.trailingAnchor, constant: 10),
+            accountButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
+            accountButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            accountButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            
+            // Add trailing constraint to the last button
+            accountButton.trailingAnchor.constraint(equalTo: controlBar.trailingAnchor, constant: -10),
+        ])
+        
+        // Set button color to black
+        heartButton.tintColor = UIColor.black
+        homeButton.tintColor = UIColor.black
+        dataButton.tintColor = UIColor.black
+        accountButton.tintColor = UIColor.black
+        
+            let heartLabel = createLabel("お気に入り", fontSize: 10)
+            let homeLabel = createLabel("ホーム", fontSize: 10)
+            let dataLabel = createLabel("記録", fontSize: 10)
+            let accountLabel = createLabel("アカウント", fontSize: 10)
+
         NSLayoutConstraint.activate([
             typeStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             typeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -558,7 +629,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         return infoWindow // This ensures a UIView? is always returned
     }
     
-    func setupStyle() {
+   /* func setupStyle() {
         navigationView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8272664657)
         setupBorder(button30)
         setupBorder(button45)
@@ -570,7 +641,36 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         a.layer.borderWidth = 4
         a.layer.borderColor = #colorLiteral(red: 0.5058823529, green: 0.6274509804, blue: 0.9098039216, alpha: 1)
         a.layer.cornerRadius = a.frame.width / 2
+    }*/
+    func setupStyle() {
+        navigationView.backgroundColor = #colorLiteral(red: 0.9279547334, green: 0.9279547334, blue: 0.9279547334, alpha: 1)
+        
+        // Update button styles
+        setupButtonStyle(button30)
+        setupButtonStyle(button45)
+        setupButtonStyle(button60)
+        setupButtonStyle(button90)
+        setupButtonStyle(startButton)
     }
+
+    func setupButtonStyle(_ button: UIButton) {
+        // Set button background color
+        button.backgroundColor = UIColor(red: 0.8588235294, green: 0.8901960784, blue: 1, alpha: 1) // #DBE3FF
+
+        // Set button border
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.white.cgColor
+
+        // Set button corner radius
+        button.layer.cornerRadius = button.frame.width / 2
+
+        // Apply drop shadow
+        button.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 4)
+        button.layer.shadowRadius = 4
+        button.layer.shadowOpacity = 0.25
+    }
+    
     func setupChoiceButton(){
         let actionClosure = { (action: UIAction) in
             self.chosenType = action.title

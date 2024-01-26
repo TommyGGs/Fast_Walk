@@ -15,7 +15,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     @IBOutlet var signUpText: UILabel!
     var users: [User] = []
     var userExist: Bool = false
-    var signUp: Bool = false
+    var signUp: Bool?
     let realm = try! Realm()
 
 
@@ -23,12 +23,18 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         super.viewDidLoad()
         
         if signUp == true {
-            print("signup is true")
+            print("signup is trueee")
             signUpText.text = "新規登録"
-        } else {
-            print("signup is false")
+            print("\(String(describing: signUpText.text))")
+        } else if signUp == false {
+            print("signup is falseee")
             signUpText.text = "ログイン"
+        } else {
+            signUpText.text = "新規登録"
         }
+        
+        
+        
         users = readUsers()
         rectangleView()
         lineButton()

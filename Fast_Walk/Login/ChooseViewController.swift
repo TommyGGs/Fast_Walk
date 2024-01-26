@@ -39,13 +39,13 @@ class ChooseViewController: UIViewController{
         print("signup clicked")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
-            loginViewController.modalPresentationStyle = .fullScreen
             loginViewController.signUp = true
+            print("signup is \(loginViewController.signUp)")
+            loginViewController.modalPresentationStyle = .fullScreen
             self.present(loginViewController, animated: true, completion: nil)
-            print("signup is true")
         }
     }
-    
+
     func setGradientBackground() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
@@ -69,7 +69,7 @@ class ChooseViewController: UIViewController{
             // Create a UIView for the line
             let lineView = UIView()
             lineView.backgroundColor = UIColor.white.withAlphaComponent(0.21) // White with 21% transparency
-            lineView.frame = CGRect(x: 190, y: 490, width: lineWidth, height: 59)
+            lineView.frame = CGRect(x: 165, y: 490, width: 59, height: lineWidth)
 
             // Rotate the line to be vertical
             let rotationAngle = CGFloat.pi / 2.0
