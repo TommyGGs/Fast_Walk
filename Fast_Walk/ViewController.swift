@@ -41,6 +41,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var passWaypoint: [GMSPlace] = []
     
     let realm = try! Realm()
+    let customTransitioningDelegate = CustomTransitioningDelegate()
 
     
     
@@ -75,7 +76,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         print("heart clicked")
         let storyboard = UIStoryboard(name: "Favorite", bundle: nil)
         if let heartVC = storyboard.instantiateViewController(withIdentifier: "HeartViewController") as? HeartViewController {
-            heartVC.modalPresentationStyle = .automatic
+            heartVC.modalPresentationStyle = .custom
+            heartVC.transitioningDelegate = customTransitioningDelegate
             self.present(heartVC, animated: true, completion: nil)
         }
     }
@@ -682,5 +684,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         typeChoiceButton.menu = UIMenu(options: .displayInline, children: menuChildren)
         typeChoiceButton.showsMenuAsPrimaryAction = true
         typeChoiceButton.changesSelectionAsPrimaryAction = true
+    }
+}
+
+class HalfSizePresentationController: UIPresentationController {
+    override var frameOfPresentedViewInContainerView: CGRect {
+        guard let containerView = containerView else { return .zero }
+        return CGRect(x: 0, y: containerView.bounds.height / 2, width: containerView.bounds.width, height: containerView.bounds.height / 2)
+    }
+}
+
+class CustomTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return HalfSizePresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

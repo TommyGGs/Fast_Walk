@@ -21,6 +21,7 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
     var collectionView: UICollectionView!
 //    var favoritesPlace: [GMSPlace] = []
     var placesClient: GMSPlacesClient! = GMSPlacesClient.shared()
+    
 
 
     
@@ -33,7 +34,14 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
         closeButton()
     }
     
-
+    func deleteItemAt(_ indexPath: IndexPath) {
+        let itemToDelete = favorites[indexPath.row]
+        try! realm.write {
+            realm.delete(itemToDelete)
+        }
+        favorites.remove(at: indexPath.row)
+        collectionView.deleteItems(at: [indexPath])
+    }
     
     func readFavorites() -> [FavoriteSpot] {
         return Array(realm.objects(FavoriteSpot.self))
@@ -46,6 +54,10 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LikeCollectionViewCell.identifier, for: indexPath) as? LikeCollectionViewCell else {
             fatalError("Unable to dequeue CustomCollectionViewCell")
+        }
+        cell.indexPath = indexPath
+        cell.onDeleteTapped = { [weak self] indexPath in
+            self?.deleteItemAt(indexPath)
         }
         print("loading place view")
         let placeID = favorites[indexPath.row].placeID

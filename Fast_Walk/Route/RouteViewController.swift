@@ -296,6 +296,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         }
     }
     
+    
     func startTimer(resume: Bool)  {
         if resume != true {
             countdown = 180 //change for timer interval

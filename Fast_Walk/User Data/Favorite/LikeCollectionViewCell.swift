@@ -6,21 +6,42 @@
 //
 
 import UIKit
+import RealmSwift
 
 class LikeCollectionViewCell: UICollectionViewCell {
     static let identifier = "LikeCollectionViewCell"
 
+    var onDeleteTapped: ((IndexPath) -> Void)?
+    var favorites: [FavoriteSpot] = []
+    var indexPath: IndexPath?
+    
+    
     let imageView = UIImageView()
     let titleLabel = UILabel()
     let descriptionLabel = UILabel()
+    let deleteButton = UIButton()
+    let realm = try! Realm()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        deleteButton.layer.cornerRadius = deleteButton.frame.height / 8
+        imageView.layer.cornerRadius = imageView.frame.size.width / 10
+
+        // Set corner radius for other subviews if needed
+    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func deleteButtonTapped() {
+        guard let indexPath = indexPath else { return }
+        onDeleteTapped?(indexPath)
     }
 
     private func setupViews() {
@@ -40,13 +61,29 @@ class LikeCollectionViewCell: UICollectionViewCell {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        
+        if let trashImage = UIImage(systemName: "trash")?.withRenderingMode(.alwaysTemplate) {
+            deleteButton.setImage(trashImage, for: .normal)
+            deleteButton.tintColor = .white // Set the tint color to white
+        }
+        
+        deleteButton.setImage(UIImage(systemName: "trash"), for: .normal)
+        deleteButton.backgroundColor = .red
+        deleteButton.layer.borderColor = UIColor.red.cgColor // Use a darker red color if necessary
+        deleteButton.layer.borderWidth = 1
+        deleteButton.setTitleColor(.white, for: .normal)
+        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+
+        addSubview(deleteButton)
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        
 
         // Set constraints for subviews
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20), // Move 20 points to the right
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 100), // Increase width to 100
-            imageView.heightAnchor.constraint(equalToConstant: 100), // Increase height to 100
+            imageView.widthAnchor.constraint(equalToConstant: 100), // Set width to 100
+            imageView.heightAnchor.constraint(equalToConstant: 100), // Set height to 100
 
             titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -54,9 +91,13 @@ class LikeCollectionViewCell: UICollectionViewCell {
 
             descriptionLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10),
             descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5)
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
+            
+            deleteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            deleteButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            deleteButton.widthAnchor.constraint(equalToConstant: 80),
+            deleteButton.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
-
 }
 
