@@ -106,4 +106,29 @@ struct PlaceTypesList{
         "veterinary_care",
         "zoo"
     ]
+    
+    static let shopping = [
+        "bakery", "bicycle_store", "book_store", "clothing_store",
+        "convenience_store", "department_store", "electronics_store",
+        "florist", "furniture_store", "hardware_store", "home_goods_store",
+        "jewelry_store", "liquor_store", "pet_store", "shoe_store", "shopping_mall",
+        "store", "supermarket"
+    ]
+    
+    static let gourmet = [
+        "bar", "cafe", "meal_delivery", "meal_takeaway", "restaurant"
+    ]
+    
+    static let nature = [
+        "campground", "park", "rv_park", "zoo"
+    ]
+    
+    static let tourism = [
+        "amusement_park", "aquarium", "art_gallery", "casino", "church",
+        "city_hall", "courthouse", "embassy", "hindu_temple", "library",
+        "mosque", "museum", "park", "synagogue", "tourist_attraction",
+        "university"
+    ]
+    
+    
 }

@@ -44,6 +44,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     let customTransitioningDelegate = CustomTransitioningDelegate()
 
     
+//MARK: スポット種類の選択
+    let typeStackView = UIStackView()
+    let shoppingButton = UIButton()
+    let gourmetButton = UIButton()
+    let natureButton = UIButton()
+    let tourismButton = UIButton()
+    var selectedCategory: [String] = []
     
     
     private var placesClient: GMSPlacesClient! //For Places marker
@@ -57,12 +64,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         setupMapView()
         fetchGoogleUserInfo()
         fetchLineUserInfo()
-        //        setupStyle()
         print("passed")
         setupStyle()
         setupChoiceButton()
         changeRouteButton()
         navBar()
+        //MARK: Setup route type selection view
+        configurePlaceTypesStackView()
+        configurePlaceTypesButtons()
+        //
         self.view.bringSubviewToFront(heartButton)
         self.view.bringSubviewToFront(homeButton)
         self.view.bringSubviewToFront(dataButton)
@@ -82,10 +92,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
 
-
-    
-    
-    
+    private func configurePlaceTypesStackView() {
+        view.addSubview(typeStackView)
+        typeStackView.axis = .horizontal
+        typeStackView.distribution = .fillEqually
+        typeStackView.alignment = .fill
+        typeStackView.translatesAutoresizingMaskIntoConstraints = false
+    }
     //バーのコード
     func navBar() {
         
@@ -156,88 +169,49 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             let dataLabel = createLabel("記録", fontSize: 10)
             let accountLabel = createLabel("アカウント", fontSize: 10)
 
-                // Add labels to the control bar
-                controlBar.addSubview(heartLabel)
-                controlBar.addSubview(homeLabel)
-                controlBar.addSubview(dataLabel)
-                controlBar.addSubview(accountLabel)
-        
         NSLayoutConstraint.activate([
-                    heartLabel.topAnchor.constraint(equalTo: heartButton.bottomAnchor, constant: 2),
-                    heartLabel.centerXAnchor.constraint(equalTo: heartButton.centerXAnchor),
+            typeStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            typeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            typeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            typeStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            typeStackView.heightAnchor.constraint(equalToConstant: 50) // You can adjust the height
+        ])
+    }
 
-                    homeLabel.topAnchor.constraint(equalTo: homeButton.bottomAnchor, constant: 2),
-                    homeLabel.centerXAnchor.constraint(equalTo: homeButton.centerXAnchor),
-
-                    dataLabel.topAnchor.constraint(equalTo: dataButton.bottomAnchor, constant: 2),
-                    dataLabel.centerXAnchor.constraint(equalTo: dataButton.centerXAnchor),
-
-                    accountLabel.topAnchor.constraint(equalTo: accountButton.bottomAnchor, constant: 2),
-                    accountLabel.centerXAnchor.constraint(equalTo: accountButton.centerXAnchor),
-                ])
+    private func configurePlaceTypesButtons() {
         
-        func createLabel(_ text: String, fontSize: CGFloat) -> UILabel {
-            let label = UILabel()
-            label.text = text
-            label.textColor = UIColor.black
-            label.font = UIFont(name: "NotoSansJP-Regular", size: fontSize) // Fix: added fontSize parameter
-            label.translatesAutoresizingMaskIntoConstraints = false
-            return label
-        }
+        setupPlaceTypesButton(shoppingButton, title: "ショッピング")
+        setupPlaceTypesButton(gourmetButton, title: "グルメ")
+        setupPlaceTypesButton(natureButton, title: "自然")
+        setupPlaceTypesButton(tourismButton, title: "観光")
 
+        typeStackView.addArrangedSubview(shoppingButton)
+        typeStackView.addArrangedSubview(gourmetButton)
+        typeStackView.addArrangedSubview(natureButton)
+        typeStackView.addArrangedSubview(tourismButton)
     }
     
-    
-
-    
-    func createBarButton(title: String, imageName: String, fontSize: CGFloat) -> UIButton {
-        let button = UIButton(type: .system)
-        
-        if let image = UIImage(named: imageName) {
-            button.setImage(image, for: .normal)
-            button.imageView?.contentMode = .scaleAspectFit
-            button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0) // Adjust as needed
-        }
-        
+    private func setupPlaceTypesButton(_ button: UIButton, title: String) {
         button.setTitle(title, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
-        button.titleLabel?.textAlignment = .center
-        
-        return button
-    }
-        
-    
-    @IBAction func likeLocation() {
-        print("pressed heart")
-        heart.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
     }
     
-    func errorLabel(){
-        let labelWidth: CGFloat = 250
-        let labelHeight: CGFloat = 50
-        
-        // Assuming this code is inside a ViewController method
-        let screenWidth = UIScreen.main.bounds.width
-        let screenHeight = UIScreen.main.bounds.height
-        
-        let labelX = (screenWidth / 2) - (labelWidth / 2)
-        //        let labelY = screenHeight * 0.5
-        
-        let myLabel = UILabel(frame: CGRect(x: labelX, y: 55, width: labelWidth, height: labelHeight))
-        myLabel.text = "散歩時間を設定してください"
-        myLabel.textAlignment = .center
-        myLabel.backgroundColor = .red // For visibility
-        myLabel.textColor = .white
-        myLabel.layer.cornerRadius = 10
-        myLabel.layer.masksToBounds = true
-        myLabel.alpha = 0.8
-        
-        view.addSubview(myLabel)
+    @objc func buttonTapped(_ sender: UIButton) {
+        switch sender {
+        case shoppingButton:
+            self.selectedCategory = ["clothing_store"]
+        case gourmetButton:
+            self.selectedCategory = ["restaurant"]
+        case natureButton:
+            self.selectedCategory = ["park"]
+        case tourismButton:
+            self.selectedCategory = ["tourist_attraction"]
+        default:
+            break
+        }
     }
     
-
-
     
     
     
@@ -391,7 +365,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         //
         //        for _ in 1...2 {
         group.enter()
-        randomwaypoint.findRoute(start, desiredTime: desiredTime, types:chosenType ) { placeInfos in
+        randomwaypoint.findRoute(start, desiredTime: desiredTime, types: chosenType ) { placeInfos in
             for placeInfo in placeInfos {
                 if let placeInfo = placeInfo{
                     DispatchQueue.main.async{
@@ -658,7 +632,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         return infoWindow // This ensures a UIView? is always returned
     }
     
-    func setupStyle() {
+   /* func setupStyle() {
         navigationView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8272664657)
         setupBorder(button30)
         setupBorder(button45)
@@ -670,7 +644,36 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         a.layer.borderWidth = 4
         a.layer.borderColor = #colorLiteral(red: 0.5058823529, green: 0.6274509804, blue: 0.9098039216, alpha: 1)
         a.layer.cornerRadius = a.frame.width / 2
+    }*/
+    func setupStyle() {
+        navigationView.backgroundColor = #colorLiteral(red: 0.9279547334, green: 0.9279547334, blue: 0.9279547334, alpha: 1)
+        
+        // Update button styles
+        setupButtonStyle(button30)
+        setupButtonStyle(button45)
+        setupButtonStyle(button60)
+        setupButtonStyle(button90)
+        setupButtonStyle(startButton)
     }
+
+    func setupButtonStyle(_ button: UIButton) {
+        // Set button background color
+        button.backgroundColor = UIColor(red: 0.8588235294, green: 0.8901960784, blue: 1, alpha: 1) // #DBE3FF
+
+        // Set button border
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.white.cgColor
+
+        // Set button corner radius
+        button.layer.cornerRadius = button.frame.width / 2
+
+        // Apply drop shadow
+        button.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 4)
+        button.layer.shadowRadius = 4
+        button.layer.shadowOpacity = 0.25
+    }
+    
     func setupChoiceButton(){
         let actionClosure = { (action: UIAction) in
             self.chosenType = action.title
@@ -685,6 +688,67 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         typeChoiceButton.showsMenuAsPrimaryAction = true
         typeChoiceButton.changesSelectionAsPrimaryAction = true
     }
+    
+    //バーのコード
+    
+
+    func createLabel(_ text: String, fontSize: CGFloat) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.textColor = UIColor.black
+        label.font = UIFont(name: "NotoSansJP-Regular", size: fontSize) // Fix: added fontSize parameter
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
+    
+
+    
+    func createBarButton(title: String, imageName: String, fontSize: CGFloat) -> UIButton {
+        let button = UIButton(type: .system)
+        
+        if let image = UIImage(named: imageName) {
+            button.setImage(image, for: .normal)
+            button.imageView?.contentMode = .scaleAspectFit
+            button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0) // Adjust as needed
+        }
+        
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: fontSize)
+        button.titleLabel?.textAlignment = .center
+        
+        return button
+    }
+        
+    
+    @IBAction func likeLocation() {
+        print("pressed heart")
+        heart.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+    }
+    
+    func errorLabel(){
+        let labelWidth: CGFloat = 250
+        let labelHeight: CGFloat = 50
+        
+        // Assuming this code is inside a ViewController method
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        
+        let labelX = (screenWidth / 2) - (labelWidth / 2)
+        //        let labelY = screenHeight * 0.5
+        
+        let myLabel = UILabel(frame: CGRect(x: labelX, y: 55, width: labelWidth, height: labelHeight))
+        myLabel.text = "散歩時間を設定してください"
+        myLabel.textAlignment = .center
+        myLabel.backgroundColor = .red // For visibility
+        myLabel.textColor = .white
+        myLabel.layer.cornerRadius = 10
+        myLabel.layer.masksToBounds = true
+        myLabel.alpha = 0.8
+        
+        view.addSubview(myLabel)
+    }
+    
 }
 
 class HalfSizePresentationController: UIPresentationController {

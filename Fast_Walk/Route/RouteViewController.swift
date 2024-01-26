@@ -78,11 +78,29 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         countdownLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         countdownLabel.center = view.center
         countdownLabel.textAlignment = .center
+
+        // Set custom font
+        if let customFont = UIFont(name: "NotoSansJP-SemiBold.ttf", size: 100) {
+            countdownLabel.font = customFont
+        } else {
+            // Fallback to system font if custom font is not available
+            countdownLabel.font = UIFont.systemFont(ofSize: 80, weight: .black)
+        }
+
+        // Set font color to #5383EC
+        countdownLabel.textColor = UIColor(red: 83/255, green: 131/255, blue: 236/255, alpha: 1.0)
+
+        overlayView.addSubview(countdownLabel)
+        view.addSubview(overlayView)
+        
+        /*countdownLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        countdownLabel.center = view.center
+        countdownLabel.textAlignment = .center
         countdownLabel.font = UIFont.systemFont(ofSize: 80, weight: .black)
         countdownLabel.textColor = .systemIndigo
         
         overlayView.addSubview(countdownLabel)
-        view.addSubview(overlayView)
+        view.addSubview(overlayView)*/
     }
     
     func checkUser() -> String {
