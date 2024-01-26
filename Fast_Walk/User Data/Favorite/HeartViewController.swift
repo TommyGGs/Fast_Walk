@@ -9,12 +9,19 @@ import UIKit
 import RealmSwift
 import GoogleSignIn
 import LineSDK
+import GooglePlaces
 
+
+
+// MARK: find place with coordinates -> readfavortie function
 
 class HeartViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var favorites: [FavoriteSpot] = []
     var collectionView: UICollectionView!
+//    var favoritesPlace: [GMSPlace] = []
+    var placesClient: GMSPlacesClient! = GMSPlacesClient.shared()
+
 
     
     let realm = try! Realm()
@@ -25,6 +32,8 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
         listFavorites()
         closeButton()
     }
+    
+
     
     func readFavorites() -> [FavoriteSpot] {
         return Array(realm.objects(FavoriteSpot.self))
@@ -38,13 +47,56 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LikeCollectionViewCell.identifier, for: indexPath) as? LikeCollectionViewCell else {
             fatalError("Unable to dequeue CustomCollectionViewCell")
         }
+        print("loading place view")
+        let placeID = favorites[indexPath.row].placeID
+        print("the favorite places are\(favorites), and current cell is \(favorites[indexPath.row])")
+        print ("placeid favorites = \(placeID)")
+        // Specify the place data types to return.
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt64(UInt(GMSPlaceField.name.rawValue) | UInt(GMSPlaceField.placeID.rawValue) | UInt(GMSPlaceField.photos.rawValue)))
 
-        // Configure the cell
-        cell.imageView.image = UIImage(named: "yourImageName") // Replace with your image
-        cell.titleLabel.text = "Title \(indexPath.row)"
-        cell.descriptionLabel.text = "Description for item \(indexPath.row)"
-
+        
+        placesClient?.fetchPlace(fromPlaceID: placeID, placeFields: fields, sessionToken: nil, callback: {
+          (place: GMSPlace?, error: Error?) in
+          if let error = error {
+            print("An error occurred: \(error.localizedDescription)")
+            return
+          }
+            if let place = place {
+                print("The selected place is: \(String(describing: place.name))")
+                self.loadPhoto(place.photos?.first) {  placePhoto in
+                    if let placePhoto = placePhoto {
+                        print("Userdata is valid")
+                        DispatchQueue.main.async {
+                            cell.imageView.image = placePhoto
+                            cell.titleLabel.text = place.name
+                            cell.descriptionLabel.text = "評価：" + String(Int(place.rating)) + ", \(String(describing: place.types?.first))"
+                        }
+                        print("marker loaded")
+                    }
+                }
+            }
+        })
+        print("returning cell\(cell)")
         return cell
+    }
+    
+    func loadPhoto(_ metadata: GMSPlacePhotoMetadata?, completion: @escaping (UIImage?) -> Void) {
+        guard let metadata = metadata else {
+            print("photo metadata is nil")
+            completion(nil)
+            return
+        }
+        placesClient.loadPlacePhoto(metadata, callback: { (photo, error) in
+            if let error = error {
+                print("Error loading photo metadata: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            if let photo = photo {
+                print("photo metadata loaded")
+                completion(photo)
+            }
+        })
     }
     
     func listFavorites() {

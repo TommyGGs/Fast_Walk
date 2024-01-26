@@ -391,6 +391,23 @@
                                             <action selector="searchRoute:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0NQ-aI-lWl"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WS4-0F-Bx5">
+                                        <rect key="frame" x="147" y="8" width="97" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="DataBase"/>
+                                        <connections>
+                                            <segue destination="p6Q-Vq-oDQ" kind="presentation" modalPresentationStyle="fullScreen" id="vCs-Es-z7y"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYH-ZJ-x8w">
+                                        <rect key="frame" x="30" y="8" width="78" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Logout"/>
+                                        <connections>
+                                            <action selector="signOutWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Te-ih-ohV"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="h7K-AR-U7A" firstAttribute="width" secondItem="Fqc-Cx-zfz" secondAttribute="width" id="0mF-0g-dzY"/>
@@ -404,7 +421,9 @@
                                     <constraint firstItem="AGd-wc-gna" firstAttribute="width" secondItem="Fqc-Cx-zfz" secondAttribute="width" id="GRm-In-4m5"/>
                                     <constraint firstItem="6Xn-gT-2dV" firstAttribute="centerX" secondItem="Fqc-Cx-zfz" secondAttribute="trailing" constant="100" id="Gb8-qk-8qU"/>
                                     <constraint firstItem="h7K-AR-U7A" firstAttribute="height" secondItem="Fqc-Cx-zfz" secondAttribute="height" id="LH3-ci-2QY"/>
+                                    <constraint firstAttribute="bottom" secondItem="AYH-ZJ-x8w" secondAttribute="bottom" constant="267.66666666666663" id="OhY-kO-JOo"/>
                                     <constraint firstItem="6Xn-gT-2dV" firstAttribute="centerY" secondItem="Fqc-Cx-zfz" secondAttribute="bottom" constant="40" id="SWV-nt-65w"/>
+                                    <constraint firstItem="AYH-ZJ-x8w" firstAttribute="leading" secondItem="GFA-RH-qf9" secondAttribute="leading" constant="30" id="SwS-KY-4dX"/>
                                     <constraint firstItem="h7K-AR-U7A" firstAttribute="centerX" secondItem="Fqc-Cx-zfz" secondAttribute="centerX" id="WlL-XV-GEF"/>
                                     <constraint firstItem="AGd-wc-gna" firstAttribute="height" secondItem="Fqc-Cx-zfz" secondAttribute="height" id="ZzR-W1-4Z9"/>
                                     <constraint firstItem="yek-0c-FkO" firstAttribute="centerX" secondItem="AGd-wc-gna" secondAttribute="centerX" id="lXQ-QI-Z2N"/>
@@ -417,36 +436,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="523"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nB-cR-24s">
-                                        <rect key="frame" x="285" y="15.000000000000004" width="75" height="40.333333333333343"/>
+                                        <rect key="frame" x="285" y="21.000000000000004" width="75" height="34.333333333333343"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Places"/>
                                         <connections>
                                             <segue destination="bOM-b7-eFJ" kind="presentation" modalPresentationStyle="fullScreen" id="ylz-9b-GEn"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYH-ZJ-x8w">
-                                        <rect key="frame" x="30" y="15.000000000000004" width="78" height="40.333333333333343"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Logout"/>
-                                        <connections>
-                                            <action selector="signOutWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Te-ih-ohV"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WS4-0F-Bx5">
-                                        <rect key="frame" x="147" y="21" width="97" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="DataBase"/>
-                                        <connections>
-                                            <segue destination="p6Q-Vq-oDQ" kind="presentation" modalPresentationStyle="fullScreen" id="vCs-Es-z7y"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="separatorColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="AYH-ZJ-x8w" secondAttribute="bottom" constant="467.66666666666663" id="Mwg-xe-L43"/>
                                     <constraint firstAttribute="bottom" secondItem="6nB-cR-24s" secondAttribute="bottom" constant="467.66666666666663" id="OmR-0O-Qqe"/>
-                                    <constraint firstItem="AYH-ZJ-x8w" firstAttribute="leading" secondItem="Dhg-9r-j9c" secondAttribute="leading" constant="30" id="e3u-NV-cjY"/>
                                     <constraint firstAttribute="trailing" secondItem="6nB-cR-24s" secondAttribute="trailing" constant="30" id="qR8-sr-C6n"/>
                                 </constraints>
                             </view>
@@ -852,7 +852,7 @@
                 <navigationController storyboardIdentifier="MainNavigationController" title="Hello" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hTy-OS-LMY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="rvG-f0-TI8">
-                        <rect key="frame" x="0.0" y="47" width="390" height="97"/>
+                        <rect key="frame" x="0.0" y="47" width="390" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <navigationBarAppearance key="standardAppearance"/>
                     </navigationBar>
@@ -877,6 +877,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="2FV-9Q-hMr"/>
         <segue reference="Jyg-pS-Qog"/>
         <segue reference="a36-K0-U9a"/>
     </inferredMetricsTieBreakers>

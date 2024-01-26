@@ -16,13 +16,10 @@ class WaitViewController: UIViewController {
     var remainingSeconds = 3
     
     let realm = try! Realm()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        try! realm.write {
-            let allUsers = realm.objects(User.self)
-            realm.delete(allUsers)
-        }
         setGradientBackground()
         addImageView()
     }
@@ -34,7 +31,6 @@ class WaitViewController: UIViewController {
     
     func checkUserState() {
         _ = UIStoryboard(name: "Main", bundle: nil)
-
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
             if error != nil || user == nil {
                 print("user not signed in with google")

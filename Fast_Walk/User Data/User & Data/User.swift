@@ -8,6 +8,7 @@
 import Foundation
 import RealmSwift
 import CoreLocation
+import GooglePlaces
 
 class User: Object {
     @Persisted var email: String = ""
@@ -21,6 +22,7 @@ class FavoriteSpot: Object {
     @Persisted var userID: String = ""
     @Persisted var latitude: Double
     @Persisted var longitude: Double
+    @Persisted var placeID: String = ""
     
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)

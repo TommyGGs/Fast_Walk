@@ -165,6 +165,26 @@
 			path = "HealthKit demo";
 			sourceTree = "<group>";
 		};
+		31FB7F542B620A360079633A /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				31FB7F4E2B6121910079633A /* HeartViewController.swift */,
+				31FB7F502B612C5B0079633A /* LikeCollectionViewCell.swift */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
+		31FB7F552B620A520079633A /* User & Data */ = {
+			isa = PBXGroup;
+			children = (
+				E22AA3FC2B5A8BC200AE06BD /* User.swift */,
+				E22AA4022B5B93C600AE06BD /* UserViewController.swift */,
+				E22AA3FE2B5A973400AE06BD /* UserTableViewCell.swift */,
+				E22AA3FF2B5A973400AE06BD /* UserTableViewCell.xib */,
+			);
+			path = "User & Data";
+			sourceTree = "<group>";
+		};
 		47456ADD061A6FA386E001E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,12 +301,8 @@
 		E22FE3B22B5BC33F00DC8D0C /* User Data */ = {
 			isa = PBXGroup;
 			children = (
-				E22AA3FC2B5A8BC200AE06BD /* User.swift */,
-				E22AA4022B5B93C600AE06BD /* UserViewController.swift */,
-				E22AA3FE2B5A973400AE06BD /* UserTableViewCell.swift */,
-				E22AA3FF2B5A973400AE06BD /* UserTableViewCell.xib */,
-				31FB7F4E2B6121910079633A /* HeartViewController.swift */,
-				31FB7F502B612C5B0079633A /* LikeCollectionViewCell.swift */,
+				31FB7F552B620A520079633A /* User & Data */,
+				31FB7F542B620A360079633A /* Favorite */,
 			);
 			path = "User Data";
 			sourceTree = "<group>";
