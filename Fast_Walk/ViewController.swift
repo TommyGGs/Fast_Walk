@@ -114,23 +114,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             button.translatesAutoresizingMaskIntoConstraints = false
         }
         let topAnchor = view.safeAreaLayoutGuide.topAnchor
-        let constant: CGFloat = 45
+        let constant: CGFloat = 46
         let height: CGFloat = 35
         NSLayoutConstraint.activate([
             shoppingButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
-            shoppingButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            shoppingButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 3),
             shoppingButton.heightAnchor.constraint(equalToConstant: height),
             
             gourmetButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
-            gourmetButton.leadingAnchor.constraint(equalTo: shoppingButton.trailingAnchor, constant: 5),
+            gourmetButton.leadingAnchor.constraint(equalTo: shoppingButton.trailingAnchor, constant: 3),
             gourmetButton.widthAnchor.constraint(equalTo: shoppingButton.widthAnchor),
             gourmetButton.heightAnchor.constraint(equalToConstant: height),
             natureButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
-            natureButton.leadingAnchor.constraint(equalTo: gourmetButton.trailingAnchor, constant: 5),
+            natureButton.leadingAnchor.constraint(equalTo: gourmetButton.trailingAnchor, constant: 3),
             natureButton.widthAnchor.constraint(equalTo: gourmetButton.widthAnchor),
             natureButton.heightAnchor.constraint(equalToConstant: height),
             tourismButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
-            tourismButton.leadingAnchor.constraint(equalTo: natureButton.trailingAnchor, constant: 5),
+            tourismButton.leadingAnchor.constraint(equalTo: natureButton.trailingAnchor, constant: 3),
             tourismButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
             tourismButton.widthAnchor.constraint(equalTo: natureButton.widthAnchor),
             tourismButton.heightAnchor.constraint(equalToConstant: height),
@@ -140,15 +140,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     private func setupButton(_ button: UIButton, title: String) {
         button.setTitle(title, for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.8901962042, green: 0.8901962042, blue: 0.8901962042, alpha: 1) // Normal state color
-        button.setTitleColor(.darkGray, for: .normal) // Adjust as needed
-        button.setTitleColor(.darkGray, for: .selected)
+        button.setTitleColor(.black, for: .normal) // Adjust as needed
+        button.setTitleColor(.black, for: .selected)
         let color = #colorLiteral(red: 0.7861115336, green: 0.846778214, blue: 0.9931553006, alpha: 1)
         // Set a different color for the selected state
         button.setBackgroundImage(imageWithColor(color: color), for: .selected)
         
         button.layer.cornerRadius = 10  // Adjust the corner radius as needed
         button.clipsToBounds = true
-        
+        button.layer.borderWidth = 5
+        button.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.4090455762)
         button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
     }
     
