@@ -14,7 +14,7 @@ class randomWayPoint {
     
     private var placesClient: GMSPlacesClient!
     private var nextCoordinate: CLLocationCoordinate2D?
-    private let wayPointNumber: Int! = 4
+    private let wayPointNumber: Int! = 3
     
     
     init() {
