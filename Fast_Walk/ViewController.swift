@@ -24,8 +24,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     @IBOutlet weak var typeChoiceButton: UIButton!
     var placeTypes: [String] {
-            return PlaceTypesList.placeTypes
-        }
+        return PlaceTypesList.placeTypes
+    }
     var chosenType: String = "restaurant"
     @IBOutlet var heart: UIButton!
     
@@ -41,7 +41,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var passWaypoint: [GMSPlace] = []
     
     let realm = try! Realm()
-//MARK: スポット種類の選択
+    //MARK: スポット種類の選択
     let typeStackView = UIStackView()
     let shoppingButton = UIButton()
     let gourmetButton = UIButton()
@@ -54,7 +54,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         placesClient = GMSPlacesClient.shared() //Places
-        
+        typeChoiceButton.isHidden = true
         locationManager.delegate = self
         beginLocationUpdate()
         setupMapView()
@@ -66,7 +66,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         changeRouteButton()
         navBar()
         //MARK: Setup route type selection view
-//        configurePlaceTypesStackView()
+        //        configurePlaceTypesStackView()
         configurePlaceTypesButtons()
         //
         self.view.bringSubviewToFront(heartButton)
@@ -74,8 +74,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         self.view.bringSubviewToFront(dataButton)
         self.view.bringSubviewToFront(accountButton)
         self.view.sendSubviewToBack(mapContainerView)
-
-     }
+        
+    }
     
     
     @objc func heartView() {
@@ -86,71 +86,72 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             self.present(heartVC, animated: true, completion: nil)
         }
     }
-
-//    private func configurePlaceTypesStackView() {
-//        view.addSubview(typeStackView)
-//        typeStackView.axis = .horizontal
-//        typeStackView.distribution = .fillEqually
-//        typeStackView.alignment = .fill
-//        typeStackView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            typeStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
-//            typeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-//            typeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10),
-//            typeStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            typeStackView.heightAnchor.constraint(equalToConstant: 50) // You can adjust the height
-//        ])
-//    }
+    
+    //    private func configurePlaceTypesStackView() {
+    //        view.addSubview(typeStackView)
+    //        typeStackView.axis = .horizontal
+    //        typeStackView.distribution = .fillEqually
+    //        typeStackView.alignment = .fill
+    //        typeStackView.translatesAutoresizingMaskIntoConstraints = false
+    //        NSLayoutConstraint.activate([
+    //            typeStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+    //            typeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+    //            typeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10),
+    //            typeStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+    //            typeStackView.heightAnchor.constraint(equalToConstant: 50) // You can adjust the height
+    //        ])
+    //    }
     
     private func configurePlaceTypesButtons() {
         setupButton(shoppingButton, title: "ショップ")
-            setupButton(gourmetButton, title: "グルメ")
-            setupButton(natureButton, title: "自然")
-            setupButton(tourismButton, title: "観光")
-
-            let buttons = [shoppingButton, gourmetButton, natureButton, tourismButton]
+        setupButton(gourmetButton, title: "グルメ")
+        setupButton(natureButton, title: "自然")
+        setupButton(tourismButton, title: "観光")
+        
+        let buttons = [shoppingButton, gourmetButton, natureButton, tourismButton]
         for button in buttons {
             view.addSubview(button)
             button.translatesAutoresizingMaskIntoConstraints = false
         }
         let topAnchor = view.safeAreaLayoutGuide.topAnchor
-        let constant: CGFloat = 42
+        let constant: CGFloat = 45
         let height: CGFloat = 35
         NSLayoutConstraint.activate([
             shoppingButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
             shoppingButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
             shoppingButton.heightAnchor.constraint(equalToConstant: height),
-
-               gourmetButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
+            
+            gourmetButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
             gourmetButton.leadingAnchor.constraint(equalTo: shoppingButton.trailingAnchor, constant: 5),
-               gourmetButton.widthAnchor.constraint(equalTo: shoppingButton.widthAnchor),
+            gourmetButton.widthAnchor.constraint(equalTo: shoppingButton.widthAnchor),
             gourmetButton.heightAnchor.constraint(equalToConstant: height),
-               natureButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
-               natureButton.leadingAnchor.constraint(equalTo: gourmetButton.trailingAnchor, constant: 5),
-               natureButton.widthAnchor.constraint(equalTo: gourmetButton.widthAnchor),
+            natureButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
+            natureButton.leadingAnchor.constraint(equalTo: gourmetButton.trailingAnchor, constant: 5),
+            natureButton.widthAnchor.constraint(equalTo: gourmetButton.widthAnchor),
             natureButton.heightAnchor.constraint(equalToConstant: height),
-               tourismButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
-               tourismButton.leadingAnchor.constraint(equalTo: natureButton.trailingAnchor, constant: 5),
+            tourismButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
+            tourismButton.leadingAnchor.constraint(equalTo: natureButton.trailingAnchor, constant: 5),
             tourismButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
-               tourismButton.widthAnchor.constraint(equalTo: natureButton.widthAnchor),
+            tourismButton.widthAnchor.constraint(equalTo: natureButton.widthAnchor),
             tourismButton.heightAnchor.constraint(equalToConstant: height),
-           ])
+        ])
     }
     
     private func setupButton(_ button: UIButton, title: String) {
         button.setTitle(title, for: .normal)
-        button.backgroundColor = .lightGray // Normal state color
-        button.setTitleColor(.black, for: .normal) // Adjust as needed
-        button.setTitleColor(.white, for: .selected)
+        button.backgroundColor = #colorLiteral(red: 0.8901962042, green: 0.8901962042, blue: 0.8901962042, alpha: 1) // Normal state color
+        button.setTitleColor(.darkGray, for: .normal) // Adjust as needed
+        button.setTitleColor(.darkGray, for: .selected)
+        let color = #colorLiteral(red: 0.7861115336, green: 0.846778214, blue: 0.9931553006, alpha: 1)
         // Set a different color for the selected state
-        button.setBackgroundImage(imageWithColor(color: .darkGray), for: .selected)
+        button.setBackgroundImage(imageWithColor(color: color), for: .selected)
         
         button.layer.cornerRadius = 10  // Adjust the corner radius as needed
-            button.clipsToBounds = true
-
+        button.clipsToBounds = true
+        
         button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
     }
-
+    
     private func imageWithColor(color: UIColor) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size)
@@ -164,14 +165,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     @objc func buttonTapped(_ sender: UIButton) {
         let buttons = [shoppingButton, gourmetButton, natureButton, tourismButton]
-            for button in buttons {
-                button.isSelected = false
-            }
-            sender.isSelected = true
-//        DispatchQueue.main.async{
-//            sender.backgroundColor = .darkGray
-//            sender.setTitleColor(.white, for: .selected)
-//        }
+        for button in buttons {
+            button.isSelected = false
+        }
+        sender.isSelected = true
+        //        DispatchQueue.main.async{
+        //            sender.backgroundColor = .darkGray
+        //            sender.setTitleColor(.white, for: .selected)
+        //        }
         
         
         switch sender {
@@ -224,7 +225,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         dataButton.translatesAutoresizingMaskIntoConstraints = false
         accountButton.translatesAutoresizingMaskIntoConstraints = false
         heartButton.addTarget(self, action: #selector(heartView), for: .touchUpInside)
-
+        
         NSLayoutConstraint.activate([
             heartButton.leadingAnchor.constraint(equalTo: controlBar.leadingAnchor, constant: 10),
             heartButton.topAnchor.constraint(equalTo: controlBar.topAnchor, constant: 10), // Adjust the top anchor
@@ -256,31 +257,31 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         dataButton.tintColor = UIColor.black
         accountButton.tintColor = UIColor.black
         
-            let heartLabel = createLabel("お気に入り", fontSize: 10)
-            let homeLabel = createLabel("ホーム", fontSize: 10)
-            let dataLabel = createLabel("記録", fontSize: 10)
-            let accountLabel = createLabel("アカウント", fontSize: 10)
-
+        let heartLabel = createLabel("お気に入り", fontSize: 10)
+        let homeLabel = createLabel("ホーム", fontSize: 10)
+        let dataLabel = createLabel("記録", fontSize: 10)
+        let accountLabel = createLabel("アカウント", fontSize: 10)
+        
         controlBar.addSubview(heartLabel)
-                        controlBar.addSubview(homeLabel)
-                        controlBar.addSubview(dataLabel)
-                        controlBar.addSubview(accountLabel)
-                
-                NSLayoutConstraint.activate([
-                            heartLabel.topAnchor.constraint(equalTo: heartButton.bottomAnchor, constant: 2),
-                            heartLabel.centerXAnchor.constraint(equalTo: heartButton.centerXAnchor),
-
-                            homeLabel.topAnchor.constraint(equalTo: homeButton.bottomAnchor, constant: 2),
-                            homeLabel.centerXAnchor.constraint(equalTo: homeButton.centerXAnchor),
-
-                            dataLabel.topAnchor.constraint(equalTo: dataButton.bottomAnchor, constant: 2),
-                            dataLabel.centerXAnchor.constraint(equalTo: dataButton.centerXAnchor),
-
-                            accountLabel.topAnchor.constraint(equalTo: accountButton.bottomAnchor, constant: 2),
-                            accountLabel.centerXAnchor.constraint(equalTo: accountButton.centerXAnchor),
-                        ])
+        controlBar.addSubview(homeLabel)
+        controlBar.addSubview(dataLabel)
+        controlBar.addSubview(accountLabel)
+        
+        NSLayoutConstraint.activate([
+            heartLabel.topAnchor.constraint(equalTo: heartButton.bottomAnchor, constant: 2),
+            heartLabel.centerXAnchor.constraint(equalTo: heartButton.centerXAnchor),
+            
+            homeLabel.topAnchor.constraint(equalTo: homeButton.bottomAnchor, constant: 2),
+            homeLabel.centerXAnchor.constraint(equalTo: homeButton.centerXAnchor),
+            
+            dataLabel.topAnchor.constraint(equalTo: dataButton.bottomAnchor, constant: 2),
+            dataLabel.centerXAnchor.constraint(equalTo: dataButton.centerXAnchor),
+            
+            accountLabel.topAnchor.constraint(equalTo: accountButton.bottomAnchor, constant: 2),
+            accountLabel.centerXAnchor.constraint(equalTo: accountButton.centerXAnchor),
+        ])
     }
-
+    
     
     
     
@@ -289,61 +290,60 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     //コース変更
     func changeRouteButton(){
         let courseChangeButton = UIButton(type: .system)
-                courseChangeButton.setTitle("コース変更", for: .normal)
-                courseChangeButton.backgroundColor = UIColor(white: 1.0, alpha: 0.4)
-                courseChangeButton.layer.cornerRadius = 8
-                courseChangeButton.setTitleColor(UIColor.black, for: .normal)
-
-                view.addSubview(courseChangeButton)
-
-                courseChangeButton.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    courseChangeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                    courseChangeButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
-                    courseChangeButton.widthAnchor.constraint(equalToConstant: 130),
-                    courseChangeButton.heightAnchor.constraint(equalToConstant: 50)
-                ])
-
-                courseChangeButton.addTarget(self, action: #selector(courseChangeButtonTapped), for: .touchUpInside)
+        courseChangeButton.setTitle("コース変更", for: .normal)
+        courseChangeButton.backgroundColor = UIColor(white: 1.0, alpha: 0.4)
+        courseChangeButton.layer.cornerRadius = 8
+        courseChangeButton.setTitleColor(UIColor.black, for: .normal)
+        
+        view.addSubview(courseChangeButton)
+        
+        courseChangeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            courseChangeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            courseChangeButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
+            courseChangeButton.widthAnchor.constraint(equalToConstant: 130),
+            courseChangeButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        courseChangeButton.addTarget(self, action: #selector(courseChangeButtonTapped), for: .touchUpInside)
         
         
-        //faded backgroundだよ
         view.backgroundColor = UIColor.white // Replace with your desired color
-
+        
         let yOffset: CGFloat = 50
         let squareView = UIView(frame: CGRect(x: 0, y:  mapContainerView.bounds.height, width: view.bounds.width, height: 100))
         squareView.layer.cornerRadius = 10
         squareView.clipsToBounds = true
-
+        
         // Create a gradient layer
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = squareView.bounds
         gradientLayer.colors = [UIColor.white.cgColor, UIColor.clear.cgColor]
         gradientLayer.locations = [0.8, 3.0] // Adjust the locations to control the fading
-
+        
         // Adjust startPoint and endPoint to make the gradient upside down
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 1)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
-
+        
         // Add the gradient layer to the square view's layer
         squareView.layer.addSublayer(gradientLayer)
-
+        
         // Add the square view to the main view
         view.addSubview(squareView)
         
         // Move the square view to the back of the view hierarchy
         view.sendSubviewToBack(squareView)
-
-
-
-        }
-
+        
+        
+        
+    }
+    
     @objc func courseChangeButtonTapped() {
         print("コース変更 button tapped")
         // Implement your action for the button tap here
         
         
-    
+        
         
     }
     
@@ -703,19 +703,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         return infoWindow // This ensures a UIView? is always returned
     }
     
-   /* func setupStyle() {
-        navigationView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8272664657)
-        setupBorder(button30)
-        setupBorder(button45)
-        setupBorder(button60)
-        setupBorder(button90)
-        setupBorder(startButton)
-    }
-    func setupBorder (_ a: UIButton){
-        a.layer.borderWidth = 4
-        a.layer.borderColor = #colorLiteral(red: 0.5058823529, green: 0.6274509804, blue: 0.9098039216, alpha: 1)
-        a.layer.cornerRadius = a.frame.width / 2
-    }*/
+    /* func setupStyle() {
+     navigationView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8272664657)
+     setupBorder(button30)
+     setupBorder(button45)
+     setupBorder(button60)
+     setupBorder(button90)
+     setupBorder(startButton)
+     }
+     func setupBorder (_ a: UIButton){
+     a.layer.borderWidth = 4
+     a.layer.borderColor = #colorLiteral(red: 0.5058823529, green: 0.6274509804, blue: 0.9098039216, alpha: 1)
+     a.layer.cornerRadius = a.frame.width / 2
+     }*/
     func setupStyle() {
         navigationView.backgroundColor = #colorLiteral(red: 0.9279547334, green: 0.9279547334, blue: 0.9279547334, alpha: 1)
         
@@ -726,18 +726,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         setupButtonStyle(button90)
         setupButtonStyle(startButton)
     }
-
+    
     func setupButtonStyle(_ button: UIButton) {
         // Set button background color
         button.backgroundColor = UIColor(red: 0.8588235294, green: 0.8901960784, blue: 1, alpha: 1) // #DBE3FF
-
+        
         // Set button border
         button.layer.borderWidth = 5
         button.layer.borderColor = UIColor.white.cgColor
-
+        
         // Set button corner radius
         button.layer.cornerRadius = button.frame.width / 2
-
+        
         // Apply drop shadow
         button.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         button.layer.shadowOffset = CGSize(width: 0, height: 4)
@@ -762,7 +762,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     //バーのコード
     
-
+    
     func createLabel(_ text: String, fontSize: CGFloat) -> UILabel {
         let label = UILabel()
         label.text = text
@@ -772,7 +772,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         return label
     }
     
-
+    
     
     func createBarButton(title: String, imageName: String, fontSize: CGFloat) -> UIButton {
         let button = UIButton(type: .system)
@@ -790,7 +790,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         
         return button
     }
-        
+    
     
     @IBAction func likeLocation() {
         print("pressed heart")
