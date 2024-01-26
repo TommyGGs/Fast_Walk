@@ -70,7 +70,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
 
         // Calculate the centered origin point for the resized image view
         let originX = (view.bounds.width - imageViewSize.width) / 2.0
-        let originY = (view.bounds.height - imageViewSize.height) / 7.0
+        let originY = (view.bounds.height - imageViewSize.height) / 8.6
 
         imageView.frame = CGRect(origin: CGPoint(x: originX, y: originY), size: imageViewSize)
 
