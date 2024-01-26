@@ -22,7 +22,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     @IBOutlet var dataButton: UIButton!
     @IBOutlet var accountButton: UIButton!
     
+    @IBOutlet weak var typeChoiceButton: UIButton!
+    var placeTypes: [String] {
+            return PlaceTypesList.placeTypes
+        }
+    var chosenType: String = "restaurant"
     @IBOutlet var heart: UIButton!
+    
     var locationManager = CLLocationManager()
     var mapView: GMSMapView? //static throughout scope of entire program
     var currentLocation: CLLocationCoordinate2D?
@@ -38,6 +44,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     let realm = try! Realm()
 
     
+    
+    
     private var placesClient: GMSPlacesClient! //For Places marker
     
     override func viewDidLoad() {
@@ -52,6 +60,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         //        setupStyle()
         print("passed")
         setupStyle()
+        setupChoiceButton()
         changeRouteButton()
         navBar()
         self.view.bringSubviewToFront(heartButton)
@@ -59,6 +68,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         self.view.bringSubviewToFront(dataButton)
         self.view.bringSubviewToFront(accountButton)
         self.view.sendSubviewToBack(mapContainerView)
+
      }
     
     
@@ -380,7 +390,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         //
         //        for _ in 1...2 {
         group.enter()
-        randomwaypoint.findRoute(start, desiredTime: desiredTime) { placeInfos in
+        randomwaypoint.findRoute(start, desiredTime: desiredTime, types:chosenType ) { placeInfos in
             for placeInfo in placeInfos {
                 if let placeInfo = placeInfo{
                     DispatchQueue.main.async{
@@ -528,7 +538,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
     @IBAction func signOut(sender: Any) {
-        
         GIDSignIn.sharedInstance.signOut()
         LoginManager.shared.logout { result in
             switch result {
@@ -660,5 +669,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         a.layer.borderWidth = 4
         a.layer.borderColor = #colorLiteral(red: 0.5058823529, green: 0.6274509804, blue: 0.9098039216, alpha: 1)
         a.layer.cornerRadius = a.frame.width / 2
+    }
+    func setupChoiceButton(){
+        let actionClosure = { (action: UIAction) in
+            self.chosenType = action.title
+        }
+        var menuChildren: [UIMenuElement] = []
+        
+        for type in placeTypes {
+            menuChildren.append(UIAction(title: type, handler: actionClosure))
+        }
+        
+        typeChoiceButton.menu = UIMenu(options: .displayInline, children: menuChildren)
+        typeChoiceButton.showsMenuAsPrimaryAction = true
+        typeChoiceButton.changesSelectionAsPrimaryAction = true
     }
 }

@@ -393,7 +393,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             print("Polyline bounds: \(bounds)")
             print("Map view frame: \(mapView?.frame ?? CGRect.zero)")
             
-            let update = GMSCameraUpdate.fit(bounds, withPadding: 50) // Adjust padding as needed
+            let update = GMSCameraUpdate.fit(bounds, withPadding: 20) // Adjust padding as needed
             mapView?.animate(with: update)
             
             let durationMarker = GMSMarker(position: routeDetails.startCoordinate)
@@ -403,13 +403,13 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             mapView?.selectedMarker = durationMarker
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            if let path = GMSPath(fromEncodedPath: routeDetails.polyString) {
-                let bounds = GMSCoordinateBounds(path: path)
-                let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
-                self.mapView?.animate(with: update)
-            }
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//            if let path = GMSPath(fromEncodedPath: routeDetails.polyString) {
+//                let bounds = GMSCoordinateBounds(path: path)
+//                let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+//                self.mapView?.animate(with: update)
+//            }
+//        }
     }
     
     func beginLocationUpdate() {
