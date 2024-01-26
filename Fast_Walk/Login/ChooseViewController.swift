@@ -58,7 +58,7 @@ class ChooseViewController: UIViewController{
             // Create a UIView for the line
             let lineView = UIView()
             lineView.backgroundColor = UIColor.white.withAlphaComponent(0.21) // White with 21% transparency
-            lineView.frame = CGRect(x: 190, y: 490, width: lineWidth, height: 59)
+            lineView.frame = CGRect(x: 165, y: 490, width: 59, height: lineWidth)
 
             // Rotate the line to be vertical
             let rotationAngle = CGFloat.pi / 2.0

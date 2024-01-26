@@ -81,8 +81,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
 
 
     
-    
-    
     //バーのコード
     func navBar() {
         
@@ -655,7 +653,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         return infoWindow // This ensures a UIView? is always returned
     }
     
-    func setupStyle() {
+   /* func setupStyle() {
         navigationView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8272664657)
         setupBorder(button30)
         setupBorder(button45)
@@ -667,7 +665,36 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         a.layer.borderWidth = 4
         a.layer.borderColor = #colorLiteral(red: 0.5058823529, green: 0.6274509804, blue: 0.9098039216, alpha: 1)
         a.layer.cornerRadius = a.frame.width / 2
+    }*/
+    func setupStyle() {
+        navigationView.backgroundColor = #colorLiteral(red: 0.9279547334, green: 0.9279547334, blue: 0.9279547334, alpha: 1)
+        
+        // Update button styles
+        setupButtonStyle(button30)
+        setupButtonStyle(button45)
+        setupButtonStyle(button60)
+        setupButtonStyle(button90)
+        setupButtonStyle(startButton)
     }
+
+    func setupButtonStyle(_ button: UIButton) {
+        // Set button background color
+        button.backgroundColor = UIColor(red: 0.8588235294, green: 0.8901960784, blue: 1, alpha: 1) // #DBE3FF
+
+        // Set button border
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.white.cgColor
+
+        // Set button corner radius
+        button.layer.cornerRadius = button.frame.width / 2
+
+        // Apply drop shadow
+        button.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 4)
+        button.layer.shadowRadius = 4
+        button.layer.shadowOpacity = 0.25
+    }
+    
     func setupChoiceButton(){
         let actionClosure = { (action: UIAction) in
             self.chosenType = action.title
