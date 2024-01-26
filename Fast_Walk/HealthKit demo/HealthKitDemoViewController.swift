@@ -135,7 +135,7 @@ class HealthKitDemoViewController: UIViewController {
                 
                 
                 DispatchQueue.main.async {
-                    self?.stepsLabel.text = "Steps: \(pedometerData.numberOfSteps)"
+                    self?.stepsLabel.text = "合計: \(pedometerData.numberOfSteps)歩"
                     print("UI Updated")
                 }
                 self?.totalSteps = Double(pedometerData.numberOfSteps)

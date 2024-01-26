@@ -360,7 +360,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         }
     }*/
     func modeSwitch() {
-        let font = UIFont(name: "NotoSansJP-Regular", size: 17) // Adjust size as needed
+        let font = UIFont(name: "NotoSansJP-SemiBold", size: 17) // Adjust size as needed
 
         if mode == "slow" {
             currentMode.text = "ゆっくり歩き"
