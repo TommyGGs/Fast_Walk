@@ -12,13 +12,23 @@ import RealmSwift
 
 class LoginViewController: UIViewController, LoginButtonDelegate {
     
+    @IBOutlet var signUpText: UILabel!
     var users: [User] = []
     var userExist: Bool = false
+    var signUp: Bool = false
     let realm = try! Realm()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if signUp == true {
+            print("signup is true")
+            signUpText.text = "新規登録"
+        } else {
+            print("signup is false")
+            signUpText.text = "ログイン"
+        }
         users = readUsers()
         rectangleView()
         lineButton()
