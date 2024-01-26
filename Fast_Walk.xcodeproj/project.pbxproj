@@ -37,6 +37,7 @@
 		8291C5932B47A4EB0058AE71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8291C5922B47A4EB0058AE71 /* ViewController.swift */; };
 		8291C5952B47A5290058AE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8291C5942B47A5290058AE71 /* AppDelegate.swift */; };
 		82CD0D122B4818380027A327 /* EndScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CD0D112B4818380027A327 /* EndScreenViewController.swift */; };
+		B64AA7ED2B63532E004426CA /* PastDataViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64AA7EC2B63532D004426CA /* PastDataViewController.storyboard */; };
 		B67DF6182B5E7D0D002589EA /* CircleEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67DF6172B5E7D0D002589EA /* CircleEndView.swift */; };
 		B6CD4EE82B5A79C4004F0BDB /* PedometerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */; };
 		E070179A2B5A1A090068960A /* ChooseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07017992B5A1A090068960A /* ChooseViewController.swift */; };
@@ -107,6 +108,7 @@
 		8291C5942B47A5290058AE71 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../../../Documents/Fast_Walk/Fast_Walk/AppDelegate.swift; sourceTree = "<group>"; };
 		82CD0D112B4818380027A327 /* EndScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndScreenViewController.swift; sourceTree = "<group>"; };
 		B08CDE77980212DCFCD7D2EE /* Pods-Fast_Walk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fast_Walk.release.xcconfig"; path = "Target Support Files/Pods-Fast_Walk/Pods-Fast_Walk.release.xcconfig"; sourceTree = "<group>"; };
+		B64AA7EC2B63532D004426CA /* PastDataViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PastDataViewController.storyboard; sourceTree = "<group>"; };
 		B67DF6172B5E7D0D002589EA /* CircleEndView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleEndView.swift; sourceTree = "<group>"; };
 		B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerDemo.swift; sourceTree = "<group>"; };
 		DFB74AB246AFFBC37173D0E8 /* Pods_Fast_Walk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fast_Walk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,6 +163,7 @@
 				31E7A29D2B43E2E50091BCF0 /* HealthAndCareKitHelp.swift */,
 				31E7A29A2B43E0600091BCF0 /* HealthKitDemo.storyboard */,
 				B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */,
+				B64AA7EC2B63532D004426CA /* PastDataViewController.storyboard */,
 			);
 			path = "HealthKit demo";
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				E0AE6E922B5D1ED7005B31A9 /* NotoSansJP-Thin.ttf in Resources */,
 				E0AE6E982B5D1F21005B31A9 /* NotoSansJP-Light.ttf in Resources */,
 				E0F164872B5FD911004E1D36 /* Backbutton.png in Resources */,
+				B64AA7ED2B63532E004426CA /* PastDataViewController.storyboard in Resources */,
 				E21292AD2B16E61D00796BE5 /* LaunchScreen.storyboard in Resources */,
 				E0F1648E2B5FD94F004E1D36 /* sasaka logo megabig.png in Resources */,
 			);

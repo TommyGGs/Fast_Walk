@@ -18,6 +18,8 @@ class EndViewController: EndScreenViewController{
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var paceLabel: UILabel!
     
+    @IBOutlet weak var homeButton: UIButton!
+    
     var receivedStepCount: Double = 0
     var receivedDistance: Double = 0
     var receivedTime: Int = 0
@@ -95,6 +97,7 @@ class EndViewController: EndScreenViewController{
         paceLabel.backgroundColor = #colorLiteral(red: 0.6540186405, green: 0.78854388, blue: 0.9540631175, alpha: 1)
         paceLabel.layer.cornerRadius = 20
         paceLabel.clipsToBounds = true
+        homeButton.backgroundColor = #colorLiteral(red: 0.5374762416, green: 0.7084607482, blue: 0.9500582814, alpha: 1)
         
     }
 
