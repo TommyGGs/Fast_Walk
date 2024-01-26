@@ -46,6 +46,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         allUsers = readAllUsers()
         currentUser = readUsers()
         user_favorites = readFavorites()
+        
 
         locationManager.delegate = self
         beginLocationUpdate() // Start location updates
@@ -348,7 +349,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         }
     }
     
-    func modeSwitch() {
+    /*func modeSwitch() {
         if mode == "slow" {
             currentMode.text = "ゆっくり歩き"
             nextMode.text = "Next: さっさか歩き"
@@ -356,7 +357,28 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             currentMode.text = "さっさか歩き"
             nextMode.text = "Next: ゆっくり歩き"
         }
+    }*/
+    func modeSwitch() {
+        let font = UIFont(name: "NotoSansJP-Regular", size: 17) // Adjust size as needed
+
+        if mode == "slow" {
+            currentMode.text = "ゆっくり歩き"
+            nextMode.text = "Next: さっさか歩き"
+        } else if mode == "fast" {
+            currentMode.text = "さっさか歩き"
+            nextMode.text = "Next: ゆっくり歩き"
+        }
+
+        // Apply custom font
+        currentMode.font = font
+        nextMode.font = font
+
+        // Adjust position
+        let yOffset: CGFloat = 14 // Adjust the vertical offset as needed
+        currentMode.frame.origin.y += yOffset
+        nextMode.frame.origin.y += yOffset
     }
+    
     
     func configureLocationManager() {
         locationManager.delegate = self
