@@ -21,6 +21,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     @IBOutlet var homeButton: UIButton!
     @IBOutlet var dataButton: UIButton!
     @IBOutlet var accountButton: UIButton!
+    @IBOutlet var logoutBut: UIButton!
     
     @IBOutlet weak var typeChoiceButton: UIButton!
     var placeTypes: [String] {
@@ -56,6 +57,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        logoutBut.isHidden = true
         placesClient = GMSPlacesClient.shared() //Places
         typeChoiceButton.isHidden = true
         locationManager.delegate = self
@@ -226,10 +228,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         let buttonHeight: CGFloat = 30 //ここでボタンの高さ変えて（小さい数=もっと高く）
         
         heartButton.translatesAutoresizingMaskIntoConstraints = false
+        heartButton.addTarget(self, action: #selector(heartView), for: .touchUpInside)
         homeButton.translatesAutoresizingMaskIntoConstraints = false
         dataButton.translatesAutoresizingMaskIntoConstraints = false
         accountButton.translatesAutoresizingMaskIntoConstraints = false
-        heartButton.addTarget(self, action: #selector(heartView), for: .touchUpInside)
+        accountButton.addTarget(self, action: #selector(accountView), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             heartButton.leadingAnchor.constraint(equalTo: controlBar.leadingAnchor, constant: 10),
@@ -287,9 +290,50 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         ])
     }
     
+    @objc func accountView() {
+        print("account clicked")
+        let storyboard = UIStoryboard(name: "UserStoryboard", bundle: nil)
+        if let accountVC = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
+            accountVC.user = findUser()
+            accountVC.modalPresentationStyle = .fullScreen
+            accountVC.transitioningDelegate = customTransitioningDelegate
+            self.present(accountVC, animated: true, completion: nil)
+        }
+    }
+    
+    func findUser() -> User {
+        var allUsers = Array(realm.objects(User.self))
+        
+        for allUser in allUsers {
+            if allUser.userID == checkUser() {
+                return allUser
+            }
+        }
+        return allUsers[0]
+    }
     
     
-    
+    func checkUser() -> String {
+        print("checking user function")
+        if let profile = GIDSignIn.sharedInstance.currentUser, let profileID = profile.userID {
+            print("google user id\(String(describing: profile.userID))")
+            return profile.userID ?? "error"
+        } else {
+            print("error in GID")
+            var profileID: String = ""
+            API.getProfile { result in
+                switch result {
+                case .success(let profile):
+                profileID = profile.userID
+                case .failure(let error):
+                    print(error)
+                print("can't find line user as well")
+                }
+            }
+            print("line user id\(profileID)")
+            return profileID
+        }
+    }
     
     
     //コース変更
@@ -588,23 +632,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             // Replace with actual way to access waypoints
         }
     }
-    @IBAction func signOut(sender: Any) {
-        GIDSignIn.sharedInstance.signOut()
-        LoginManager.shared.logout { result in
-            switch result {
-            case .success:
-                print("Logout from LINE")
-            case .failure(let error):
-                print(error)
-            }
-        }
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        loginVC.modalPresentationStyle = .fullScreen  // Ensuring it covers the full screen
-        self.present(loginVC, animated: true, completion: nil)
-    }
-    
+
     func fetchGoogleUserInfo() {
         if let user = GIDSignIn.sharedInstance.currentUser {
             // User is already signed in; proceed to fetch profile information
@@ -617,6 +645,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
             loginVC.modalPresentationStyle = .fullScreen
             self.window?.rootViewController = loginVC
+        }
+    }
+    
+    func updateProfileInfo(user: GIDGoogleUser) {
+        // Assuming you want the profile image URL
+        if let imageUrl = user.profile?.imageURL(withDimension: 80) {
+            downloadImage(from: imageUrl) { image in
+                DispatchQueue.main.async {
+                    self.profilePic.setImage(image, for: .normal)
+                    self.profilePic.imageView?.contentMode = .scaleToFill
+                    
+                    self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
+                    self.profilePic.clipsToBounds = true
+                }
+            }
         }
     }
     
@@ -640,22 +683,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                 }
             case .failure(let error):
                 print("Error fetching LINE user info: \(error)")
-            }
-        }
-    }
-    
-    
-    func updateProfileInfo(user: GIDGoogleUser) {
-        // Assuming you want the profile image URL
-        if let imageUrl = user.profile?.imageURL(withDimension: 80) {
-            downloadImage(from: imageUrl) { image in
-                DispatchQueue.main.async {
-                    self.profilePic.setImage(image, for: .normal)
-                    self.profilePic.imageView?.contentMode = .scaleToFill
-                    
-                    self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
-                    self.profilePic.clipsToBounds = true
-                }
             }
         }
     }

@@ -22,6 +22,8 @@
 		31FB7F4D2B611AA80079633A /* Favorite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31FB7F4C2B611AA80079633A /* Favorite.storyboard */; };
 		31FB7F4F2B6121910079633A /* HeartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FB7F4E2B6121910079633A /* HeartViewController.swift */; };
 		31FB7F512B612C5B0079633A /* LikeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FB7F502B612C5B0079633A /* LikeCollectionViewCell.swift */; };
+		31FB7F572B63D0090079633A /* UserStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31FB7F562B63D0090079633A /* UserStoryboard.storyboard */; };
+		31FB7F5A2B63D0F70079633A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FB7F592B63D0F70079633A /* ProfileViewController.swift */; };
 		4107E2D6621EBECF55B2344B /* Pods_Fast_Walk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB74AB246AFFBC37173D0E8 /* Pods_Fast_Walk.framework */; };
 		824332A02B3991FB00D24094 /* randomWayPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243329F2B3991FB00D24094 /* randomWayPoint.swift */; };
 		824332A42B3AA8FA00D24094 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824332A32B3AA8FA00D24094 /* DemoViewController.swift */; };
@@ -94,6 +96,8 @@
 		31FB7F4C2B611AA80079633A /* Favorite.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Favorite.storyboard; sourceTree = "<group>"; };
 		31FB7F4E2B6121910079633A /* HeartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartViewController.swift; sourceTree = "<group>"; };
 		31FB7F502B612C5B0079633A /* LikeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCollectionViewCell.swift; sourceTree = "<group>"; };
+		31FB7F562B63D0090079633A /* UserStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserStoryboard.storyboard; sourceTree = "<group>"; };
+		31FB7F592B63D0F70079633A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8243329F2B3991FB00D24094 /* randomWayPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = randomWayPoint.swift; sourceTree = "<group>"; };
 		824332A32B3AA8FA00D24094 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		824332A52B3AA95000D24094 /* CustomInfoWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 				E22AA4022B5B93C600AE06BD /* UserViewController.swift */,
 				E22AA3FE2B5A973400AE06BD /* UserTableViewCell.swift */,
 				E22AA3FF2B5A973400AE06BD /* UserTableViewCell.xib */,
+				31FB7F592B63D0F70079633A /* ProfileViewController.swift */,
 			);
 			path = "User & Data";
 			sourceTree = "<group>";
@@ -293,6 +298,7 @@
 				B64AA7EE2B635B5C004426CA /* PlaceTypesList.swift */,
 				31E3658C2B493324002AFFCF /* Main.storyboard */,
 				31FB7F4C2B611AA80079633A /* Favorite.storyboard */,
+				31FB7F562B63D0090079633A /* UserStoryboard.storyboard */,
 				8291C5942B47A5290058AE71 /* AppDelegate.swift */,
 				E21292A22B16E61400796BE5 /* SceneDelegate.swift */,
 				E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */,
@@ -399,6 +405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0AE6E952B5D1ED7005B31A9 /* NotoSansJP-Medium.ttf in Resources */,
+				31FB7F572B63D0090079633A /* UserStoryboard.storyboard in Resources */,
 				31E3658D2B493324002AFFCF /* Main.storyboard in Resources */,
 				E0AE6E912B5D1ED7005B31A9 /* NotoSansJP-SemiBold.ttf in Resources */,
 				313A0BC52B440D8B0097BC66 /* Liberty.png in Resources */,
@@ -501,6 +508,7 @@
 				824332A62B3AA95000D24094 /* CustomInfoWindow.swift in Sources */,
 				826DEC1F2B35949300C0157F /* WayPointGeneration.swift in Sources */,
 				E22AA3FD2B5A8BC200AE06BD /* User.swift in Sources */,
+				31FB7F5A2B63D0F70079633A /* ProfileViewController.swift in Sources */,
 				824332A42B3AA8FA00D24094 /* DemoViewController.swift in Sources */,
 				31D0C0B92B3595590049F6E1 /* CircularProgressView.swift in Sources */,
 				B64AA7EF2B635B5C004426CA /* PlaceTypesList.swift in Sources */,

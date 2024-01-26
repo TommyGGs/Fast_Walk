@@ -32,9 +32,6 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         } else {
             signUpText.text = "新規登録"
         }
-        
-        
-        
         users = readUsers()
         rectangleView()
         lineButton()
@@ -48,31 +45,49 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         super.viewDidAppear(animated)
     }
     
-
-        func setupUI() {
-            // Add your other UI setup code here
-
-            // Create a custom back button
-            let backButton = UIButton(type: .system)
-            backButton.setImage(UIImage(named: "Backbutton.png"), for: .normal)
-            backButton.tintColor = UIColor(red: 246/255.0, green: 246/255.0, blue: 246/255.0, alpha: 0.57)
-            backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-
-            // Add constraints or frame for the button
-            // For example, if you want to position it at the top left corner:
-            backButton.frame = CGRect(x: 20, y: 65, width: 30, height: 30)
-
-            // Add the button to the view
-            view.addSubview(backButton)
-            view.bringSubviewToFront(backButton)
+    @IBAction func signOut(sender: Any) {
+        GIDSignIn.sharedInstance.signOut()
+        LoginManager.shared.logout { result in
+            switch result {
+            case .success:
+                print("Logout from LINE")
+            case .failure(let error):
+                print(error)
+            }
         }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        loginVC.modalPresentationStyle = .fullScreen  // Ensuring it covers the full screen
+        self.present(loginVC, animated: true, completion: nil)
+    }
+    
+
+    func setupUI() {
+        // Add your other UI setup code here
+
+        // Create a custom back button
+        let backButton = UIButton(type: .system)
+        backButton.setImage(UIImage(named: "Backbutton.png"), for: .normal)
+        backButton.tintColor = UIColor(red: 246/255.0, green: 246/255.0, blue: 246/255.0, alpha: 0.57)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+
+        // Add constraints or frame for the button
+        // For example, if you want to position it at the top left corner:
+        backButton.frame = CGRect(x: 20, y: 65, width: 30, height: 30)
+
+        // Add the button to the view
+        view.addSubview(backButton)
+        view.bringSubviewToFront(backButton)
+    }
     @objc func backButtonTapped() {
         print("button tapped")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let chooseVC = storyboard.instantiateViewController(withIdentifier: "ChooseViewController") as? ChooseViewController {
             chooseVC.modalPresentationStyle = .fullScreen
             self.present(chooseVC, animated: true, completion: nil)
-        }    }
+        }
+    }
 
 
     func addImageView() {

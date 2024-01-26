@@ -12,7 +12,6 @@ import LineSDK
 import GooglePlaces
 
 
-
 // MARK: find place with coordinates -> readfavortie function
 
 class HeartViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
