@@ -421,16 +421,21 @@
                                             <action selector="signOutWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Te-ih-ohV"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SCJ-HC-bLT">
-                                        <rect key="frame" x="255" y="8" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SCJ-HC-bLT">
+                                        <rect key="frame" x="135" y="223" width="120" height="30"/>
+                                        <color key="backgroundColor" name="AccentColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="tOV-Gg-Koh"/>
+                                        </constraints>
                                         <menu key="menu" id="XDH-hx-E1e">
                                             <children>
                                                 <command title="Item 1" id="Lfr-4M-pxy"/>
                                                 <command title="Item 2" id="XUU-RK-IkJ"/>
                                             </children>
                                         </menu>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -441,6 +446,7 @@
                                     <constraint firstItem="yek-0c-FkO" firstAttribute="top" secondItem="6Xn-gT-2dV" secondAttribute="centerY" constant="40" id="AVc-Xu-cbt"/>
                                     <constraint firstItem="yek-0c-FkO" firstAttribute="width" secondItem="Fqc-Cx-zfz" secondAttribute="width" id="Cdh-XE-Grw"/>
                                     <constraint firstItem="AGd-wc-gna" firstAttribute="leading" secondItem="6Xn-gT-2dV" secondAttribute="centerX" constant="100" id="Duk-KI-igz"/>
+                                    <constraint firstItem="SCJ-HC-bLT" firstAttribute="top" secondItem="GFA-RH-qf9" secondAttribute="top" constant="223" id="FSD-sU-9xe"/>
                                     <constraint firstAttribute="height" constant="310" id="G3Y-e5-X06"/>
                                     <constraint firstItem="AGd-wc-gna" firstAttribute="width" secondItem="Fqc-Cx-zfz" secondAttribute="width" id="GRm-In-4m5"/>
                                     <constraint firstItem="6Xn-gT-2dV" firstAttribute="centerX" secondItem="Fqc-Cx-zfz" secondAttribute="trailing" constant="100" id="Gb8-qk-8qU"/>
@@ -454,6 +460,7 @@
                                     <constraint firstAttribute="bottom" secondItem="6Xn-gT-2dV" secondAttribute="bottom" constant="95" id="mhR-uB-s6L"/>
                                     <constraint firstItem="6Xn-gT-2dV" firstAttribute="centerX" secondItem="GFA-RH-qf9" secondAttribute="centerX" id="oba-XN-6gH"/>
                                     <constraint firstAttribute="bottom" secondItem="AYH-ZJ-x8w" secondAttribute="bottom" constant="267.66666666666669" id="sPJ-Gl-e4L"/>
+                                    <constraint firstItem="SCJ-HC-bLT" firstAttribute="centerX" secondItem="GFA-RH-qf9" secondAttribute="centerX" id="uma-PX-Xtc"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dhg-9r-j9c">
@@ -521,6 +528,7 @@
                         <outlet property="navigationView" destination="GFA-RH-qf9" id="fNz-6M-EJw"/>
                         <outlet property="profilePic" destination="ShJ-gr-Sfc" id="eVZ-UJ-TYT"/>
                         <outlet property="startButton" destination="6Xn-gT-2dV" id="Wp0-Zp-CXS"/>
+                        <outlet property="typeChoiceButton" destination="SCJ-HC-bLT" id="Kc9-oM-x7D"/>
                         <segue destination="5Oe-OB-C1X" kind="show" identifier="showRoute" id="2FV-9Q-hMr"/>
                     </connections>
                 </viewController>

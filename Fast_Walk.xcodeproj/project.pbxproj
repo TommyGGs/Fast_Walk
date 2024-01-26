@@ -38,6 +38,7 @@
 		8291C5952B47A5290058AE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8291C5942B47A5290058AE71 /* AppDelegate.swift */; };
 		82CD0D122B4818380027A327 /* EndScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CD0D112B4818380027A327 /* EndScreenViewController.swift */; };
 		B64AA7ED2B63532E004426CA /* PastDataViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64AA7EC2B63532D004426CA /* PastDataViewController.storyboard */; };
+		B64AA7EF2B635B5C004426CA /* PlaceTypesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64AA7EE2B635B5C004426CA /* PlaceTypesList.swift */; };
 		B67DF6182B5E7D0D002589EA /* CircleEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67DF6172B5E7D0D002589EA /* CircleEndView.swift */; };
 		B6CD4EE82B5A79C4004F0BDB /* PedometerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */; };
 		E070179A2B5A1A090068960A /* ChooseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07017992B5A1A090068960A /* ChooseViewController.swift */; };
@@ -109,6 +110,7 @@
 		82CD0D112B4818380027A327 /* EndScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndScreenViewController.swift; sourceTree = "<group>"; };
 		B08CDE77980212DCFCD7D2EE /* Pods-Fast_Walk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fast_Walk.release.xcconfig"; path = "Target Support Files/Pods-Fast_Walk/Pods-Fast_Walk.release.xcconfig"; sourceTree = "<group>"; };
 		B64AA7EC2B63532D004426CA /* PastDataViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PastDataViewController.storyboard; sourceTree = "<group>"; };
+		B64AA7EE2B635B5C004426CA /* PlaceTypesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTypesList.swift; sourceTree = "<group>"; };
 		B67DF6172B5E7D0D002589EA /* CircleEndView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleEndView.swift; sourceTree = "<group>"; };
 		B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerDemo.swift; sourceTree = "<group>"; };
 		DFB74AB246AFFBC37173D0E8 /* Pods_Fast_Walk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fast_Walk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -268,6 +270,7 @@
 				8291C57B2B47A0D20058AE71 /* Login */,
 				31E7A29C2B43E1E40091BCF0 /* Fast_Walk.entitlements */,
 				8291C5922B47A4EB0058AE71 /* ViewController.swift */,
+				B64AA7EE2B635B5C004426CA /* PlaceTypesList.swift */,
 				31E3658C2B493324002AFFCF /* Main.storyboard */,
 				31FB7F4C2B611AA80079633A /* Favorite.storyboard */,
 				8291C5942B47A5290058AE71 /* AppDelegate.swift */,
@@ -484,6 +487,7 @@
 				E22AA3FD2B5A8BC200AE06BD /* User.swift in Sources */,
 				824332A42B3AA8FA00D24094 /* DemoViewController.swift in Sources */,
 				31D0C0B92B3595590049F6E1 /* CircularProgressView.swift in Sources */,
+				B64AA7EF2B635B5C004426CA /* PlaceTypesList.swift in Sources */,
 				31D0C0B72B3592A90049F6E1 /* EndViewController.swift in Sources */,
 				8291C5802B47A0D20058AE71 /* WelcomViewController.swift in Sources */,
 				E070179A2B5A1A090068960A /* ChooseViewController.swift in Sources */,
