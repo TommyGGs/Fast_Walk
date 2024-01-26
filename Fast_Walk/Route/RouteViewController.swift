@@ -46,10 +46,6 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
 
         locationManager.delegate = self
         beginLocationUpdate() // Start location updates
-        
-        if let routeDetails = routeDetails {
-            setupAndDisplayRouteOnMap(routeDetails: routeDetails)
-        }
         modeSwitch()
         configureLocationManager()
         setupCircularProgressView()
@@ -60,12 +56,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let routeDetails = routeDetails {
-            setupAndDisplayRouteOnMap(routeDetails: routeDetails)
-            for waypoint in waypoints {
-                self.marker.addMarker(waypoint, self.mapView)
-            }
-        }
+        setupMapView()
         startCountdown()
     }
     
@@ -332,8 +323,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             currentLocation = location.coordinate
-            let cameraUpdate = GMSCameraUpdate.setTarget(location.coordinate, zoom: 10.0)
-            mapView?.animate(with: cameraUpdate)
+//            let cameraUpdate = GMSCameraUpdate.setTarget(location.coordinate, zoom: 25)
+//            mapView?.animate(with: cameraUpdate)
             mapView?.isMyLocationEnabled = true
             mapView?.settings.myLocationButton = true
         }
@@ -343,15 +334,27 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         print("Failed to find user's location: \(error.localizedDescription)")
     }
     
-    func setupAndDisplayRouteOnMap(routeDetails: RouteDetails) {
-        
+    func setupMapView() {
+        guard let routeDetails = self.routeDetails else { return }
+
         let camera = GMSCameraPosition.camera(withLatitude: routeDetails.startCoordinate.latitude,
                                               longitude: routeDetails.startCoordinate.longitude,
-                                              zoom: 10.0)
+                                              zoom: 20.0)
         mapView = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
         mapView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapContainerView.addSubview(mapView!)
         mapView?.delegate = self
+        mapContainerView.addSubview(mapView!)
+        mapView?.isMyLocationEnabled = true
+        mapView?.settings.myLocationButton = true
+
+        setupAndDisplayRouteOnMap(routeDetails: routeDetails)
+
+        for waypoint in waypoints {
+            self.marker.addMarker(waypoint, self.mapView)
+        }
+    }
+    
+    func setupAndDisplayRouteOnMap(routeDetails: RouteDetails) {
         
         // Display the route
         
@@ -361,13 +364,12 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             polyline.strokeWidth = 5.0
             polyline.strokeColor = UIColor.systemBlue
             polyline.map = mapView
-            
             // Fit the camera to the bounds of the route
             let bounds = GMSCoordinateBounds(path: path)
             print("Polyline bounds: \(bounds)")
             print("Map view frame: \(mapView?.frame ?? CGRect.zero)")
             
-            let update = GMSCameraUpdate.fit(bounds, withPadding: 20) // Adjust padding as needed
+            let update = GMSCameraUpdate.fit(bounds, withPadding: 50) // Adjust padding as needed
             mapView?.animate(with: update)
             
             let durationMarker = GMSMarker(position: routeDetails.startCoordinate)
@@ -376,19 +378,13 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             durationMarker.map = mapView
             mapView?.selectedMarker = durationMarker
         }
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//            if let path = GMSPath(fromEncodedPath: routeDetails.polyString) {
-//                let bounds = GMSCoordinateBounds(path: path)
-//                let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
-//                self.mapView?.animate(with: update)
-//            }
-//        }
     }
     
     func beginLocationUpdate() {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
             locationManager.startUpdatingLocation()
+            mapView?.isMyLocationEnabled = true
+            mapView?.isMyLocationEnabled = true
         } else {
             locationManager.requestWhenInUseAuthorization()
         }

@@ -36,8 +36,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var currentRoutePolyline: GMSPolyline?
     var storedRouteDetails: RouteDetails?
     var marker = Marker()
-    var wayPointGeneration = WayPointGeneration()
-    var randomwaypoint: randomWayPoint!
+    let randomwaypoint = randomWayPoint()
     var window: UIWindow?
     var passWaypoint: [GMSPlace] = []
     
@@ -49,7 +48,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         placesClient = GMSPlacesClient.shared() //Places
-        randomwaypoint = randomWayPoint()
+        
         locationManager.delegate = self
         beginLocationUpdate()
         setupMapView()
@@ -335,7 +334,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     func updateMapCamera(_ coordinate: CLLocationCoordinate2D) {
-        let cameraUpdate = GMSCameraUpdate.setTarget(coordinate, zoom: 10.0)
+        let cameraUpdate = GMSCameraUpdate.setTarget(coordinate, zoom: 20.0)
         mapView?.animate(with: cameraUpdate)
         mapView?.isMyLocationEnabled = true
         mapView?.settings.myLocationButton = true
