@@ -41,10 +41,22 @@ class WaitViewController: UIViewController {
             }
             else if user != nil || error != nil {
                 print("user previously signed in with google")
+                //MARK: pass current User
+                let id: String = user?.userID ?? "nil"
+                self.currentClass(id)
                 self.presentMainNavigationController()
             } else {
                 print("present user to login viewcontroller")
                 self.presentLoginViewController()
+            }
+        }
+    }
+    
+    func currentClass(_ id: String) {
+        let allUser = Array(realm.objects(User.self))
+        for user in allUser {
+            if user.userID == id {
+                Current.user = user
             }
         }
     }

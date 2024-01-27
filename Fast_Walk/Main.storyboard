@@ -346,7 +346,7 @@
                                         <buttonConfiguration key="configuration" style="plain" image="shoeprints.fill" catalog="system" title=""/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xn-gT-2dV">
-                                        <rect key="frame" x="115" y="85" width="160" height="160"/>
+                                        <rect key="frame" x="115" y="51" width="160" height="160"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="160" id="boF-NR-XS9"/>
                                             <constraint firstAttribute="width" constant="160" id="yG9-3O-N4f"/>
@@ -362,7 +362,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGd-wc-gna">
-                                        <rect key="frame" x="295" y="60" width="65" height="65"/>
+                                        <rect key="frame" x="295" y="26" width="65" height="65"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="45" cornerStyle="capsule">
                                             <fontDescription key="titleFontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="20"/>
@@ -374,7 +374,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fqc-Cx-zfz">
-                                        <rect key="frame" x="30" y="60" width="65" height="65"/>
+                                        <rect key="frame" x="30" y="26" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="bem-Si-6wu"/>
                                             <constraint firstAttribute="height" constant="65" id="xxv-sP-nN6"/>
@@ -390,7 +390,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7K-AR-U7A">
-                                        <rect key="frame" x="30" y="205" width="65" height="65"/>
+                                        <rect key="frame" x="30" y="171" width="65" height="65"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="60" cornerStyle="capsule">
                                             <fontDescription key="titleFontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="20"/>
@@ -402,7 +402,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yek-0c-FkO">
-                                        <rect key="frame" x="295" y="205" width="65" height="65"/>
+                                        <rect key="frame" x="295" y="171" width="65" height="65"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="90" cornerStyle="capsule">
                                             <fontDescription key="titleFontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="20"/>
@@ -411,14 +411,6 @@
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="searchRoute:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0NQ-aI-lWl"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYH-ZJ-x8w">
-                                        <rect key="frame" x="156" y="8" width="78" height="34.333333333333336"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Logout"/>
-                                        <connections>
-                                            <action selector="signOutWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Te-ih-ohV"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SCJ-HC-bLT">
@@ -437,6 +429,15 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1K0-0E-G43">
+                                        <rect key="frame" x="20" y="114" width="75" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <segue destination="mCk-Lb-xRs" kind="presentation" modalPresentationStyle="fullScreen" id="2bI-Le-yLt"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="h7K-AR-U7A" firstAttribute="width" secondItem="Fqc-Cx-zfz" secondAttribute="width" id="0mF-0g-dzY"/>
@@ -454,11 +455,9 @@
                                     <constraint firstItem="6Xn-gT-2dV" firstAttribute="centerY" secondItem="Fqc-Cx-zfz" secondAttribute="bottom" constant="40" id="SWV-nt-65w"/>
                                     <constraint firstItem="h7K-AR-U7A" firstAttribute="centerX" secondItem="Fqc-Cx-zfz" secondAttribute="centerX" id="WlL-XV-GEF"/>
                                     <constraint firstItem="AGd-wc-gna" firstAttribute="height" secondItem="Fqc-Cx-zfz" secondAttribute="height" id="ZzR-W1-4Z9"/>
-                                    <constraint firstItem="AYH-ZJ-x8w" firstAttribute="leading" secondItem="GFA-RH-qf9" secondAttribute="leading" constant="156" id="dBd-rF-XbT"/>
                                     <constraint firstItem="yek-0c-FkO" firstAttribute="centerX" secondItem="AGd-wc-gna" secondAttribute="centerX" id="lXQ-QI-Z2N"/>
                                     <constraint firstItem="h7K-AR-U7A" firstAttribute="top" secondItem="6Xn-gT-2dV" secondAttribute="centerY" constant="40" id="ldn-90-Cxl"/>
                                     <constraint firstItem="6Xn-gT-2dV" firstAttribute="centerX" secondItem="GFA-RH-qf9" secondAttribute="centerX" id="oba-XN-6gH"/>
-                                    <constraint firstAttribute="bottom" secondItem="AYH-ZJ-x8w" secondAttribute="bottom" constant="267.66666666666669" id="sPJ-Gl-e4L"/>
                                     <constraint firstItem="SCJ-HC-bLT" firstAttribute="centerX" secondItem="GFA-RH-qf9" secondAttribute="centerX" id="uma-PX-Xtc"/>
                                 </constraints>
                             </view>
@@ -471,15 +470,6 @@
                                         <buttonConfiguration key="configuration" style="filled" title="Places"/>
                                         <connections>
                                             <segue destination="bOM-b7-eFJ" kind="presentation" modalPresentationStyle="fullScreen" id="ylz-9b-GEn"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WS4-0F-Bx5">
-                                        <rect key="frame" x="147" y="21" width="97" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="DataBase"/>
-                                        <connections>
-                                            <segue destination="p6Q-Vq-oDQ" kind="presentation" modalPresentationStyle="fullScreen" id="vCs-Es-z7y"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -524,7 +514,6 @@
                         <outlet property="dataButton" destination="t11-PL-sG7" id="IRw-iA-91i"/>
                         <outlet property="heartButton" destination="Toc-sN-16Q" id="CLv-4v-xOf"/>
                         <outlet property="homeButton" destination="38a-1r-xH5" id="CXx-yK-wSg"/>
-                        <outlet property="logoutBut" destination="AYH-ZJ-x8w" id="Tj7-97-P43"/>
                         <outlet property="mapContainerView" destination="Dhg-9r-j9c" id="tSO-Yk-g1T"/>
                         <outlet property="navigationView" destination="GFA-RH-qf9" id="fNz-6M-EJw"/>
                         <outlet property="profilePic" destination="ShJ-gr-Sfc" id="eVZ-UJ-TYT"/>
@@ -536,6 +525,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="967.69230769230762" y="-16.350710900473931"/>
+        </scene>
+        <!--PastDataViewController-->
+        <scene sceneID="rQ1-kX-FCN">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PastDataViewController" referencedIdentifier="PastDataViewController" id="mCk-Lb-xRs" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G5G-en-4ko" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="521" y="364"/>
         </scene>
         <!--Route View Controller-->
         <scene sceneID="NFx-Jt-kkR">
@@ -551,7 +548,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3:00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14s-Rl-VrW">
-                                <rect key="frame" x="90" y="550" width="210" height="210"/>
+                                <rect key="frame" x="90" y="516" width="210" height="210"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="210" id="N7m-WY-nRO"/>
                                     <constraint firstAttribute="width" constant="210" id="hil-PU-1fd"/>
@@ -561,7 +558,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gvk-Im-cVz">
-                                <rect key="frame" x="120" y="567" width="150" height="30"/>
+                                <rect key="frame" x="120" y="533" width="150" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="F8Q-fF-XNU"/>
                                     <constraint firstAttribute="width" constant="150" id="wMs-VL-Xxu"/>
@@ -571,7 +568,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2c-DZ-l6j">
-                                <rect key="frame" x="175" y="690" width="40" height="40"/>
+                                <rect key="frame" x="175" y="656" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="XeE-ko-AMt"/>
                                     <constraint firstAttribute="width" constant="40" id="aAq-7Y-FsH"/>
@@ -604,7 +601,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drO-cs-iXw">
-                                <rect key="frame" x="298" y="789.33333333333337" width="70" height="24.666666666666629"/>
+                                <rect key="frame" x="298" y="755.33333333333337" width="70" height="24.666666666666629"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="Rq5-ge-Jod"/>
                                 </constraints>
@@ -613,7 +610,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="歩数" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiU-10-KHL">
-                                <rect key="frame" x="136" y="768" width="118" height="36"/>
+                                <rect key="frame" x="136" y="734" width="118" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="9eU-8N-TJC"/>
                                     <constraint firstAttribute="width" constant="118" id="thS-KM-cBX"/>
@@ -623,7 +620,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hwT-Fe-fZt">
-                                <rect key="frame" x="28" y="739" width="76" height="75"/>
+                                <rect key="frame" x="28" y="705" width="76" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="76" id="1i3-7y-viU"/>
                                 </constraints>
@@ -938,7 +935,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Jyg-pS-Qog"/>
+        <segue reference="UvH-MR-Y4i"/>
         <segue reference="a36-K0-U9a"/>
     </inferredMetricsTieBreakers>
     <resources>

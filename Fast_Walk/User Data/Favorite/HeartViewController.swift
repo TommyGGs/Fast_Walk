@@ -12,15 +12,12 @@ import LineSDK
 import GooglePlaces
 
 
-// MARK: find place with coordinates -> readfavortie function
 
 class HeartViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var favorites: [FavoriteSpot] = []
     var collectionView: UICollectionView!
-//    var favoritesPlace: [GMSPlace] = []
     var placesClient: GMSPlacesClient! = GMSPlacesClient.shared()
-    
 
 
     
@@ -31,6 +28,8 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
         favorites = readFavorites()
         listFavorites()
         closeButton()
+        print(favorites)
+        print(Current.user)
     }
     
     func deleteItemAt(_ indexPath: IndexPath) {
@@ -43,7 +42,14 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func readFavorites() -> [FavoriteSpot] {
-        return Array(realm.objects(FavoriteSpot.self))
+        let allFav = Array(realm.objects(FavoriteSpot.self))
+        var userFav: [FavoriteSpot] = []
+        for fav in allFav {
+            if fav.userID == Current.user.userID {
+                userFav.append(fav)
+            }
+        }
+        return userFav
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -58,12 +64,13 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
         cell.onDeleteTapped = { [weak self] indexPath in
             self?.deleteItemAt(indexPath)
         }
-        print("loading place view")
+
         let placeID = favorites[indexPath.row].placeID
-        print("the favorite places are\(favorites), and current cell is \(favorites[indexPath.row])")
+
         print ("placeid favorites = \(placeID)")
+        
         // Specify the place data types to return.
-        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt64(UInt(GMSPlaceField.name.rawValue) | UInt(GMSPlaceField.placeID.rawValue) | UInt(GMSPlaceField.photos.rawValue)))
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt64(UInt(GMSPlaceField.name.rawValue) | UInt(GMSPlaceField.placeID.rawValue) | UInt(GMSPlaceField.photos.rawValue) | UInt(GMSPlaceField.rating.rawValue) | UInt(GMSPlaceField.types.rawValue)))
 
         
         placesClient?.fetchPlace(fromPlaceID: placeID, placeFields: fields, sessionToken: nil, callback: {
@@ -73,14 +80,19 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
             return
           }
             if let place = place {
+                print("place rating\(place.rating)")
+                print("placetypes\(String(describing: place.types?.first))")
+                print(place.rating)
                 print("The selected place is: \(String(describing: place.name))")
+                cell.titleLabel.text = place.name
+                cell.descriptionLabel.text = "評価：" + String(Int(place.rating))
+                
+                //TODO: - connect star 
+                cell.typeLabel.text = "ジャンル:"  + (place.types?.first ?? "nil")
                 self.loadPhoto(place.photos?.first) {  placePhoto in
                     if let placePhoto = placePhoto {
-                        print("Userdata is valid")
                         DispatchQueue.main.async {
                             cell.imageView.image = placePhoto
-                            cell.titleLabel.text = place.name
-                            cell.descriptionLabel.text = "評価：" + String(Int(place.rating)) + ", \(String(describing: place.types?.first))"
                         }
                         print("marker loaded")
                     }

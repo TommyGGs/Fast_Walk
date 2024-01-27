@@ -19,7 +19,15 @@ class LikeCollectionViewCell: UICollectionViewCell {
     let imageView = UIImageView()
     let titleLabel = UILabel()
     let descriptionLabel = UILabel()
+    let typeLabel = UILabel()
     let deleteButton = UIButton()
+    let star1 = UIImageView()
+    let star2 = UIImageView()
+    let star3 = UIImageView()
+    let star4 = UIImageView()
+    let star5 = UIImageView()
+    
+    
     let realm = try! Realm()
 
     override init(frame: CGRect) {
@@ -55,9 +63,13 @@ class LikeCollectionViewCell: UICollectionViewCell {
         // Description Label
         descriptionLabel.font = UIFont.systemFont(ofSize: 14)
         descriptionLabel.numberOfLines = 2
+        
+        typeLabel.font = UIFont.systemFont(ofSize: 14)
+        typeLabel.numberOfLines = 2
+        
 
         // Add subviews
-        [imageView, titleLabel, descriptionLabel].forEach {
+        [imageView, titleLabel, descriptionLabel, typeLabel, star1, star2, star3, star4, star5].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -84,7 +96,7 @@ class LikeCollectionViewCell: UICollectionViewCell {
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             imageView.widthAnchor.constraint(equalToConstant: 100), // Set width to 100
             imageView.heightAnchor.constraint(equalToConstant: 100), // Set height to 100
-
+            
             titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
@@ -93,10 +105,15 @@ class LikeCollectionViewCell: UICollectionViewCell {
             descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
             
+            typeLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10),
+            typeLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            typeLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 5),
+            
             deleteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             deleteButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             deleteButton.widthAnchor.constraint(equalToConstant: 80),
-            deleteButton.heightAnchor.constraint(equalToConstant: 30)
+            deleteButton.heightAnchor.constraint(equalToConstant: 30),
+            
         ])
     }
 }

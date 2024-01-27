@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		310B58E12B47EE3000ACDE69 /* WaitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310B58E02B47EE3000ACDE69 /* WaitViewController.swift */; };
+		311E40D32B649E7C00728557 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E40D22B649E7C00728557 /* CurrentUser.swift */; };
 		313A0BC52B440D8B0097BC66 /* Liberty.png in Resources */ = {isa = PBXBuildFile; fileRef = 313A0BC42B440D8B0097BC66 /* Liberty.png */; };
+		314AF3112B64E05200B29360 /* PastDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314AF3102B64E05200B29360 /* PastDataViewController.swift */; };
 		31D0C0B52B3418C70049F6E1 /* RouteDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D0C0B42B3418C70049F6E1 /* RouteDetails.swift */; };
 		31D0C0B72B3592A90049F6E1 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D0C0B62B3592A90049F6E1 /* EndViewController.swift */; };
 		31D0C0B92B3595590049F6E1 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D0C0B82B3595590049F6E1 /* CircularProgressView.swift */; };
@@ -84,7 +86,9 @@
 /* Begin PBXFileReference section */
 		121B8DA9542DEE04D0CA56A5 /* Pods-Fast_Walk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fast_Walk.debug.xcconfig"; path = "Target Support Files/Pods-Fast_Walk/Pods-Fast_Walk.debug.xcconfig"; sourceTree = "<group>"; };
 		310B58E02B47EE3000ACDE69 /* WaitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitViewController.swift; sourceTree = "<group>"; };
+		311E40D22B649E7C00728557 /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		313A0BC42B440D8B0097BC66 /* Liberty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Liberty.png; sourceTree = "<group>"; };
+		314AF3102B64E05200B29360 /* PastDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastDataViewController.swift; sourceTree = "<group>"; };
 		31D0C0B42B3418C70049F6E1 /* RouteDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetails.swift; sourceTree = "<group>"; };
 		31D0C0B62B3592A90049F6E1 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
 		31D0C0B82B3595590049F6E1 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 				31E7A29A2B43E0600091BCF0 /* HealthKitDemo.storyboard */,
 				B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */,
 				B64AA7EC2B63532D004426CA /* PastDataViewController.storyboard */,
+				314AF3102B64E05200B29360 /* PastDataViewController.swift */,
 			);
 			path = "HealthKit demo";
 			sourceTree = "<group>";
@@ -233,6 +238,7 @@
 				E0F164922B5FDCFD004E1D36 /* PersonalViewController.swift */,
 				8291C57D2B47A0D20058AE71 /* WelcomViewController.swift */,
 				8291C57C2B47A0D20058AE71 /* ImageCache.swift */,
+				311E40D22B649E7C00728557 /* CurrentUser.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -499,10 +505,12 @@
 				B6CD4EE82B5A79C4004F0BDB /* PedometerDemo.swift in Sources */,
 				E22AA4002B5A973400AE06BD /* UserTableViewCell.swift in Sources */,
 				8291C5812B47A0D20058AE71 /* LoginViewController.swift in Sources */,
+				311E40D32B649E7C00728557 /* CurrentUser.swift in Sources */,
 				8291C5932B47A4EB0058AE71 /* ViewController.swift in Sources */,
 				8291C5952B47A5290058AE71 /* AppDelegate.swift in Sources */,
 				824332A02B3991FB00D24094 /* randomWayPoint.swift in Sources */,
 				826DEC222B359E7A00C0157F /* CreateMarker.swift in Sources */,
+				314AF3112B64E05200B29360 /* PastDataViewController.swift in Sources */,
 				310B58E12B47EE3000ACDE69 /* WaitViewController.swift in Sources */,
 				8291C57F2B47A0D20058AE71 /* ImageCache.swift in Sources */,
 				824332A62B3AA95000D24094 /* CustomInfoWindow.swift in Sources */,

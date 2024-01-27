@@ -8,15 +8,27 @@
 import UIKit
 import GoogleSignIn
 import LineSDK
+import RealmSwift
 
 class WelcomeViewController: UIViewController {
     @IBOutlet weak var welcomeMessage: UILabel!
     @IBOutlet weak var userIcon: UIImageView!
     
+    let realm = try! Realm()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userInformation()
         setGradientBackground()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let mainVC = storyboard.instantiateViewController(withIdentifier: "MainViewController") as? ViewController {
+            mainVC.modalPresentationStyle = .fullScreen
+            self.present(mainVC, animated: true, completion: nil)
+        }
     }
     
     func fetchLineUserInfo() {

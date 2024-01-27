@@ -33,7 +33,6 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     var user_favorites: [FavoriteSpot] = []
     var remove_user_favorites: [FavoriteSpot] = []
     var isFavAlready: Bool = false
-    var currentUser: User = User()
     var allUsers: [User] = []
     var currentSpot: CLLocationCoordinate2D = CLLocationCoordinate2D()
     var userID: String = ""
@@ -44,7 +43,6 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         allUsers = readAllUsers()
-        currentUser = readUsers()
         user_favorites = readFavorites()
         
 
@@ -93,44 +91,13 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
 
         overlayView.addSubview(countdownLabel)
         view.addSubview(overlayView)
-        
-        /*countdownLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        countdownLabel.center = view.center
-        countdownLabel.textAlignment = .center
-        countdownLabel.font = UIFont.systemFont(ofSize: 80, weight: .black)
-        countdownLabel.textColor = .systemIndigo
-        
-        overlayView.addSubview(countdownLabel)
-        view.addSubview(overlayView)*/
-    }
-    
-    func checkUser() -> String {
-        print("checking user function")
-        if let profile = GIDSignIn.sharedInstance.currentUser, let profileID = profile.userID {
-            print("google user id\(String(describing: profile.userID))")
-            return profile.userID ?? "error"
-        } else {
-            print("error in GID")
-            var profileID: String = ""
-            API.getProfile { result in
-                switch result {
-                case .success(let profile):
-                profileID = profile.userID
-                case .failure(let error):
-                    print(error)
-                print("can't find line user as well")
-                }
-            }
-            print("line user id\(profileID)")
-            return profileID
-        }
     }
     
     func readFavorites() -> [FavoriteSpot] {
         var favorites = Array(realm.objects(FavoriteSpot.self))
         var findFavorites: [FavoriteSpot] = []
         for favorite in favorites {
-            if favorite.userID == checkUser() {
+            if favorite.userID == Current.user.userID {
                 print("found user favorites")
                 findFavorites.append(favorite)
             }
@@ -148,16 +115,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     
     func readUsers() -> User {
         print("reading users")
-        print("this is \(allUsers)")
-        for allUser in allUsers {
-            print("for looping")
-            if allUser.userID == checkUser() {
-                print("found user with same id")
-                return allUser
-            }
-        }
-        print("error in finding userID from users, returning first user")
-        return allUsers[0]
+        return Current.user
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
@@ -236,8 +194,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         print("Map didn't tap marker")
     }
 
-// pressed when not fill: append favorite to array, if it was at "remove array" remove it
-// pressed when fill: if user already had the spot as favorite, append spot to remove array, if it was at "favorite array", remove it
+
     
     @IBAction func likeLocation() {
         print("button pressed")
@@ -251,8 +208,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
                 }
             }
             let fav = FavoriteSpot(coordinate: currentSpot)
-            fav.userName = currentUser.name
-            fav.userID = currentUser.userID
+            fav.userName = Current.user.name
+            fav.userID = Current.user.userID
             fav.placeID = currentPlaceID
             print("favorite placeID added to array")
             favorites.append(fav)
@@ -270,8 +227,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             for user_favorite in user_favorites {
                 if user_favorite.latitude == currentSpot.latitude, user_favorite.longitude == currentSpot.longitude{
                     let unfav = FavoriteSpot(coordinate: currentSpot)
-                    unfav.userName = currentUser.name
-                    unfav.userID = currentUser.userID
+                    unfav.userName = Current.user.name
+                    unfav.userID = Current.user.userID
                     unfav.placeID = currentPlaceID
                     print("unfavorite placeID added to array")
                     remove_user_favorites.append(unfav)

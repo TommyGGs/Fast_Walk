@@ -93,21 +93,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         }
     }
     
-    //    private func configurePlaceTypesStackView() {
-    //        view.addSubview(typeStackView)
-    //        typeStackView.axis = .horizontal
-    //        typeStackView.distribution = .fillEqually
-    //        typeStackView.alignment = .fill
-    //        typeStackView.translatesAutoresizingMaskIntoConstraints = false
-    //        NSLayoutConstraint.activate([
-    //            typeStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
-    //            typeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-    //            typeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10),
-    //            typeStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-    //            typeStackView.heightAnchor.constraint(equalToConstant: 50) // You can adjust the height
-    //        ])
-    //    }
-    
     private func configurePlaceTypesButtons() {
         setupButton(shoppingButton, title: "ショップ")
         setupButton(gourmetButton, title: "グルメ")

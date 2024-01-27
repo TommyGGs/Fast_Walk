@@ -193,6 +193,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
             for user in users {
                 if user.userID == signInResult.userID {
                     print("google user already exist")
+                    Current.user = user
                     userExist = true
                 } else {
                     print("User not signed in")
@@ -216,24 +217,30 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                     for user in self.users {
                         if user.userID == profile.userID {
                             self.userExist = true
+                            Current.user = user
                             print("user already exist")
                             return
                         }
                     }
                     if self.userExist == false {
-                      let user = User()
+                        let user = User()
                         user.email = ""
                         user.name = profile.displayName
                         user.signinMethod = "Line"
                         user.userID = profile.userID
                         print("trying to create Line user")
                         self.createUser(userPar: user)
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
+                        welcomeVC.modalPresentationStyle = .fullScreen
+                        self.present(welcomeVC, animated: true, completion: nil)
+                    } else if self.userExist == true {
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        if let mainVC = storyboard.instantiateViewController(withIdentifier: "MainViewController") as? ViewController {
+                            mainVC.modalPresentationStyle = .fullScreen
+                            self.present(mainVC, animated: true, completion: nil)
+                        }
                     }
-                    
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
-                    welcomeVC.modalPresentationStyle = .fullScreen
-                    self.present(welcomeVC, animated: true, completion: nil)
                 }
             case .failure(let error):
                 print(error)
@@ -251,6 +258,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
             }
         }
         if userAuth == true {
+            Current.user = userPar
             try! realm.write{
                 realm.add(userPar)
                 print("user create succeeded")
@@ -270,6 +278,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
             for user in self.users {
                 if user.userID == profile.userID{
                     self.userExist = true
+                    Current.user = user
                     print("user exists")
                 }
             }
@@ -296,9 +305,9 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                     print("user already exists")
                     print("this google user exists taking to main screen")
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
-                        mainNavController.modalPresentationStyle = .fullScreen
-                        self.present(mainNavController, animated: true, completion: nil)
+                    if let mainVC = storyboard.instantiateViewController(withIdentifier: "MainViewController") as? ViewController {
+                        mainVC.modalPresentationStyle = .fullScreen
+                        self.present(mainVC, animated: true, completion: nil)
                     }
                 }
         }
