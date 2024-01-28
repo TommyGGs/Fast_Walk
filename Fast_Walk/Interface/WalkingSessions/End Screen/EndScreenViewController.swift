@@ -20,7 +20,7 @@ import CareKit
 import CoreMotion
 
 
-class EndScreenViewController: UIViewController {
+class EndScreenViewController: FigmaTestViewController {
     
     
     @IBOutlet weak var chartFrame: UIView!

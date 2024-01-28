@@ -21,7 +21,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     @IBOutlet var homeButton: UIButton!
     @IBOutlet var dataButton: UIButton!
     @IBOutlet var accountButton: UIButton!
-    @IBOutlet var logoutBut: UIButton!
     
     @IBOutlet weak var typeChoiceButton: UIButton!
     var placeTypes: [String] {
@@ -57,7 +56,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        logoutBut.isHidden = true
         placesClient = GMSPlacesClient.shared() //Places
         typeChoiceButton.isHidden = true
         locationManager.delegate = self

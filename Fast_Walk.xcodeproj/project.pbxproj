@@ -19,7 +19,6 @@
 		31DAB4372B46637700F04CF0 /* CareKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = 31DAB4362B46637700F04CF0 /* CareKitUI */; };
 		31E3658D2B493324002AFFCF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E3658C2B493324002AFFCF /* Main.storyboard */; };
 		31E7A2992B43DF630091BCF0 /* HealthKitDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7A2982B43DF630091BCF0 /* HealthKitDemoViewController.swift */; };
-		31E7A29B2B43E0600091BCF0 /* HealthKitDemo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E7A29A2B43E0600091BCF0 /* HealthKitDemo.storyboard */; };
 		31E7A29E2B43E2E50091BCF0 /* HealthAndCareKitHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7A29D2B43E2E50091BCF0 /* HealthAndCareKitHelp.swift */; };
 		31FB7F4D2B611AA80079633A /* Favorite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31FB7F4C2B611AA80079633A /* Favorite.storyboard */; };
 		31FB7F4F2B6121910079633A /* HeartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FB7F4E2B6121910079633A /* HeartViewController.swift */; };
@@ -31,7 +30,7 @@
 		824332A42B3AA8FA00D24094 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824332A32B3AA8FA00D24094 /* DemoViewController.swift */; };
 		824332A62B3AA95000D24094 /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824332A52B3AA95000D24094 /* CustomInfoWindow.swift */; };
 		825536102B5D3F50009E4D03 /* NotoSansJP-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8255360F2B5D3F50009E4D03 /* NotoSansJP-Bold.ttf */; };
-		826DEC1F2B35949300C0157F /* WayPointGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826DEC1E2B35949300C0157F /* WayPointGeneration.swift */; };
+		826DEC1F2B35949300C0157F /* WayPointGeneration(not used).swift in Sources */ = {isa = PBXBuildFile; fileRef = 826DEC1E2B35949300C0157F /* WayPointGeneration(not used).swift */; };
 		826DEC222B359E7A00C0157F /* CreateMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826DEC212B359E7A00C0157F /* CreateMarker.swift */; };
 		828C32CF2B343367000C3F7F /* PlaceDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828C32CE2B343367000C3F7F /* PlaceDetails.xib */; };
 		8291C57F2B47A0D20058AE71 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8291C57C2B47A0D20058AE71 /* ImageCache.swift */; };
@@ -41,10 +40,13 @@
 		8291C5932B47A4EB0058AE71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8291C5922B47A4EB0058AE71 /* ViewController.swift */; };
 		8291C5952B47A5290058AE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8291C5942B47A5290058AE71 /* AppDelegate.swift */; };
 		82CD0D122B4818380027A327 /* EndScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CD0D112B4818380027A327 /* EndScreenViewController.swift */; };
+		B63699282B64E81500970294 /* FigmaTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63699272B64E81500970294 /* FigmaTestViewController.swift */; };
+		B636992E2B64E9D600970294 /* スクリーンショット 2024-01-06 午後3.43.png in Resources */ = {isa = PBXBuildFile; fileRef = B636992D2B64E9D600970294 /* スクリーンショット 2024-01-06 午後3.43.png */; };
 		B64AA7ED2B63532E004426CA /* PastDataViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64AA7EC2B63532D004426CA /* PastDataViewController.storyboard */; };
 		B64AA7EF2B635B5C004426CA /* PlaceTypesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64AA7EE2B635B5C004426CA /* PlaceTypesList.swift */; };
-		B67DF6182B5E7D0D002589EA /* CircleEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67DF6172B5E7D0D002589EA /* CircleEndView.swift */; };
 		B6CD4EE82B5A79C4004F0BDB /* PedometerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */; };
+		B6FFBE502B64F05100EED0FA /* FigmaTestsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6FFBE4F2B64F05100EED0FA /* FigmaTestsViewController.storyboard */; };
+		B6FFBE522B64F0FD00EED0FA /* TestingNavigationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6FFBE512B64F0FD00EED0FA /* TestingNavigationViewController.storyboard */; };
 		E070179A2B5A1A090068960A /* ChooseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07017992B5A1A090068960A /* ChooseViewController.swift */; };
 		E0AE6E8F2B5D1ED7005B31A9 /* NotoSansJP-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0AE6E872B5D1ED6005B31A9 /* NotoSansJP-ExtraLight.ttf */; };
 		E0AE6E912B5D1ED7005B31A9 /* NotoSansJP-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E0AE6E892B5D1ED6005B31A9 /* NotoSansJP-SemiBold.ttf */; };
@@ -94,7 +96,6 @@
 		31D0C0B82B3595590049F6E1 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		31E3658C2B493324002AFFCF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		31E7A2982B43DF630091BCF0 /* HealthKitDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitDemoViewController.swift; sourceTree = "<group>"; };
-		31E7A29A2B43E0600091BCF0 /* HealthKitDemo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HealthKitDemo.storyboard; sourceTree = "<group>"; };
 		31E7A29C2B43E1E40091BCF0 /* Fast_Walk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fast_Walk.entitlements; sourceTree = "<group>"; };
 		31E7A29D2B43E2E50091BCF0 /* HealthAndCareKitHelp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthAndCareKitHelp.swift; sourceTree = "<group>"; };
 		31FB7F4C2B611AA80079633A /* Favorite.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Favorite.storyboard; sourceTree = "<group>"; };
@@ -106,7 +107,7 @@
 		824332A32B3AA8FA00D24094 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		824332A52B3AA95000D24094 /* CustomInfoWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
 		8255360F2B5D3F50009E4D03 /* NotoSansJP-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansJP-Bold.ttf"; sourceTree = "<group>"; };
-		826DEC1E2B35949300C0157F /* WayPointGeneration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WayPointGeneration.swift; sourceTree = "<group>"; };
+		826DEC1E2B35949300C0157F /* WayPointGeneration(not used).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WayPointGeneration(not used).swift"; sourceTree = "<group>"; };
 		826DEC212B359E7A00C0157F /* CreateMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMarker.swift; sourceTree = "<group>"; };
 		828C32CE2B343367000C3F7F /* PlaceDetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceDetails.xib; sourceTree = "<group>"; };
 		8291C57C2B47A0D20058AE71 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
@@ -114,13 +115,16 @@
 		8291C57E2B47A0D20058AE71 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8291C58F2B47A47B0058AE71 /* Assets.xcassets 11-42-14-782.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets 11-42-14-782.xcassets"; sourceTree = "<group>"; };
 		8291C5922B47A4EB0058AE71 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8291C5942B47A5290058AE71 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../../../Documents/Fast_Walk/Fast_Walk/AppDelegate.swift; sourceTree = "<group>"; };
+		8291C5942B47A5290058AE71 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82CD0D112B4818380027A327 /* EndScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndScreenViewController.swift; sourceTree = "<group>"; };
 		B08CDE77980212DCFCD7D2EE /* Pods-Fast_Walk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fast_Walk.release.xcconfig"; path = "Target Support Files/Pods-Fast_Walk/Pods-Fast_Walk.release.xcconfig"; sourceTree = "<group>"; };
+		B63699272B64E81500970294 /* FigmaTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FigmaTestViewController.swift; sourceTree = "<group>"; };
+		B636992D2B64E9D600970294 /* スクリーンショット 2024-01-06 午後3.43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "スクリーンショット 2024-01-06 午後3.43.png"; sourceTree = "<group>"; };
 		B64AA7EC2B63532D004426CA /* PastDataViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PastDataViewController.storyboard; sourceTree = "<group>"; };
 		B64AA7EE2B635B5C004426CA /* PlaceTypesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTypesList.swift; sourceTree = "<group>"; };
-		B67DF6172B5E7D0D002589EA /* CircleEndView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleEndView.swift; sourceTree = "<group>"; };
 		B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerDemo.swift; sourceTree = "<group>"; };
+		B6FFBE4F2B64F05100EED0FA /* FigmaTestsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FigmaTestsViewController.storyboard; sourceTree = "<group>"; };
+		B6FFBE512B64F0FD00EED0FA /* TestingNavigationViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TestingNavigationViewController.storyboard; sourceTree = "<group>"; };
 		DFB74AB246AFFBC37173D0E8 /* Pods_Fast_Walk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fast_Walk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E07017992B5A1A090068960A /* ChooseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseViewController.swift; sourceTree = "<group>"; };
 		E0AE6E742B5A7505005B31A9 /* sasaka logo4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sasaka logo4.png"; sourceTree = "<group>"; };
@@ -165,18 +169,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		31E7A2972B43DF460091BCF0 /* HealthKit demo */ = {
+		31E7A2972B43DF460091BCF0 /* Health Data */ = {
 			isa = PBXGroup;
 			children = (
-				31E7A2982B43DF630091BCF0 /* HealthKitDemoViewController.swift */,
-				82CD0D112B4818380027A327 /* EndScreenViewController.swift */,
-				31E7A29D2B43E2E50091BCF0 /* HealthAndCareKitHelp.swift */,
-				31E7A29A2B43E0600091BCF0 /* HealthKitDemo.storyboard */,
-				B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */,
 				B64AA7EC2B63532D004426CA /* PastDataViewController.storyboard */,
 				314AF3102B64E05200B29360 /* PastDataViewController.swift */,
 			);
-			path = "HealthKit demo";
+			path = "Health Data";
 			sourceTree = "<group>";
 		};
 		31FB7F542B620A360079633A /* Favorite */ = {
@@ -188,16 +187,13 @@
 			path = Favorite;
 			sourceTree = "<group>";
 		};
-		31FB7F552B620A520079633A /* User & Data */ = {
+		31FB7F552B620A520079633A /* UserTableView */ = {
 			isa = PBXGroup;
 			children = (
-				E22AA3FC2B5A8BC200AE06BD /* User.swift */,
-				E22AA4022B5B93C600AE06BD /* UserViewController.swift */,
 				E22AA3FE2B5A973400AE06BD /* UserTableViewCell.swift */,
 				E22AA3FF2B5A973400AE06BD /* UserTableViewCell.xib */,
-				31FB7F592B63D0F70079633A /* ProfileViewController.swift */,
 			);
-			path = "User & Data";
+			path = UserTableView;
 			sourceTree = "<group>";
 		};
 		47456ADD061A6FA386E001E1 /* Frameworks */ = {
@@ -208,28 +204,38 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		826DEC202B3594B100C0157F /* waypoints & markers */ = {
+		826DEC202B3594B100C0157F /* Places and GMS */ = {
 			isa = PBXGroup;
 			children = (
-				828C32D02B3434DE000C3F7F /* Pop-up demo */,
-				826DEC1E2B35949300C0157F /* WayPointGeneration.swift */,
+				826DEC1E2B35949300C0157F /* WayPointGeneration(not used).swift */,
 				8243329F2B3991FB00D24094 /* randomWayPoint.swift */,
 				826DEC212B359E7A00C0157F /* CreateMarker.swift */,
 			);
-			path = "waypoints & markers";
+			path = "Places and GMS";
 			sourceTree = "<group>";
 		};
-		828C32D02B3434DE000C3F7F /* Pop-up demo */ = {
+		8291C5912B47A48F0058AE71 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				824332A52B3AA95000D24094 /* CustomInfoWindow.swift */,
-				824332A32B3AA8FA00D24094 /* DemoViewController.swift */,
-				828C32CE2B343367000C3F7F /* PlaceDetails.xib */,
+				B6FFBE6C2B66290F00EED0FA /* Testing */,
+				B6FFBE6B2B6628EF00EED0FA /* Logo */,
+				B6FFBE6A2B6628E000EED0FA /* Fonts */,
+				E0F164862B5FD911004E1D36 /* Backbutton.png */,
+				8291C58F2B47A47B0058AE71 /* Assets.xcassets 11-42-14-782.xcassets */,
 			);
-			path = "Pop-up demo";
+			path = Assets;
 			sourceTree = "<group>";
 		};
-		8291C57B2B47A0D20058AE71 /* Login */ = {
+		B63699262B64E7F600970294 /* FigmaTests */ = {
+			isa = PBXGroup;
+			children = (
+				B63699272B64E81500970294 /* FigmaTestViewController.swift */,
+				B6FFBE4F2B64F05100EED0FA /* FigmaTestsViewController.storyboard */,
+			);
+			path = FigmaTests;
+			sourceTree = "<group>";
+		};
+		B6FFBE532B64F5FE00EED0FA /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				310B58E02B47EE3000ACDE69 /* WaitViewController.swift */,
@@ -237,16 +243,113 @@
 				8291C57E2B47A0D20058AE71 /* LoginViewController.swift */,
 				E0F164922B5FDCFD004E1D36 /* PersonalViewController.swift */,
 				8291C57D2B47A0D20058AE71 /* WelcomViewController.swift */,
-				8291C57C2B47A0D20058AE71 /* ImageCache.swift */,
-				311E40D22B649E7C00728557 /* CurrentUser.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
 		};
-		8291C5912B47A48F0058AE71 /* Assets */ = {
+		B6FFBE5A2B64F92700EED0FA /* Testing */ = {
 			isa = PBXGroup;
 			children = (
-				E0F164862B5FD911004E1D36 /* Backbutton.png */,
+				B6FFBE512B64F0FD00EED0FA /* TestingNavigationViewController.storyboard */,
+				B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */,
+				824332A32B3AA8FA00D24094 /* DemoViewController.swift */,
+				B63699262B64E7F600970294 /* FigmaTests */,
+			);
+			path = Testing;
+			sourceTree = "<group>";
+		};
+		B6FFBE5C2B64FA3500EED0FA /* Data and Structs */ = {
+			isa = PBXGroup;
+			children = (
+				E22AA3FC2B5A8BC200AE06BD /* User.swift */,
+				311E40D22B649E7C00728557 /* CurrentUser.swift */,
+				8291C57C2B47A0D20058AE71 /* ImageCache.swift */,
+				B64AA7EE2B635B5C004426CA /* PlaceTypesList.swift */,
+				31D0C0B42B3418C70049F6E1 /* RouteDetails.swift */,
+			);
+			path = "Data and Structs";
+			sourceTree = "<group>";
+		};
+		B6FFBE612B64FAEF00EED0FA /* Places */ = {
+			isa = PBXGroup;
+			children = (
+				828C32CE2B343367000C3F7F /* PlaceDetails.xib */,
+				824332A52B3AA95000D24094 /* CustomInfoWindow.swift */,
+			);
+			path = Places;
+			sourceTree = "<group>";
+		};
+		B6FFBE622B64FB1000EED0FA /* Profile screen */ = {
+			isa = PBXGroup;
+			children = (
+				31FB7F562B63D0090079633A /* UserStoryboard.storyboard */,
+				31FB7F4C2B611AA80079633A /* Favorite.storyboard */,
+				31FB7F592B63D0F70079633A /* ProfileViewController.swift */,
+				E22AA4022B5B93C600AE06BD /* UserViewController.swift */,
+			);
+			path = "Profile screen";
+			sourceTree = "<group>";
+		};
+		B6FFBE632B64FC0900EED0FA /* App */ = {
+			isa = PBXGroup;
+			children = (
+				8291C5942B47A5290058AE71 /* AppDelegate.swift */,
+				E21292A22B16E61400796BE5 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		B6FFBE642B6625B600EED0FA /* Timer Screen */ = {
+			isa = PBXGroup;
+			children = (
+				31D0C0B82B3595590049F6E1 /* CircularProgressView.swift */,
+				E2C77FA82B32EE24000266E7 /* RouteViewController.swift */,
+				31E7A2982B43DF630091BCF0 /* HealthKitDemoViewController.swift */,
+			);
+			path = "Timer Screen";
+			sourceTree = "<group>";
+		};
+		B6FFBE652B6625ED00EED0FA /* End Screen */ = {
+			isa = PBXGroup;
+			children = (
+				31D0C0B62B3592A90049F6E1 /* EndViewController.swift */,
+				82CD0D112B4818380027A327 /* EndScreenViewController.swift */,
+			);
+			path = "End Screen";
+			sourceTree = "<group>";
+		};
+		B6FFBE672B66275800EED0FA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B6FFBE682B66279A00EED0FA /* HealthKit */,
+				826DEC202B3594B100C0157F /* Places and GMS */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		B6FFBE682B66279A00EED0FA /* HealthKit */ = {
+			isa = PBXGroup;
+			children = (
+				31E7A29D2B43E2E50091BCF0 /* HealthAndCareKitHelp.swift */,
+			);
+			path = HealthKit;
+			sourceTree = "<group>";
+		};
+		B6FFBE692B6627BC00EED0FA /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				B6FFBE532B64F5FE00EED0FA /* Login */,
+				E25A7B7A2B47C41F00BC2C9B /* WalkingSessions */,
+				31E7A2972B43DF460091BCF0 /* Health Data */,
+				E22FE3B22B5BC33F00DC8D0C /* User */,
+				B6FFBE612B64FAEF00EED0FA /* Places */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		B6FFBE6A2B6628E000EED0FA /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
 				E0AE6E8E2B5D1ED7005B31A9 /* NotoSansJP-ExtraBold.ttf */,
 				8255360F2B5D3F50009E4D03 /* NotoSansJP-Bold.ttf */,
 				E0AE6E872B5D1ED6005B31A9 /* NotoSansJP-ExtraLight.ttf */,
@@ -255,15 +358,29 @@
 				E0AE6E9B2B5D200C005B31A9 /* NotoSansJP-Regular.ttf */,
 				E0AE6E892B5D1ED6005B31A9 /* NotoSansJP-SemiBold.ttf */,
 				E0AE6E8A2B5D1ED6005B31A9 /* NotoSansJP-Thin.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		B6FFBE6B2B6628EF00EED0FA /* Logo */ = {
+			isa = PBXGroup;
+			children = (
 				E0AE6E742B5A7505005B31A9 /* sasaka logo4.png */,
 				E0F1648A2B5FD94A004E1D36 /* sasaka logo big.png */,
 				E0F164892B5FD945004E1D36 /* sasaka logo megabig.png */,
 				E0F1648C2B5FD94F004E1D36 /* sasaka logo megasmall.png */,
 				E0F1648B2B5FD94D004E1D36 /* sasaka logo small.png */,
-				313A0BC42B440D8B0097BC66 /* Liberty.png */,
-				8291C58F2B47A47B0058AE71 /* Assets.xcassets 11-42-14-782.xcassets */,
 			);
-			path = Assets;
+			path = Logo;
+			sourceTree = "<group>";
+		};
+		B6FFBE6C2B66290F00EED0FA /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				B636992D2B64E9D600970294 /* スクリーンショット 2024-01-06 午後3.43.png */,
+				313A0BC42B440D8B0097BC66 /* Liberty.png */,
+			);
+			path = Testing;
 			sourceTree = "<group>";
 		};
 		D62A3AAF43BB5BE903725CE6 /* Pods */ = {
@@ -296,45 +413,38 @@
 		E212929F2B16E61400796BE5 /* Fast_Walk */ = {
 			isa = PBXGroup;
 			children = (
-				E22FE3B22B5BC33F00DC8D0C /* User Data */,
-				E25A7B7A2B47C41F00BC2C9B /* Route */,
-				8291C57B2B47A0D20058AE71 /* Login */,
-				31E7A29C2B43E1E40091BCF0 /* Fast_Walk.entitlements */,
 				8291C5922B47A4EB0058AE71 /* ViewController.swift */,
-				B64AA7EE2B635B5C004426CA /* PlaceTypesList.swift */,
 				31E3658C2B493324002AFFCF /* Main.storyboard */,
-				31FB7F4C2B611AA80079633A /* Favorite.storyboard */,
-				31FB7F562B63D0090079633A /* UserStoryboard.storyboard */,
-				8291C5942B47A5290058AE71 /* AppDelegate.swift */,
-				E21292A22B16E61400796BE5 /* SceneDelegate.swift */,
 				E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */,
-				826DEC202B3594B100C0157F /* waypoints & markers */,
-				31E7A2972B43DF460091BCF0 /* HealthKit demo */,
+				B6FFBE692B6627BC00EED0FA /* Interface */,
+				B6FFBE5C2B64FA3500EED0FA /* Data and Structs */,
+				B6FFBE672B66275800EED0FA /* Services */,
+				B6FFBE5A2B64F92700EED0FA /* Testing */,
+				B6FFBE632B64FC0900EED0FA /* App */,
+				31E7A29C2B43E1E40091BCF0 /* Fast_Walk.entitlements */,
 				E21292AE2B16E61D00796BE5 /* Info.plist */,
 				8291C5912B47A48F0058AE71 /* Assets */,
 			);
 			path = Fast_Walk;
 			sourceTree = "<group>";
 		};
-		E22FE3B22B5BC33F00DC8D0C /* User Data */ = {
+		E22FE3B22B5BC33F00DC8D0C /* User */ = {
 			isa = PBXGroup;
 			children = (
-				31FB7F552B620A520079633A /* User & Data */,
 				31FB7F542B620A360079633A /* Favorite */,
+				B6FFBE622B64FB1000EED0FA /* Profile screen */,
+				31FB7F552B620A520079633A /* UserTableView */,
 			);
-			path = "User Data";
+			path = User;
 			sourceTree = "<group>";
 		};
-		E25A7B7A2B47C41F00BC2C9B /* Route */ = {
+		E25A7B7A2B47C41F00BC2C9B /* WalkingSessions */ = {
 			isa = PBXGroup;
 			children = (
-				31D0C0B82B3595590049F6E1 /* CircularProgressView.swift */,
-				31D0C0B42B3418C70049F6E1 /* RouteDetails.swift */,
-				E2C77FA82B32EE24000266E7 /* RouteViewController.swift */,
-				31D0C0B62B3592A90049F6E1 /* EndViewController.swift */,
-				B67DF6172B5E7D0D002589EA /* CircleEndView.swift */,
+				B6FFBE652B6625ED00EED0FA /* End Screen */,
+				B6FFBE642B6625B600EED0FA /* Timer Screen */,
 			);
-			path = Route;
+			path = WalkingSessions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -412,11 +522,12 @@
 			files = (
 				E0AE6E952B5D1ED7005B31A9 /* NotoSansJP-Medium.ttf in Resources */,
 				31FB7F572B63D0090079633A /* UserStoryboard.storyboard in Resources */,
+				B6FFBE502B64F05100EED0FA /* FigmaTestsViewController.storyboard in Resources */,
 				31E3658D2B493324002AFFCF /* Main.storyboard in Resources */,
 				E0AE6E912B5D1ED7005B31A9 /* NotoSansJP-SemiBold.ttf in Resources */,
 				313A0BC52B440D8B0097BC66 /* Liberty.png in Resources */,
 				E0AE6E9C2B5D200C005B31A9 /* NotoSansJP-Regular.ttf in Resources */,
-				31E7A29B2B43E0600091BCF0 /* HealthKitDemo.storyboard in Resources */,
+				B6FFBE522B64F0FD00EED0FA /* TestingNavigationViewController.storyboard in Resources */,
 				E22AA4012B5A973400AE06BD /* UserTableViewCell.xib in Resources */,
 				825536102B5D3F50009E4D03 /* NotoSansJP-Bold.ttf in Resources */,
 				828C32CF2B343367000C3F7F /* PlaceDetails.xib in Resources */,
@@ -427,6 +538,7 @@
 				31FB7F4D2B611AA80079633A /* Favorite.storyboard in Resources */,
 				8291C5902B47A47B0058AE71 /* Assets.xcassets 11-42-14-782.xcassets in Resources */,
 				E0AE6E962B5D1ED7005B31A9 /* NotoSansJP-ExtraBold.ttf in Resources */,
+				B636992E2B64E9D600970294 /* スクリーンショット 2024-01-06 午後3.43.png in Resources */,
 				E0AE6E922B5D1ED7005B31A9 /* NotoSansJP-Thin.ttf in Resources */,
 				E0AE6E982B5D1F21005B31A9 /* NotoSansJP-Light.ttf in Resources */,
 				E0F164872B5FD911004E1D36 /* Backbutton.png in Resources */,
@@ -506,6 +618,7 @@
 				E22AA4002B5A973400AE06BD /* UserTableViewCell.swift in Sources */,
 				8291C5812B47A0D20058AE71 /* LoginViewController.swift in Sources */,
 				311E40D32B649E7C00728557 /* CurrentUser.swift in Sources */,
+				B63699282B64E81500970294 /* FigmaTestViewController.swift in Sources */,
 				8291C5932B47A4EB0058AE71 /* ViewController.swift in Sources */,
 				8291C5952B47A5290058AE71 /* AppDelegate.swift in Sources */,
 				824332A02B3991FB00D24094 /* randomWayPoint.swift in Sources */,
@@ -514,7 +627,7 @@
 				310B58E12B47EE3000ACDE69 /* WaitViewController.swift in Sources */,
 				8291C57F2B47A0D20058AE71 /* ImageCache.swift in Sources */,
 				824332A62B3AA95000D24094 /* CustomInfoWindow.swift in Sources */,
-				826DEC1F2B35949300C0157F /* WayPointGeneration.swift in Sources */,
+				826DEC1F2B35949300C0157F /* WayPointGeneration(not used).swift in Sources */,
 				E22AA3FD2B5A8BC200AE06BD /* User.swift in Sources */,
 				31FB7F5A2B63D0F70079633A /* ProfileViewController.swift in Sources */,
 				824332A42B3AA8FA00D24094 /* DemoViewController.swift in Sources */,
@@ -530,7 +643,6 @@
 				31D0C0B52B3418C70049F6E1 /* RouteDetails.swift in Sources */,
 				82CD0D122B4818380027A327 /* EndScreenViewController.swift in Sources */,
 				E0F164932B5FDCFD004E1D36 /* PersonalViewController.swift in Sources */,
-				B67DF6182B5E7D0D002589EA /* CircleEndView.swift in Sources */,
 				E22AA4032B5B93C600AE06BD /* UserViewController.swift in Sources */,
 				31FB7F512B612C5B0079633A /* LikeCollectionViewCell.swift in Sources */,
 				E21292A32B16E61400796BE5 /* SceneDelegate.swift in Sources */,
