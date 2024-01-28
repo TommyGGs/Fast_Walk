@@ -338,6 +338,9 @@
 		B6FFBE692B6627BC00EED0FA /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				8291C5922B47A4EB0058AE71 /* ViewController.swift */,
+				31E3658C2B493324002AFFCF /* Main.storyboard */,
+				E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */,
 				B6FFBE532B64F5FE00EED0FA /* Login */,
 				E25A7B7A2B47C41F00BC2C9B /* WalkingSessions */,
 				31E7A2972B43DF460091BCF0 /* Health Data */,
@@ -413,9 +416,6 @@
 		E212929F2B16E61400796BE5 /* Fast_Walk */ = {
 			isa = PBXGroup;
 			children = (
-				8291C5922B47A4EB0058AE71 /* ViewController.swift */,
-				31E3658C2B493324002AFFCF /* Main.storyboard */,
-				E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */,
 				B6FFBE692B6627BC00EED0FA /* Interface */,
 				B6FFBE5C2B64FA3500EED0FA /* Data and Structs */,
 				B6FFBE672B66275800EED0FA /* Services */,
