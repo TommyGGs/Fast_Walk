@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -35,6 +35,24 @@
                                     <segue destination="QpM-TJ-Sio" kind="presentation" modalPresentationStyle="fullScreen" id="WC6-U5-Oqu"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PpA-g1-DUL">
+                                <rect key="frame" x="25" y="231" width="154" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Course Selection"/>
+                                <connections>
+                                    <segue destination="fYd-cv-fxq" kind="presentation" modalPresentationStyle="fullScreen" id="b5W-X9-pgQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQh-2i-1xG">
+                                <rect key="frame" x="197" y="231" width="126" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Timer Screen"/>
+                                <connections>
+                                    <segue destination="aQc-gU-m9a" kind="presentation" modalPresentationStyle="fullScreen" id="o3a-vK-3EU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -58,7 +76,23 @@
                 <viewControllerPlaceholder storyboardIdentifier="PastDataViewController" storyboardName="PastDataViewController" referencedIdentifier="PastDataViewController" id="cx4-GB-0Sp" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8mT-ak-8t0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="650" y="-133"/>
+            <point key="canvasLocation" x="750" y="-111"/>
+        </scene>
+        <!--CourseSelectionViewController-->
+        <scene sceneID="KPP-Hf-ClI">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="CourseSelectionViewController" storyboardName="CourseSelectionViewController" referencedIdentifier="CourseSelectionViewController" id="fYd-cv-fxq" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qOH-C7-HOB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-517" y="-111"/>
+        </scene>
+        <!--RouteViewController-->
+        <scene sceneID="nre-GE-3HT">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="RouteViewController" storyboardName="Main" referencedIdentifier="RouteViewController" id="aQc-gU-m9a" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Edt-rE-eH3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="627" y="86"/>
         </scene>
     </scenes>
     <resources>

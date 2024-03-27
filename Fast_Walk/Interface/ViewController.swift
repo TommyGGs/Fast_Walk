@@ -77,7 +77,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         self.view.bringSubviewToFront(dataButton)
         self.view.bringSubviewToFront(accountButton)
         self.view.sendSubviewToBack(mapContainerView)
-        
     }
     
     

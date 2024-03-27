@@ -44,7 +44,12 @@
 		B636992E2B64E9D600970294 /* スクリーンショット 2024-01-06 午後3.43.png in Resources */ = {isa = PBXBuildFile; fileRef = B636992D2B64E9D600970294 /* スクリーンショット 2024-01-06 午後3.43.png */; };
 		B64AA7ED2B63532E004426CA /* PastDataViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64AA7EC2B63532D004426CA /* PastDataViewController.storyboard */; };
 		B64AA7EF2B635B5C004426CA /* PlaceTypesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64AA7EE2B635B5C004426CA /* PlaceTypesList.swift */; };
+		B681AC7D2BB4015F00263102 /* CoreHapticsHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B681AC7C2BB4015F00263102 /* CoreHapticsHelp.swift */; };
 		B6CD4EE82B5A79C4004F0BDB /* PedometerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */; };
+		B6E508532B7F43750051FB40 /* CourseSelectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6E508522B7F43750051FB40 /* CourseSelectionViewController.storyboard */; };
+		B6E508562B7F43A70051FB40 /* CourseSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E508552B7F43A70051FB40 /* CourseSelectionViewController.swift */; };
+		B6E508592B7F54000051FB40 /* RouteCourseStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E508582B7F54000051FB40 /* RouteCourseStartViewController.swift */; };
+		B6E5085B2B7F54110051FB40 /* RouteCourseStartViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6E5085A2B7F54110051FB40 /* RouteCourseStartViewController.storyboard */; };
 		B6FFBE502B64F05100EED0FA /* FigmaTestsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6FFBE4F2B64F05100EED0FA /* FigmaTestsViewController.storyboard */; };
 		B6FFBE522B64F0FD00EED0FA /* TestingNavigationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6FFBE512B64F0FD00EED0FA /* TestingNavigationViewController.storyboard */; };
 		E070179A2B5A1A090068960A /* ChooseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07017992B5A1A090068960A /* ChooseViewController.swift */; };
@@ -122,7 +127,12 @@
 		B636992D2B64E9D600970294 /* スクリーンショット 2024-01-06 午後3.43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "スクリーンショット 2024-01-06 午後3.43.png"; sourceTree = "<group>"; };
 		B64AA7EC2B63532D004426CA /* PastDataViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PastDataViewController.storyboard; sourceTree = "<group>"; };
 		B64AA7EE2B635B5C004426CA /* PlaceTypesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTypesList.swift; sourceTree = "<group>"; };
+		B681AC7C2BB4015F00263102 /* CoreHapticsHelp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreHapticsHelp.swift; sourceTree = "<group>"; };
 		B6CD4EE72B5A79C4004F0BDB /* PedometerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerDemo.swift; sourceTree = "<group>"; };
+		B6E508522B7F43750051FB40 /* CourseSelectionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CourseSelectionViewController.storyboard; sourceTree = "<group>"; };
+		B6E508552B7F43A70051FB40 /* CourseSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSelectionViewController.swift; sourceTree = "<group>"; };
+		B6E508582B7F54000051FB40 /* RouteCourseStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCourseStartViewController.swift; sourceTree = "<group>"; };
+		B6E5085A2B7F54110051FB40 /* RouteCourseStartViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RouteCourseStartViewController.storyboard; sourceTree = "<group>"; };
 		B6FFBE4F2B64F05100EED0FA /* FigmaTestsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FigmaTestsViewController.storyboard; sourceTree = "<group>"; };
 		B6FFBE512B64F0FD00EED0FA /* TestingNavigationViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TestingNavigationViewController.storyboard; sourceTree = "<group>"; };
 		DFB74AB246AFFBC37173D0E8 /* Pods_Fast_Walk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fast_Walk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,6 +245,32 @@
 			path = FigmaTests;
 			sourceTree = "<group>";
 		};
+		B681AC7E2BB4016300263102 /* CoreHaptics */ = {
+			isa = PBXGroup;
+			children = (
+				B681AC7C2BB4015F00263102 /* CoreHapticsHelp.swift */,
+			);
+			path = CoreHaptics;
+			sourceTree = "<group>";
+		};
+		B6E508512B7F432B0051FB40 /* Selection Screen */ = {
+			isa = PBXGroup;
+			children = (
+				B6E508522B7F43750051FB40 /* CourseSelectionViewController.storyboard */,
+				B6E508552B7F43A70051FB40 /* CourseSelectionViewController.swift */,
+			);
+			path = "Selection Screen";
+			sourceTree = "<group>";
+		};
+		B6E508572B7F50A50051FB40 /* Route Course Screen */ = {
+			isa = PBXGroup;
+			children = (
+				B6E508582B7F54000051FB40 /* RouteCourseStartViewController.swift */,
+				B6E5085A2B7F54110051FB40 /* RouteCourseStartViewController.storyboard */,
+			);
+			path = "Route Course Screen";
+			sourceTree = "<group>";
+		};
 		B6FFBE532B64F5FE00EED0FA /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,6 +357,7 @@
 		B6FFBE672B66275800EED0FA /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B681AC7E2BB4016300263102 /* CoreHaptics */,
 				B6FFBE682B66279A00EED0FA /* HealthKit */,
 				826DEC202B3594B100C0157F /* Places and GMS */,
 			);
@@ -441,6 +478,8 @@
 		E25A7B7A2B47C41F00BC2C9B /* WalkingSessions */ = {
 			isa = PBXGroup;
 			children = (
+				B6E508572B7F50A50051FB40 /* Route Course Screen */,
+				B6E508512B7F432B0051FB40 /* Selection Screen */,
 				B6FFBE652B6625ED00EED0FA /* End Screen */,
 				B6FFBE642B6625B600EED0FA /* Timer Screen */,
 			);
@@ -524,6 +563,7 @@
 				31FB7F572B63D0090079633A /* UserStoryboard.storyboard in Resources */,
 				B6FFBE502B64F05100EED0FA /* FigmaTestsViewController.storyboard in Resources */,
 				31E3658D2B493324002AFFCF /* Main.storyboard in Resources */,
+				B6E5085B2B7F54110051FB40 /* RouteCourseStartViewController.storyboard in Resources */,
 				E0AE6E912B5D1ED7005B31A9 /* NotoSansJP-SemiBold.ttf in Resources */,
 				313A0BC52B440D8B0097BC66 /* Liberty.png in Resources */,
 				E0AE6E9C2B5D200C005B31A9 /* NotoSansJP-Regular.ttf in Resources */,
@@ -533,6 +573,7 @@
 				828C32CF2B343367000C3F7F /* PlaceDetails.xib in Resources */,
 				E0AE6E8F2B5D1ED7005B31A9 /* NotoSansJP-ExtraLight.ttf in Resources */,
 				E0F164902B5FD94F004E1D36 /* sasaka logo small.png in Resources */,
+				B6E508532B7F43750051FB40 /* CourseSelectionViewController.storyboard in Resources */,
 				E0F1648F2B5FD94F004E1D36 /* sasaka logo big.png in Resources */,
 				E0F164912B5FD94F004E1D36 /* sasaka logo megasmall.png in Resources */,
 				31FB7F4D2B611AA80079633A /* Favorite.storyboard in Resources */,
@@ -628,7 +669,9 @@
 				8291C57F2B47A0D20058AE71 /* ImageCache.swift in Sources */,
 				824332A62B3AA95000D24094 /* CustomInfoWindow.swift in Sources */,
 				826DEC1F2B35949300C0157F /* WayPointGeneration(not used).swift in Sources */,
+				B6E508592B7F54000051FB40 /* RouteCourseStartViewController.swift in Sources */,
 				E22AA3FD2B5A8BC200AE06BD /* User.swift in Sources */,
+				B6E508562B7F43A70051FB40 /* CourseSelectionViewController.swift in Sources */,
 				31FB7F5A2B63D0F70079633A /* ProfileViewController.swift in Sources */,
 				824332A42B3AA8FA00D24094 /* DemoViewController.swift in Sources */,
 				31D0C0B92B3595590049F6E1 /* CircularProgressView.swift in Sources */,
@@ -646,6 +689,7 @@
 				E22AA4032B5B93C600AE06BD /* UserViewController.swift in Sources */,
 				31FB7F512B612C5B0079633A /* LikeCollectionViewCell.swift in Sources */,
 				E21292A32B16E61400796BE5 /* SceneDelegate.swift in Sources */,
+				B681AC7D2BB4015F00263102 /* CoreHapticsHelp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,6 +840,7 @@
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please give us health data to try the health functionalities";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to enhance your experience even when the app is in the background";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show it on the map";
+				INFOPLIST_KEY_NSMotionUsageDescription = "hello. ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -807,7 +852,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "app.jiaxu.zhao.Fast-Walk";
+				PRODUCT_BUNDLE_IDENTIFIER = app.jiaxu.zhao.FastWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -834,6 +879,7 @@
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please give us health data to try the health functionalities";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to enhance your experience even when the app is in the background";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show it on the map";
+				INFOPLIST_KEY_NSMotionUsageDescription = "hello. ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -845,7 +891,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "app.jiaxu.zhao.Fast-Walk";
+				PRODUCT_BUNDLE_IDENTIFIER = app.jiaxu.zhao.FastWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

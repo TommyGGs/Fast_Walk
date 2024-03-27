@@ -10,9 +10,13 @@ import UIKit
 import GoogleMaps
 import CoreLocation
 import GooglePlaces
+import HealthKitUI
+import HealthKit
+import CareKitUI
 
 
 class PastDataViewController: UIViewController{
+    var help = HealthAndCareKitHelp()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLabels()
@@ -93,5 +97,32 @@ class PastDataViewController: UIViewController{
         
     }
     
+    //testing for past cadence average.
     
+    
+    func createCharts(_ stepsArray: [Int]) {
+        let series = OCKDataSeries(
+                values: stepsArray.map { CGFloat($0) },
+                title: "今週の歩数",
+                size: 10,
+                color: .systemBlue
+            )
+
+        let chartView = OCKCartesianChartView(type: .bar)
+        chartView.translatesAutoresizingMaskIntoConstraints = false
+        chartView.headerView.titleLabel.text = "今週の歩数"
+        chartView.graphView.horizontalAxisMarkers = help.createWeeklyHorizontalAxisMarkers()
+        chartView.graphView.dataSeries = [series]
+        chartView.headerView.iconImageView?.image = UIImage(named: "sasaka logo4.png")
+        
+        view.addSubview(chartView)
+
+        NSLayoutConstraint.activate([
+            chartView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            chartView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            chartView.widthAnchor.constraint(equalTo: view.widthAnchor), // Adjust width as per requirement
+            chartView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1) // Adjust height as per requirement
+        ])
+        
+    }
 }

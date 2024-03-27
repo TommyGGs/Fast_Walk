@@ -2,17 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>NotoSansJP-Bold.ttf</string>
-		<string>NotoSansJP-ExtraBold.ttf</string>
-		<string>NotoSansJP-ExtraLight.ttf</string>
-		<string>NotoSansJP-Light.ttf</string>
-		<string>NotoSansJP-Medium.ttf</string>
-		<string>NotoSansJP-Regular.ttf</string>
-		<string>NotoSansJP-SemiBold.ttf</string>
-		<string>NotoSansJP-Thin.ttf</string>
-	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -34,6 +23,17 @@
 	<array>
 		<string>lineauth2</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>NotoSansJP-Bold.ttf</string>
+		<string>NotoSansJP-ExtraBold.ttf</string>
+		<string>NotoSansJP-ExtraLight.ttf</string>
+		<string>NotoSansJP-Light.ttf</string>
+		<string>NotoSansJP-Medium.ttf</string>
+		<string>NotoSansJP-Regular.ttf</string>
+		<string>NotoSansJP-SemiBold.ttf</string>
+		<string>NotoSansJP-Thin.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -53,9 +53,9 @@
 			</array>
 		</dict>
 	</dict>
-	<key>NSMotionUsageDescription</key>
-	<string>hello. </string>
 	<key>User Interface Style</key>
 	<string>Light</string>
+	<key>MBXAccessToken</key>
+	<string>pk.eyJ1IjoiamlheHUwNzE1IiwiYSI6ImNsc29kODBjOTBkdGwycHA1aTVqMHNoazIifQ.0cO6ztWklhsOwTJ1ON9E8g</string>
 </dict>
 </plist>

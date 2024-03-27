@@ -138,7 +138,7 @@ class EndScreenViewController: FigmaTestViewController {
         let chartView = OCKCartesianChartView(type: .bar)
         chartView.translatesAutoresizingMaskIntoConstraints = false
         chartView.headerView.titleLabel.text = "今週の歩数"
-        chartView.graphView.horizontalAxisMarkers = help.createHorizontalAxisMarkers()
+        chartView.graphView.horizontalAxisMarkers = help.createWeeklyHorizontalAxisMarkers()
         chartView.graphView.dataSeries = [series]
         chartView.headerView.iconImageView?.image = UIImage(named: "sasaka logo4.png")
         

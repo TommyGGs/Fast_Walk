@@ -25,7 +25,7 @@ class HealthAndCareKitHelp {
         return dateFormatter
     }
     
-    func createHorizontalAxisMarkers(lastDate: Date = Date(), useWeekdays: Bool = true) -> [String] {
+    func createWeeklyHorizontalAxisMarkers(lastDate: Date = Date(), useWeekdays: Bool = true) -> [String] {
         let calendar: Calendar = .current
         let weekdayTitles = ["日", "月", "火", "水", "木", "金", "土"]
         

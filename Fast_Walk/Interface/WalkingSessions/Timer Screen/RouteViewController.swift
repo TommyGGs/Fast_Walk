@@ -42,19 +42,25 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //users & favorites
         allUsers = readAllUsers()
         user_favorites = readFavorites()
-        
-
-        locationManager.delegate = self
-        beginLocationUpdate() // Start location updates
-        modeSwitch()
-        configureLocationManager()
-        setupCircularProgressView()
-        setUpTimerView()
-        likeLabel.isHidden = true                
+        likeLabel.isHidden = true
         heartBtn.isHidden = true
         print("this is user favorites: \(user_favorites)")
+        
+        //location
+        locationManager.delegate = self
+        beginLocationUpdate() // Start location updates
+        configureLocationManager()
+        
+        //timer
+        modeSwitch()
+        //setupCircularProgressView() *not used
+        setUpTimerView()
+       
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -275,7 +281,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     
     func startTimer(resume: Bool)  {
         if resume != true {
-            countdown = 180 //change for timer interval
+            countdown = 7 //change for timer interval
         }
         if timer == nil {
             // Starting or resuming the timer
@@ -307,22 +313,17 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         }
     }
     
-    /*func modeSwitch() {
-        if mode == "slow" {
-            currentMode.text = "ゆっくり歩き"
-            nextMode.text = "Next: さっさか歩き"
-        } else if mode == "fast" {
-            currentMode.text = "さっさか歩き"
-            nextMode.text = "Next: ゆっくり歩き"
-        }
-    }*/
     func modeSwitch() {
         let font = UIFont(name: "NotoSansJP-SemiBold", size: 17) // Adjust size as needed
 
         if mode == "slow" {
+            //play haptics
+            CoreHapticsHelp.shared.playHapticPattern("slow")
             currentMode.text = "ゆっくり歩き"
             nextMode.text = "Next: さっさか歩き"
         } else if mode == "fast" {
+            //play haptics
+            CoreHapticsHelp.shared.playHapticPattern("fast")
             currentMode.text = "さっさか歩き"
             nextMode.text = "Next: ゆっくり歩き"
         }

@@ -10,4 +10,7 @@ target 'Fast_Walk' do
   pod 'GooglePlaces', '8.3.0'
   pod 'GoogleSignIn'
   pod 'LineSDKSwift', '~> 5.0'
+  pod 'MapboxMaps', '11.1.0'
+
+
 end
