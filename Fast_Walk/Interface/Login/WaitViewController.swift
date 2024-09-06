@@ -37,14 +37,14 @@ class WaitViewController: UIViewController {
                 self.presentChooseViewController()
             } else if let token = AccessTokenStore.shared.current {
                 print("user already logged in with Line" + token.value)
-                self.presentMainNavigationController()
+                self.presentRouteOrTimeViewController()
             }
             else if user != nil || error != nil {
                 print("user previously signed in with google")
                 //MARK: pass current User
                 let id: String = user?.userID ?? "nil"
                 self.currentClass(id)
-                self.presentMainNavigationController()
+                self.presentRouteOrTimeViewController()
             } else {
                 print("present user to login viewcontroller")
                 self.presentLoginViewController()
@@ -61,13 +61,38 @@ class WaitViewController: UIViewController {
         }
     }
 
-    private func presentMainNavigationController() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
-            mainNavController.modalPresentationStyle = .fullScreen
-            self.present(mainNavController, animated: true, completion: nil)
+//    private func presentRouteOrTimeViewController() {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
+//            mainNavController.modalPresentationStyle = .fullScreen
+//            self.present(mainNavController, animated: true, completion: nil)
+//        }
+//        self.present(RouteOrTimeViewController(), animated: true, completion: nil)
+//        print("going to route or time")
+        
+        
+//        let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
+//        if let routeOrTimeViewController = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
+//            routeOrTimeViewController.modalPresentationStyle = .fullScreen
+//            self.present(routeOrTimeViewController, animated: true, completion: nil)
+//        }
+//        print("going to route or time")
+//    }
+    
+    private func presentRouteOrTimeViewController() {
+        let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
+        if let routeOrTimeViewController = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
+            routeOrTimeViewController.modalPresentationStyle = .fullScreen
+            self.present(routeOrTimeViewController, animated: true, completion: nil)
+        } else {
+            print("Failed to instantiate RouteOrTimeViewController")
         }
+        print("going to route or time")
+//
+//        let rotVC = RouteOrTimeViewController()
+//        self.present(rotVC, animated: true, completion: nil)
     }
+
     
     private func presentLoginViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

@@ -12,6 +12,7 @@ struct RouteDetails {
     var polyString: String
     var durationText: String
     var startCoordinate: CLLocationCoordinate2D
+    
 }
 
 struct PlaceInfo {

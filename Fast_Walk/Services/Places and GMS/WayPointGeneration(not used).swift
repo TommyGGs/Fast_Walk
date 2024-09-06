@@ -59,7 +59,7 @@ class WayPointGeneration {
         let radius: Double = 200 // Search within 1000 meters of the coordinate
         let type = "restaurant" // Specify the type of place you are looking for
         
-        let urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radius)&type=\(type)&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc"
+        let urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radius)&type=\(type)&key=\(APIKeys.shared.GMSServices)"
         
         guard let url = URL(string: urlString) else {
             print("Invalid URL")

@@ -167,8 +167,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     @objc func backButtonTapped() {
         print("button tapped")
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let chooseVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
+        let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
+        if let chooseVC = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
             chooseVC.modalPresentationStyle = .fullScreen
             self.present(chooseVC, animated: true, completion: nil)
         }
@@ -694,10 +694,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         //
         //        for _ in 1...2 {
         group.enter()
-        randomwaypoint.findRoute(start, desiredTime: desiredTime, types: chosenType ) { placeInfos in
+        randomwaypoint.findRoute(start, desiredTime: desiredTime, types: chosenType, mode: "Time") { placeInfos in
             for placeInfo in placeInfos {
+                print("already go findroute")
                 if let placeInfo = placeInfo{
                     DispatchQueue.main.async{
+                        print("This will print on the main thread")
                         self.marker.addMarker(placeInfo, self.mapView)
                     }
                     self.passWaypoint.append(placeInfo)
@@ -726,7 +728,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                     durationText: routeDetails.durationText,
                     startCoordinate: start
                 )
-                
+                print("displaying route on map")
                 // Update the map with the newly found route
                 self.displayRouteOnMap(polyString: routeDetails.polyString, start: start, durationText: routeDetails.durationText)
             } else {
@@ -761,7 +763,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         let waypointsString = waypoints.map { "\($0.latitude),\($0.longitude)" }.joined(separator: "|")
         let origin = "\(start.latitude),\(start.longitude)"
         let encodedWaypoints = waypointsString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(origin)&waypoints=\(encodedWaypoints)&mode=walking&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc"
+        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(origin)&waypoints=\(encodedWaypoints)&mode=walking&key=\(APIKeys.shared.GMSServices)"
         
         guard let url = URL(string: urlString) else {
             print("Invalid URL")

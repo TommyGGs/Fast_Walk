@@ -71,25 +71,32 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     
     func setUpTimerView() {
         currentTime.layer.backgroundColor = UIColor.white.cgColor
-        currentTime.layer.borderWidth = 8
-        currentTime.layer.borderColor = UIColor.systemBlue.cgColor
-        currentTime.textColor = .systemBlue
+        currentTime.layer.borderWidth = 10
+        currentTime.layer.borderColor = UIColor(red: 79/255, green: 134/255, blue: 255/255, alpha: 1.0).cgColor
+        currentTime.textColor = .black
         currentTime.layer.cornerRadius = currentTime.frame.size.height / 2
+        
+        if let customFont = UIFont(name: "NotoSansJP-ExtraBold", size: 40) {
+               currentTime.font = customFont
+           } else {
+               currentTime.font = UIFont.systemFont(ofSize: 40) // 폰트가 없을 경우 대체 폰트 설정
+           }
+        
         overlayView = UIView(frame: view.bounds)
         overlayView.backgroundColor = UIColor.white.withAlphaComponent(0.5) // Half-transparent black
         overlayView.isHidden = true // Initially hidden
         
         // Countdown Label
-        countdownLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        countdownLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         countdownLabel.center = view.center
         countdownLabel.textAlignment = .center
 
         // Set custom font
-        if let customFont = UIFont(name: "NotoSansJP-SemiBold.ttf", size: 100) {
+        if let customFont = UIFont(name: "NotoSansJP-SemiBold.ttf", size: 180) {
             countdownLabel.font = customFont
         } else {
             // Fallback to system font if custom font is not available
-            countdownLabel.font = UIFont.systemFont(ofSize: 80, weight: .black)
+            //countdownLabel.font = UIFont.systemFont(ofSize: 80, weight: .black)
         }
 
         // Set font color to #5383EC
@@ -314,7 +321,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     
     func modeSwitch() {
-        let font = UIFont(name: "NotoSansJP-SemiBold", size: 17) // Adjust size as needed
+        let font = UIFont(name: "NotoSansJP-Light", size: 18) // Adjust size as needed
 
         if mode == "slow" {
             //play haptics
@@ -433,6 +440,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
 
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
             guard let self = self else { return }
+    
+            let font = UIFont(name: "NotoSansJP-SemiBold", size: 17)
 
             if index < countdownNumbers.count {
                 self.countdownLabel.text = countdownNumbers[index]
