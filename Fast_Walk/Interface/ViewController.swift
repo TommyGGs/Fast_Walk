@@ -29,6 +29,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     var chosenType: String = "restaurant"
     @IBOutlet var heart: UIButton!
     
+    var titleLabel: UILabel!
     var locationManager = CLLocationManager()
     var mapView: GMSMapView? //static throughout scope of entire program
     var currentLocation: CLLocationCoordinate2D?
@@ -56,17 +57,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Setuptoprectangularbox()
+        setupMapView()
+        
         placesClient = GMSPlacesClient.shared() //Places
         typeChoiceButton.isHidden = true
         locationManager.delegate = self
         beginLocationUpdate()
-        setupMapView()
+        
         fetchGoogleUserInfo()
         fetchLineUserInfo()
         print("passed")
         setupStyle()
         setupChoiceButton()
-        changeRouteButton()
+        //        changeRouteButton()
         navBar()
         //MARK: Setup route type selection view
         //        configurePlaceTypesStackView()
@@ -77,9 +82,98 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         self.view.bringSubviewToFront(dataButton)
         self.view.bringSubviewToFront(accountButton)
         self.view.sendSubviewToBack(mapContainerView)
+        
+        addGradientLayer()
+        addTitleLabel()
+        setupBackButton()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            
+            // Trigger the animation when the view appears
+            animateTitleLabel()
+        }
     
+    func addTitleLabel() {
+           // Create the label
+           titleLabel = UILabel()
+           titleLabel.text = "タイムコース"
+           titleLabel.font = UIFont(name: "NotoSansJP-Medium", size: 28) // Noto Sans JP Medium font
+           titleLabel.textColor = .black
+           titleLabel.alpha = 0.0 // Initially set the label to be fully transparent (for the animation)
+           titleLabel.translatesAutoresizingMaskIntoConstraints = false
+           
+           // Add the label to the view
+           self.view.addSubview(titleLabel)
+           
+           // Set constraints for the label (align to top and left)
+           NSLayoutConstraint.activate([
+               titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+               titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16)
+           ])
+        self.view.bringSubviewToFront(titleLabel)
+       }
+       
+       func animateTitleLabel() {
+           // Animate the label from blurry to clear
+           UIView.animate(withDuration: 0.2, animations: {
+               self.titleLabel.alpha = 0.8 // Fully visible after the animation
+           })
+       }
+    
+    func addGradientLayer() {
+            // CAGradientLayer 생성
+            let gradientLayer = CAGradientLayer()
+
+            // 시작 색상: #B4E4FF, 100% 투명도
+            let topColor = UIColor(red: 180/255, green: 228/255, blue: 255/255, alpha: 0.8).cgColor // #B4E4FF, 100% 투명
+        
+        // 중간 색상: 흰색, 75% 투명도
+            let middleColor = UIColor(white: 1.0, alpha: 0.65).cgColor // 흰색 75% 투명도
+        
+            // 끝 색상: #D7F1FF, 25% 투명도
+            let bottomColor = UIColor(red: 215/255, green: 241/255, blue: 255/255, alpha: 0.25).cgColor // #D7F1FF, 25% 투명
+
+            // 그라데이션의 색상 배열 설정
+            gradientLayer.colors = [topColor, middleColor, bottomColor]
+        
+        // 그라데이션의 각 색상이 적용될 위치 (0.0이 상단, 1.0이 하단)
+           gradientLayer.locations = [0.0, 0.5, 1.0] // 중간 색상이 50% 위치에 오도록 설정
+
+            // 그라데이션 레이어의 프레임 설정
+            gradientLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 140) // 높이 조절 가능
+
+            // 그라데이션 위치 설정 (0.0이 상단, 1.0이 하단)
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
+
+            // view의 레이어에 그라데이션 레이어 추가
+            self.view.layer.addSublayer(gradientLayer)
+        }
+    
+    func setupBackButton(){
+        let backButton = UIButton(type: .system)
+        backButton.setImage(UIImage(named: "Backbutton.png"), for: .normal)
+        backButton.tintColor = UIColor(red: 84/255.0, green: 84/255.0, blue: 84/255.0, alpha: 0.9)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        
+        backButton.frame = CGRect(x: 20, y: 50, width: 22, height: 22)
+
+        // Add the button to the view
+        view.addSubview(backButton)
+        view.bringSubviewToFront(backButton)
+    }
+    
+    @objc func backButtonTapped() {
+        print("button tapped")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let chooseVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
+            chooseVC.modalPresentationStyle = .fullScreen
+            self.present(chooseVC, animated: true, completion: nil)
+        }
+    }
+
     @objc func heartView() {
         print("heart clicked")
         let storyboard = UIStoryboard(name: "Favorite", bundle: nil)
@@ -91,96 +185,229 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     private func configurePlaceTypesButtons() {
-        setupButton(shoppingButton, title: "ショップ")
-        setupButton(gourmetButton, title: "グルメ")
-        setupButton(natureButton, title: "自然")
-        setupButton(tourismButton, title: "観光")
+        let titles = ["ショップ","グルメ","自然","観光"]
         
-        let buttons = [shoppingButton, gourmetButton, natureButton, tourismButton]
-        for button in buttons {
-            view.addSubview(button)
-            button.translatesAutoresizingMaskIntoConstraints = false
-        }
-        let topAnchor = view.safeAreaLayoutGuide.topAnchor
-        let constant: CGFloat = 48
-        let height: CGFloat = 40
-        NSLayoutConstraint.activate([
-            shoppingButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
-            shoppingButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 3),
-            shoppingButton.heightAnchor.constraint(equalToConstant: height),
+        let barBackgroundView = UIView()
+            barBackgroundView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1.0)
+            barBackgroundView.layer.cornerRadius = 10
+            barBackgroundView.layer.shadowColor = UIColor.black.cgColor
+            barBackgroundView.layer.shadowOpacity = 0.1
+            barBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 2)
+            barBackgroundView.layer.shadowRadius = 5
+        
+        view.addSubview(barBackgroundView)
+        
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+            stackView.alignment = .fill
+            stackView.distribution = .fillEqually
+            stackView.spacing = 1
+        
+        
+        for title in titles {
+                let button = UIButton()
+                setupButton(button, title: title)
+                stackView.addArrangedSubview(button)
+                
+                // Associate button with the corresponding action
+                button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+                
+                // Set up tags or identifiers if necessary
+                button.tag = titles.firstIndex(of: title) ?? 0
+            }
+        
+        barBackgroundView.addSubview(stackView)
+        
+        barBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                barBackgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
+                barBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+                barBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+                barBackgroundView.heightAnchor.constraint(equalToConstant: 34)
+            ])
+
+        
+        // Add the stack view to the view hierarchy
+            view.addSubview(stackView)
             
-            gourmetButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
-            gourmetButton.leadingAnchor.constraint(equalTo: shoppingButton.trailingAnchor, constant: 3),
-            gourmetButton.widthAnchor.constraint(equalTo: shoppingButton.widthAnchor),
-            gourmetButton.heightAnchor.constraint(equalToConstant: height),
-            natureButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
-            natureButton.leadingAnchor.constraint(equalTo: gourmetButton.trailingAnchor, constant: 3),
-            natureButton.widthAnchor.constraint(equalTo: gourmetButton.widthAnchor),
-            natureButton.heightAnchor.constraint(equalToConstant: height),
-            tourismButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
-            tourismButton.leadingAnchor.constraint(equalTo: natureButton.trailingAnchor, constant: 3),
-            tourismButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
-            tourismButton.widthAnchor.constraint(equalTo: natureButton.widthAnchor),
-            tourismButton.heightAnchor.constraint(equalToConstant: height),
+            // Set constraints for the stack view
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
+                stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+                stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+                stackView.heightAnchor.constraint(equalToConstant: 34)
+            ])
+        }
+
+        private func setupButton(_ button: UIButton, title: String) {
+            button.setTitle(title, for: .normal)
+            button.backgroundColor = UIColor(red: 217/255, green: 229/255, blue: 255/255, alpha: 1.0)
+            button.setTitleColor(.darkGray, for: .normal)
+            button.setTitleColor(.white, for: .selected)
+            
+            // Set the selected background color
+            let selectedColor = UIColor(red: 79/255, green: 134/255, blue: 255/255, alpha: 1.0)
+            button.setBackgroundImage(imageWithColor(color: selectedColor), for: .selected)
+            
+            button.layer.cornerRadius = 10
+            button.clipsToBounds = true
+            button.layer.borderWidth = 3
+            button.layer.borderColor = CGColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1.0)
+        }
+
+        @objc func buttonTapped(_ sender: UIButton) {
+            // Deselect all buttons in the stack view
+            if let stackView = sender.superview as? UIStackView {
+                for case let button as UIButton in stackView.arrangedSubviews {
+                    button.isSelected = false
+                    button.backgroundColor = UIColor(red: 217/255, green: 229/255, blue: 255/255, alpha: 1.0)
+                    button.setTitleColor(.darkGray, for: .normal)
+                }
+            }
+            
+            // Select the tapped button
+            sender.isSelected = true
+            sender.backgroundColor = UIColor(red: 79/255, green: 134/255, blue: 255/255, alpha: 1.0)
+            sender.setTitleColor(.white, for: .normal)
+            
+            // Handle button tap by changing the chosen type
+            switch sender.tag {
+            case 0:
+                self.chosenType = "clothing_store"
+                print("shopping")
+            case 1:
+                self.chosenType = "restaurant"
+                print("gourmet")
+            case 2:
+                self.chosenType = "park"
+                print("nature")
+            case 3:
+                self.chosenType = "tourist_attraction"
+                print("tourism")
+            default:
+                break
+            }
+        }
+    
+        private func imageWithColor(color: UIColor) -> UIImage {
+            let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+            UIGraphicsBeginImageContext(rect.size)
+            let context = UIGraphicsGetCurrentContext()
+            context!.setFillColor(color.cgColor)
+            context!.fill(rect)
+            let img = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return img!
+        }
+    
+    private func Setuptoprectangularbox(){
+        let topboxview = UIView()
+        topboxview.backgroundColor = UIColor.white
+        topboxview.layer.cornerRadius = 5
+        
+        view.addSubview(topboxview)
+        
+        topboxview.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topboxview.topAnchor.constraint(equalTo: view.topAnchor, constant: 0), // Adjust to 0 to stick to top
+            topboxview.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0), // No padding
+            topboxview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0), // No padding
+            topboxview.heightAnchor.constraint(equalToConstant: 150) // Adjust height as needed
         ])
     }
     
-    private func setupButton(_ button: UIButton, title: String) {
-        button.setTitle(title, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.8901962042, green: 0.8901962042, blue: 0.8901962042, alpha: 1) // Normal state color
-        button.setTitleColor(.black, for: .normal) // Adjust as needed
-        button.setTitleColor(.black, for: .selected)
-        let color = #colorLiteral(red: 0.7861115336, green: 0.846778214, blue: 0.9931553006, alpha: 1)
-        // Set a different color for the selected state
-        button.setBackgroundImage(imageWithColor(color: color), for: .selected)
-        
-        button.layer.cornerRadius = 10  // Adjust the corner radius as needed
-        button.clipsToBounds = true
-        button.layer.borderWidth = 3
-        button.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.4090455762)
-        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-    }
-    
-    private func imageWithColor(color: UIColor) -> UIImage {
-        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
-        UIGraphicsBeginImageContext(rect.size)
-        let context = UIGraphicsGetCurrentContext()
-        context!.setFillColor(color.cgColor)
-        context!.fill(rect)
-        let img = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return img!
-    }
-    
-    @objc func buttonTapped(_ sender: UIButton) {
-        let buttons = [shoppingButton, gourmetButton, natureButton, tourismButton]
-        for button in buttons {
-            button.isSelected = false
-        }
-        sender.isSelected = true
-        //        DispatchQueue.main.async{
-        //            sender.backgroundColor = .darkGray
-        //            sender.setTitleColor(.white, for: .selected)
-        //        }
-        
-        
-        switch sender {
-        case shoppingButton:
-            self.chosenType = "clothing_store"
-            print ("shopping")
-        case gourmetButton:
-            self.chosenType = "restaurant"
-            print ("gourmet")
-        case natureButton:
-            self.chosenType = "park"
-            print ("park")
-        case tourismButton:
-            self.chosenType = "tourist_attraction"
-            print ("tourist")
-        default:
-            break
-        }
-    }
+        //
+//        setupButton(shoppingButton, title: "ショップ")
+//        setupButton(gourmetButton, title: "グルメ")
+//        setupButton(natureButton, title: "自然")
+//        setupButton(tourismButton, title: "観光")
+//        
+//        let buttons = [shoppingButton, gourmetButton, natureButton, tourismButton]
+//        for button in buttons {
+//            view.addSubview(button)
+//            button.translatesAutoresizingMaskIntoConstraints = false
+//        }
+//        let topAnchor = view.safeAreaLayoutGuide.topAnchor
+//        let constant: CGFloat = 48
+//        let height: CGFloat = 40
+//        NSLayoutConstraint.activate([
+//            shoppingButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
+//            shoppingButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 3),
+//            shoppingButton.heightAnchor.constraint(equalToConstant: height),
+//            
+//            gourmetButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
+//            gourmetButton.leadingAnchor.constraint(equalTo: shoppingButton.trailingAnchor, constant: 3),
+//            gourmetButton.widthAnchor.constraint(equalTo: shoppingButton.widthAnchor),
+//            gourmetButton.heightAnchor.constraint(equalToConstant: height),
+//            natureButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
+//            natureButton.leadingAnchor.constraint(equalTo: gourmetButton.trailingAnchor, constant: 3),
+//            natureButton.widthAnchor.constraint(equalTo: gourmetButton.widthAnchor),
+//            natureButton.heightAnchor.constraint(equalToConstant: height),
+//            tourismButton.topAnchor.constraint(equalTo: topAnchor, constant: constant),
+//            tourismButton.leadingAnchor.constraint(equalTo: natureButton.trailingAnchor, constant: 3),
+//            tourismButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+//            tourismButton.widthAnchor.constraint(equalTo: natureButton.widthAnchor),
+//            tourismButton.heightAnchor.constraint(equalToConstant: height),
+//        ])
+//    }
+//    
+//    private func setupButton(_ button: UIButton, title: String) {
+//        button.setTitle(title, for: .normal)
+//        button.backgroundColor = #colorLiteral(red: 0.8901962042, green: 0.8901962042, blue: 0.8901962042, alpha: 1) // Normal state color
+//        button.setTitleColor(.black, for: .normal) // Adjust as needed
+//        button.setTitleColor(.black, for: .selected)
+//        let color = #colorLiteral(red: 0.7861115336, green: 0.846778214, blue: 0.9931553006, alpha: 1)
+//        // Set a different color for the selected state
+//        button.setBackgroundImage(imageWithColor(color: color), for: .selected)
+//        
+//        button.layer.cornerRadius = 10  // Adjust the corner radius as needed
+//        button.clipsToBounds = true
+//        button.layer.borderWidth = 3
+//        button.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.4090455762)
+//        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+//    }
+//    
+//    private func imageWithColor(color: UIColor) -> UIImage {
+//        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+//        UIGraphicsBeginImageContext(rect.size)
+//        let context = UIGraphicsGetCurrentContext()
+//        context!.setFillColor(color.cgColor)
+//        context!.fill(rect)
+//        let img = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        return img!
+//    }
+//    
+//    @objc func buttonTapped(_ sender: UIButton) {
+//        let buttons = [shoppingButton, gourmetButton, natureButton, tourismButton]
+//        for button in buttons {
+//            button.isSelected = false
+//        }
+//        sender.isSelected = true
+//        //        DispatchQueue.main.async{
+//        //            sender.backgroundColor = .darkGray
+//        //            sender.setTitleColor(.white, for: .selected)
+//        //        }
+//        
+//        
+//        switch sender {
+//        case shoppingButton:
+//            self.chosenType = "clothing_store"
+//            print ("shopping")
+//        case gourmetButton:
+//            self.chosenType = "restaurant"
+//            print ("gourmet")
+//        case natureButton:
+//            self.chosenType = "park"
+//            print ("park")
+//        case tourismButton:
+//            self.chosenType = "tourist_attraction"
+//            print ("tourist")
+//        default:
+//            break
+//        }
+//    }
     //バーのコード
     func navBar() {
         
@@ -319,64 +546,64 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     
     //コース変更
-    func changeRouteButton(){
-        let courseChangeButton = UIButton(type: .system)
-        courseChangeButton.setTitle("コース変更", for: .normal)
-        courseChangeButton.backgroundColor = UIColor(white: 1.0, alpha: 0.7)
-        courseChangeButton.layer.cornerRadius = 8
-        courseChangeButton.setTitleColor(UIColor.black, for: .normal)
-        
-        view.addSubview(courseChangeButton)
-        
-        courseChangeButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            courseChangeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            courseChangeButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
-            courseChangeButton.widthAnchor.constraint(equalToConstant: 130),
-            courseChangeButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
-        
-        courseChangeButton.addTarget(self, action: #selector(courseChangeButtonTapped), for: .touchUpInside)
-        
-        
-        view.backgroundColor = UIColor.white // Replace with your desired color
-        
-        let yOffset: CGFloat = 50
-        let squareView = UIView(frame: CGRect(x: 0, y:  mapContainerView.bounds.height, width: view.bounds.width, height: 100))
-        squareView.layer.cornerRadius = 10
-        squareView.clipsToBounds = true
-        
-        // Create a gradient layer
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = squareView.bounds
-        gradientLayer.colors = [UIColor.white.cgColor, UIColor.clear.cgColor]
-        gradientLayer.locations = [0.8, 3.0] // Adjust the locations to control the fading
-        
-        // Adjust startPoint and endPoint to make the gradient upside down
-        gradientLayer.startPoint = CGPoint(x: 0.5, y: 1)
-        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
-        
-        // Add the gradient layer to the square view's layer
-        squareView.layer.addSublayer(gradientLayer)
-        
-        // Add the square view to the main view
-        view.addSubview(squareView)
-        
-        // Move the square view to the back of the view hierarchy
-        view.sendSubviewToBack(squareView)
-        
-        
-        
-    }
-    
-    @objc func courseChangeButtonTapped() {
-        print("コース変更 button tapped")
-        // Implement your action for the button tap here
-        
-        
-        
-        
-    }
+//    func changeRouteButton(){
+//        let courseChangeButton = UIButton(type: .system)
+//        courseChangeButton.setTitle("コース変更", for: .normal)
+//        courseChangeButton.backgroundColor = UIColor(white: 1.0, alpha: 0.7)
+//        courseChangeButton.layer.cornerRadius = 8
+//        courseChangeButton.setTitleColor(UIColor.black, for: .normal)
+//        
+//        view.addSubview(courseChangeButton)
+//        
+//        courseChangeButton.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            courseChangeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            courseChangeButton.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
+//            courseChangeButton.widthAnchor.constraint(equalToConstant: 130),
+//            courseChangeButton.heightAnchor.constraint(equalToConstant: 50)
+//        ])
+////        
+////        courseChangeButton.addTarget(self, action: #selector(courseChangeButtonTapped), for: .touchUpInside)
+//        
+//        
+//        view.backgroundColor = UIColor.white // Replace with your desired color
+//        
+//        let yOffset: CGFloat = 50
+//        let squareView = UIView(frame: CGRect(x: 0, y:  mapContainerView.bounds.height, width: view.bounds.width, height: 100))
+//        squareView.layer.cornerRadius = 10
+//        squareView.clipsToBounds = true
+//        
+//        // Create a gradient layer
+//        let gradientLayer = CAGradientLayer()
+//        gradientLayer.frame = squareView.bounds
+//        gradientLayer.colors = [UIColor.white.cgColor, UIColor.clear.cgColor]
+//        gradientLayer.locations = [0.8, 3.0] // Adjust the locations to control the fading
+//        
+//        // Adjust startPoint and endPoint to make the gradient upside down
+//        gradientLayer.startPoint = CGPoint(x: 0.5, y: 1)
+//        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
+//        
+//        // Add the gradient layer to the square view's layer
+//        squareView.layer.addSublayer(gradientLayer)
+//        
+//        // Add the square view to the main view
+//        view.addSubview(squareView)
+//        
+//        // Move the square view to the back of the view hierarchy
+//        view.sendSubviewToBack(squareView)
+//        
+//        
+//        
+//    }
+//    
+//    @objc func courseChangeButtonTapped() {
+//        print("コース変更 button tapped")
+//        // Implement your action for the button tap here
+//        
+//        
+//        
+//        
+//    }
     
     func setupMapView() {
         let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 10.0)
@@ -635,11 +862,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         if let imageUrl = user.profile?.imageURL(withDimension: 80) {
             downloadImage(from: imageUrl) { image in
                 DispatchQueue.main.async {
-                    self.profilePic.setImage(image, for: .normal)
-                    self.profilePic.imageView?.contentMode = .scaleToFill
-                    
-                    self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
-                    self.profilePic.clipsToBounds = true
+//                    self.profilePic.setImage(image, for: .normal)
+//                    self.profilePic.imageView?.contentMode = .scaleToFill
+//                    
+//                    self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
+//                    self.profilePic.clipsToBounds = true
                 }
             }
         }
@@ -741,14 +968,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         setupButtonStyle(startButton)
     }
     
+    
+    
     func setupButtonStyle(_ button: UIButton) {
-        // Set button background color
-        button.backgroundColor = UIColor(red: 0.8588235294, green: 0.8901960784, blue: 1, alpha: 1) // #DBE3FF
+        // Set button background color to #4F86FF
+        button.backgroundColor = UIColor(red: 79/255, green: 134/255, blue: 255/255, alpha: 1.0) // #4F86FF
         
-        // Set button border
-        button.layer.borderWidth = 5
-        button.layer.borderColor = UIColor.white.cgColor
-        
+//        // Set button border
+//        button.layer.borderWidth = 5
+//        button.layer.borderColor = UIColor.white.cgColor
+//        
         // Set button corner radius
         button.layer.cornerRadius = button.frame.width / 2
         
@@ -757,6 +986,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         button.layer.shadowOffset = CGSize(width: 0, height: 4)
         button.layer.shadowRadius = 4
         button.layer.shadowOpacity = 0.25
+    
     }
     
     func setupChoiceButton(){
@@ -786,8 +1016,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         return label
     }
     
-    
-    
+
     func createBarButton(title: String, imageName: String, fontSize: CGFloat) -> UIButton {
         let button = UIButton(type: .system)
         
