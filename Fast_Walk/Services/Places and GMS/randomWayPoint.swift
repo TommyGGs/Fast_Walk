@@ -14,18 +14,26 @@ class randomWayPoint {
     
     private var placesClient: GMSPlacesClient!
     private var nextCoordinate: CLLocationCoordinate2D?
-    private let wayPointNumber: Int! = 3
+    private var wayPointNumber: Int! = 3
     
     
     init() {
         placesClient = GMSPlacesClient.shared()
     }
     
-    func findRoute(_ coordinate: CLLocationCoordinate2D, desiredTime: Int, types: String, completion: @escaping ([GMSPlace?]) -> Void) {
+    func findRoute(_ coordinate: CLLocationCoordinate2D, desiredTime: Int, types: String, mode: String, completion: @escaping ([GMSPlace?]) -> Void) {
+        if mode == "Route"{
+            wayPointNumber = 1
+            print("mode: Route")
+        }
+        print("type:", types)
         let radius = calculateRadiusBasedOnTime(desiredTime)
         performNearbySearch(from: coordinate, radius: radius, type: types) { places in
-            let shuffledPlaces = places.shuffled() // Shuffle the places to randomize them
-            let placeInfos = Array(shuffledPlaces.prefix(self.wayPointNumber)) //change here when increasing number of waypoint results
+            let shuffledPlaces = places.shuffled() // Shuffle the places to 
+            print("places array:", places, shuffledPlaces)
+            //            let placeInfos = Array(shuffledPlaces.prefix(self.wayPointNumber))
+            let placeInfos = Array(shuffledPlaces.prefix(self.wayPointNumber))
+
             completion (placeInfos)
         }
     }
@@ -35,11 +43,19 @@ class randomWayPoint {
     
     private func performNearbySearch(from coordinate: CLLocationCoordinate2D, radius: Double, type: String, completion: @escaping ([GMSPlace?]) -> Void) {
         
-        let optionNumber = 10 //change here when increasing number of results
+        let optionNumber = 9 //change here when increasing number of results
         
         print ("called performNearbySearch")
-        //let radius: Double = 1000 // Search within 1000 meters of the coordinate
-        let urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radius)" + "&type=\(type)&key=AIzaSyAZae3XCwTFoxI2TopAfiSlzJsdFZ9IrIc"
+//        let radius: Double = 30 // Search within 1000 meters of the coordinate
+        let apiKey = "&key=\(APIKeys.shared.GMSServices)"
+        var typeOrNot = "&type=\(type)"
+//        if type == "" {
+//            print("type is blank")
+//            typeOrNot = ""
+//        }
+        let urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radius)" + typeOrNot + apiKey
+        print("url:", urlString)
+        
         
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
@@ -53,7 +69,6 @@ class randomWayPoint {
                 completion([])
                 return
             }
-            print ("no network error")
             guard let data = data else {
                 print("No data received")
                 completion([])
@@ -73,6 +88,8 @@ class randomWayPoint {
                 
                 let dispatchGroup = DispatchGroup()
                 var wayPoints: [GMSPlace?] = []
+                
+                
                 
                 for result in results.prefix(optionNumber) {
                     if let placeID = result["place_id"] as? String {
@@ -98,7 +115,6 @@ class randomWayPoint {
     
     private func fetchPlaceDetails(placeID: String, completion: @escaping (GMSPlace?) -> Void) {
         print ("called fetchPlaceDetails")
-        //CONTINUE:: placesClient.
         placesClient.lookUpPlaceID(placeID) { (place, error) in
             if let error = error {
                 print("Error fetching place details: \(error.localizedDescription)")
@@ -111,11 +127,12 @@ class randomWayPoint {
     }
     
     private func calculateRadiusBasedOnTime(_ desiredTime: Int) -> Double {
-        // Adjust the radius based on desired time
         switch desiredTime {
-        case 30: return 750 // Example radius for 30 minutes
-        case 45: return 1000 // Example radius for 45 minutes
-        case 60, 90: return 1500 // Example radius for 60 or 90 minutes
+        case 10: print("case 10"); return 300
+        case 20: print("case 20"); return 700
+        case 30: print("case 30"); return 1000 // Example radius for 30 minutes
+        case 45: return 3000 // Example radius for 45 minutes
+        case 60, 90: return 4000 // Example radius for 60 or 90 minutes
         default: return 500
         }
     }
