@@ -441,13 +441,15 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
             guard let self = self else { return }
     
-            let font = UIFont(name: "NotoSansJP-SemiBold", size: 17)
-
+            let font = UIFont(name: "NotoSansJP-SemiBold", size: 150)
+            self.countdownLabel.font = font
+            self.countdownLabel.textColor = UIColor(red: 67/255, green: 96/255, blue: 249/255, alpha: 1.0)
+            
             if index < countdownNumbers.count {
                 self.countdownLabel.text = countdownNumbers[index]
                 self.animateLabel(self.countdownLabel)
-                
                 index += 1
+                
             } else {
                 timer.invalidate()
                 self.overlayView.isHidden = true

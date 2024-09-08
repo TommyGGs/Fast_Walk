@@ -64,7 +64,6 @@
 		E0F164932B5FDCFD004E1D36 /* PersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F164922B5FDCFD004E1D36 /* PersonalViewController.swift */; };
 		E21292A32B16E61400796BE5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21292A22B16E61400796BE5 /* SceneDelegate.swift */; };
 		E21292AD2B16E61D00796BE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E21292AB2B16E61D00796BE5 /* LaunchScreen.storyboard */; };
-		E22AA3F92B5A8B0F00AE06BD /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = E22AA3F82B5A8B0F00AE06BD /* Realm */; };
 		E22AA3FB2B5A8B0F00AE06BD /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E22AA3FA2B5A8B0F00AE06BD /* RealmSwift */; };
 		E22AA3FD2B5A8BC200AE06BD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22AA3FC2B5A8BC200AE06BD /* User.swift */; };
 		E22AA4002B5A973400AE06BD /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22AA3FE2B5A973400AE06BD /* UserTableViewCell.swift */; };
@@ -538,7 +537,6 @@
 				31DAB4322B46637700F04CF0 /* CareKit */,
 				31DAB4342B46637700F04CF0 /* CareKitStore */,
 				31DAB4362B46637700F04CF0 /* CareKitUI */,
-				E22AA3F82B5A8B0F00AE06BD /* Realm */,
 				E22AA3FA2B5A8B0F00AE06BD /* RealmSwift */,
 			);
 			productName = Fast_Walk;
@@ -988,11 +986,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 31DAB4312B46637700F04CF0 /* XCRemoteSwiftPackageReference "CareKit.git" */;
 			productName = CareKitUI;
-		};
-		E22AA3F82B5A8B0F00AE06BD /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E22AA3F72B5A8B0F00AE06BD /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = Realm;
 		};
 		E22AA3FA2B5A8B0F00AE06BD /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
