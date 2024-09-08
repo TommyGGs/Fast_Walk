@@ -38,6 +38,13 @@ class ProfileViewController: UIViewController {
         viewRound.layer.cornerRadius = viewRound.frame.size.width / 10
     }
     
+    @IBAction func heartViewController() {
+        let storyboard = UIStoryboard(name: "Favorite", bundle: nil)
+        if let heartVC = storyboard.instantiateViewController(withIdentifier: "HeartViewController") as? HeartViewController {
+            heartVC.modalPresentationStyle = .fullScreen
+            self.present(heartVC, animated: true, completion: nil)
+        }
+    }
     @IBAction func home() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let accountVC = storyboard.instantiateViewController(withIdentifier: "MainViewController") as? ViewController {

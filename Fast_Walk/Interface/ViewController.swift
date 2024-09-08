@@ -864,11 +864,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         if let imageUrl = user.profile?.imageURL(withDimension: 80) {
             downloadImage(from: imageUrl) { image in
                 DispatchQueue.main.async {
-//                    self.profilePic.setImage(image, for: .normal)
-//                    self.profilePic.imageView?.contentMode = .scaleToFill
-//                    
-//                    self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
-//                    self.profilePic.clipsToBounds = true
+                    self.profilePic.setImage(image, for: .normal)
+                    self.profilePic.imageView?.contentMode = .scaleToFill
+                    
+                    self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
+                    self.profilePic.clipsToBounds = true
                 }
             }
         }

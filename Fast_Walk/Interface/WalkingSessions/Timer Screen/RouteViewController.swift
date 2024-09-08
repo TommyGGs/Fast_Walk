@@ -297,7 +297,11 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     
     func startTimer(resume: Bool)  {
         if resume != true {
-            countdown = 7 //change for timer interval
+            if mode == "slow" {
+                countdown = 300 //change for timer interval
+            } else {
+                countdown = 180//change for timer interval
+            }
         }
         if timer == nil {
             // Starting or resuming the timer
