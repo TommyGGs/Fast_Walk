@@ -5,11 +5,93 @@
 //  Created by Tom  on 2024/07/18.
 //
 
-import Foundation
 import UIKit
+import GoogleMaps
+import CoreLocation
+import GooglePlaces
+import GoogleSignIn
+import LineSDK
+import RealmSwift
 
-class RouteOrTimeViewController: UIViewController{
+class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
     var titleLabel: UILabel!
+    var currentLocation: CLLocationCoordinate2D?
+//    @IBOutlet weak var mapContainerView: UIView!
+//    var mapView: GMSMapView? //static throughout scope of entire program
+//    var locationManager = CLLocationManager()
+    @IBOutlet weak var profilePic: UIButton!
+    var window: UIWindow?
+    
+//    @IBOutlet weak var timeButton: UIButton!
+//    @IBOutlet weak var routeButton: UIButton!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+//        locationManager.delegate = self
+//        setupMapView()
+        profilePic.setImage(UIImage(named: "google.png"), for: .normal) // Make sure "default_profile_image" exists in your assets
+
+        addTitleLabel()
+        setupBackButton()
+        addGradientLayer()
+        setupProfilePicConstraints()
+
+//        setupButtonsLayout()
+
+        
+        fetchGoogleUserInfo()
+        fetchLineUserInfo()
+//        profilePicFunc()
+        
+//        self.view.sendSubviewToBack(mapContainerView)
+        self.view.bringSubviewToFront(profilePic)
+    }
+    
+//    func profilePicFunc(){
+//        profilePic.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            profilePic.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),  // Adjust as needed
+//            profilePic.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),  // Adjust for spacing from the right
+//            profilePic.widthAnchor.constraint(equalToConstant: 80),   // Set width
+//            profilePic.heightAnchor.constraint(equalToConstant: 80)   // Set height to match width (circular icon)
+//        ])
+//        
+//    }
+
+//    func setupButtonsLayout() {
+//        // Constraints for the timeButton (assuming center alignment and some top padding)
+//        timeButton.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            timeButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+//            timeButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 150), // Adjust the constant as per storyboard
+//            timeButton.widthAnchor.constraint(equalToConstant: 200),  // Adjust width as per need
+//            timeButton.heightAnchor.constraint(equalToConstant: 50)   // Adjust height as per need
+//        ])
+//        
+//        // Constraints for the routeButton (just below timeButton)
+//        routeButton.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            routeButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+//            routeButton.topAnchor.constraint(equalTo: timeButton.bottomAnchor, constant: 20),  // Adjust the constant for spacing between buttons
+//            routeButton.widthAnchor.constraint(equalToConstant: 200),  // Adjust width as per need
+//            routeButton.heightAnchor.constraint(equalToConstant: 50)   // Adjust height as per need
+//        ])
+//    }
+    
+    
+    func setupProfilePicConstraints() {
+        profilePic.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            profilePic.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),  // Adjust as needed
+            profilePic.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),  // Adjust for spacing from the right
+            profilePic.widthAnchor.constraint(equalToConstant: 50),   // Set width
+            profilePic.heightAnchor.constraint(equalToConstant: 50)   // Set height to match width (circular icon)
+        ])
+        
+        // Ensure the button is rounded (circular)
+        profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
+        profilePic.clipsToBounds = true
+    }
     
     @IBAction func TimeButton(){
          let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -18,6 +100,14 @@ class RouteOrTimeViewController: UIViewController{
              self.present(mainNavController, animated: true, completion: nil)
          }
      }
+    
+    @IBAction func goToProfile() {
+        let storyboard = UIStoryboard(name: "UserStoryboard", bundle: nil)
+        if let profileNavController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
+            profileNavController.modalPresentationStyle = .fullScreen
+            self.present(profileNavController, animated: true, completion: nil)
+        }
+    }
      
      @IBAction func RouteButton(){
          let storyboard = UIStoryboard(name: "RouteStoryboard", bundle: nil)
@@ -26,13 +116,87 @@ class RouteOrTimeViewController: UIViewController{
              self.present(mainNavController, animated: true, completion: nil)
          }
      }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addTitleLabel()
-        setupBackButton()
-        addGradientLayer()
+
+    func fetchGoogleUserInfo() {
+        if let user = GIDSignIn.sharedInstance.currentUser {
+            // User is already signed in; proceed to fetch profile information
+            updateProfileInfo(user: user)
+        } else {
+            print("User is not signed in.")
+            window = UIWindow(frame: UIScreen.main.bounds)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            loginVC.modalPresentationStyle = .fullScreen
+            self.window?.rootViewController = loginVC
+        }
     }
+    
+    func updateProfileInfo(user: GIDGoogleUser) {
+        if let imageUrl = user.profile?.imageURL(withDimension: 60) {
+            downloadImage(from: imageUrl) { image in
+                DispatchQueue.main.async {
+                    self.profilePic.setImage(image, for: .normal)
+                    self.profilePic.imageView?.contentMode = .scaleAspectFill
+                    
+                    // Ensure the button remains circular
+                    self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
+                    self.profilePic.clipsToBounds = true
+                }
+            }
+        }
+    }
+    
+    
+    func fetchLineUserInfo() {
+        API.getProfile { result in
+            switch result {
+            case .success(let profile):
+                if let url = profile.pictureURL {
+                    self.downloadImage(from: url) { image in
+                        DispatchQueue.main.async {
+                            // Set the image for the button's normal state
+                            self.profilePic.setImage(image, for: .normal)
+                            // Set the imageView's content mode
+                            self.profilePic.imageView?.contentMode = .scaleAspectFill
+                            // Apply corner radius to make it circular
+                            self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
+                            self.profilePic.clipsToBounds = true
+                        }
+                    }
+                }
+            case .failure(let error):
+                print("Error fetching LINE user info: \(error)")
+            }
+        }
+    }
+    
+    
+    func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        let urlNS = url as NSURL
+        if let cachedImage = ImageCache.getImage(url: urlNS) {
+            completion(cachedImage)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error downloading image: \(error)")
+                completion(nil)
+                return
+            }
+            
+            guard let data = data, let image = UIImage(data: data) else {
+                print("Failed to convert data to image.")
+                completion(nil)
+                return
+            }
+            
+            ImageCache.setImage(url: urlNS, image: image)
+            completion(image)
+        }.resume()
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
                 super.viewDidAppear(animated)
@@ -40,7 +204,58 @@ class RouteOrTimeViewController: UIViewController{
                 // Trigger the animation when the view appears
                 animateTitleLabel()
             }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
+        // Ensure the button is round
+        profilePic.layer.cornerRadius = profilePic.frame.size.width / 2
+        profilePic.clipsToBounds = true
+    }
+    
+    
+//    func setupMapView() {
+//        let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 10.0)
+//        mapView = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
+//        mapView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        
+//        mapView?.delegate = self // Set the delegate after initializing the mapView
+//        
+//        mapContainerView.addSubview(mapView!)
+//        beginLocationUpdate()
+//    }
+    
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        beginLocationUpdate()
+//    }
+//    
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        if let location = locations.first, currentLocation == nil {
+//            currentLocation = location.coordinate
+//            updateMapCamera(location.coordinate)
+//            mapView?.camera = GMSCameraPosition(target: location.coordinate, zoom: 10.0)
+//            mapView?.isMyLocationEnabled = true
+//            mapView?.settings.myLocationButton = true
+//            mapView?.settings.zoomGestures = true //allows for zoom
+//            locationManager.stopUpdatingLocation() //why is this here? stop updating location
+//        }
+//    }
+//    
+//    func beginLocationUpdate() {
+//        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
+//            locationManager.startUpdatingLocation()
+//        } else {
+//            locationManager.requestWhenInUseAuthorization()
+//        }
+//    }
+//    
+//    func updateMapCamera(_ coordinate: CLLocationCoordinate2D) {
+//        let cameraUpdate = GMSCameraUpdate.setTarget(coordinate, zoom: 20.0)
+//        mapView?.animate(with: cameraUpdate)
+//        mapView?.isMyLocationEnabled = true
+//        mapView?.settings.myLocationButton = true
+//    }
+//        
         func addTitleLabel() {
             // Create the label
             titleLabel = UILabel()
