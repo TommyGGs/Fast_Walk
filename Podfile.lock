@@ -22,12 +22,18 @@ PODS:
   - LineSDKSwift (5.11.0):
     - LineSDKSwift/Core (= 5.11.0)
   - LineSDKSwift/Core (5.11.0)
+  - Realm (10.53.1):
+    - Realm/Headers (= 10.53.1)
+  - Realm/Headers (10.53.1)
+  - RealmSwift (10.53.1):
+    - Realm (= 10.53.1)
 
 DEPENDENCIES:
   - GoogleMaps (= 8.3.0)
   - GooglePlaces (= 8.3.0)
   - GoogleSignIn
   - LineSDKSwift (~> 5.0)
+  - RealmSwift
 
 SPEC REPOS:
   trunk:
@@ -38,6 +44,8 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - LineSDKSwift
+    - Realm
+    - RealmSwift
 
 SPEC CHECKSUMS:
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
@@ -47,7 +55,9 @@ SPEC CHECKSUMS:
   GTMAppAuth: 99fb010047ba3973b7026e45393f51f27ab965ae
   GTMSessionFetcher: 41b9ef0b4c08a6db4b7eb51a21ae5183ec99a2c8
   LineSDKSwift: bfcf8ff6a94ac8e5becad608240e3801f7694857
+  Realm: 82e4ea18703bf240dd443b5ceef68d6f9454ec49
+  RealmSwift: 79a910911b6a5663b7570517c8237e3dbd2b0783
 
-PODFILE CHECKSUM: 0c252c01982aa079a506c83b8783d3c5b5e028a0
+PODFILE CHECKSUM: c319fd16c17c6829990322bbe378eb896526575e
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.15.2

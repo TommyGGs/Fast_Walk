@@ -31,6 +31,39 @@ class ProfileViewController: UIViewController {
         name.text = user.name
         favorites.text = String(userFavorite())
         icon()
+        
+        
+        func addGradientLayer() {
+            // CAGradientLayer 생성
+            let gradientLayer = CAGradientLayer()
+
+            // 시작 색상: #B4E4FF, 100% 투명도
+            let topColor = UIColor(red: 180/255, green: 228/255, blue: 255/255, alpha: 0.8).cgColor // #B4E4FF, 100% 투명
+        
+        // 중간 색상: 흰색, 75% 투명도
+            let middleColor = UIColor(white: 1.0, alpha: 0.65).cgColor // 흰색 75% 투명도
+        
+            // 끝 색상: #D7F1FF, 25% 투명도
+            let bottomColor = UIColor(red: 215/255, green: 241/255, blue: 255/255, alpha: 0.25).cgColor // #D7F1FF, 25% 투명
+
+            // 그라데이션의 색상 배열 설정
+            gradientLayer.colors = [topColor, middleColor, bottomColor]
+        
+        // 그라데이션의 각 색상이 적용될 위치 (0.0이 상단, 1.0이 하단)
+           gradientLayer.locations = [0.0, 0.5, 1.0] // 중간 색상이 50% 위치에 오도록 설정
+
+            // 그라데이션 레이어의 프레임 설정
+            gradientLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 140) // 높이 조절 가능
+
+            // 그라데이션 위치 설정 (0.0이 상단, 1.0이 하단)
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+            gradientLayer.endPoint = CGPoint(x: 0.5, y: 2.0)
+
+            // view의 레이어에 그라데이션 레이어 추가
+            self.view.layer.addSublayer(gradientLayer)
+        }
+
+
     }
     
     override func viewDidLayoutSubviews() {
@@ -46,10 +79,10 @@ class ProfileViewController: UIViewController {
         }
     }
     @IBAction func home() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let accountVC = storyboard.instantiateViewController(withIdentifier: "MainViewController") as? ViewController {
-            accountVC.modalPresentationStyle = .fullScreen
-            self.present(accountVC, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
+        if let routeortimeVC = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
+            routeortimeVC.modalPresentationStyle = .fullScreen
+            self.present(routeortimeVC, animated: true, completion: nil)
         }
     }
     

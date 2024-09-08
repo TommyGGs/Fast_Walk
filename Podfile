@@ -11,5 +11,5 @@ target 'Fast_Walk' do
   pod 'GoogleSignIn'
   pod 'LineSDKSwift', '~> 5.0'
 
-
+  pod 'RealmSwift'
 end

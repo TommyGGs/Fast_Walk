@@ -478,7 +478,10 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
     
         private func presentRouteViewController() {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            if let routeViewController = storyboard.instantiateViewController(withIdentifier: "RouteViewController") as? RouteViewController {
+            if let routeViewController = storyboard.instantiateViewController(withIdentifier: "RouteViewController") as? RouteViewController,
+               let _ = storedRouteDetails {
+                routeViewController.routeDetails = storedRouteDetails
+                routeViewController.waypoints = passWaypoint
                 routeViewController.modalPresentationStyle = .fullScreen
                 self.present(routeViewController, animated: true, completion: nil)
             } else {
@@ -511,6 +514,29 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             view.addSubview(myLabel)
         }
         // MARK: end -
+    
+        // MARK: putMarker stuff
+        func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+            if marker.title == "開始地点"{
+                //print ("is start thing clicked")
+                return nil
+            }
+            let infoWindow = CustomInfoWindow()
+            infoWindow.frame = CGRect(x:0, y:0, width: 300, height: 200)
+            infoWindow.titleLabel.text = marker.title
+            infoWindow.snippetLabel.text = marker.snippet
+            
+            
+            if let photo = marker.userData as? UIImage {
+                print("Userdata is valid")
+                DispatchQueue.main.async {
+                    marker.tracksInfoWindowChanges = true
+                    infoWindow.pictureView.image = photo
+                    marker.tracksInfoWindowChanges = false
+                }
+            }
+            return infoWindow // This ensures a UIView? is always returned
+        }
         
     }
 

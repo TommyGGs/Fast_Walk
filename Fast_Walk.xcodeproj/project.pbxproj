@@ -178,7 +178,6 @@
 				31DAB4332B46637700F04CF0 /* CareKit in Frameworks */,
 				31DAB4372B46637700F04CF0 /* CareKitUI in Frameworks */,
 				31DAB4352B46637700F04CF0 /* CareKitStore in Frameworks */,
-				E22AA3F92B5A8B0F00AE06BD /* Realm in Frameworks */,
 				104010BD4BD316DE09F57802 /* Pods_Fast_Walk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -568,7 +567,7 @@
 			);
 			mainGroup = E21292942B16E61400796BE5;
 			packageReferences = (
-				31DAB4312B46637700F04CF0 /* XCRemoteSwiftPackageReference "CareKit.git" */,
+				31DAB4312B46637700F04CF0 /* XCRemoteSwiftPackageReference "CareKit" */,
 				E22AA3F72B5A8B0F00AE06BD /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = E212929E2B16E61400796BE5 /* Products */;
@@ -860,7 +859,7 @@
 				CODE_SIGN_ENTITLEMENTS = Fast_Walk/Fast_Walk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XJH3A7SY36;
+				DEVELOPMENT_TEAM = 6PH9P2YMVX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -899,7 +898,7 @@
 				CODE_SIGN_ENTITLEMENTS = Fast_Walk/Fast_Walk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XJH3A7SY36;
+				DEVELOPMENT_TEAM = 6PH9P2YMVX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -953,7 +952,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		31DAB4312B46637700F04CF0 /* XCRemoteSwiftPackageReference "CareKit.git" */ = {
+		31DAB4312B46637700F04CF0 /* XCRemoteSwiftPackageReference "CareKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/carekit-apple/CareKit.git";
 			requirement = {
@@ -974,17 +973,17 @@
 /* Begin XCSwiftPackageProductDependency section */
 		31DAB4322B46637700F04CF0 /* CareKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 31DAB4312B46637700F04CF0 /* XCRemoteSwiftPackageReference "CareKit.git" */;
+			package = 31DAB4312B46637700F04CF0 /* XCRemoteSwiftPackageReference "CareKit" */;
 			productName = CareKit;
 		};
 		31DAB4342B46637700F04CF0 /* CareKitStore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 31DAB4312B46637700F04CF0 /* XCRemoteSwiftPackageReference "CareKit.git" */;
+			package = 31DAB4312B46637700F04CF0 /* XCRemoteSwiftPackageReference "CareKit" */;
 			productName = CareKitStore;
 		};
 		31DAB4362B46637700F04CF0 /* CareKitUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 31DAB4312B46637700F04CF0 /* XCRemoteSwiftPackageReference "CareKit.git" */;
+			package = 31DAB4312B46637700F04CF0 /* XCRemoteSwiftPackageReference "CareKit" */;
 			productName = CareKitUI;
 		};
 		E22AA3FA2B5A8B0F00AE06BD /* RealmSwift */ = {
