@@ -30,7 +30,7 @@ class RouteOrTimeViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         addTitleLabel()
-        setupBackButton()
+        //setupBackButton()
         addGradientLayer()
     }
     
@@ -55,8 +55,8 @@ class RouteOrTimeViewController: UIViewController{
             
             // Set constraints for the label (align to top and left)
             NSLayoutConstraint.activate([
-                titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50),
-                titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 100)
+                titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+                titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 80)
             ])
             self.view.bringSubviewToFront(titleLabel)
         }
@@ -97,18 +97,18 @@ class RouteOrTimeViewController: UIViewController{
             self.view.layer.addSublayer(gradientLayer)
         }
         
-        func setupBackButton(){
-            let backButton = UIButton(type: .system)
-            backButton.setImage(UIImage(named: "Backbutton.png"), for: .normal)
-            backButton.tintColor = UIColor(red: 84/255.0, green: 84/255.0, blue: 84/255.0, alpha: 0.9)
-            backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-            
-            backButton.frame = CGRect(x: 20, y: 50, width: 22, height: 22)
-            
-            // Add the button to the view
-            view.addSubview(backButton)
-            view.bringSubviewToFront(backButton)
-        }
+//        func setupBackButton(){
+//            let backButton = UIButton(type: .system)
+//            backButton.setImage(UIImage(named: "Backbutton.png"), for: .normal)
+//            backButton.tintColor = UIColor(red: 84/255.0, green: 84/255.0, blue: 84/255.0, alpha: 0.9)
+//            backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+//            
+//            backButton.frame = CGRect(x: 20, y: 50, width: 22, height: 22)
+//            
+//            // Add the button to the view
+//            view.addSubview(backButton)
+//            view.bringSubviewToFront(backButton)
+//        }
         
         @objc func backButtonTapped() {
             print("button tapped")
