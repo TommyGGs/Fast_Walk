@@ -56,13 +56,14 @@ class CustomInfoWindow: UIView {
         print(view.bounds.size.height, view.bounds.size.width)
         return view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
     }
-    
     private func setupStyle() {
         contentView.layer.cornerRadius = 40
-        contentView.backgroundColor = #colorLiteral(red: 0.8862745098, green: 0.9411764706, blue: 0.9882352941, alpha: 0.868413862)
+        
+        // Set the background color to the specified RGB values with 70% opacity
+        contentView.backgroundColor = UIColor(red: 220/255.0, green: 228/255.0, blue: 253/255.0, alpha: 0.77)
+        
         pictureView.layer.cornerRadius = 20
         pictureView.layer.opacity = 1
-        
-        
     }
+
 }
