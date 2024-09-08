@@ -84,6 +84,8 @@ class EndViewController: EndScreenViewController{
         
         view.bringSubviewToFront(finishButton)
         
+        
+        
         // 数値と単位を組み合わせてフォーマットする関数
         func createFormattedLabelText(number: String, unit: String) -> NSAttributedString {
             let numberAttributes: [NSAttributedString.Key: Any] = [
