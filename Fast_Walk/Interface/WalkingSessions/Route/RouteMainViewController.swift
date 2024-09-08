@@ -1,3 +1,4 @@
+
 import UIKit
 import MapKit
 import GoogleMaps
@@ -17,6 +18,9 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
 //    var desiredTime: Int?
     var desiredType: String?
     
+    var titleLabel: UILabel!
+    var backButton: UIButton!
+    
     // MARK: Route Polyline
     var currentRoutePolyline: GMSPolyline?
     var destination: GMSPlace?
@@ -34,26 +38,168 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         searchVCStuff()
         beginLocationUpdate()
         locationManager.delegate = self
-        
         self.view.sendSubviewToBack(mapContainerView)
-        
     }
     
-    // MARK: Design (from here)
-    func setupBackButton(){
-        let backButton = UIButton(type: .system)
+    
+    // MARK: Design
+//    func searchVCStuff() {
+//        // Hide the default navigation bar
+//        navigationController?.setNavigationBarHidden(true, animated: true) // Hide the default nav bar
+//
+//        // Create a custom navigation bar view
+//        let customNavBar = UIView()
+//        customNavBar.backgroundColor = .white // Customize the color of the nav bar
+//        customNavBar.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(customNavBar)
+//
+//        // Add constraints for the custom navigation bar (place it at the top)
+//        NSLayoutConstraint.activate([
+//            customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+//            customNavBar.heightAnchor.constraint(equalToConstant: 120) // Customize the height to fit both the button and title label
+//        ])
+//
+//        // Add the back button inside the customNavBar
+//        setupBackButton(to: customNavBar)
+//
+//        // Add the title label below the back button
+//        addTitleLabel(to: customNavBar)
+//
+//        // Add search bar below the title label
+//        searchVC.searchResultsUpdater = self
+//        searchVC.obscuresBackgroundDuringPresentation = false
+//        searchVC.searchBar.placeholder = "目的地を検索する"
+//        searchVC.searchBar.translatesAutoresizingMaskIntoConstraints = true
+//
+//        // Add the search bar inside the customNavBar and show it
+//        customNavBar.addSubview(searchVC.searchBar)
+//
+//        // Set search bar constraints (below titleLabel)
+//        NSLayoutConstraint.activate([
+//            searchVC.searchBar.leadingAnchor.constraint(equalTo: customNavBar.leadingAnchor, constant: 16),
+//            searchVC.searchBar.trailingAnchor.constraint(equalTo: customNavBar.trailingAnchor, constant: -16),
+//            searchVC.searchBar.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+//            searchVC.searchBar.heightAnchor.constraint(equalToConstant: 40) // Set height for the search bar
+//        
+//        ])
+//    }
+    
+    func searchVCStuff() {
+        // Hide the default navigation bar
+        navigationController?.setNavigationBarHidden(true, animated: true)
+
+        // Create a custom navigation bar view
+        let customNavBar = UIView()
+        customNavBar.backgroundColor = .white
+        customNavBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(customNavBar)
+
+        // Add constraints for the custom navigation bar
+        NSLayoutConstraint.activate([
+            customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            customNavBar.heightAnchor.constraint(equalToConstant: 120)
+        ])
+
+        // Add back button and title label
+        setupBackButton(to: customNavBar)
+        addTitleLabel(to: customNavBar)
+
+        // Add search bar below the title label
+        searchVC.searchResultsUpdater = self
+        searchVC.obscuresBackgroundDuringPresentation = false
+        searchVC.searchBar.placeholder = "目的地を検索する"
+        searchVC.searchBar.translatesAutoresizingMaskIntoConstraints = true
+        customNavBar.addSubview(searchVC.searchBar)
+
+        // Set search bar constraints
+        NSLayoutConstraint.activate([
+            searchVC.searchBar.leadingAnchor.constraint(equalTo: customNavBar.leadingAnchor, constant: 16),
+            searchVC.searchBar.trailingAnchor.constraint(equalTo: customNavBar.trailingAnchor, constant: -16),
+            searchVC.searchBar.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            searchVC.searchBar.heightAnchor.constraint(equalToConstant: 40)
+        ])
+
+        // Force layout update to ensure everything is displayed immediately
+        customNavBar.layoutIfNeeded()
+    }
+
+
+//    func addTitleLabel(to parentView: UIView) {
+//        // Create the label
+//        titleLabel = UILabel()
+//        titleLabel.text = "ルートコース"
+//        titleLabel.font = UIFont(name: "NotoSansJP-Medium", size: 28) // Noto Sans JP Medium font
+//        titleLabel.textColor = .black
+//        titleLabel.alpha = 1 // Fully visible
+//        titleLabel.translatesAutoresizingMaskIntoConstraints = false // Set to false for Auto Layout
+//
+//        // Add the label to the parent view
+//        parentView.addSubview(titleLabel)
+//
+//        // Set constraints for the label
+//        NSLayoutConstraint.activate([
+//            titleLabel.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 100), // Shift right
+//            titleLabel.topAnchor.constraint(equalTo: parentView.topAnchor, constant: 55) // Move it further down by increasing the constant (50 for example)
+//        ])
+//    }
+    
+    func addTitleLabel(to parentView: UIView) {
+        // Create the label
+        titleLabel = UILabel()
+        titleLabel.text = "ルートコース"
+        titleLabel.font = UIFont(name: "NotoSansJP-Medium", size: 28) // Noto Sans JP Medium font
+        titleLabel.textColor = .black
+        titleLabel.alpha = 1 // Fully visible
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false // Set to false for Auto Layout
+
+        // Add the label to the parent view (custom navigation bar)
+        parentView.addSubview(titleLabel)
+
+        // Set constraints for the label to be at the bottom of the navigation bar
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 55), // Align with left side of the parent
+            titleLabel.trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -16), // Optional: Align with the right side too
+            titleLabel.bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -15) // Anchor it to the bottom of the parent with some padding
+        ])
+    }
+
+
+
+
+    func setupBackButton(to parentView: UIView) {
+        // Create a custom back button
+        backButton = UIButton(type: .system)
         backButton.setImage(UIImage(named: "Backbutton.png"), for: .normal)
         backButton.tintColor = UIColor(red: 84/255.0, green: 84/255.0, blue: 84/255.0, alpha: 0.9)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         
-        backButton.frame = CGRect(x: 20, y: 50, width: 22, height: 22)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
 
-        // Add the button to the view
-        view.addSubview(backButton)
-        view.bringSubviewToFront(backButton)
+        // Add the button to the parent view (custom navigation bar)
+        parentView.addSubview(backButton)
+
+        // Set constraints for the back button (at the top-left)
+        NSLayoutConstraint.activate([
+//            backButton.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 16),
+//            backButton.topAnchor.constraint(equalTo: parentView.topAnchor, constant: 20), // Top-left position
+//            backButton.widthAnchor.constraint(equalToConstant: 30),
+//            backButton.heightAnchor.constraint(equalToConstant: 30)
+            
+            backButton.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 16),
+            backButton.topAnchor.constraint(equalTo: parentView.topAnchor, constant: 70), // Adjust based on the search bar's position
+            backButton.widthAnchor.constraint(equalToConstant: 30),
+            backButton.heightAnchor.constraint(equalToConstant: 30)
+        ])
+        
+        
     }
-    
+
     @objc func backButtonTapped() {
+        // Handle the back button tap
         print("button tapped")
         let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
         if let chooseVC = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
@@ -61,33 +207,10 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             self.present(chooseVC, animated: true, completion: nil)
         }
     }
-    
-    // MARK: Design
-    func searchVCStuff() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        
-        // Set up the search controller
-        searchVC.searchResultsUpdater = self
-        searchVC.obscuresBackgroundDuringPresentation = false
-        searchVC.searchBar.placeholder = "目的地を検索する"
-        
-        // Integrate the search controller into the navigation item
-        navigationItem.searchController = searchVC
-        navigationItem.hidesSearchBarWhenScrolling = false // Optional: Change based on your preference
-        
-        // Remove title and adjust navigation bar appearance
-        navigationItem.title = ""
-        navigationController?.navigationBar.prefersLargeTitles = false // Adjust based on your design preference
-        
-        // Make the search bar more integrated with the nav bar
-        searchVC.searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default) // Makes it seamless
-        searchVC.searchBar.backgroundColor = .clear
 
-        // Customizing the text field inside the search bar for further integration
-        if let textfield = searchVC.searchBar.value(forKey: "searchField") as? UITextField {
-            textfield.backgroundColor = UIColor.clear
-        }
-    }
+
+
+
 
     
     
@@ -100,6 +223,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         mapView.delegate = self // Set the delegate after initializing the mapView
         
         mapContainerView.addSubview(mapView)
+        mapContainerView.sendSubviewToBack(mapView)
         beginLocationUpdate()
     }
     
@@ -271,10 +395,10 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
 //                self.displayRouteOnMap(polyString: routeDetails.polyString, start: start, end: <#CLLocationCoordinate2D#>, durationText: routeDetails.durationText)
             } else {
 //                print("No best route found, displaying the first route anyway.")
-//                
+//
 //                // Generate random waypoints for the first route
 //                let firstWaypoints = self.generateRandomWaypoints(from: start, count: 2, adjustment: self.calculateWaypointAdjustment(for: desiredTime))
-//                
+//
 //                // Check if firstWaypoints is not nil before using it
 //                if !firstWaypoints.isEmpty {
 //                    self.requestRoute(from: start, waypoints: firstWaypoints) { polyString, duration in
@@ -439,6 +563,8 @@ extension RouteMainViewController: ResultsViewControllerDelegate {
         searchVC.dismiss(animated: true, completion: nil)
         mapView.clear()
         
+        
+        
         destination = place
         print("setting destination to:", place)
         // MARK: set coordinate as marker
@@ -455,4 +581,3 @@ extension RouteMainViewController: ResultsViewControllerDelegate {
     }
     
 }
-

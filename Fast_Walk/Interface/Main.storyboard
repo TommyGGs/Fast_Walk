@@ -8,7 +8,6 @@
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -364,31 +363,6 @@
                                             <action selector="useRoute" destination="BYZ-38-t0r" eventType="touchUpInside" id="2HS-Pw-pH8"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwj-uO-hXn">
-                                        <rect key="frame" x="283" y="110" width="102" height="41"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Testing"/>
-                                        <connections>
-                                            <segue destination="Wfz-IO-LwG" kind="presentation" identifier="TestingNavigationViewController" modalPresentationStyle="fullScreen" id="hp3-36-UKb"/>
-                                        </connections>
-                                    </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SCJ-HC-bLT">
-                                        <rect key="frame" x="135" y="153" width="120" height="30"/>
-                                        <color key="backgroundColor" name="AccentColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="120" id="tOV-Gg-Koh"/>
-                                        </constraints>
-                                        <menu key="menu" id="XDH-hx-E1e">
-                                            <children>
-                                                <command title="Item 1" id="Lfr-4M-pxy"/>
-                                                <command title="Item 2" id="XUU-RK-IkJ"/>
-                                            </children>
-                                        </menu>
-                                        <state key="normal" title="Button">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xet-ML-iTl">
                                         <rect key="frame" x="20" y="13" width="350" height="80"/>
                                         <subviews>
@@ -450,16 +424,20 @@
                                             <constraint firstItem="AGd-wc-gna" firstAttribute="height" secondItem="Fqc-Cx-zfz" secondAttribute="height" id="vsx-F8-xSS"/>
                                         </constraints>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="riX-BV-UDf">
+                                        <rect key="frame" x="145" y="188" width="75" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="390" id="96m-Hb-Rjc"/>
                                     <constraint firstItem="xet-ML-iTl" firstAttribute="centerX" secondItem="GFA-RH-qf9" secondAttribute="centerX" id="AmK-Vc-7v1"/>
-                                    <constraint firstItem="SCJ-HC-bLT" firstAttribute="top" secondItem="GFA-RH-qf9" secondAttribute="top" constant="223" id="FSD-sU-9xe"/>
                                     <constraint firstAttribute="height" constant="260" id="G3Y-e5-X06"/>
                                     <constraint firstItem="xet-ML-iTl" firstAttribute="top" secondItem="GFA-RH-qf9" secondAttribute="top" constant="13" id="XS6-6P-AJJ"/>
                                     <constraint firstItem="6Xn-gT-2dV" firstAttribute="centerX" secondItem="GFA-RH-qf9" secondAttribute="centerX" id="oba-XN-6gH"/>
-                                    <constraint firstItem="SCJ-HC-bLT" firstAttribute="centerX" secondItem="GFA-RH-qf9" secondAttribute="centerX" id="uma-PX-Xtc"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dhg-9r-j9c">
@@ -505,7 +483,7 @@
                         <outlet property="navigationView" destination="GFA-RH-qf9" id="fNz-6M-EJw"/>
                         <outlet property="profilePic" destination="ShJ-gr-Sfc" id="eVZ-UJ-TYT"/>
                         <outlet property="startButton" destination="6Xn-gT-2dV" id="Wp0-Zp-CXS"/>
-                        <outlet property="typeChoiceButton" destination="SCJ-HC-bLT" id="Kc9-oM-x7D"/>
+                        <outlet property="typeChoiceButton" destination="riX-BV-UDf" id="zRW-MT-JGf"/>
                         <segue destination="5Oe-OB-C1X" kind="show" identifier="showRoute" id="2FV-9Q-hMr"/>
                     </connections>
                 </viewController>
@@ -555,7 +533,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title=" " imagePadding="0.0">
                                     <imageReference key="image" image="playpause.fill" catalog="system" symbolScale="large"/>
-                                    <color key="baseForegroundColor" name="AccentColor"/>
+                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="baseBackgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
@@ -588,7 +566,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="歩数" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiU-10-KHL">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="歩数" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiU-10-KHL">
                                 <rect key="frame" x="136" y="768" width="118" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="9eU-8N-TJC"/>
@@ -605,7 +583,8 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="stop.circle.fill" catalog="system" imagePlacement="top" title="終わる" imagePadding="0.0" cornerStyle="capsule">
-                                    <fontDescription key="titleFontDescription" name="NotoSansJP-SemiBold" family="Noto Sans JP" pointSize="15"/>
+                                    <fontDescription key="titleFontDescription" name="NotoSansJP-Regular" family="Noto Sans JP" pointSize="15"/>
+                                    <color key="baseBackgroundColor" red="0.30980392156862746" green="0.58431372549019611" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="endTimer" destination="5Oe-OB-C1X" eventType="touchUpInside" id="RLw-um-04w"/>

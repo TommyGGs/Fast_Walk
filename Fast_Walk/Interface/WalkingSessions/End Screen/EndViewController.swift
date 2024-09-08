@@ -296,7 +296,7 @@ class EndViewController: EndScreenViewController{
         messageLabel.textColor = .black
 
         // セッションに基づいた歩行時間を使ってメッセージを表示
-        let walkingMinutes = 30 // ここは動的に値を設定
+        let walkingMinutes = receivedTime / 60 // 秒を分に変換
         messageLabel.text = "本日 \(walkingMinutes) 分のウォーキングで上記の病気を\n予防することに成功しました！\nこれからも継続して健康を保ちましょう！"
 
         // ラベルをビューに追加
