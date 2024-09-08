@@ -72,7 +72,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         setupStyle()
         setupChoiceButton()
         //        changeRouteButton()
-        navBar()
+//        navBar()
         //MARK: Setup route type selection view
         //        configurePlaceTypesStackView()
         configurePlaceTypesButtons()
@@ -668,6 +668,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             errorLabel()
         }
     }
+    
     
     
     

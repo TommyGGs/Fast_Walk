@@ -167,6 +167,14 @@ class EndViewController: EndScreenViewController{
         view.bringSubviewToFront(finishButton)
         
     }
+    
+    @IBAction func goToRouteorTime() {
+        let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
+        if let route = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
+            route.modalPresentationStyle = .fullScreen
+            self.present(route, animated: true, completion: nil)
+        }
+    }
 
     func setupUI() {
         view.backgroundColor = .white

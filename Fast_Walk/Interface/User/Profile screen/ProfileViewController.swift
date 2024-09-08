@@ -46,10 +46,10 @@ class ProfileViewController: UIViewController {
         }
     }
     @IBAction func home() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let accountVC = storyboard.instantiateViewController(withIdentifier: "MainViewController") as? ViewController {
-            accountVC.modalPresentationStyle = .fullScreen
-            self.present(accountVC, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
+        if let routeortimeVC = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
+            routeortimeVC.modalPresentationStyle = .fullScreen
+            self.present(routeortimeVC, animated: true, completion: nil)
         }
     }
     
