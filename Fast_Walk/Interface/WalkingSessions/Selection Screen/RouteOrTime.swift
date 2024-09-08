@@ -32,7 +32,7 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
         profilePic.setImage(UIImage(named: "google.png"), for: .normal) // Make sure "default_profile_image" exists in your assets
 
         addTitleLabel()
-        setupBackButton()
+        //setupBackButton()
         addGradientLayer()
         setupProfilePicConstraints()
 

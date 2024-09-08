@@ -26,6 +26,8 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
     // MARK: Passing route info
     var storedRouteDetails: RouteDetails?
     var passWaypoint: [GMSPlace] = []
+    var whiteBoxView: UIView!
+
     
     private var placesClient: GMSPlacesClient!
     
@@ -39,6 +41,8 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         
         self.view.sendSubviewToBack(mapContainerView)
         
+        setupWhiteBox()
+        
         Setuptoprectangularbox()
         addGradientLayer()
         addTitleLabel()
@@ -46,6 +50,30 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
 
     }
     // MARK: Design (from here)
+    
+    // MARK: Setup White Rounded Box with Gradient
+    func setupWhiteBox() {
+        whiteBoxView = UIView()
+        whiteBoxView.frame = CGRect(x: 20, y: 100, width: self.view.frame.width - 40, height: 200)
+        whiteBoxView.backgroundColor = .white
+        whiteBoxView.layer.cornerRadius = 20
+        whiteBoxView.layer.masksToBounds = true
+        
+        // Add gradient layer
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [
+            UIColor(white: 0.9, alpha: 1.0).cgColor,  // Light gray
+            UIColor.white.cgColor                     // White
+        ]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.2)
+        gradientLayer.frame = whiteBoxView.bounds
+        whiteBoxView.layer.addSublayer(gradientLayer)
+        
+        self.view.addSubview(whiteBoxView)
+        self.view.bringSubviewToFront(whiteBoxView)
+    }
+    
     
     func addTitleLabel() {
            // Create the label
@@ -143,6 +171,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
     }
     
     // MARK: Design
+
     func searchVCStuff() {
         navigationController?.setNavigationBarHidden(false, animated: true)
         
