@@ -72,7 +72,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         setupStyle()
         setupChoiceButton()
         //        changeRouteButton()
-        navBar()
+//        navBar()
         //MARK: Setup route type selection view
         //        configurePlaceTypesStackView()
         configurePlaceTypesButtons()
@@ -671,6 +671,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     
     
+    
     @IBAction func searchRoute(_ sender: UIButton) {
         print("Search button pressed")
         currentRoutePolyline?.map = nil
@@ -864,11 +865,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         if let imageUrl = user.profile?.imageURL(withDimension: 80) {
             downloadImage(from: imageUrl) { image in
                 DispatchQueue.main.async {
-//                    self.profilePic.setImage(image, for: .normal)
-//                    self.profilePic.imageView?.contentMode = .scaleToFill
-//                    
-//                    self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
-//                    self.profilePic.clipsToBounds = true
+                    self.profilePic.setImage(image, for: .normal)
+                    self.profilePic.imageView?.contentMode = .scaleToFill
+                    
+                    self.profilePic.layer.cornerRadius = self.profilePic.frame.size.width / 2
+                    self.profilePic.clipsToBounds = true
                 }
             }
         }

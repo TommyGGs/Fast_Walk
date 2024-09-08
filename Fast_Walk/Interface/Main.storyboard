@@ -348,8 +348,8 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="shoeprints.fill" catalog="system" title=""/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xn-gT-2dV">
-                                        <rect key="frame" x="-5" y="140" width="400" height="100"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xn-gT-2dV">
+                                        <rect key="frame" x="-5" y="140" width="400" height="130"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="YkL-ZI-iQ5"/>
                                             <constraint firstAttribute="width" constant="400" id="brf-7W-dNl"/>
@@ -373,7 +373,7 @@
                                             <segue destination="Wfz-IO-LwG" kind="presentation" identifier="TestingNavigationViewController" modalPresentationStyle="fullScreen" id="hp3-36-UKb"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SCJ-HC-bLT">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SCJ-HC-bLT">
                                         <rect key="frame" x="135" y="153" width="120" height="30"/>
                                         <color key="backgroundColor" name="AccentColor"/>
                                         <constraints>
@@ -668,7 +668,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="Jyg-pS-Qog"/>
+                                    <action selector="goToRouteorTime" destination="n7d-qZ-gcw" eventType="touchUpInside" id="ZEX-Ex-PNO"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="歩数" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PtR-9V-dVu">
