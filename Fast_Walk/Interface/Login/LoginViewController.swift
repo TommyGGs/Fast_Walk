@@ -21,7 +21,24 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        // Realm initialization with error handling
+//        do {
+//            let realmURL = Realm.Configuration.defaultConfiguration.fileURL!
+//            try FileManager.default.removeItem(at: realmURL)  // This will delete the Realm database
+//            print("Deleted Realm file at: \(realmURL)")
+//            
+//            let realm = try Realm()  // Reinitialize Realm after deletion
+//            print("Realm reinitialized successfully")
+//            
+//            self.users = Array(realm.objects(User.self))
+//            print("Fetched and converted users successfully")
+//            
+//        } catch let error {
+//            print("Error deleting or initializing Realm: \(error.localizedDescription)")
+//        }
+
+
         if signUp == true {
             print("signup is trueee")
             signUpText.text = "新規登録"
@@ -32,13 +49,14 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         } else {
             signUpText.text = "新規登録"
         }
-        users = readUsers()
+        
         rectangleView()
         lineButton()
         setGradientBackground()
         addImageView()
         setupUI()
     }
+
 
     
     override func viewDidAppear(_ animated: Bool) {
