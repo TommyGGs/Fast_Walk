@@ -26,7 +26,7 @@ class EndViewController: EndScreenViewController{
     @IBOutlet weak var paceLabel: UILabel!
 //    @IBOutlet weak var calorieLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var heartButton: UIButton!
+//    @IBOutlet weak var heartButton: UIButton!
     @IBOutlet weak var calorieLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var finishButton: UIButton!
@@ -75,13 +75,15 @@ class EndViewController: EndScreenViewController{
         finishButton.layer.cornerRadius = 15
         finishButton.clipsToBounds = true
         finishButton.translatesAutoresizingMaskIntoConstraints = false
+        // finishButtonの制約を調整して、過度な隙間を修正
         NSLayoutConstraint.activate([
-            finishButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            finishButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            finishButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            finishButton.topAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
+            finishButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),  // 左右のマージンを追加
+            finishButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),  // 左右のマージンを追加
+            finishButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),  // 画面下に近づける
+            finishButton.topAnchor.constraint(greaterThanOrEqualTo: messageLabel.bottomAnchor, constant: 80),  // 上のマージンを調整して高さを伸ばす
+            finishButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 100)  // ボタンの高さを伸ばす
         ])
-        
+
         view.bringSubviewToFront(finishButton)
         
         
@@ -199,10 +201,10 @@ class EndViewController: EndScreenViewController{
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // Heart button
-        heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
-        heartButton.tintColor = .gray
-        heartButton.addTarget(self, action: #selector(toggleHeart), for: .touchUpInside)
-        heartButton.translatesAutoresizingMaskIntoConstraints = false
+//        heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+//        heartButton.tintColor = .gray
+//        heartButton.addTarget(self, action: #selector(toggleHeart), for: .touchUpInside)
+//        heartButton.translatesAutoresizingMaskIntoConstraints = false
 
         distanceLabel.font = UIFont(name: "NotoSansJP-Bold", size: 24)
         calorieLabel.font = UIFont(name: "NotoSansJP-Bold", size: 24)
@@ -210,13 +212,13 @@ class EndViewController: EndScreenViewController{
         setupConstraints()
     }
 
-    @objc func toggleHeart() {
-        if heartButton.tintColor == .gray {
-            heartButton.tintColor = .red
-        } else {
-            heartButton.tintColor = .gray
-        }
-    }
+//    @objc func toggleHeart() {
+//        if heartButton.tintColor == .gray {
+//            heartButton.tintColor = .red
+//        } else {
+//            heartButton.tintColor = .gray
+//        }
+//    }
     
     // Set constraints for all UI elements
     func setupConstraints() {
@@ -255,29 +257,29 @@ class EndViewController: EndScreenViewController{
         ])
         
 //＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿ハートマジでデカくならん＿＿＿＿＿＿＿＿＿＿＿＿＿
-        heartButton.translatesAutoresizingMaskIntoConstraints = false
-        heartButton.setTitle("", for: .normal) // ボタンのテキストを空にする（必要なら後で再設定）
-        heartButton.setImage(UIImage(systemName: "heart"), for: .normal) // 画像の再設定
-        heartButton.imageView?.contentMode = .scaleAspectFit
-        // Heart button on the right of the circular progress bar
-        NSLayoutConstraint.activate([
-            // heartButton のサイズを大きくする
-            heartButton.widthAnchor.constraint(equalToConstant: 100),
-            heartButton.heightAnchor.constraint(equalToConstant: 100),
-
-            // heartButton を円グラフの右下に配置
-            heartButton.topAnchor.constraint(equalTo: circularProgressView.bottomAnchor, constant: -95), // 円グラフの下部に寄せる
-            heartButton.leadingAnchor.constraint(equalTo: circularProgressView.trailingAnchor, constant: -40) // 円グラフの右側に寄せる
-        ])
-
-        // Distance and Calorie labels at the bottom
-        NSLayoutConstraint.activate([
-            distanceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            distanceLabel.topAnchor.constraint(equalTo: circularProgressView.bottomAnchor, constant: 30),
-            
-            calorieLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            calorieLabel.topAnchor.constraint(equalTo: circularProgressView.bottomAnchor, constant: 30)
-        ])
+//        heartButton.translatesAutoresizingMaskIntoConstraints = false
+//        heartButton.setTitle("", for: .normal) // ボタンのテキストを空にする（必要なら後で再設定）
+//        heartButton.setImage(UIImage(systemName: "heart"), for: .normal) // 画像の再設定
+//        heartButton.imageView?.contentMode = .scaleAspectFit
+//        // Heart button on the right of the circular progress bar
+//        NSLayoutConstraint.activate([
+//            // heartButton のサイズを大きくする
+//            heartButton.widthAnchor.constraint(equalToConstant: 100),
+//            heartButton.heightAnchor.constraint(equalToConstant: 100),
+//
+//            // heartButton を円グラフの右下に配置
+//            heartButton.topAnchor.constraint(equalTo: circularProgressView.bottomAnchor, constant: -95), // 円グラフの下部に寄せる
+//            heartButton.leadingAnchor.constraint(equalTo: circularProgressView.trailingAnchor, constant: -40) // 円グラフの右側に寄せる
+//        ])
+//
+//        // Distance and Calorie labels at the bottom
+//        NSLayoutConstraint.activate([
+//            distanceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+//            distanceLabel.topAnchor.constraint(equalTo: circularProgressView.bottomAnchor, constant: 30),
+//            
+//            calorieLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+//            calorieLabel.topAnchor.constraint(equalTo: circularProgressView.bottomAnchor, constant: 30)
+//        ])
         
 //健康データ設定追加＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
         NSLayoutConstraint.activate([

@@ -665,7 +665,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bJn-dl-sqs">
-                                <rect key="frame" x="20" y="384" width="348" height="188"/>
+                                <rect key="frame" x="0.0" y="384" width="390" height="188"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.74509803921568629" green="0.81568627450980391" blue="0.96862745098039216" alpha="0.32000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -716,12 +716,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gjt-Io-bLt">
-                                <rect key="frame" x="293" y="323" width="40" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="　"/>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="　" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ja-AD-gaQ">
                                 <rect key="frame" x="174" y="500" width="16" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -748,7 +742,6 @@
                         <outlet property="diseaseProgressView" destination="0Rr-c3-i7Y" id="86v-ZA-qGd"/>
                         <outlet property="distanceLabel" destination="J86-O0-6Fg" id="oCz-z4-DQn"/>
                         <outlet property="finishButton" destination="CN1-hr-BYR" id="ZmT-MV-5J8"/>
-                        <outlet property="heartButton" destination="Gjt-Io-bLt" id="jxX-q0-yhX"/>
                         <outlet property="messageLabel" destination="1ja-AD-gaQ" id="5KM-wg-8Yh"/>
                         <outlet property="paceLabel" destination="v0a-wr-bs7" id="Kj0-bk-0Or"/>
                         <outlet property="stepsLabel" destination="PtR-9V-dVu" id="Iby-FX-gbU"/>
