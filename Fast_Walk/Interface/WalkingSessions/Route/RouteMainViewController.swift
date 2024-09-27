@@ -13,6 +13,8 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
     var locationManager = CLLocationManager()
     var marker = Marker()
     let randomwaypoint = randomWayPoint()
+    var errorLabelReference: UILabel?
+
     
     // route stuff
 //    var desiredTime: Int?
@@ -296,6 +298,10 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         currentRoutePolyline = nil
         mapView?.clear()
 
+        guard let destination = destination else {
+            errorLabel(type: "Time")
+            return
+        }
         
         if let currentLocation = currentLocation,
            let buttonText = sender.titleLabel?.text{
@@ -487,7 +493,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             if storedRouteDetails != nil {
                 self.presentRouteViewController()
             } else {
-                errorLabel()
+                errorLabel(type:"Start")
             }
         }
     
@@ -506,28 +512,48 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         }
     
         // errorLabel
-        func errorLabel(){
-            let labelWidth: CGFloat = 250
+        func errorLabel(type: String) {
+            if errorLabelReference != nil {
+                removeErrorLabel()
+            }
+
+            let labelWidth: CGFloat = 300
             let labelHeight: CGFloat = 50
-            
-            // Assuming this code is inside a ViewController method
             let screenWidth = UIScreen.main.bounds.width
-            let screenHeight = UIScreen.main.bounds.height
-            
             let labelX = (screenWidth / 2) - (labelWidth / 2)
-            //        let labelY = screenHeight * 0.5
-            
-            let myLabel = UILabel(frame: CGRect(x: labelX, y: 55, width: labelWidth, height: labelHeight))
-            myLabel.text = "追加の散歩分数を設定してください"
+
+            let myLabel = UILabel(frame: CGRect(x: labelX, y: 180, width: labelWidth, height: labelHeight))
+
+            if type == "Time" {
+                myLabel.text = "目的地を設定してください"
+            } else if type == "Start" {
+                myLabel.text = "追加の散歩分数を設定してください"
+            }
+
             myLabel.textAlignment = .center
-            myLabel.backgroundColor = .red // For visibility
+            myLabel.backgroundColor = .red
             myLabel.textColor = .white
             myLabel.layer.cornerRadius = 10
             myLabel.layer.masksToBounds = true
             myLabel.alpha = 0.8
-            
+
             view.addSubview(myLabel)
+            
+            // Store reference to the label
+            errorLabelReference = myLabel
         }
+
+    
+        // MARK: delete error label
+        func removeErrorLabel() {
+            // Check if the label exists and remove it
+            if let label = errorLabelReference {
+                label.removeFromSuperview()
+                errorLabelReference = nil // Clear the reference after removing
+            }
+        }
+
+    
         // MARK: end -
     
         // MARK: putMarker stuff
@@ -566,6 +592,7 @@ extension RouteMainViewController: ResultsViewControllerDelegate {
         
         
         destination = place
+        removeErrorLabel()
         print("setting destination to:", place)
         // MARK: set coordinate as marker
         let coordinate = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)

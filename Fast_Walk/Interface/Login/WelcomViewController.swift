@@ -25,9 +25,9 @@ class WelcomeViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let mainVC = storyboard.instantiateViewController(withIdentifier: "MainViewController") as? ViewController {
-            mainVC.modalPresentationStyle = .fullScreen
-            self.present(mainVC, animated: true, completion: nil)
+        if let routeOrTimeVC = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
+            routeOrTimeVC.modalPresentationStyle = .fullScreen
+            self.present(routeOrTimeVC, animated: true, completion: nil)
         }
     }
     
