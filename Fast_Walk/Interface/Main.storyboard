@@ -665,7 +665,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bJn-dl-sqs">
-                                <rect key="frame" x="0.0" y="384" width="390" height="188"/>
+                                <rect key="frame" x="8" y="384" width="372" height="188"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.74509803921568629" green="0.81568627450980391" blue="0.96862745098039216" alpha="0.32000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
