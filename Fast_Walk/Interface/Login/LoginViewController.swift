@@ -30,9 +30,9 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
             print("signup is falseee")
             signUpText.text = "ログイン"
         } else {
-            signUpText.text = "新規登録"
+            signUpText.text = "ログイン"
         }
-        users = readUsers()
+        readUsers()
         rectangleView()
         lineButton()
         setGradientBackground()
@@ -203,10 +203,23 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         }
     }
     
-    func readUsers() -> [User] {
-        return Array(realm.objects(User.self))
+    func readUsers() {
+        // Perform Realm read on a background thread
+        DispatchQueue.global(qos: .background).async {
+            autoreleasepool {
+                // Access Realm on the background thread
+                let backgroundRealm = try! Realm()
+                let users = Array(backgroundRealm.objects(User.self))
+                
+                // Switch back to the main thread to update UI
+                DispatchQueue.main.async {
+                    self.users = users
+                    // Perform any UI updates here if needed
+                }
+            }
+        }
     }
-    
+
     @objc func loginWithLine() {
         LoginManager.shared.login(permissions: [.profile], in: self) {
             result in
