@@ -127,32 +127,6 @@ class EndScreenViewController: FigmaTestViewController {
         store.execute(query)
     }
     
-//    func createCharts(_ stepsArray: [Int]) {
-//        let series = OCKDataSeries(
-//                values: stepsArray.map { CGFloat($0) },
-//                title: "今週の歩数",
-//                size: 10,
-//                color: .systemBlue
-//            )
-//
-////        let chartView = OCKCartesianChartView(type: .bar)
-////        chartView.translatesAutoresizingMaskIntoConstraints = false
-////        chartView.headerView.titleLabel.text = "今週の歩数"
-////        chartView.graphView.horizontalAxisMarkers = help.createWeeklyHorizontalAxisMarkers()
-////        chartView.graphView.dataSeries = [series]
-////        chartView.headerView.iconImageView?.image = UIImage(named: "sasaka logo4.png")
-//        
-////        chartFrame.addSubview(chartView)
-//
-//        NSLayoutConstraint.activate([
-//            chartView.centerXAnchor.constraint(equalTo: chartFrame.centerXAnchor),
-//            chartView.centerYAnchor.constraint(equalTo: chartFrame.centerYAnchor),
-//            chartView.widthAnchor.constraint(equalTo: chartFrame.widthAnchor), // Adjust width as per requirement
-//            chartView.heightAnchor.constraint(equalTo: chartFrame.heightAnchor, multiplier: 1) // Adjust height as per requirement
-//        ])
-//        
-//    }
-    
     func getDiseasesPrevented(steps: Int) -> [String] {
         switch steps {
         case ..<2000:

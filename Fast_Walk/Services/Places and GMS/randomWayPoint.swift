@@ -130,9 +130,9 @@ class randomWayPoint {
         switch desiredTime {
         case 10: print("case 10"); return 300
         case 20: print("case 20"); return 700
-        case 30: print("case 30"); return 1000 // Example radius for 30 minutes
-        case 45: return 3000 // Example radius for 45 minutes
-        case 60, 90: return 4000 // Example radius for 60 or 90 minutes
+        case 30: print("case 30"); return 700 // Example radius for 30 minutes
+        case 45: return 750 // Example radius for 45 minutes
+        case 60, 90: return 1000 // Example radius for 60 or 90 minutes
         default: return 500
         }
     }

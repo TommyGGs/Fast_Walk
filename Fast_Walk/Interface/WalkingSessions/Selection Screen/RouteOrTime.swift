@@ -33,6 +33,7 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
 
         addTitleLabel()
         //setupBackButton()
+//        setupBackButton()
         addGradientLayer()
         setupProfilePicConstraints()
 
@@ -212,50 +213,7 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
         profilePic.layer.cornerRadius = profilePic.frame.size.width / 2
         profilePic.clipsToBounds = true
     }
-    
-    
-//    func setupMapView() {
-//        let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 10.0)
-//        mapView = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
-//        mapView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        
-//        mapView?.delegate = self // Set the delegate after initializing the mapView
-//        
-//        mapContainerView.addSubview(mapView!)
-//        beginLocationUpdate()
-//    }
-    
-//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        beginLocationUpdate()
-//    }
-//    
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        if let location = locations.first, currentLocation == nil {
-//            currentLocation = location.coordinate
-//            updateMapCamera(location.coordinate)
-//            mapView?.camera = GMSCameraPosition(target: location.coordinate, zoom: 10.0)
-//            mapView?.isMyLocationEnabled = true
-//            mapView?.settings.myLocationButton = true
-//            mapView?.settings.zoomGestures = true //allows for zoom
-//            locationManager.stopUpdatingLocation() //why is this here? stop updating location
-//        }
-//    }
-//    
-//    func beginLocationUpdate() {
-//        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
-//            locationManager.startUpdatingLocation()
-//        } else {
-//            locationManager.requestWhenInUseAuthorization()
-//        }
-//    }
-//    
-//    func updateMapCamera(_ coordinate: CLLocationCoordinate2D) {
-//        let cameraUpdate = GMSCameraUpdate.setTarget(coordinate, zoom: 20.0)
-//        mapView?.animate(with: cameraUpdate)
-//        mapView?.isMyLocationEnabled = true
-//        mapView?.settings.myLocationButton = true
-//    }
-//        
+
         func addTitleLabel() {
             // Create the label
             titleLabel = UILabel()
