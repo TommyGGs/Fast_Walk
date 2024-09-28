@@ -59,6 +59,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         modeSwitch()
         //setupCircularProgressView() *not used
         setUpTimerView()
+        
+        print("waypoints are:", waypoints)
        
         
     }

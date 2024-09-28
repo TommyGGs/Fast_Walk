@@ -9,8 +9,10 @@ import UIKit
 
 class ChooseViewController: UIViewController{
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         setGradientBackground()
         addImageView()
@@ -40,11 +42,22 @@ class ChooseViewController: UIViewController{
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
             loginViewController.signUp = true
-            print("signup is \(loginViewController.signUp)")
+            print("signup is \(String(describing: loginViewController.signUp))")
             loginViewController.modalPresentationStyle = .fullScreen
             self.present(loginViewController, animated: true, completion: nil)
         }
     }
+    
+    @IBAction func signIn() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
+            loginViewController.signUp = false
+            loginViewController.modalPresentationStyle = .fullScreen
+            self.present(loginViewController, animated: true, completion: nil)
+        }
+    }
+    
+    
 
     func setGradientBackground() {
         let gradientLayer = CAGradientLayer()

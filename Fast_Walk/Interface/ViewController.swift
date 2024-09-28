@@ -624,7 +624,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         if let location = locations.first, currentLocation == nil {
             currentLocation = location.coordinate
             updateMapCamera(location.coordinate)
-            mapView?.camera = GMSCameraPosition(target: location.coordinate, zoom: 10.0)
+            mapView?.camera = GMSCameraPosition(target: location.coordinate, zoom: 15.0)
             mapView?.isMyLocationEnabled = true
             mapView?.settings.myLocationButton = true
             mapView?.settings.zoomGestures = true //allows for zoom

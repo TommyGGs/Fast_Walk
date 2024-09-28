@@ -10,57 +10,40 @@ import GoogleSignIn
 import LineSDK
 import RealmSwift
 
+
 class LoginViewController: UIViewController, LoginButtonDelegate {
     
     @IBOutlet var signUpText: UILabel!
     var users: [User] = []
     var userExist: Bool = false
-    var signUp: Bool?
+    var signUp: Bool!
     let realm = try! Realm()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Realm initialization with error handling
-//        do {
-//            let realmURL = Realm.Configuration.defaultConfiguration.fileURL!
-//            try FileManager.default.removeItem(at: realmURL)  // This will delete the Realm database
-//            print("Deleted Realm file at: \(realmURL)")
-//            
-//            let realm = try Realm()  // Reinitialize Realm after deletion
-//            print("Realm reinitialized successfully")
-//            
-//            self.users = Array(realm.objects(User.self))
-//            print("Fetched and converted users successfully")
-//            
-//        } catch let error {
-//            print("Error deleting or initializing Realm: \(error.localizedDescription)")
-//        }
-
-
-        if signUp == true {
-            print("signup is trueee")
-            signUpText.text = "新規登録"
-            print("\(String(describing: signUpText.text))")
-        } else if signUp == false {
-            print("signup is falseee")
-            signUpText.text = "ログイン"
-        } else {
-            signUpText.text = "新規登録"
-        }
         
         rectangleView()
         lineButton()
         setGradientBackground()
         addImageView()
         setupUI()
+        checkSignInUp()
     }
+    
 
 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    func checkSignInUp(){
+        if signUp == true {
+            signUpText.text = "新規登録"
+        } else if signUp == false {
+            signUpText.text = "ログイン"
+        }
     }
     
     @IBAction func signOut(sender: Any) {

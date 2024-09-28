@@ -14,6 +14,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
     var marker = Marker()
     let randomwaypoint = randomWayPoint()
     var errorLabelReference: UILabel?
+    
 
     
     // route stuff
@@ -89,10 +90,8 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
 //    }
     
     func searchVCStuff() {
-        // Hide the default navigation bar
         navigationController?.setNavigationBarHidden(true, animated: true)
 
-        // Create a custom navigation bar view
         let customNavBar = UIView()
         customNavBar.backgroundColor = .white
         customNavBar.translatesAutoresizingMaskIntoConstraints = false
@@ -247,7 +246,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             print("LOCATION COORDINATE IS:\(location.coordinate)")
             print("LOCATION COORDINATE IS:\(String(describing: currentLocation))")
             let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
-                                                  longitude: location.coordinate.longitude, zoom: 10.0)
+                                                  longitude: location.coordinate.longitude, zoom: 15.0)
             mapView.camera = camera
             mapView.isMyLocationEnabled = true
             mapView.settings.myLocationButton = true
@@ -374,6 +373,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
                         guard let destination = self.destination else{return}
                         self.marker.addMarker(destination, self.mapView)
                     }
+                    self.passWaypoint.append(placeInfo)
                 }
             }
                 
@@ -502,7 +502,12 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             if let routeViewController = storyboard.instantiateViewController(withIdentifier: "RouteViewController") as? RouteViewController,
                let _ = storedRouteDetails {
                 routeViewController.routeDetails = storedRouteDetails
+                guard let destination = destination else {
+                    return
+                }
+                self.passWaypoint.append(destination)
                 routeViewController.waypoints = passWaypoint
+                print("waypoint passed", passWaypoint)
                 routeViewController.modalPresentationStyle = .fullScreen
                 self.present(routeViewController, animated: true, completion: nil)
             } else {
@@ -576,7 +581,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
                     marker.tracksInfoWindowChanges = false
                 }
             }
-            return infoWindow // This ensures a UIView? is always returned
+            return infoWindow
         }
         
     }
