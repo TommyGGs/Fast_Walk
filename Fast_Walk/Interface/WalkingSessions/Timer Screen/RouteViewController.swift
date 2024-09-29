@@ -46,8 +46,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         //users & favorites
         allUsers = readAllUsers()
         user_favorites = readFavorites()
-        likeLabel.isHidden = true
-        heartBtn.isHidden = true
+        setupHeartBtn()
+
         print("this is user favorites: \(user_favorites)")
         
         //location
@@ -472,13 +472,27 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             }
         }
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-
-        if let endVC = segue.destination as? EndViewController {
-            endVC.receivedTime = duration
+    
+    @IBAction func goToEnd(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let endVC = storyboard.instantiateViewController(withIdentifier: "EndViewController") as? EndViewController {
+            endVC.receivedTime = duration // Set the properties you need to pass
             
+            // Set the presentation style if necessary (e.g., full screen)
+            endVC.modalPresentationStyle = .fullScreen
+            
+            // Present with animation
+            self.present(endVC, animated: false, completion: nil)
         }
+    }
+    
+    // MARK: - setup Heart Button
+    func setupHeartBtn() {
+        likeLabel.isHidden = true
+        heartBtn.isHidden = true
+        heartBtn.frame = CGRect(x: 40, y: 700, width: heartBtn.frame.width, height: heartBtn.frame.height)
+        heartBtn.setTitleColor(.red, for: .normal)
+        heartBtn.titleLabel?.font = UIFont.systemFont(ofSize: 24)
     }
 }
 

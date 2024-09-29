@@ -60,7 +60,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         loginVC.modalPresentationStyle = .fullScreen  // Ensuring it covers the full screen
-        self.present(loginVC, animated: true, completion: nil)
+        self.present(loginVC, animated: false, completion: nil)
     }
     
 
@@ -86,7 +86,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let chooseVC = storyboard.instantiateViewController(withIdentifier: "ChooseViewController") as? ChooseViewController {
             chooseVC.modalPresentationStyle = .fullScreen
-            self.present(chooseVC, animated: true, completion: nil)
+            self.present(chooseVC, animated: false, completion: nil)
         }
     }
 
@@ -234,12 +234,12 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
                         welcomeVC.modalPresentationStyle = .fullScreen
-                        self.present(welcomeVC, animated: true, completion: nil)
+                        self.present(welcomeVC, animated: false, completion: nil)
                     } else if self.userExist == true {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         if let mainVC = storyboard.instantiateViewController(withIdentifier: "MainViewController") as? ViewController {
                             mainVC.modalPresentationStyle = .fullScreen
-                            self.present(mainVC, animated: true, completion: nil)
+                            self.present(mainVC, animated: false, completion: nil)
                         }
                     }
                 }
@@ -298,7 +298,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
                         welcomeVC.modalPresentationStyle = .fullScreen
-                        self.present(welcomeVC, animated: true, completion: nil)
+                        self.present(welcomeVC, animated: false, completion: nil)
                     } else {
                         print("Could not instantiate WelcomeViewController from storyboard.")
                     }
@@ -308,7 +308,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     if let mainVC = storyboard.instantiateViewController(withIdentifier: "MainViewController") as? ViewController {
                         mainVC.modalPresentationStyle = .fullScreen
-                        self.present(mainVC, animated: true, completion: nil)
+                        self.present(mainVC, animated: false, completion: nil)
                     }
                 }
         }

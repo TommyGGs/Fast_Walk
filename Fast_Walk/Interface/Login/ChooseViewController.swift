@@ -44,7 +44,7 @@ class ChooseViewController: UIViewController{
             loginViewController.signUp = true
             print("signup is \(String(describing: loginViewController.signUp))")
             loginViewController.modalPresentationStyle = .fullScreen
-            self.present(loginViewController, animated: true, completion: nil)
+            self.present(loginViewController, animated: false, completion: nil)
         }
     }
     
@@ -53,7 +53,7 @@ class ChooseViewController: UIViewController{
         if let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
             loginViewController.signUp = false
             loginViewController.modalPresentationStyle = .fullScreen
-            self.present(loginViewController, animated: true, completion: nil)
+            self.present(loginViewController, animated: false, completion: nil)
         }
     }
     

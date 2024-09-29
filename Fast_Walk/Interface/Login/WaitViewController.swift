@@ -60,37 +60,16 @@ class WaitViewController: UIViewController {
             }
         }
     }
-
-//    private func presentRouteOrTimeViewController() {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
-//            mainNavController.modalPresentationStyle = .fullScreen
-//            self.present(mainNavController, animated: true, completion: nil)
-//        }
-//        self.present(RouteOrTimeViewController(), animated: true, completion: nil)
-//        print("going to route or time")
-        
-        
-//        let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
-//        if let routeOrTimeViewController = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
-//            routeOrTimeViewController.modalPresentationStyle = .fullScreen
-//            self.present(routeOrTimeViewController, animated: true, completion: nil)
-//        }
-//        print("going to route or time")
-//    }
     
     private func presentRouteOrTimeViewController() {
         let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
         if let routeOrTimeViewController = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
             routeOrTimeViewController.modalPresentationStyle = .fullScreen
-            self.present(routeOrTimeViewController, animated: true, completion: nil)
+            self.present(routeOrTimeViewController, animated: false, completion: nil)
         } else {
             print("Failed to instantiate RouteOrTimeViewController")
         }
         print("going to route or time")
-//
-//        let rotVC = RouteOrTimeViewController()
-//        self.present(rotVC, animated: true, completion: nil)
     }
 
     
@@ -98,7 +77,7 @@ class WaitViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
             loginViewController.modalPresentationStyle = .fullScreen
-            self.present(loginViewController, animated: true, completion: nil)
+            self.present(loginViewController, animated: false, completion: nil)
         }
     }
 
@@ -106,7 +85,7 @@ class WaitViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let chooseVC = storyboard.instantiateViewController(withIdentifier: "ChooseViewController") as? ChooseViewController {
             chooseVC.modalPresentationStyle = .fullScreen
-            self.present(chooseVC, animated: true, completion: nil)
+            self.present(chooseVC, animated: false, completion: nil)
         }
     }
 func addImageView() {

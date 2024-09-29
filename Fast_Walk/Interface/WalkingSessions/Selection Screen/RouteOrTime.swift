@@ -97,7 +97,7 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
          let storyboard = UIStoryboard(name: "Main", bundle: nil)
          if let mainNavController = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? UINavigationController {
              mainNavController.modalPresentationStyle = .fullScreen
-             self.present(mainNavController, animated: true, completion: nil)
+             self.present(mainNavController, animated: false, completion: nil)
          }
      }
     
@@ -105,7 +105,7 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
         let storyboard = UIStoryboard(name: "UserStoryboard", bundle: nil)
         if let profileNavController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
             profileNavController.modalPresentationStyle = .fullScreen
-            self.present(profileNavController, animated: true, completion: nil)
+            self.present(profileNavController, animated: false, completion: nil)
         }
     }
      
@@ -113,7 +113,7 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
          let storyboard = UIStoryboard(name: "RouteStoryboard", bundle: nil)
          if let mainNavController = storyboard.instantiateViewController(withIdentifier: "RouteNavigationController") as? UINavigationController {
              mainNavController.modalPresentationStyle = .fullScreen
-             self.present(mainNavController, animated: true, completion: nil)
+             self.present(mainNavController, animated: false, completion: nil)
          }
      }
 
@@ -330,7 +330,7 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             if let chooseVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
                 chooseVC.modalPresentationStyle = .fullScreen
-                self.present(chooseVC, animated: true, completion: nil)
+                self.present(chooseVC, animated: false, completion: nil)
             }
         }
     }

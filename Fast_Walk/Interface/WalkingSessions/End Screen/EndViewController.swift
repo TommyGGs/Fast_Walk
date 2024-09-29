@@ -174,7 +174,7 @@ class EndViewController: EndScreenViewController{
         let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
         if let route = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
             route.modalPresentationStyle = .fullScreen
-            self.present(route, animated: true, completion: nil)
+            self.present(route, animated: false, completion: nil)
         }
     }
 

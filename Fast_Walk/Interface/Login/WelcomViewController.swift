@@ -27,7 +27,7 @@ class WelcomeViewController: UIViewController {
         let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
         if let routeOrTimeVC = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
             routeOrTimeVC.modalPresentationStyle = .fullScreen
-            self.present(routeOrTimeVC, animated: true, completion: nil)
+            self.present(routeOrTimeVC, animated: false, completion: nil)
         }
     }
     

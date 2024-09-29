@@ -588,7 +588,7 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="endTimer" destination="5Oe-OB-C1X" eventType="touchUpInside" id="RLw-um-04w"/>
-                                    <segue destination="n7d-qZ-gcw" kind="presentation" id="1As-vi-Hs6"/>
+                                    <action selector="goToEnd:" destination="5Oe-OB-C1X" eventType="touchUpInside" id="21q-0E-hzp"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -635,7 +635,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CN1-hr-BYR">
-                                <rect key="frame" x="140" y="704" width="110" height="110"/>
+                                <rect key="frame" x="140" y="670" width="110" height="110"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="110" id="9TF-qY-Q0w"/>
                                     <constraint firstAttribute="width" constant="110" id="F83-ro-Em4"/>

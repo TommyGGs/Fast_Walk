@@ -75,14 +75,14 @@ class ProfileViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Favorite", bundle: nil)
         if let heartVC = storyboard.instantiateViewController(withIdentifier: "HeartViewController") as? HeartViewController {
             heartVC.modalPresentationStyle = .fullScreen
-            self.present(heartVC, animated: true, completion: nil)
+            self.present(heartVC, animated: false, completion: nil)
         }
     }
     @IBAction func home() {
         let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
         if let routeortimeVC = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
             routeortimeVC.modalPresentationStyle = .fullScreen
-            self.present(routeortimeVC, animated: true, completion: nil)
+            self.present(routeortimeVC, animated: false, completion: nil)
         }
     }
     
@@ -155,7 +155,7 @@ class ProfileViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         loginVC.modalPresentationStyle = .fullScreen  // Ensuring it covers the full screen
-        self.present(loginVC, animated: true, completion: nil)
+        self.present(loginVC, animated: false, completion: nil)
     }
     
 }
