@@ -88,6 +88,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         addGradientLayer()
         addTitleLabel()
         setupBackButton()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
