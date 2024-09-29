@@ -3080,6 +3080,7 @@
 				zh_TW,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = AFE33B65633067E0C26F907E997A1531 /* Products */;
 			productRefGroup = 178EDE32377E0E8B8B73FC8ACF4A78E5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

@@ -13,12 +13,12 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
     var locationManager = CLLocationManager()
     var marker = Marker()
     let randomwaypoint = randomWayPoint()
+    var errorLabelReference: UILabel?
     
-    // route stuff
-//    var desiredTime: Int?
     var desiredType: String?
     
     var titleLabel: UILabel!
+
     var backButton: UIButton!
     
     // MARK: Route Polyline
@@ -28,69 +28,121 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
     // MARK: Passing route info
     var storedRouteDetails: RouteDetails?
     var passWaypoint: [GMSPlace] = []
+    var whiteBoxView: UIView!
+
     
     private var placesClient: GMSPlacesClient!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        placesClient = GMSPlacesClient.shared()
         setupMapView()
+        placesClient = GMSPlacesClient.shared()
         searchVCStuff()
         beginLocationUpdate()
         locationManager.delegate = self
         self.view.sendSubviewToBack(mapContainerView)
-    }
-    
-    
-    // MARK: Design
-//    func searchVCStuff() {
-//        // Hide the default navigation bar
-//        navigationController?.setNavigationBarHidden(true, animated: true) // Hide the default nav bar
-//
-//        // Create a custom navigation bar view
-//        let customNavBar = UIView()
-//        customNavBar.backgroundColor = .white // Customize the color of the nav bar
-//        customNavBar.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(customNavBar)
-//
-//        // Add constraints for the custom navigation bar (place it at the top)
-//        NSLayoutConstraint.activate([
-//            customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//            customNavBar.heightAnchor.constraint(equalToConstant: 120) // Customize the height to fit both the button and title label
-//        ])
-//
-//        // Add the back button inside the customNavBar
-//        setupBackButton(to: customNavBar)
-//
-//        // Add the title label below the back button
-//        addTitleLabel(to: customNavBar)
-//
-//        // Add search bar below the title label
-//        searchVC.searchResultsUpdater = self
-//        searchVC.obscuresBackgroundDuringPresentation = false
-//        searchVC.searchBar.placeholder = "目的地を検索する"
-//        searchVC.searchBar.translatesAutoresizingMaskIntoConstraints = true
-//
-//        // Add the search bar inside the customNavBar and show it
-//        customNavBar.addSubview(searchVC.searchBar)
-//
-//        // Set search bar constraints (below titleLabel)
-//        NSLayoutConstraint.activate([
-//            searchVC.searchBar.leadingAnchor.constraint(equalTo: customNavBar.leadingAnchor, constant: 16),
-//            searchVC.searchBar.trailingAnchor.constraint(equalTo: customNavBar.trailingAnchor, constant: -16),
-//            searchVC.searchBar.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-//            searchVC.searchBar.heightAnchor.constraint(equalToConstant: 40) // Set height for the search bar
+//<<<<<<< HEAD
 //        
-//        ])
+//        setupWhiteBox()
+//        
+//        Setuptoprectangularbox()
+//        addGradientLayer()
+//        addTitleLabel()
+//        setupBackButton()
+//
 //    }
+//    // MARK: Design (from here)
+//    
+//    // MARK: Setup White Rounded Box with Gradient
+//    func setupWhiteBox() {
+//        whiteBoxView = UIView()
+//        whiteBoxView.frame = CGRect(x: 20, y: 100, width: self.view.frame.width - 40, height: 200)
+//        whiteBoxView.backgroundColor = .white
+//        whiteBoxView.layer.cornerRadius = 20
+//        whiteBoxView.layer.masksToBounds = true
+//        
+//        // Add gradient layer
+//        let gradientLayer = CAGradientLayer()
+//        gradientLayer.colors = [
+//            UIColor(white: 0.9, alpha: 1.0).cgColor,  // Light gray
+//            UIColor.white.cgColor                     // White
+//        ]
+//        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+//        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.2)
+//        gradientLayer.frame = whiteBoxView.bounds
+//        whiteBoxView.layer.addSublayer(gradientLayer)
+//        
+//        self.view.addSubview(whiteBoxView)
+//        self.view.bringSubviewToFront(whiteBoxView)
+//    }
+//    
+//    
+//    func addTitleLabel() {
+//           // Create the label
+//           titleLabel = UILabel()
+//           titleLabel.text = "ルートコース"
+//           titleLabel.font = UIFont(name: "NotoSansJP-Medium", size: 28) // Noto Sans JP Medium font
+//           titleLabel.textColor = .black
+//           titleLabel.alpha = 0.0 // Initially set the label to be fully transparent (for the animation)
+//           titleLabel.translatesAutoresizingMaskIntoConstraints = false
+//           
+//           // Add the label to the view
+//        self.view.addSubview(titleLabel)
+//           
+//           // Set constraints for the label (align to top and left)
+//           NSLayoutConstraint.activate([
+//               titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+//               titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16)
+//           ])
+//        self.view.bringSubviewToFront(titleLabel)
+//       }
+//       
+//       func animateTitleLabel() {
+//           // Animate the label from blurry to clear
+//           UIView.animate(withDuration: 0.2, animations: {
+//               self.titleLabel.alpha = 0.8 // Fully visible after the animation
+//           })
+//       }
+//    
+//    func addGradientLayer() {
+//            // CAGradientLayer 생성
+//            let gradientLayer = CAGradientLayer()
+//
+//            // 시작 색상: #B4E4FF, 100% 투명도
+//            let topColor = UIColor(red: 180/255, green: 228/255, blue: 255/255, alpha: 0.8).cgColor // #B4E4FF, 100% 투명
+//        
+//        // 중간 색상: 흰색, 75% 투명도
+//            let middleColor = UIColor(white: 1.0, alpha: 0.65).cgColor // 흰색 75% 투명도
+//        
+//            // 끝 색상: #D7F1FF, 25% 투명도
+//            let bottomColor = UIColor(red: 215/255, green: 241/255, blue: 255/255, alpha: 0.25).cgColor // #D7F1FF, 25% 투명
+//
+//            // 그라데이션의 색상 배열 설정
+//            gradientLayer.colors = [topColor, middleColor, bottomColor]
+//        
+//        // 그라데이션의 각 색상이 적용될 위치 (0.0이 상단, 1.0이 하단)
+//           gradientLayer.locations = [0.0, 0.5, 1.0] // 중간 색상이 50% 위치에 오도록 설정
+//
+//            // 그라데이션 레이어의 프레임 설정
+//            gradientLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 140) // 높이 조절 가능
+//
+//            // 그라데이션 위치 설정 (0.0이 상단, 1.0이 하단)
+//            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+//            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
+//
+//            // view의 레이어에 그라데이션 레이어 추가
+//            self.view.layer.addSublayer(gradientLayer)
+//        }
+//    
+//    func setupBackButton(){
+//        let backButton = UIButton(type: .system)
+//=======
+    }
+
     
     func searchVCStuff() {
-        // Hide the default navigation bar
-        navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: false)
 
-        // Create a custom navigation bar view
         let customNavBar = UIView()
         customNavBar.backgroundColor = .white
         customNavBar.translatesAutoresizingMaskIntoConstraints = false
@@ -127,25 +179,6 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         customNavBar.layoutIfNeeded()
     }
 
-
-//    func addTitleLabel(to parentView: UIView) {
-//        // Create the label
-//        titleLabel = UILabel()
-//        titleLabel.text = "ルートコース"
-//        titleLabel.font = UIFont(name: "NotoSansJP-Medium", size: 28) // Noto Sans JP Medium font
-//        titleLabel.textColor = .black
-//        titleLabel.alpha = 1 // Fully visible
-//        titleLabel.translatesAutoresizingMaskIntoConstraints = false // Set to false for Auto Layout
-//
-//        // Add the label to the parent view
-//        parentView.addSubview(titleLabel)
-//
-//        // Set constraints for the label
-//        NSLayoutConstraint.activate([
-//            titleLabel.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 100), // Shift right
-//            titleLabel.topAnchor.constraint(equalTo: parentView.topAnchor, constant: 55) // Move it further down by increasing the constant (50 for example)
-//        ])
-//    }
     
     func addTitleLabel(to parentView: UIView) {
         // Create the label
@@ -204,9 +237,10 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
         if let chooseVC = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
             chooseVC.modalPresentationStyle = .fullScreen
-            self.present(chooseVC, animated: true, completion: nil)
+            self.present(chooseVC, animated: false, completion: nil)
         }
     }
+
 
 
 
@@ -245,7 +279,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             print("LOCATION COORDINATE IS:\(location.coordinate)")
             print("LOCATION COORDINATE IS:\(String(describing: currentLocation))")
             let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
-                                                  longitude: location.coordinate.longitude, zoom: 10.0)
+                                                  longitude: location.coordinate.longitude, zoom: 15.0)
             mapView.camera = camera
             mapView.isMyLocationEnabled = true
             mapView.settings.myLocationButton = true
@@ -296,6 +330,10 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         currentRoutePolyline = nil
         mapView?.clear()
 
+        guard let destination = destination else {
+            errorLabel(type: "Time")
+            return
+        }
         
         if let currentLocation = currentLocation,
            let buttonText = sender.titleLabel?.text{
@@ -368,6 +406,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
                         guard let destination = self.destination else{return}
                         self.marker.addMarker(destination, self.mapView)
                     }
+                    self.passWaypoint.append(placeInfo)
                 }
             }
                 
@@ -390,23 +429,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
                     durationText: routeDetails.durationText,
                     startCoordinate: start
                 )
-//                print("displaying route on map")
-//                // Update the map with the newly found route
-//                self.displayRouteOnMap(polyString: routeDetails.polyString, start: start, end: <#CLLocationCoordinate2D#>, durationText: routeDetails.durationText)
             } else {
-//                print("No best route found, displaying the first route anyway.")
-//
-//                // Generate random waypoints for the first route
-//                let firstWaypoints = self.generateRandomWaypoints(from: start, count: 2, adjustment: self.calculateWaypointAdjustment(for: desiredTime))
-//
-//                // Check if firstWaypoints is not nil before using it
-//                if !firstWaypoints.isEmpty {
-//                    self.requestRoute(from: start, waypoints: firstWaypoints) { polyString, duration in
-//                        self.displayRouteOnMap(polyString: polyString, start: start, durationText: "\(duration / 60) min")
-//                    }
-//                } else {
-//                    print("Failed to generate random waypoints for the first route.")
-//                }
             }
         }
     }
@@ -487,7 +510,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             if storedRouteDetails != nil {
                 self.presentRouteViewController()
             } else {
-                errorLabel()
+                errorLabel(type:"Start")
             }
         }
     
@@ -496,9 +519,14 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             if let routeViewController = storyboard.instantiateViewController(withIdentifier: "RouteViewController") as? RouteViewController,
                let _ = storedRouteDetails {
                 routeViewController.routeDetails = storedRouteDetails
+                guard let destination = destination else {
+                    return
+                }
+                self.passWaypoint.append(destination)
                 routeViewController.waypoints = passWaypoint
+                print("waypoint passed", passWaypoint)
                 routeViewController.modalPresentationStyle = .fullScreen
-                self.present(routeViewController, animated: true, completion: nil)
+                self.present(routeViewController, animated: false, completion: nil)
             } else {
                 print("Failed to instantiate RouteViewController")
             }
@@ -506,28 +534,48 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         }
     
         // errorLabel
-        func errorLabel(){
-            let labelWidth: CGFloat = 250
+        func errorLabel(type: String) {
+            if errorLabelReference != nil {
+                removeErrorLabel()
+            }
+
+            let labelWidth: CGFloat = 300
             let labelHeight: CGFloat = 50
-            
-            // Assuming this code is inside a ViewController method
             let screenWidth = UIScreen.main.bounds.width
-            let screenHeight = UIScreen.main.bounds.height
-            
             let labelX = (screenWidth / 2) - (labelWidth / 2)
-            //        let labelY = screenHeight * 0.5
-            
-            let myLabel = UILabel(frame: CGRect(x: labelX, y: 55, width: labelWidth, height: labelHeight))
-            myLabel.text = "追加の散歩分数を設定してください"
+
+            let myLabel = UILabel(frame: CGRect(x: labelX, y: 190, width: labelWidth, height: labelHeight))
+
+            if type == "Time" {
+                myLabel.text = "目的地を設定してください"
+            } else if type == "Start" {
+                myLabel.text = "追加の散歩分数を設定してください"
+            }
+
             myLabel.textAlignment = .center
-            myLabel.backgroundColor = .red // For visibility
+            myLabel.backgroundColor = .red
             myLabel.textColor = .white
             myLabel.layer.cornerRadius = 10
             myLabel.layer.masksToBounds = true
-            myLabel.alpha = 0.8
-            
+            myLabel.alpha = 0.95
+
             view.addSubview(myLabel)
+            
+            // Store reference to the label
+            errorLabelReference = myLabel
         }
+
+    
+        // MARK: delete error label
+        func removeErrorLabel() {
+            // Check if the label exists and remove it
+            if let label = errorLabelReference {
+                label.removeFromSuperview()
+                errorLabelReference = nil // Clear the reference after removing
+            }
+        }
+
+    
         // MARK: end -
     
         // MARK: putMarker stuff
@@ -550,7 +598,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
                     marker.tracksInfoWindowChanges = false
                 }
             }
-            return infoWindow // This ensures a UIView? is always returned
+            return infoWindow
         }
         
     }
@@ -560,12 +608,13 @@ extension RouteMainViewController: ResultsViewControllerDelegate {
     func didTapPlace(with place: GMSPlace, placeName: String ) {
         searchVC.searchBar.resignFirstResponder()
         searchVC.searchBar.text = placeName
-        searchVC.dismiss(animated: true, completion: nil)
+        searchVC.dismiss(animated: false, completion: nil)
         mapView.clear()
         
         
         
         destination = place
+        removeErrorLabel()
         print("setting destination to:", place)
         // MARK: set coordinate as marker
         let coordinate = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)

@@ -154,5 +154,9 @@ class ProfileViewController: UIViewController {
             completion(image)
         }.resume()
         
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        loginVC.modalPresentationStyle = .fullScreen  // Ensuring it covers the full screen
+        self.present(loginVC, animated: false, completion: nil)
     }
 }

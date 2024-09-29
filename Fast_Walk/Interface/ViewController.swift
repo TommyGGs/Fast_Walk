@@ -43,6 +43,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     let realm = try! Realm()
     let customTransitioningDelegate = CustomTransitioningDelegate()
+    
+    var errorLabelReference: UILabel?
 
     
 //MARK: スポット種類の選択
@@ -58,7 +60,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Setuptoprectangularbox()
         setupMapView()
         
         placesClient = GMSPlacesClient.shared() //Places
@@ -83,6 +84,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         self.view.bringSubviewToFront(accountButton)
         self.view.sendSubviewToBack(mapContainerView)
         
+        Setuptoprectangularbox()
         addGradientLayer()
         addTitleLabel()
         setupBackButton()
@@ -170,7 +172,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
         if let chooseVC = storyboard.instantiateViewController(withIdentifier: "RouteOrTimeViewController") as? RouteOrTimeViewController {
             chooseVC.modalPresentationStyle = .fullScreen
-            self.present(chooseVC, animated: true, completion: nil)
+            self.present(chooseVC, animated: false, completion: nil)
         }
     }
 
@@ -180,7 +182,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         if let heartVC = storyboard.instantiateViewController(withIdentifier: "HeartViewController") as? HeartViewController {
             heartVC.modalPresentationStyle = .custom
             heartVC.transitioningDelegate = customTransitioningDelegate
-            self.present(heartVC, animated: true, completion: nil)
+            self.present(heartVC, animated: false, completion: nil)
         }
     }
     
@@ -506,7 +508,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             accountVC.user = findUser()
             accountVC.modalPresentationStyle = .fullScreen
             accountVC.transitioningDelegate = customTransitioningDelegate
-            self.present(accountVC, animated: true, completion: nil)
+            self.present(accountVC, animated: false, completion: nil)
         }
     }
     
@@ -624,7 +626,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         if let location = locations.first, currentLocation == nil {
             currentLocation = location.coordinate
             updateMapCamera(location.coordinate)
-            mapView?.camera = GMSCameraPosition(target: location.coordinate, zoom: 10.0)
+            mapView?.camera = GMSCameraPosition(target: location.coordinate, zoom: 15.0)
             mapView?.isMyLocationEnabled = true
             mapView?.settings.myLocationButton = true
             mapView?.settings.zoomGestures = true //allows for zoom
@@ -665,6 +667,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         if storedRouteDetails != nil {
             performSegue(withIdentifier: "showRoute", sender: self)
         } else {
+            
             errorLabel()
         }
     }
@@ -689,6 +692,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     }
     
     func findBestRoute(from start: CLLocationCoordinate2D, desiredTime: Int) {
+        passWaypoint.removeAll()
+
         var closestDuration = Int.max
         var bestRouteDetails: (polyString: String, durationText: String)?
         let group = DispatchGroup()
@@ -1043,7 +1048,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         heart.setImage(UIImage(systemName: "heart.fill"), for: .normal)
     }
     
+    // MARK: - eror label stuff
     func errorLabel(){
+        if errorLabelReference != nil {
+            removeErrorLabel()
+        }
+
         let labelWidth: CGFloat = 250
         let labelHeight: CGFloat = 50
         
@@ -1054,16 +1064,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         let labelX = (screenWidth / 2) - (labelWidth / 2)
         //        let labelY = screenHeight * 0.5
         
-        let myLabel = UILabel(frame: CGRect(x: labelX, y: 55, width: labelWidth, height: labelHeight))
+        let myLabel = UILabel(frame: CGRect(x: labelX, y: 190, width: labelWidth, height: labelHeight))
         myLabel.text = "散歩時間を設定してください"
         myLabel.textAlignment = .center
         myLabel.backgroundColor = .red // For visibility
         myLabel.textColor = .white
         myLabel.layer.cornerRadius = 10
         myLabel.layer.masksToBounds = true
-        myLabel.alpha = 0.8
+        myLabel.alpha = 0.95
         
         view.addSubview(myLabel)
+    }
+    
+    func removeErrorLabel() {
+        // Check if the label exists and remove it
+        if let label = errorLabelReference {
+            label.removeFromSuperview()
+            errorLabelReference = nil // Clear the reference after removing
+        }
     }
     
 }

@@ -46,8 +46,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         //users & favorites
         allUsers = readAllUsers()
         user_favorites = readFavorites()
-        likeLabel.isHidden = true
-        heartBtn.isHidden = true
+        setupHeartBtn()
+
         print("this is user favorites: \(user_favorites)")
         
         //location
@@ -59,6 +59,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         modeSwitch()
         //setupCircularProgressView() *not used
         setUpTimerView()
+        
+        print("waypoints are:", waypoints)
        
         
     }
@@ -82,26 +84,35 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
                currentTime.font = UIFont.systemFont(ofSize: 40) // 폰트가 없을 경우 대체 폰트 설정
            }
         
+        //Mark: overlay-countdownscreen
+        
         overlayView = UIView(frame: view.bounds)
-        overlayView.backgroundColor = UIColor.white.withAlphaComponent(0.5) // Half-transparent black
+        overlayView.backgroundColor = UIColor(red: 218/255, green: 242/255, blue: 255/255, alpha: 0.5) // #DAF2FF with 50% transparency
         overlayView.isHidden = true // Initially hidden
         
-        // Countdown Label
         countdownLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         countdownLabel.center = view.center
         countdownLabel.textAlignment = .center
+
+//        overlayView.addSubview(countdownLabel)
+//        view.addSubview(overlayView)
+        
+//        overlayView = UIView(frame: view.bounds)
+//        overlayView.backgroundColor = UIColor.white.withAlphaComponent(0.5) // Half-transparent black
+//        overlayView.isHidden = true // Initially hidden
+//        
+        // Countdown Label
+
 
         // Set custom font
         if let customFont = UIFont(name: "NotoSansJP-SemiBold.ttf", size: 180) {
             countdownLabel.font = customFont
         } else {
-            // Fallback to system font if custom font is not available
-            //countdownLabel.font = UIFont.systemFont(ofSize: 80, weight: .black)
+            // Set font color to #5383EC
+            countdownLabel.textColor = UIColor(red: 83/255, green: 131/255, blue: 236/255, alpha: 1.0)
         }
-
-        // Set font color to #5383EC
-        countdownLabel.textColor = UIColor(red: 83/255, green: 131/255, blue: 236/255, alpha: 1.0)
-
+            // Fallback to system font if custom font is not available
+            //countdownLabel.font = UIFont.systemFont(ofSize: 80, weight: .black
         overlayView.addSubview(countdownLabel)
         view.addSubview(overlayView)
     }
@@ -445,13 +456,15 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
             guard let self = self else { return }
     
-            let font = UIFont(name: "NotoSansJP-SemiBold", size: 17)
-
+            let font = UIFont(name: "NotoSansJP-SemiBold", size: 150)
+            self.countdownLabel.font = font
+            self.countdownLabel.textColor = UIColor(red: 67/255, green: 96/255, blue: 249/255, alpha: 1.0)
+            
             if index < countdownNumbers.count {
                 self.countdownLabel.text = countdownNumbers[index]
                 self.animateLabel(self.countdownLabel)
-                
                 index += 1
+                
             } else {
                 timer.invalidate()
                 self.overlayView.isHidden = true
@@ -470,13 +483,27 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             }
         }
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-
-        if let endVC = segue.destination as? EndViewController {
-            endVC.receivedTime = duration
+    
+    @IBAction func goToEnd(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let endVC = storyboard.instantiateViewController(withIdentifier: "EndViewController") as? EndViewController {
+            endVC.receivedTime = duration // Set the properties you need to pass
             
+            // Set the presentation style if necessary (e.g., full screen)
+            endVC.modalPresentationStyle = .fullScreen
+            
+            // Present with animation
+            self.present(endVC, animated: false, completion: nil)
         }
+    }
+    
+    // MARK: - setup Heart Button
+    func setupHeartBtn() {
+        likeLabel.isHidden = true
+        heartBtn.isHidden = true
+        heartBtn.frame = CGRect(x: 40, y: 700, width: heartBtn.frame.width, height: heartBtn.frame.height)
+        heartBtn.setTitleColor(.red, for: .normal)
+        heartBtn.titleLabel?.font = UIFont.systemFont(ofSize: 24)
     }
 }
 

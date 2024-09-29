@@ -10,57 +10,40 @@ import GoogleSignIn
 import LineSDK
 import RealmSwift
 
+
 class LoginViewController: UIViewController, LoginButtonDelegate {
     
     @IBOutlet var signUpText: UILabel!
     var users: [User] = []
     var userExist: Bool = false
-    var signUp: Bool?
+    var signUp: Bool!
     let realm = try! Realm()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Realm initialization with error handling
-//        do {
-//            let realmURL = Realm.Configuration.defaultConfiguration.fileURL!
-//            try FileManager.default.removeItem(at: realmURL)  // This will delete the Realm database
-//            print("Deleted Realm file at: \(realmURL)")
-//            
-//            let realm = try Realm()  // Reinitialize Realm after deletion
-//            print("Realm reinitialized successfully")
-//            
-//            self.users = Array(realm.objects(User.self))
-//            print("Fetched and converted users successfully")
-//            
-//        } catch let error {
-//            print("Error deleting or initializing Realm: \(error.localizedDescription)")
-//        }
-
-
-        if signUp == true {
-            print("signup is trueee")
-            signUpText.text = "新規登録"
-            print("\(String(describing: signUpText.text))")
-        } else if signUp == false {
-            print("signup is falseee")
-            signUpText.text = "ログイン"
-        } else {
-            signUpText.text = "新規登録"
-        }
         
         rectangleView()
         lineButton()
         setGradientBackground()
         addImageView()
         setupUI()
+        checkSignInUp()
     }
+    
 
 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    func checkSignInUp(){
+        if signUp == true {
+            signUpText.text = "新規登録"
+        } else if signUp == false {
+            signUpText.text = "ログイン"
+        }
     }
     
     @IBAction func signOut(sender: Any) {
@@ -77,7 +60,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         loginVC.modalPresentationStyle = .fullScreen  // Ensuring it covers the full screen
-        self.present(loginVC, animated: true, completion: nil)
+        self.present(loginVC, animated: false, completion: nil)
     }
     
 
@@ -103,7 +86,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let chooseVC = storyboard.instantiateViewController(withIdentifier: "ChooseViewController") as? ChooseViewController {
             chooseVC.modalPresentationStyle = .fullScreen
-            self.present(chooseVC, animated: true, completion: nil)
+            self.present(chooseVC, animated: false, completion: nil)
         }
     }
 
@@ -221,10 +204,23 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         }
     }
     
-    func readUsers() -> [User] {
-        return Array(realm.objects(User.self))
+    func readUsers() {
+        // Perform Realm read on a background thread
+        DispatchQueue.global(qos: .background).async {
+            autoreleasepool {
+                // Access Realm on the background thread
+                let backgroundRealm = try! Realm()
+                let users = Array(backgroundRealm.objects(User.self))
+                
+                // Switch back to the main thread to update UI
+                DispatchQueue.main.async {
+                    self.users = users
+                    // Perform any UI updates here if needed
+                }
+            }
+        }
     }
-    
+
     @objc func loginWithLine() {
         LoginManager.shared.login(permissions: [.profile], in: self) {
             result in
@@ -251,12 +247,12 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
                         welcomeVC.modalPresentationStyle = .fullScreen
-                        self.present(welcomeVC, animated: true, completion: nil)
+                        self.present(welcomeVC, animated: false, completion: nil)
                     } else if self.userExist == true {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         if let mainVC = storyboard.instantiateViewController(withIdentifier: "MainViewController") as? ViewController {
                             mainVC.modalPresentationStyle = .fullScreen
-                            self.present(mainVC, animated: true, completion: nil)
+                            self.present(mainVC, animated: false, completion: nil)
                         }
                     }
                 }
@@ -315,7 +311,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     if let welcomeVC = storyboard.instantiateViewController(withIdentifier: "WelcomeViewController") as? WelcomeViewController {
                         welcomeVC.modalPresentationStyle = .fullScreen
-                        self.present(welcomeVC, animated: true, completion: nil)
+                        self.present(welcomeVC, animated: false, completion: nil)
                     } else {
                         print("Could not instantiate WelcomeViewController from storyboard.")
                     }
@@ -325,7 +321,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     if let mainVC = storyboard.instantiateViewController(withIdentifier: "MainViewController") as? ViewController {
                         mainVC.modalPresentationStyle = .fullScreen
-                        self.present(mainVC, animated: true, completion: nil)
+                        self.present(mainVC, animated: false, completion: nil)
                     }
                 }
         }
