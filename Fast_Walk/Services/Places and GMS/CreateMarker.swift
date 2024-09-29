@@ -21,7 +21,7 @@ class Marker {
     
     
     
-    func addMarker(_ place: GMSPlace, _ mapView: GMSMapView?) {
+    func addMarker(_ place: GMSPlace, _ mapView: GMSMapView?, blue: Bool = false) {
         let marker = GMSMarker()
         marker.position = place.coordinate
         if let name = place.name, let type = place.types?.first{
@@ -29,6 +29,9 @@ class Marker {
             marker.snippet = "評価：" + String(Int(place.rating)) + ", \(type)"
         }
         
+        if blue == true {
+            marker.icon = GMSMarker.markerImage(with: .blue)
+        }
         marker.map = mapView
         marker.appearAnimation = .pop
         //make photometadata
