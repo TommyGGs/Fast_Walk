@@ -27,8 +27,8 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        locationManager.delegate = self
-//        setupMapView()
+        self.definesPresentationContext = true
+
         profilePic.setImage(UIImage(named: "google.png"), for: .normal) // Make sure "default_profile_image" exists in your assets
 
         addTitleLabel()
@@ -47,6 +47,43 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
         self.view.bringSubviewToFront(profilePic)
     }
     
+    
+// ポップアップよう追加ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+    func showProfilePopup() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let profileVC = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+//
+//        // modalPresentationStyleをoverFullScreenに設定
+//        profileVC.modalPresentationStyle = .overFullScreen
+//        profileVC.modalTransitionStyle = .crossDissolve
+//
+//        self.present(profileVC, animated: true, completion: nil)
+
+        
+        let profileVC = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        addChild(profileVC)
+        profileVC.view.frame = view.bounds
+        view.addSubview(profileVC.view)
+        profileVC.didMove(toParent: self)
+
+
+//        // viewのフレームを画面全体に設定
+//        profileVC.view.frame = self.view.bounds
+//        
+//        // ProfileViewControllerを子ビューとして追加
+//        self.addChild(profileVC)
+//        self.view.addSubview(profileVC.view)
+//        profileVC.didMove(toParent: self)
+//        
+//        // アニメーションでポップアップを表示
+//        profileVC.view.alpha = 0
+//        UIView.animate(withDuration: 0.3) {
+//            profileVC.view.alpha = 1
+//            
+//        }
+    }
+
+
 //    func profilePicFunc(){
 //        profilePic.translatesAutoresizingMaskIntoConstraints = false
 //        NSLayoutConstraint.activate([
@@ -333,4 +370,7 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
                 self.present(chooseVC, animated: true, completion: nil)
             }
         }
+    
+
+    
     }

@@ -5,6 +5,8 @@ import GooglePlaces
 import LineSDK
 import RealmSwift
 
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -60,3 +62,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return handledByLoginManager || handledByGoogleSignIn
     }
 }
+
+
