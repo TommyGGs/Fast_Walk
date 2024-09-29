@@ -615,6 +615,7 @@
                     <connections>
                         <outlet property="currentMode" destination="Gvk-Im-cVz" id="UmW-uV-Ggr"/>
                         <outlet property="currentTime" destination="14s-Rl-VrW" id="Ygh-u0-Kr1"/>
+                        <outlet property="endBtn" destination="hwT-Fe-fZt" id="Dmf-GW-4C4"/>
                         <outlet property="heartBtn" destination="IiZ-eu-WYS" id="sef-Im-ZSj"/>
                         <outlet property="likeLabel" destination="fnQ-JT-iKX" id="zJK-eM-OOE"/>
                         <outlet property="mapContainerView" destination="nsc-rK-tJr" id="YXa-Kw-cQW"/>
