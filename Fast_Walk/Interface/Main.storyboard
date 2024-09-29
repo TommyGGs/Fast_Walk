@@ -63,7 +63,6 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="signUp" destination="IDS-nh-NWS" eventType="touchUpInside" id="dX8-P5-P1Z"/>
-                                    <segue destination="1ru-YU-8Mr" kind="presentation" modalPresentationStyle="fullScreen" id="a36-K0-U9a"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oz9-kd-OIT">
@@ -77,7 +76,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="1ru-YU-8Mr" kind="presentation" modalPresentationStyle="fullScreen" id="l1f-WI-8iJ"/>
+                                    <action selector="signIn" destination="IDS-nh-NWS" eventType="touchUpInside" id="7SM-Tu-nyt"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sasaka" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13b-VV-jCz">
@@ -807,7 +806,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="UvH-MR-Y4i"/>
-        <segue reference="a36-K0-U9a"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="chart.bar.xaxis.ascending" catalog="system" width="128" height="97"/>

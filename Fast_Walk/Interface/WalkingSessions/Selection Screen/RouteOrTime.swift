@@ -140,9 +140,10 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
      }
     
     @IBAction func goToProfile() {
+        print("clicked goto")
         let storyboard = UIStoryboard(name: "UserStoryboard", bundle: nil)
         if let profileNavController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
-            profileNavController.modalPresentationStyle = .fullScreen
+            profileNavController.modalPresentationStyle = .overFullScreen
             self.present(profileNavController, animated: false, completion: nil)
         }
     }

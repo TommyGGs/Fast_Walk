@@ -32,6 +32,8 @@ class ProfileViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissPopup))
         blurBackground.addGestureRecognizer(tapGesture)
         blurBackground.isUserInteractionEnabled = true
+        self.dismiss(animated: false, completion: nil)
+
     }
     
     // プロフィール情報をセットアップ
@@ -55,7 +57,7 @@ class ProfileViewController: UIViewController {
     func setupPopupDesign() {
         blurBackground.isHidden = false
         blurBackground.effect = UIBlurEffect(style: .light)
-        blurBackground.alpha = 1.0 // 追加
+        blurBackground.alpha = 0.8 // 追加
 
         // ポップアップの角丸デザイン
         popupView.layer.cornerRadius = 15
@@ -86,15 +88,24 @@ class ProfileViewController: UIViewController {
         logoutButton.layer.cornerRadius = 10
         logoutButton.setTitle("ログアウト", for: .normal)
         logoutButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        
+        
+//        view.backgroundColor = UIColor.white.withAlphaComponent(0) // Transparent background
+//        view.layer.cornerRadius = 15
+//        view.clipsToBounds = false
+//
+//        // Example: Make the view smaller
+//        view.frame = CGRect(x: 50, y: 200, width: UIScreen.main.bounds.width - 100, height: 300)
     }
     
     // ポップアップを閉じる
     @objc func dismissPopup() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: false, completion: nil)
     }
     
     // ログアウト処理
     @IBAction func logout(_ sender: Any) {
+        print("loggin out button clicked")
         GIDSignIn.sharedInstance.signOut()
         GIDSignIn.sharedInstance.disconnect { error in
             if let error = error {
@@ -107,6 +118,14 @@ class ProfileViewController: UIViewController {
                     self.present(loginVC, animated: true, completion: nil)
                 }
             }
+        }
+    }
+    
+    @IBAction func heartViewController() {
+        let storyboard = UIStoryboard(name: "Favorite", bundle: nil)
+        if let heartVC = storyboard.instantiateViewController(withIdentifier: "HeartViewController") as? HeartViewController {
+            heartVC.modalPresentationStyle = .fullScreen
+            self.present(heartVC, animated: false, completion: nil)
         }
     }
     
