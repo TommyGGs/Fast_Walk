@@ -60,7 +60,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Setuptoprectangularbox()
         setupMapView()
         
         placesClient = GMSPlacesClient.shared() //Places
@@ -85,6 +84,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         self.view.bringSubviewToFront(accountButton)
         self.view.sendSubviewToBack(mapContainerView)
         
+        Setuptoprectangularbox()
         addGradientLayer()
         addTitleLabel()
         setupBackButton()

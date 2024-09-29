@@ -204,10 +204,23 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         }
     }
     
-    func readUsers() -> [User] {
-        return Array(realm.objects(User.self))
+    func readUsers() {
+        // Perform Realm read on a background thread
+        DispatchQueue.global(qos: .background).async {
+            autoreleasepool {
+                // Access Realm on the background thread
+                let backgroundRealm = try! Realm()
+                let users = Array(backgroundRealm.objects(User.self))
+                
+                // Switch back to the main thread to update UI
+                DispatchQueue.main.async {
+                    self.users = users
+                    // Perform any UI updates here if needed
+                }
+            }
+        }
     }
-    
+
     @objc func loginWithLine() {
         LoginManager.shared.login(permissions: [.profile], in: self) {
             result in

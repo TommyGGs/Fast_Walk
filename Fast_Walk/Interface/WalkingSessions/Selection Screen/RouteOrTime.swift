@@ -32,6 +32,7 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
         profilePic.setImage(UIImage(named: "google.png"), for: .normal) // Make sure "default_profile_image" exists in your assets
 
         addTitleLabel()
+        //setupBackButton()
 //        setupBackButton()
         addGradientLayer()
         setupProfilePicConstraints()
@@ -212,50 +213,7 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
         profilePic.layer.cornerRadius = profilePic.frame.size.width / 2
         profilePic.clipsToBounds = true
     }
-    
-    
-//    func setupMapView() {
-//        let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 10.0)
-//        mapView = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
-//        mapView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        
-//        mapView?.delegate = self // Set the delegate after initializing the mapView
-//        
-//        mapContainerView.addSubview(mapView!)
-//        beginLocationUpdate()
-//    }
-    
-//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        beginLocationUpdate()
-//    }
-//    
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        if let location = locations.first, currentLocation == nil {
-//            currentLocation = location.coordinate
-//            updateMapCamera(location.coordinate)
-//            mapView?.camera = GMSCameraPosition(target: location.coordinate, zoom: 10.0)
-//            mapView?.isMyLocationEnabled = true
-//            mapView?.settings.myLocationButton = true
-//            mapView?.settings.zoomGestures = true //allows for zoom
-//            locationManager.stopUpdatingLocation() //why is this here? stop updating location
-//        }
-//    }
-//    
-//    func beginLocationUpdate() {
-//        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
-//            locationManager.startUpdatingLocation()
-//        } else {
-//            locationManager.requestWhenInUseAuthorization()
-//        }
-//    }
-//    
-//    func updateMapCamera(_ coordinate: CLLocationCoordinate2D) {
-//        let cameraUpdate = GMSCameraUpdate.setTarget(coordinate, zoom: 20.0)
-//        mapView?.animate(with: cameraUpdate)
-//        mapView?.isMyLocationEnabled = true
-//        mapView?.settings.myLocationButton = true
-//    }
-//        
+
         func addTitleLabel() {
             // Create the label
             titleLabel = UILabel()
@@ -270,8 +228,8 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
             
             // Set constraints for the label (align to top and left)
             NSLayoutConstraint.activate([
-                titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50),
-                titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 100)
+                titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+                titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 80)
             ])
             self.view.bringSubviewToFront(titleLabel)
         }
@@ -312,18 +270,18 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
             self.view.layer.addSublayer(gradientLayer)
         }
         
-        func setupBackButton(){
-            let backButton = UIButton(type: .system)
-            backButton.setImage(UIImage(named: "Backbutton.png"), for: .normal)
-            backButton.tintColor = UIColor(red: 84/255.0, green: 84/255.0, blue: 84/255.0, alpha: 0.9)
-            backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-            
-            backButton.frame = CGRect(x: 20, y: 50, width: 22, height: 22)
-            
-            // Add the button to the view
-            view.addSubview(backButton)
-            view.bringSubviewToFront(backButton)
-        }
+//        func setupBackButton(){
+//            let backButton = UIButton(type: .system)
+//            backButton.setImage(UIImage(named: "Backbutton.png"), for: .normal)
+//            backButton.tintColor = UIColor(red: 84/255.0, green: 84/255.0, blue: 84/255.0, alpha: 0.9)
+//            backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+//            
+//            backButton.frame = CGRect(x: 20, y: 50, width: 22, height: 22)
+//            
+//            // Add the button to the view
+//            view.addSubview(backButton)
+//            view.bringSubviewToFront(backButton)
+//        }
         
         @objc func backButtonTapped() {
             print("button tapped")
