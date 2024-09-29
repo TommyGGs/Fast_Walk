@@ -113,9 +113,9 @@ class ProfileViewController: UIViewController {
             } else {
                 DispatchQueue.main.async {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-                    loginVC.modalPresentationStyle = .fullScreen
-                    self.present(loginVC, animated: true, completion: nil)
+                    let chooseVC = storyboard.instantiateViewController(withIdentifier: "ChooseViewController") as! ChooseViewController
+                    chooseVC.modalPresentationStyle = .fullScreen
+                    self.present(chooseVC, animated: true, completion: nil)
                 }
             }
         }
