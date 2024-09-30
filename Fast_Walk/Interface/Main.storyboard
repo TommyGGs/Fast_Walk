@@ -579,15 +579,6 @@
                                     <action selector="goToEnd:" destination="5Oe-OB-C1X" eventType="touchUpInside" id="21q-0E-hzp"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="保存" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnQ-JT-iKX">
-                                <rect key="frame" x="42" y="799" width="40" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="rct-sz-lN8"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="NotoSansJP-Regular" family="Noto Sans JP" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qdJ-BB-eZ2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -597,7 +588,6 @@
                             <constraint firstItem="qdJ-BB-eZ2" firstAttribute="bottom" secondItem="IiZ-eu-WYS" secondAttribute="bottom" constant="49" id="AAd-1E-pBq"/>
                             <constraint firstItem="qdJ-BB-eZ2" firstAttribute="bottom" secondItem="14s-Rl-VrW" secondAttribute="bottom" constant="45" id="JnW-4x-i0L"/>
                             <constraint firstItem="qdJ-BB-eZ2" firstAttribute="trailing" secondItem="drO-cs-iXw" secondAttribute="trailing" constant="22" id="LW6-JT-xpR"/>
-                            <constraint firstItem="fnQ-JT-iKX" firstAttribute="top" secondItem="IiZ-eu-WYS" secondAttribute="bottom" constant="4" id="LbZ-Bc-Pcs"/>
                             <constraint firstItem="Gvk-Im-cVz" firstAttribute="centerX" secondItem="BH6-Wf-kE3" secondAttribute="centerX" id="UiA-Ij-x52"/>
                             <constraint firstItem="qdJ-BB-eZ2" firstAttribute="bottom" secondItem="qiU-10-KHL" secondAttribute="bottom" constant="9" id="d4K-hK-tMm"/>
                             <constraint firstItem="qdJ-BB-eZ2" firstAttribute="bottom" secondItem="drO-cs-iXw" secondAttribute="bottom" constant="10" id="dBs-3P-oJN"/>
@@ -605,7 +595,6 @@
                             <constraint firstItem="hwT-Fe-fZt" firstAttribute="centerX" secondItem="BH6-Wf-kE3" secondAttribute="centerX" id="kCR-5R-b6m"/>
                             <constraint firstItem="qiU-10-KHL" firstAttribute="centerX" secondItem="BH6-Wf-kE3" secondAttribute="centerX" id="oig-mE-Afa"/>
                             <constraint firstItem="IiZ-eu-WYS" firstAttribute="leading" secondItem="qdJ-BB-eZ2" secondAttribute="leading" constant="35" id="t3L-xX-VE3"/>
-                            <constraint firstItem="fnQ-JT-iKX" firstAttribute="centerX" secondItem="BH6-Wf-kE3" secondAttribute="centerX" constant="-133" id="tg1-bS-Ui8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dER-jT-1W6"/>
@@ -660,11 +649,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bJn-dl-sqs">
-                                <rect key="frame" x="0.0" y="384" width="390" height="188"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.74509803921568629" green="0.81568627450980391" blue="0.96862745098039216" alpha="0.32000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0Rr-c3-i7Y">
                                 <rect key="frame" x="70" y="420" width="250" height="4"/>
                                 <constraints>
@@ -719,6 +703,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bJn-dl-sqs">
+                                <rect key="frame" x="8" y="383" width="375" height="188"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.74509803921568629" green="0.81568627450980391" blue="0.96862745098039216" alpha="0.32000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ibX-h1-fL2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -819,7 +808,7 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="separatorColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

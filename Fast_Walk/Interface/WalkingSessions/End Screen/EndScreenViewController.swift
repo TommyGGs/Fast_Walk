@@ -65,7 +65,13 @@ class EndScreenViewController: FigmaTestViewController {
         diseaseBackGround.layer.cornerRadius = 20
         diseaseBackGround.clipsToBounds = true
         
-        
+        // 폰트 설정 (NotoSans JP - Regular)
+                if let customFont = UIFont(name: "NotoSansJP-SemiBold", size: 18) {
+                    diseaseLabel.font = customFont
+                } else {
+                    // 폰트를 로드할 수 없을 경우 기본 폰트 사용
+                    diseaseLabel.font = UIFont.systemFont(ofSize: 16)
+                }
     }
     
     //Authorize HealthKit

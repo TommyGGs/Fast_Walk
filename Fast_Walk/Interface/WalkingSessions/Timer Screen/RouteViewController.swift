@@ -633,6 +633,14 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             heartBtn.setImage(image, for: .normal)
         }
         
+        // 제약 설정 (SafeArea의 아래에서 10 포인트, 왼쪽에서 5 포인트 간격)
+              let safeArea = view.safeAreaLayoutGuide
+              NSLayoutConstraint.activate([
+                  heartBtn.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -35),
+                  heartBtn.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 50),
+                  heartBtn.widthAnchor.constraint(equalToConstant: heartBtn.frame.width),  // 기존의 width 유지
+                  heartBtn.heightAnchor.constraint(equalToConstant: heartBtn.frame.height) // 기존의 height 유지
+              ])
     }
     
     // MARK: - eror label stuff

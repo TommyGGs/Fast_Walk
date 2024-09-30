@@ -269,19 +269,21 @@ class EndViewController: EndScreenViewController{
         dateLabel.textAlignment = .center
                  dateLabel.translatesAutoresizingMaskIntoConstraints = false
         //         view.addSubview(dateLabel)
-        dateLabel.font = UIFont(name: "NotoSansJP-Regular", size: 25)
+        dateLabel.font = UIFont(name: "NotoSansJP-Light", size: 20)
         
         // Circular progress bar for steps
         circularProgressView = CircularProgressBarView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
         circularProgressView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(circularProgressView)
         
+        
+        
         // Step count label inside the circular progress
         stepsLabel.font = UIFont(name: "NotoSansJP-Bold", size: 56)
         stepsLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // Time label below the steps
-        timeLabel.font = UIFont(name: "NotoSansJP-Regular", size: 25)
+        timeLabel.font = UIFont(name: "NotoSansJP-Regular", size: 22)
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // Heart button
@@ -302,7 +304,7 @@ class EndViewController: EndScreenViewController{
         
         // Date label at the top, above the circular progress bar
         NSLayoutConstraint.activate([
-            dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            dateLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
 
@@ -321,16 +323,21 @@ class EndViewController: EndScreenViewController{
             circularProgressView.heightAnchor.constraint(equalToConstant: 250)
         ])
 
+//        // stepsLabel の位置を調整
+//        NSLayoutConstraint.activate([
+//            stepsLabel.centerXAnchor.constraint(equalTo: circularProgressView.centerXAnchor),
+//            stepsLabel.centerYAnchor.constraint(equalTo: circularProgressView.centerYAnchor)
+//        ])
         // stepsLabel の位置を調整
         NSLayoutConstraint.activate([
             stepsLabel.centerXAnchor.constraint(equalTo: circularProgressView.centerXAnchor),
-            stepsLabel.centerYAnchor.constraint(equalTo: circularProgressView.centerYAnchor)
+            stepsLabel.centerYAnchor.constraint(equalTo: circularProgressView.centerYAnchor, constant: -15) // 10 포인트 위로 이동
         ])
 
         // timeLabel の位置を調整
         NSLayoutConstraint.activate([
             timeLabel.centerXAnchor.constraint(equalTo: stepsLabel.centerXAnchor),
-            timeLabel.topAnchor.constraint(equalTo: stepsLabel.bottomAnchor, constant: 5) // `5`で少し下に表示
+            timeLabel.topAnchor.constraint(equalTo: stepsLabel.bottomAnchor, constant: 6) // `5`で少し下に表示
         ])
         
 //健康データ設定追加＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
@@ -346,9 +353,16 @@ class EndViewController: EndScreenViewController{
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
-        messageLabel.font = UIFont.systemFont(ofSize: 16)
-        messageLabel.textColor = .black
+        
+        // 폰트를 Noto Sans JP - Regular로 설정
+        if let customFont = UIFont(name: "NotoSansJP-Regular", size: 16) {
+            messageLabel.font = customFont
+        } else {
+            // 폰트 로드 실패 시 기본 시스템 폰트를 사용
+            messageLabel.font = UIFont.systemFont(ofSize: 16)
+        }
 
+        messageLabel.textColor = .black
         // セッションに基づいた歩行時間を使ってメッセージを表示
         let walkingMinutes = receivedTime / 60 // 秒を分に変換
         messageLabel.text = "本日 \(walkingMinutes) 分のウォーキングで上記の病気を\n予防することに成功しました！\nこれからも継続して健康を保ちましょう！"
@@ -381,11 +395,14 @@ class CircularProgressBarView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         createCircularPath()
+        addShadowLayer() // 그림자 레이어 추가
+
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         createCircularPath()
+        addShadowLayer() // 그림자 레이어 추가
     }
     
     override func layoutSubviews() {
@@ -411,7 +428,8 @@ class CircularProgressBarView: UIView {
         // Progress layer (actual progress bar)
         progressLayer.path = circularPath.cgPath
         progressLayer.fillColor = UIColor.clear.cgColor
-        progressLayer.strokeColor = UIColor.systemBlue.cgColor // Set the color to blue as requested
+//        progressLayer.strokeColor = UIColor.systemBlue.cgColor // Set the color to blue as requested
+        progressLayer.strokeColor = UIColor(red: 79/255, green: 134/255, blue: 255/255, alpha: 1.0).cgColor
         progressLayer.lineWidth = 15
         progressLayer.strokeEnd = 0.0
         layer.addSublayer(progressLayer)
@@ -429,8 +447,16 @@ class CircularProgressBarView: UIView {
         trackLayer.path = circularPath.cgPath
         progressLayer.path = circularPath.cgPath
     }
-
     
+    // 그림자 레이어 추가 함수
+    private func addShadowLayer() {
+        // 그림자 설정
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = 0.15 // 그림자의 투명도 조정 (25%)
+        self.layer.shadowOffset = CGSize(width: 0, height: 3) // 그림자의 오프셋 설정
+        self.layer.shadowRadius = 5 // 그림자의 블러 반경 설정
+        self.layer.masksToBounds = false // 그림자가 잘리지 않도록 설정
+    }
     
     
     
@@ -447,6 +473,5 @@ class CircularProgressBarView: UIView {
             progressLayer.strokeEnd = progress
         }
     }
-    
-    
+
 }
