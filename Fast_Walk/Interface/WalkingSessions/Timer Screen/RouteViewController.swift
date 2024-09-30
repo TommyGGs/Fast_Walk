@@ -13,7 +13,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     @IBOutlet var currentTime: UILabel!
     @IBOutlet var nextMode: UILabel!
     @IBOutlet var heartBtn: UIButton!
-    @IBOutlet var likeLabel: UILabel!
+    //@IBOutlet var likeLabel: UILabel!
     var waypoints: [GMSPlace] = []
     var overlayView: UIView!
     var countdownLabel: UILabel!
@@ -57,8 +57,10 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         
         //timer
         modeSwitch()
-        //setupCircularProgressView() *not used
         setUpTimerView()
+        //setupCircularProgressView() //*not used
+        
+        setUpNextTimerView()
         
         print("waypoints are:", waypoints)
        
@@ -69,6 +71,54 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         super.viewDidAppear(animated)
         setupMapView()
         startCountdown()
+        currentTimeUnderLine()
+        BlueStepLine()
+        
+    }
+    
+    func currentTimeUnderLine() {
+        // Create a UIView for the line
+        let lineView = UIView()
+        
+        // Set the line color with 17% transparency (#000000 with alpha 0.17)
+        lineView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.17)
+        
+        // Set the line's corner radius to 3
+        lineView.layer.cornerRadius = 3
+        
+        // Set the constraints for the line
+        lineView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(lineView)
+        
+        // Add constraints to position the line
+        NSLayoutConstraint.activate([
+            // Align center X with the parent view (to center it horizontally)
+            lineView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            // Set the line's height to 2
+            lineView.heightAnchor.constraint(equalToConstant: 2),
+            
+            // Set the line's width (you can adjust this value if needed)
+            lineView.widthAnchor.constraint(equalToConstant: 150),
+            
+            // Place the line 10 points below the currentTime label
+            lineView.topAnchor.constraint(equalTo: currentTime.bottomAnchor, constant: -70)
+        ])
+    }
+    
+    func BlueStepLine() {
+        let blueLine = UIView()
+        blueLine.translatesAutoresizingMaskIntoConstraints = false
+        blueLine.backgroundColor = UIColor(red: 221/255, green: 232/255, blue: 252/255, alpha: 1.0) // #DDE8FC
+        
+        view.addSubview(blueLine)
+        
+        NSLayoutConstraint.activate([
+            blueLine.centerXAnchor.constraint(equalTo: view.centerXAnchor), // 화면 중앙에 정렬
+            blueLine.topAnchor.constraint(equalTo: stepsLabel.bottomAnchor, constant: 1), // stepsLabel 아래 2 포인트 간격
+            blueLine.widthAnchor.constraint(equalToConstant: 150), // 선의 길이 150
+            blueLine.heightAnchor.constraint(equalToConstant: 5) // 선의 굵기 5
+        ])
     }
     
     func setUpTimerView() {
@@ -78,11 +128,18 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         currentTime.textColor = .black
         currentTime.layer.cornerRadius = currentTime.frame.size.height / 2
         
-        if let customFont = UIFont(name: "NotoSansJP-ExtraBold", size: 40) {
+        if let customFont = UIFont(name: "NotoSansJP-ExtraBold", size: 53) {
                currentTime.font = customFont
            } else {
                currentTime.font = UIFont.systemFont(ofSize: 40) // 폰트가 없을 경우 대체 폰트 설정
            }
+        
+        // Add drop shadow
+            currentTime.layer.shadowColor = UIColor.black.cgColor
+            currentTime.layer.shadowOpacity = 0.25 // Adjust the opacity (30%)
+            currentTime.layer.shadowOffset = CGSize(width: 0, height: 5) // Adjust the shadow's offset
+            currentTime.layer.shadowRadius = 10 // Adjust the blur radius
+            currentTime.layer.masksToBounds = false
         
         //Mark: overlay-countdownscreen
         
@@ -117,6 +174,21 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         view.addSubview(overlayView)
     }
     
+    func setUpNextTimerView() {
+        nextMode.layer.backgroundColor = UIColor.white.cgColor
+        nextMode.layer.borderWidth = 5
+        nextMode.textColor = UIColor.black
+        nextMode.layer.borderColor = UIColor(red: 255/255, green: 109/255, blue: 118/255, alpha: 0.34).cgColor // #FF6D76 with 34% opacity
+        //nextMode.textColor = .black
+        nextMode.layer.cornerRadius = nextMode.frame.size.height / 2
+        
+        if let customFont = UIFont(name: "NotoSansJP-Regular", size: 12) {
+            nextMode.font = customFont
+        } else {
+            currentTime.font = UIFont.systemFont(ofSize: 12) // 폰트가 없을 경우 대체 폰트 설정
+        }
+    }
+    
     func readFavorites() -> [FavoriteSpot] {
         var favorites = Array(realm.objects(FavoriteSpot.self))
         var findFavorites: [FavoriteSpot] = []
@@ -144,7 +216,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         print("setting up pop-up")
-        if marker.title == "Route Start"{
+        if marker.title == "ルート開始"{
             //print ("is start thing clicked")
             return nil
         }
@@ -161,7 +233,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             }
         }
         print("current spot changed\(currentSpot)")
-        likeLabel.isHidden = false
+        //likeLabel.isHidden = false
         heartBtn.isHidden = false
         
         var inArrayAlready: Bool = false
@@ -213,7 +285,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     // when tapped map but not marker
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        likeLabel.isHidden = true
+        //likeLabel.isHidden = true
         heartBtn.isHidden = true
         print("Map didn't tap marker")
     }
@@ -268,14 +340,15 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         if start == "start"{
             startTimer(resume: false)
             start = "running"
-        } else if start == "running"{
-            start = "paused"
-            timer.invalidate()
-            timer = nil
-        } else if start == "paused"{
-            start = "running"
-            startTimer(resume: true)
-        }
+        } 
+//        else if start == "running"{
+//            start = "paused"
+//            timer.invalidate()
+//            timer = nil
+//        } else if start == "paused"{
+//            start = "running"
+//            startTimer(resume: true)
+//        }
     }
     
     
@@ -336,24 +409,27 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     
     func modeSwitch() {
-        let font = UIFont(name: "NotoSansJP-Light", size: 18) // Adjust size as needed
+        //add
+        let currentModeFont = UIFont(name: "NotoSansJP-Light", size: 19) // Font size 19 for current mode
+        let nextModeFont = UIFont(name: "NotoSansJP-Light", size: 12) // Font size 10 for next mode
+        //let font = UIFont(name: "NotoSansJP-Light", size: 19) // Adjust size as needed
 
         if mode == "slow" {
             //play haptics
             CoreHapticsHelp.shared.playHapticPattern("slow")
             currentMode.text = "ゆっくり歩き"
-            nextMode.text = "Next: さっさか歩き"
+            nextMode.text = "次: さっさか歩き"
         } else if mode == "fast" {
             //play haptics
             CoreHapticsHelp.shared.playHapticPattern("fast")
             currentMode.text = "さっさか歩き"
-            nextMode.text = "Next: ゆっくり歩き"
+            nextMode.text = "次: ゆっくり歩き"
         }
 
         // Apply custom font
-        currentMode.font = font
-        nextMode.font = font
-
+        currentMode.font = currentModeFont
+        nextMode.font = nextModeFont
+       
         // Adjust position
         let yOffset: CGFloat = 14 // Adjust the vertical offset as needed
         currentMode.frame.origin.y += yOffset
@@ -420,7 +496,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             mapView?.animate(with: update)
             
             let durationMarker = GMSMarker(position: routeDetails.startCoordinate)
-            durationMarker.title = "Route Start"
+            durationMarker.title = "ルート開始"
             durationMarker.snippet = "Estimated Total Walking Time: \(routeDetails.durationText)"
             durationMarker.map = mapView
             mapView?.selectedMarker = durationMarker
@@ -438,13 +514,18 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     
     func setupCircularProgressView() {
-        let circularProgressView = CircularProgressView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+ /*      let circularProgressView = CircularProgressView(frame: CGRect(x: 100, y: 0, width: 100, height: 100))
         circularProgressView.center = CGPoint(x: view.center.x, y: view.center.y - 150) // Adjust position as needed
         circularProgressView.progressColor = .blue // Customize the progress color
         circularProgressView.trackColor = .lightGray // Customize the track color
         circularProgressView.setProgress(to: 0.0) // Initial progress
         view.addSubview(circularProgressView) // Add it to the view
-    }
+ 
+        let keejun = CircularProgressBarView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        keejun.center = CGPoint(x: view.center.x, y:view.center.y - 150)
+        keejun.setProgress(to: 5.0, animated: true)
+        view.addSubview(keejun) // Add it to the view
+  */    }
     
     func startCountdown() {
         let countdownNumbers = ["3", "2", "1"]
@@ -499,11 +580,22 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     
     // MARK: - setup Heart Button
     func setupHeartBtn() {
-        likeLabel.isHidden = true
-        heartBtn.isHidden = true
-        heartBtn.frame = CGRect(x: 40, y: 700, width: heartBtn.frame.width, height: heartBtn.frame.height)
+        //likeLabel.isHidden = true
+        heartBtn.isHidden = false
+        
+        //add
+        // Heart 버튼의 크기를 크게 설정 (width: 60, height: 60)
+           heartBtn.frame = CGRect(x: 40, y: 700, width: 60, height: 60)
+           
+           // Heart 이미지 크기를 조정
+           heartBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+           heartBtn.imageView?.contentMode = .scaleAspectFit // 이미지 비율 유지하며 맞춤
+        //addend
+       // heartBtn.frame = CGRect(x: 40, y: 700, width: heartBtn.frame.width, height: heartBtn.frame.height)
         heartBtn.setTitleColor(.red, for: .normal)
-        heartBtn.titleLabel?.font = UIFont.systemFont(ofSize: 24)
+        heartBtn.titleLabel?.font = UIFont.systemFont(ofSize: 22)
     }
 }
+
+
 
