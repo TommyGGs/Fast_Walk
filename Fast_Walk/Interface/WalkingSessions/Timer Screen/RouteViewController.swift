@@ -25,7 +25,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     var mode: String = "slow"
     var timer: Timer!
     var countdown: Int = 0
-    var duration: Int = 0
+//    var duration: Int = 0
     
     var start: String = "start"
     
@@ -463,7 +463,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         let durationSeconds: Int = duration % 60
         currentTime.text = String(format: "%02d:%02d", remainingMinutes, remainingSeconds)
         countdown -= 1
-        duration += 1
+        //gpt changed here
+        super.duration += 1
         
 //        print (String(format: "%02d:%02d", durationMinutes, durationSeconds))
         

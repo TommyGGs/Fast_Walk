@@ -14,6 +14,7 @@ class HealthKitDemoViewController: UIViewController {
     let healthStore = HKHealthStore()
     var anchor: HKQueryAnchor?
     var averagePace: Float = 0
+    var duration: Int = 0
     
     
     override func viewDidLoad() {
@@ -138,13 +139,34 @@ class HealthKitDemoViewController: UIViewController {
                     self?.stepsLabel.text = "合計: \(pedometerData.numberOfSteps)歩"
                     print("UI Updated")
                 }
-                self?.totalSteps = Double(pedometerData.numberOfSteps)
-                if let distance = pedometerData.distance{
-                    self?.totalDistance = Double(distance)
+//                self?.totalSteps = Double(pedometerData.numberOfSteps)
+//                if let distance = pedometerData.distance{
+//                    self?.totalDistance = Double(distance)
+//                }
+//                if let pace = pedometerData.averageActivePace{
+//                    self?.averagePace = Float(pace)
+//                    print("pace is" + String(describing: pace))
+//                }
+                
+                guard let totalSteps = self?.totalSteps, let totalDistance = self?.totalDistance, let averagePace = self?.averagePace else {
+                    return
                 }
-                if let pace = pedometerData.averageActivePace{
-                    self?.averagePace = Float(pace)
-                    print("pace is" + String(describing: pace))
+                self!.totalSteps = Double(pedometerData.numberOfSteps)
+                
+                // Handle optional distance
+                if let distance = pedometerData.distance {
+                    // Check for sudden spikes in distance (e.g., > 100m in a short time might be unreasonable)
+                    if distance.doubleValue > 0 && distance.doubleValue < 1000 {
+                        self!.totalDistance = Double(distance)
+                    }
+                }
+
+                // Handle optional average pace
+                if let pace = pedometerData.averageActivePace {
+                    // Ignore unreasonable paces
+                    if pace.doubleValue > 0 && pace.doubleValue < 10 {
+                        self!.averagePace = Float(pace.doubleValue)
+                    }
                 }
                 
             }
@@ -152,6 +174,7 @@ class HealthKitDemoViewController: UIViewController {
             print("Step counting is not available")
         }
     }
+    
 
     func updateUI(with data: CMPedometerData) {
         stepsLabel.text = "Steps: \(data.numberOfSteps)"
@@ -185,6 +208,7 @@ class HealthKitDemoViewController: UIViewController {
             print("this is the steps", self.totalSteps)
             endVC.receivedDistance = self.totalDistance
             endVC.receivedAvgPace = self.averagePace
+            endVC.receivedTime = self.duration
         }
     }
 }

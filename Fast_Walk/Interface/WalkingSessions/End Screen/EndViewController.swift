@@ -187,7 +187,7 @@ class EndViewController: EndScreenViewController{
         dateLabel.text = dateString // 今日の日付を表示
 
         // Set progress with animation
-        let totalStepsGoal: CGFloat = 1000.0
+        let totalStepsGoal: CGFloat = 10000.0
         let stepProgress = CGFloat(receivedStepCount) / totalStepsGoal
         circularProgressView.setProgress(to: stepProgress, animated: true)
         
