@@ -181,11 +181,21 @@ class Marker {
         marker.position = place.coordinate
 
         // Step 1: Fetch the name and opening hours in Japanese using a URL request
-        let placeID = place.placeID ?? ""
+        guard let placeID = place.placeID else {
+            print("probably destination")
+            let marker = GMSMarker()
+            marker.title = "終着地点"
+            marker.position = place.coordinate
+            marker.map = mapView
+            
+            return
+        }
         let apiKey = "\(APIKeys.shared.GMSServices)" // Replace with your Google API Key
         let urlString = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(placeID)&fields=name,opening_hours&language=ja&key=\(apiKey)"
         
         guard let url = URL(string: urlString) else {
+//            marker.icon = GMSMarker.markerImage(with: .blue)
+
             print("Invalid URL")
             return
         }

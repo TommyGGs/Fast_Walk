@@ -113,7 +113,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
            // Set constraints for the label (align to top and left)
            NSLayoutConstraint.activate([
                titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-               titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16)
+               titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 27)
            ])
         self.view.bringSubviewToFront(titleLabel)
        }
@@ -145,7 +145,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
            gradientLayer.locations = [0.0, 0.5, 1.0] // 중간 색상이 50% 위치에 오도록 설정
 
             // 그라데이션 레이어의 프레임 설정
-            gradientLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 140) // 높이 조절 가능
+            gradientLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 150) // 높이 조절 가능
 
             // 그라데이션 위치 설정 (0.0이 상단, 1.0이 하단)
             gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
@@ -161,9 +161,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         backButton.tintColor = UIColor(red: 84/255.0, green: 84/255.0, blue: 84/255.0, alpha: 0.9)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         
-        backButton.frame = CGRect(x: 20, y: 50, width: 22, height: 22)
+        backButton.frame = CGRect(x: 20, y: 57, width: 22, height: 22)
 
-        // Add the button to the view
+        // Add the button to the vie
         view.addSubview(backButton)
         view.bringSubviewToFront(backButton)
     }
@@ -223,7 +223,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         
         barBackgroundView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                barBackgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
+                barBackgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 90),
                 barBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
                 barBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
                 barBackgroundView.heightAnchor.constraint(equalToConstant: 34)
@@ -236,7 +236,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             // Set constraints for the stack view
             stackView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
+                stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 90),
                 stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
                 stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
                 stackView.heightAnchor.constraint(equalToConstant: 34)
@@ -937,17 +937,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         if marker.title == "開始地点"{
             //print ("is start thing clicked")
             return nil
+        } else if marker.icon == GMSMarker.markerImage(with: .red){
+            print("marker probably destination")
+            return nil
         }
+
         let infoWindow = CustomInfoWindow()
         infoWindow.frame = CGRect(x:0, y:0, width: 300, height: 200)
         infoWindow.titleLabel.text = marker.title
+        print("marker snippet: ", marker.snippet)
         let snippetComponents = marker.snippet?.split(separator: ",")
         if let components = snippetComponents {
             if components.count >= 2 {
                 // Extract rating
+                
                 let ratingString = components[0].replacingOccurrences(of: "評価：", with: "").trimmingCharacters(in: .whitespaces)
-                if let rating = Int(ratingString) {
+                print("rating is:", ratingString)
+
+                if let ratingDouble = Double(ratingString) {
+                    let rating = Int(round(ratingDouble))
                     infoWindow.updateStars(rating: rating)
+                } else {
+                    print("Invalid rating value")
                 }
 
                 // Extract type
@@ -956,6 +967,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                 typeAttributedString.append(NSAttributedString(string: typeString))
                 infoWindow.snippetLabel.attributedText = typeAttributedString
 
+                
+                
                 // Extract opening hours if available
                 if components.count >= 3 {
                     let openingHoursString = components[2].replacingOccurrences(of: "営業時間：", with: "").trimmingCharacters(in: .whitespaces)
@@ -1001,7 +1014,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         setupButtonStyle(button45)
         setupButtonStyle(button60)
         setupButtonStyle(button90)
-        setupButtonStyle(startButton)
+       // setupButtonStyle(startButton)
     }
     
     

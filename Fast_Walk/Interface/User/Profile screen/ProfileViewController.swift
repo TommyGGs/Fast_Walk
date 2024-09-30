@@ -72,7 +72,7 @@ class ProfileViewController: UIViewController {
         mail.textColor = UIColor.gray // グレーの文字色
         
         // いいね数のスタイル
-        favorites.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        favorites.font = UIFont(name: "NotoSansJP-Regular", size: 16)
         favorites.textAlignment = .center
         favorites.textColor = UIColor.darkGray
         
@@ -87,8 +87,7 @@ class ProfileViewController: UIViewController {
         logoutButton.setTitleColor(UIColor.white, for: .normal)
         logoutButton.layer.cornerRadius = 10
         logoutButton.setTitle("ログアウト", for: .normal)
-        logoutButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        
+        logoutButton.titleLabel?.font = UIFont(name: "NotoSansJP-Medium", size: 18)
         
 //        view.backgroundColor = UIColor.white.withAlphaComponent(0) // Transparent background
 //        view.layer.cornerRadius = 15

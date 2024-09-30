@@ -40,6 +40,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         placesClient = GMSPlacesClient.shared()
         searchVCStuff()
         beginLocationUpdate()
+        addGradientLayer()
         locationManager.delegate = self
         self.view.sendSubviewToBack(mapContainerView)
 //<<<<<<< HEAD
@@ -200,6 +201,36 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             titleLabel.bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -15) // Anchor it to the bottom of the parent with some padding
         ])
     }
+    
+    func addGradientLayer() {
+            // CAGradientLayer 생성
+            let gradientLayer = CAGradientLayer()
+
+            // 시작 색상: #B4E4FF, 100% 투명도
+            let topColor = UIColor(red: 180/255, green: 228/255, blue: 255/255, alpha: 0.8).cgColor // #B4E4FF, 100% 투명
+        
+        // 중간 색상: 흰색, 75% 투명도
+            let middleColor = UIColor(white: 1.0, alpha: 0.65).cgColor // 흰색 75% 투명도
+        
+            // 끝 색상: #D7F1FF, 25% 투명도
+            let bottomColor = UIColor(red: 215/255, green: 241/255, blue: 255/255, alpha: 0.22).cgColor // #D7F1FF, 25% 투명
+
+            // 그라데이션의 색상 배열 설정
+            gradientLayer.colors = [topColor, middleColor, bottomColor]
+        
+        // 그라데이션의 각 색상이 적용될 위치 (0.0이 상단, 1.0이 하단)
+        gradientLayer.locations = [0.0, 0.5, 0.9] // 중간 색상이 50% 위치에 오도록 설정
+
+            // 그라데이션 레이어의 프레임 설정
+            gradientLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 180) // 높이 조절 가능
+
+            // 그라데이션 위치 설정 (0.0이 상단, 1.0이 하단)
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
+
+            // view의 레이어에 그라데이션 레이어 추가
+            self.view.layer.addSublayer(gradientLayer)
+        }
 
 
 
@@ -224,9 +255,9 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
 //            backButton.heightAnchor.constraint(equalToConstant: 30)
             
             backButton.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 16),
-            backButton.topAnchor.constraint(equalTo: parentView.topAnchor, constant: 70), // Adjust based on the search bar's position
-            backButton.widthAnchor.constraint(equalToConstant: 30),
-            backButton.heightAnchor.constraint(equalToConstant: 30)
+            backButton.topAnchor.constraint(equalTo: parentView.topAnchor, constant: 74), // Adjust based on the search bar's position
+            backButton.widthAnchor.constraint(equalToConstant: 24),
+            backButton.heightAnchor.constraint(equalToConstant: 24)
         ])
         
         
@@ -275,6 +306,8 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let destination = self.destination {
             self.marker.addMarker(destination, self.mapView)
+        } else {
+            print("no current destination boi", destination)
         }
         guard let location = locations.first else { return }
         
@@ -306,6 +339,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         if status == .authorizedWhenInUse || status == .authorizedAlways {
             locationManager.startUpdatingLocation()
         }
+        
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -333,12 +367,20 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         currentRoutePolyline?.map = nil
         currentRoutePolyline = nil
         mapView?.clear()
+        passWaypoint.removeAll()
+        
 
         guard let destination = destination else {
             errorLabel(type: "Time")
             return
         }
         
+        
+        DispatchQueue.main.async {
+            if let destination = self.destination {
+                self.marker.addMarker(destination, self.mapView)
+            }
+        }
         // Add the destination marker immediately after clearing the map
 //        self.marker.addMarker(destination, self.mapView)
         
@@ -368,6 +410,14 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
     
     // MARK: Display Route
     func displayRouteOnMap(polyString: String, start: CLLocationCoordinate2D, end: CLLocationCoordinate2D, durationText: String) {
+        
+        DispatchQueue.main.async {
+            if let destination = self.destination {
+                self.marker.addMarker(destination, self.mapView)
+            }
+        }
+        
+        
         if let path = GMSPath(fromEncodedPath: polyString) {
             let polyline = GMSPolyline(path: path)
             polyline.strokeWidth = 5.0
@@ -419,6 +469,12 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
                 }
             }
             
+            
+            DispatchQueue.main.async {
+                if let destination = self.destination {
+                    self.marker.addMarker(destination, self.mapView)
+                }
+            }
             
 
                 
@@ -537,6 +593,8 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
                     print("no destination boi")
                     return
                 }
+                
+                //righthere
                 self.passWaypoint.append(destination)
                 routeViewController.waypoints = passWaypoint
                 routeViewController.destination = destination
@@ -599,6 +657,9 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             if marker.title == "開始地点"{
                 //print ("is start thing clicked")
                 return nil
+            } else if marker.title == "destination"{
+                print("is destination")
+                return nil
             }
             let infoWindow = CustomInfoWindow()
             infoWindow.frame = CGRect(x:0, y:0, width: 300, height: 200)
@@ -609,8 +670,13 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
                 if components.count >= 2 {
                     // Extract rating
                     let ratingString = components[0].replacingOccurrences(of: "評価：", with: "").trimmingCharacters(in: .whitespaces)
-                    if let rating = Int(ratingString) {
+                    print("rating is:", ratingString)
+
+                    if let ratingDouble = Double(ratingString) {
+                        let rating = Int(round(ratingDouble))
                         infoWindow.updateStars(rating: rating)
+                    } else {
+                        print("Invalid rating value")
                     }
 
                     // Extract type
@@ -673,3 +739,4 @@ extension RouteMainViewController: ResultsViewControllerDelegate {
     }
     
 }
+
