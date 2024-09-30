@@ -44,6 +44,19 @@ class ChooseViewController: UIViewController{
             loginViewController.signUp = true
             print("signup is \(String(describing: loginViewController.signUp))")
             loginViewController.modalPresentationStyle = .fullScreen
+            
+            let transition = CATransition()
+            transition.duration = 0.4 // Duration of the transition
+            transition.type = .moveIn // Use moveIn for a simpler transition
+            transition.subtype = .fromRight // Direction of the transition
+            
+            // Disable unwanted animations or artifacts like the bump or shadow.
+            transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut) // Smoother transition without sudden bumps
+            
+            // Add the transition to the current view's window layer
+            view.window?.layer.add(transition, forKey: kCATransition)
+
+            
             self.present(loginViewController, animated: false, completion: nil)
         }
     }
@@ -53,6 +66,18 @@ class ChooseViewController: UIViewController{
         if let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
             loginViewController.signUp = false
             loginViewController.modalPresentationStyle = .fullScreen
+            
+            let transition = CATransition()
+            transition.duration = 0.4 // Duration of the transition
+            transition.type = .moveIn // Use moveIn for a simpler transition
+            transition.subtype = .fromRight // Direction of the transition
+            
+            // Disable unwanted animations or artifacts like the bump or shadow.
+            transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut) // Smoother transition without sudden bumps
+            
+            // Add the transition to the current view's window layer
+            view.window?.layer.add(transition, forKey: kCATransition)
+            
             self.present(loginViewController, animated: false, completion: nil)
         }
     }

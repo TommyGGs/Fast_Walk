@@ -86,6 +86,19 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let chooseVC = storyboard.instantiateViewController(withIdentifier: "ChooseViewController") as? ChooseViewController {
             chooseVC.modalPresentationStyle = .fullScreen
+            
+            let transition = CATransition()
+            transition.duration = 0.4 // Duration of the transition
+            transition.type = .moveIn // Use moveIn for a simpler transition
+            transition.subtype = .fromLeft // Direction of the transition
+            
+            // Disable unwanted animations or artifacts like the bump or shadow.
+            transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut) // Smoother transition without sudden bumps
+            
+            // Add the transition to the current view's window layer
+            view.window?.layer.add(transition, forKey: kCATransition)
+            
+            
             self.present(chooseVC, animated: false, completion: nil)
         }
     }

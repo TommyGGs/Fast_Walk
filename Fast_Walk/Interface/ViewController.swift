@@ -88,6 +88,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         addGradientLayer()
         addTitleLabel()
         setupBackButton()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -677,6 +678,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
     
     @IBAction func searchRoute(_ sender: UIButton) {
         print("Search button pressed")
+        removeErrorLabel()
         currentRoutePolyline?.map = nil
         currentRoutePolyline = nil
         mapView?.clear()
@@ -1074,6 +1076,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         myLabel.alpha = 0.95
         
         view.addSubview(myLabel)
+        errorLabelReference = myLabel
+
     }
     
     func removeErrorLabel() {

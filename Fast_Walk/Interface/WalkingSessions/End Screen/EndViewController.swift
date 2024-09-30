@@ -31,6 +31,7 @@ class EndViewController: EndScreenViewController{
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var finishButton: UIButton!
 
+    
 
 
     
@@ -46,10 +47,51 @@ class EndViewController: EndScreenViewController{
     var receivedTime: Int = 0
     var receivedAvgPace: Float = 0
 
+    var calculatedCalories: Double = 0
+    
+    var distanceNumberLabel: UILabel!
+    var paceNumberLabel: UILabel!
+    var calorieNumberLabel: UILabel!
+
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // ラベルの作成
+        distanceNumberLabel = UILabel()
+        distanceNumberLabel.translatesAutoresizingMaskIntoConstraints = false
+        distanceNumberLabel.textAlignment = .center
+        distanceNumberLabel.backgroundColor = UIColor(red: 0.7765, green: 0.8431, blue: 1.0, alpha: 0.5) // Alpha値を少し薄くして調整
+        distanceNumberLabel.layer.cornerRadius = 10
+        distanceNumberLabel.clipsToBounds = true
+        distanceNumberLabel.adjustsFontSizeToFitWidth = true  // ここに追加
+        distanceNumberLabel.minimumScaleFactor = 0.5  // 最小フォントサイズの縮小率
+
+        
+        paceNumberLabel = UILabel()
+        paceNumberLabel.translatesAutoresizingMaskIntoConstraints = false
+        paceNumberLabel.textAlignment = .center
+        paceNumberLabel.backgroundColor = UIColor(red: 0.7765, green: 0.8431, blue: 1.0, alpha: 0.5)
+        paceNumberLabel.layer.cornerRadius = 10
+        paceNumberLabel.clipsToBounds = true
+        paceNumberLabel.adjustsFontSizeToFitWidth = true  // ここに追加
+        paceNumberLabel.minimumScaleFactor = 0.5  // 最小フォントサイズの縮小率
+
+        calorieNumberLabel = UILabel()
+        calorieNumberLabel.translatesAutoresizingMaskIntoConstraints = false
+        calorieNumberLabel.textAlignment = .center
+        calorieNumberLabel.backgroundColor = UIColor(red: 0.7765, green: 0.8431, blue: 1.0, alpha: 0.5)
+        calorieNumberLabel.layer.cornerRadius = 10
+        calorieNumberLabel.clipsToBounds = true
+        calorieNumberLabel.adjustsFontSizeToFitWidth = true  // ここに追加
+        calorieNumberLabel.minimumScaleFactor = 0.5  // 最小フォントサイズの縮小率
+
+
+        
         setupUI()
+        
+        updateSessionData()
 
         // FIXED !!!! Calculate the progress based on the received steps and total step goal FIXED!!!
         let stepGoal: CGFloat = 10000.0 // Example step goal
@@ -72,18 +114,20 @@ class EndViewController: EndScreenViewController{
         // フォントを NotoSansJP-Bold に設定
         finishButton.titleLabel?.font = UIFont(name: "NotoSansJP-Bold", size: 30)
         
-        finishButton.layer.cornerRadius = 15
+        finishButton.layer.cornerRadius = 5
         finishButton.clipsToBounds = true
-        finishButton.translatesAutoresizingMaskIntoConstraints = false
-        // finishButtonの制約を調整して、過度な隙間を修正
-        NSLayoutConstraint.activate([
-            finishButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),  // 左右のマージンを追加
-            finishButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),  // 左右のマージンを追加
-            finishButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),  // 画面下に近づける
-            finishButton.topAnchor.constraint(greaterThanOrEqualTo: messageLabel.bottomAnchor, constant: 80),  // 上のマージンを調整して高さを伸ばす
-            finishButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 100)  // ボタンの高さを伸ばす
-        ])
+        // 下部の角を丸くしないように設定
+        finishButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner] // 上部のみ丸くする
 
+        
+        finishButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            finishButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            finishButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            finishButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            finishButton.topAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
+        ])
+        
         view.bringSubviewToFront(finishButton)
         
         
@@ -104,50 +148,35 @@ class EndViewController: EndScreenViewController{
             return numberAttributedString
         }
         
-        // 数値ラベルと単位ラベルを作成
-        let distanceNumberLabel = UILabel()
-        distanceNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-        distanceNumberLabel.attributedText = createFormattedLabelText(number: "2.5", unit: " km")
-        distanceNumberLabel.textAlignment = .center
-        distanceNumberLabel.backgroundColor = UIColor(red: 0.7765, green: 0.8431, blue: 1.0, alpha: 0.3)
-        distanceNumberLabel.layer.cornerRadius = 10
-        distanceNumberLabel.clipsToBounds = true
+        
+        
 
-        let calorieNumberLabel = UILabel()
-        calorieNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-        calorieNumberLabel.attributedText = createFormattedLabelText(number: "250", unit: " cal")
-        calorieNumberLabel.textAlignment = .center
-        calorieNumberLabel.backgroundColor = UIColor(red: 0.7765, green: 0.8431, blue: 1.0, alpha: 0.3)
-        calorieNumberLabel.layer.cornerRadius = 10
-        calorieNumberLabel.clipsToBounds = true
 
-        let paceNumberLabel = UILabel()
-        paceNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-        paceNumberLabel.attributedText = createFormattedLabelText(number: "5.0", unit: " km/min")
-        paceNumberLabel.textAlignment = .center
-        paceNumberLabel.backgroundColor = UIColor(red: 0.7765, green: 0.8431, blue: 1.0, alpha: 0.3)
-        paceNumberLabel.layer.cornerRadius = 10
-        paceNumberLabel.clipsToBounds = true
 
-        // ラベルをまとめる配列を作成
-        let labels = [distanceNumberLabel, calorieNumberLabel, paceNumberLabel]
 
-        // スタックビューで横並びに配置
+
+        // 配列をUIViewの配列として作成
+        let labels: [UIView] = [distanceNumberLabel, paceNumberLabel, calorieNumberLabel]
+
+        // スタックビューにラベルを追加
         let labelStackView = UIStackView(arrangedSubviews: labels)
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
-        labelStackView.axis = .horizontal
-        labelStackView.distribution = .fillEqually
+        labelStackView.axis = NSLayoutConstraint.Axis.horizontal
+        labelStackView.distribution = UIStackView.Distribution.fillEqually
         labelStackView.spacing = 5
-
         view.addSubview(labelStackView)
 
+        // 制約を追加
         NSLayoutConstraint.activate([
             labelStackView.bottomAnchor.constraint(equalTo: finishButton.topAnchor, constant: -10),
             labelStackView.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 60),
-            labelStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            labelStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            labelStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            labelStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
         ])
-        
+
+        // セッションデータの更新
+        updateSessionData()
+
         
         
         // 今日の日付を取得して表示
@@ -169,6 +198,61 @@ class EndViewController: EndScreenViewController{
         view.bringSubviewToFront(finishButton)
         
     }
+    
+    
+    
+    
+// calculate data (New !!!)
+    func updateSessionData() {
+        // 距離を反映
+        let distanceFormatted = String(format: "%.2f", receivedDistance)
+        distanceNumberLabel.attributedText = createFormattedLabelText(number: distanceFormatted, unit: " km")
+        
+        // ペースを反映
+        let paceFormatted = String(format: "%.2f", receivedAvgPace)
+        paceNumberLabel.attributedText = createFormattedLabelText(number: paceFormatted, unit: " km/min")
+        
+        // カロリーを計算して反映
+        calculatedCalories = calculateCalories(steps: receivedStepCount, distance: receivedDistance, time: receivedTime)
+        let caloriesFormatted = String(format: "%.0f", calculatedCalories)
+        calorieNumberLabel.attributedText = createFormattedLabelText(number: caloriesFormatted, unit: " cal")
+    
+        // 数値と単位を組み合わせてフォーマットするやつ
+        func createFormattedLabelText(number: String, unit: String) -> NSAttributedString {
+            let numberAttributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont(name: "NotoSansJP-Bold", size: 30)!
+            ]
+            let unitAttributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont(name: "NotoSansJP-Regular", size: 17)!
+            ]
+            
+            let numberAttributedString = NSMutableAttributedString(string: number, attributes: numberAttributes)
+            let unitAttributedString = NSAttributedString(string: unit, attributes: unitAttributes)
+            
+            numberAttributedString.append(unitAttributedString)
+            return numberAttributedString
+        }
+
+    }
+    
+    func calculateCalories(steps: Double, distance: Double, time: Int) -> Double {
+        // MET値（例: 平均歩行 3.5 METs）
+        let mets: Double = 3.5
+        
+        // 体重（例: 平均70kg）
+        let weightInKg: Double = 70.0
+        
+        // 時間（分単位に変換）
+        let timeInHours: Double = Double(time) / 3600.0
+        
+        // 消費カロリーの計算
+        let caloriesBurned = mets * weightInKg * timeInHours
+        return caloriesBurned
+    }
+
+
+    
+    
     
     @IBAction func goToRouteorTime() {
         let storyboard = UIStoryboard(name: "RouteOrTime", bundle: nil)
@@ -212,14 +296,7 @@ class EndViewController: EndScreenViewController{
         setupConstraints()
     }
 
-//    @objc func toggleHeart() {
-//        if heartButton.tintColor == .gray {
-//            heartButton.tintColor = .red
-//        } else {
-//            heartButton.tintColor = .gray
-//        }
-//    }
-    
+
     // Set constraints for all UI elements
     func setupConstraints() {
         
@@ -255,31 +332,6 @@ class EndViewController: EndScreenViewController{
             timeLabel.centerXAnchor.constraint(equalTo: stepsLabel.centerXAnchor),
             timeLabel.topAnchor.constraint(equalTo: stepsLabel.bottomAnchor, constant: 5) // `5`で少し下に表示
         ])
-        
-//＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿ハートマジでデカくならん＿＿＿＿＿＿＿＿＿＿＿＿＿
-//        heartButton.translatesAutoresizingMaskIntoConstraints = false
-//        heartButton.setTitle("", for: .normal) // ボタンのテキストを空にする（必要なら後で再設定）
-//        heartButton.setImage(UIImage(systemName: "heart"), for: .normal) // 画像の再設定
-//        heartButton.imageView?.contentMode = .scaleAspectFit
-//        // Heart button on the right of the circular progress bar
-//        NSLayoutConstraint.activate([
-//            // heartButton のサイズを大きくする
-//            heartButton.widthAnchor.constraint(equalToConstant: 100),
-//            heartButton.heightAnchor.constraint(equalToConstant: 100),
-//
-//            // heartButton を円グラフの右下に配置
-//            heartButton.topAnchor.constraint(equalTo: circularProgressView.bottomAnchor, constant: -95), // 円グラフの下部に寄せる
-//            heartButton.leadingAnchor.constraint(equalTo: circularProgressView.trailingAnchor, constant: -40) // 円グラフの右側に寄せる
-//        ])
-//
-//        // Distance and Calorie labels at the bottom
-//        NSLayoutConstraint.activate([
-//            distanceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-//            distanceLabel.topAnchor.constraint(equalTo: circularProgressView.bottomAnchor, constant: 30),
-//            
-//            calorieLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-//            calorieLabel.topAnchor.constraint(equalTo: circularProgressView.bottomAnchor, constant: 30)
-//        ])
         
 //健康データ設定追加＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
         NSLayoutConstraint.activate([

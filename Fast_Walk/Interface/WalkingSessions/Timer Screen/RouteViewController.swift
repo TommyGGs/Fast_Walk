@@ -13,7 +13,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     @IBOutlet var currentTime: UILabel!
     @IBOutlet var nextMode: UILabel!
     @IBOutlet var heartBtn: UIButton!
-    //@IBOutlet var likeLabel: UILabel!
+    @IBOutlet var likeLabel: UILabel!
+    @IBOutlet var endBtn: UIButton!
     var waypoints: [GMSPlace] = []
     var overlayView: UIView!
     var countdownLabel: UILabel!
@@ -32,12 +33,15 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     var favorites: [FavoriteSpot] = []
     var user_favorites: [FavoriteSpot] = []
     var remove_user_favorites: [FavoriteSpot] = []
-    var isFavAlready: Bool = false
     var allUsers: [User] = []
     var currentSpot: CLLocationCoordinate2D = CLLocationCoordinate2D()
     var userID: String = ""
     var currentPlaceID: String = ""
     
+    // heart stuff
+    var enableHeart: Bool = false
+    var errorLabelReference: UILabel?
+
     let realm = try! Realm()
 
     override func viewDidLoad() {
@@ -46,7 +50,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         //users & favorites
         allUsers = readAllUsers()
         user_favorites = readFavorites()
-        setupHeartBtn()
+        enableHeartBtn(fill: false, enable: false)
 
         print("this is user favorites: \(user_favorites)")
         
@@ -215,8 +219,13 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        
+        var isFavAlready: Bool = false
+        var inArrayAlready: Bool = false
+        
+        removeErrorLabel()
         print("setting up pop-up")
-        if marker.title == "ルート開始"{
+        if marker.title == "開始地点"{
             //print ("is start thing clicked")
             return nil
         }
@@ -233,17 +242,15 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             }
         }
         print("current spot changed\(currentSpot)")
-        //likeLabel.isHidden = false
-        heartBtn.isHidden = false
+//        likeLabel.isHidden = false
+//        heartBtn.isHidden = false
         
-        var inArrayAlready: Bool = false
         
         // MARK: find if it is already in favorite array
         for favorite in favorites {
             if favorite.coordinate.latitude == currentSpot.latitude, favorite.longitude == currentSpot.longitude {
                 inArrayAlready = true
-                print("is fav array already")
-                heartBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                print("is fav array already so fill it")
             }
         }
         
@@ -253,26 +260,36 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
                 if user_fav.latitude == currentSpot.latitude, user_fav.longitude == currentSpot.longitude  {
                     isFavAlready = true
                     print("is fav already")
+                    
                 }
             }
             for remove_user_favorite in remove_user_favorites {
                 if remove_user_favorite.longitude == currentSpot.longitude, remove_user_favorite.latitude == currentSpot.latitude {
-                    heartBtn.setImage(UIImage(systemName: "heart"), for: .normal)
                     print("was in remove already")
                     isFavAlready = false
                 }
             }
+            
         }
         
         print(favorites, remove_user_favorites)
-        if isFavAlready == true {
-            heartBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        
+        print("current location at", currentLocation, "current pin at", currentSpot)
+ 
+        if currentSpot.latitude == currentLocation?.latitude && currentSpot.longitude == currentLocation?.longitude {
+            print("its at current spot")
+            enableHeartBtn(fill: false, enable: false)
+        } else if isFavAlready == true {
+            enableHeartBtn(fill: true)
+        } else if inArrayAlready == true {
+            print("already in array")
+            enableHeartBtn(fill: true)
         } else if isFavAlready == false{
-            heartBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+            print("the isfav already is false")
+            enableHeartBtn(fill: false)
         }
         
 
-        
         if let photo = marker.userData as? UIImage {
                 print("Userdata is valid")
             DispatchQueue.main.async {
@@ -285,17 +302,26 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     // when tapped map but not marker
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        //likeLabel.isHidden = true
-        heartBtn.isHidden = true
+//        likeLabel.isHidden = true
+//        heartBtn.isHidden = true
+        removeErrorLabel()
+        enableHeartBtn(fill: false, enable: false)
         print("Map didn't tap marker")
     }
 
 
     
     @IBAction func likeLocation() {
-        print("button pressed")
-        if heartBtn.imageView?.image == UIImage(systemName: "heart") {
-            heartBtn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        guard enableHeart == true else{
+            errorLabel()
+            print("heart is not enabled")
+            return
+        }
+        let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .bold, scale: .large)
+        
+        if heartBtn.imageView?.image == UIImage(systemName: "heart", withConfiguration: config) {
+            enableHeartBtn(fill: true)
+            
             for remove_favorite in remove_user_favorites{
                 if let index = remove_user_favorites.firstIndex(where: {
                     $0.latitude == currentSpot.latitude && $0.longitude == currentSpot.longitude}) {
@@ -310,8 +336,9 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             print("favorite placeID added to array")
             favorites.append(fav)
             print("fav appended")
-        } else {
-            heartBtn.setImage(UIImage(systemName: "heart"), for: .normal)
+        } else if heartBtn.imageView?.image == UIImage(systemName: "heart.fill", withConfiguration: config){
+            print("heart image will be unfilled")
+            enableHeartBtn(fill: false)
             for favorite in favorites {
                 if let index = favorites.firstIndex(where: {
                     $0.latitude == currentSpot.latitude && $0.longitude == currentSpot.longitude
@@ -450,6 +477,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
 //            mapView?.animate(with: cameraUpdate)
             mapView?.isMyLocationEnabled = true
             mapView?.settings.myLocationButton = true
+            enableHeartBtn(fill: false, enable: false)
         }
     }
     
@@ -473,7 +501,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         setupAndDisplayRouteOnMap(routeDetails: routeDetails)
 
         for waypoint in waypoints {
-            self.marker.addMarker(waypoint, self.mapView)
+            self.marker.addMarker(waypoint, self.mapView, blue: true)
         }
     }
     
@@ -496,8 +524,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
             mapView?.animate(with: update)
             
             let durationMarker = GMSMarker(position: routeDetails.startCoordinate)
-            durationMarker.title = "ルート開始"
-            durationMarker.snippet = "Estimated Total Walking Time: \(routeDetails.durationText)"
+            durationMarker.title = "開始地点"
+            durationMarker.snippet = "予測時間: \(routeDetails.durationText)"
             durationMarker.map = mapView
             mapView?.selectedMarker = durationMarker
         }
@@ -579,21 +607,70 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     
     // MARK: - setup Heart Button
-    func setupHeartBtn() {
-        //likeLabel.isHidden = true
-        heartBtn.isHidden = false
+    func enableHeartBtn(fill: Bool, enable: Bool = true) {
+        print("right now fav array is:", favorites)
+        likeLabel.isHidden = true
+        endBtn.isHidden = true
         
-        //add
-        // Heart 버튼의 크기를 크게 설정 (width: 60, height: 60)
-           heartBtn.frame = CGRect(x: 40, y: 700, width: 60, height: 60)
-           
-           // Heart 이미지 크기를 조정
-           heartBtn.setImage(UIImage(systemName: "heart"), for: .normal)
-           heartBtn.imageView?.contentMode = .scaleAspectFit // 이미지 비율 유지하며 맞춤
-        //addend
-       // heartBtn.frame = CGRect(x: 40, y: 700, width: heartBtn.frame.width, height: heartBtn.frame.height)
-        heartBtn.setTitleColor(.red, for: .normal)
-        heartBtn.titleLabel?.font = UIFont.systemFont(ofSize: 22)
+        if enable == true {
+            heartBtn.tintColor = .red
+            enableHeart = true
+        } else {
+            heartBtn.tintColor = .lightGray
+            enableHeart = false
+        }
+
+        heartBtn.frame = CGRect(x: 40, y: 740, width: heartBtn.frame.width, height: heartBtn.frame.height)
+        let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .bold, scale: .large)
+        
+        if fill == true {
+            print("heart set to fill")
+            let image = UIImage(systemName: "heart.fill", withConfiguration: config)
+            heartBtn.setImage(image, for: .normal)
+        } else if fill == false{
+            print("heart set to not fill")
+            let image = UIImage(systemName: "heart", withConfiguration: config)
+            heartBtn.setImage(image, for: .normal)
+        }
+        
+    }
+    
+    // MARK: - eror label stuff
+    func errorLabel(){
+        if errorLabelReference != nil {
+            removeErrorLabel()
+        }
+
+        let labelWidth: CGFloat = 300
+        let labelHeight: CGFloat = 50
+        
+        // Assuming this code is inside a ViewController method
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        
+        let labelX = (screenWidth / 2) - (labelWidth / 2)
+        //        let labelY = screenHeight * 0.5
+        
+        let myLabel = UILabel(frame: CGRect(x: labelX, y: 100, width: labelWidth, height: labelHeight))
+        myLabel.text = "保存する場所を選択してください"
+        myLabel.textAlignment = .center
+        myLabel.backgroundColor = .red // For visibility
+        myLabel.textColor = .white
+        myLabel.layer.cornerRadius = 10
+        myLabel.layer.masksToBounds = true
+        myLabel.alpha = 0.95
+        
+        view.addSubview(myLabel)
+        errorLabelReference = myLabel
+
+    }
+    
+    func removeErrorLabel() {
+        print("removing errorlaebl")
+        if let label = errorLabelReference {
+            label.removeFromSuperview()
+            errorLabelReference = nil
+        }
     }
 }
 
