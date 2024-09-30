@@ -1,3 +1,6 @@
+
+
+
 //
 //  HeartViewController.swift
 //  Fast_Walk
@@ -11,20 +14,17 @@ import GoogleSignIn
 import LineSDK
 import GooglePlaces
 
-
-
 class HeartViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var favorites: [FavoriteSpot] = []
     var collectionView: UICollectionView!
     var placesClient: GMSPlacesClient! = GMSPlacesClient.shared()
-
-
     
     let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         favorites = readFavorites()
         listFavorites()
         closeButton()
@@ -55,7 +55,7 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return favorites.count // Replace with the actual number of items
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LikeCollectionViewCell.identifier, for: indexPath) as? LikeCollectionViewCell else {
             fatalError("Unable to dequeue CustomCollectionViewCell")
@@ -64,21 +64,20 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
         cell.onDeleteTapped = { [weak self] indexPath in
             self?.deleteItemAt(indexPath)
         }
-
+        
         let placeID = favorites[indexPath.row].placeID
-
-        print ("placeid favorites = \(placeID)")
+        
+        print("placeid favorites = \(placeID)")
         
         // Specify the place data types to return.
         let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt64(UInt(GMSPlaceField.name.rawValue) | UInt(GMSPlaceField.placeID.rawValue) | UInt(GMSPlaceField.photos.rawValue) | UInt(GMSPlaceField.rating.rawValue) | UInt(GMSPlaceField.types.rawValue)))
-
         
         placesClient?.fetchPlace(fromPlaceID: placeID, placeFields: fields, sessionToken: nil, callback: {
-          (place: GMSPlace?, error: Error?) in
-          if let error = error {
-            print("An error occurred: \(error.localizedDescription)")
-            return
-          }
+            (place: GMSPlace?, error: Error?) in
+            if let error = error {
+                print("An error occurred: \(error.localizedDescription)")
+                return
+            }
             if let place = place {
                 print("place rating\(place.rating)")
                 print("placetypes\(String(describing: place.types?.first))")
@@ -87,9 +86,9 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
                 cell.titleLabel.text = place.name
                 cell.descriptionLabel.text = "評価：" + String(Int(place.rating))
                 
-                //TODO: - connect star 
-                cell.typeLabel.text = "ジャンル:"  + (place.types?.first ?? "nil")
-                self.loadPhoto(place.photos?.first) {  placePhoto in
+                // TODO: - connect star
+                cell.typeLabel.text = "ジャンル:" + (place.types?.first ?? "nil")
+                self.loadPhoto(place.photos?.first) { placePhoto in
                     if let placePhoto = placePhoto {
                         DispatchQueue.main.async {
                             cell.imageView.image = placePhoto
@@ -126,28 +125,30 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: view.frame.size.width, height: 100)
         layout.scrollDirection = .vertical
-
+        
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(LikeCollectionViewCell.self, forCellWithReuseIdentifier: LikeCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
-
+        
+        // Add extra space at the top of the collection view
+        collectionView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
+        
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     
-    
-    
     func closeButton() {
         let close = UIButton(type: .system)
         close.setTitle("閉じる", for: .normal)
+
         // フォントをカスタムフォントに変更
         close.titleLabel?.font = UIFont(name: "NotoSansJP-Regular", size: 15)
            
@@ -155,6 +156,7 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
         close.setTitleColor(UIColor.black, for: .normal)
         
         close.addTarget(self , action: #selector(closeScreen), for: .touchUpInside)
+
         close.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(close)
         

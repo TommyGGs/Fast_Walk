@@ -30,6 +30,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
     var passWaypoint: [GMSPlace] = []
     var whiteBoxView: UIView!
 
+    var timer: Timer?
     
     private var placesClient: GMSPlacesClient!
     
@@ -209,7 +210,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             let topColor = UIColor(red: 180/255, green: 228/255, blue: 255/255, alpha: 0.8).cgColor // #B4E4FF, 100% 투명
         
         // 중간 색상: 흰색, 75% 투명도
-            let middleColor = UIColor(white: 1.0, alpha: 0.65).cgColor // 흰색 75% 투명도
+            let middleColor = UIColor(white: 1.0, alpha: 0.30).cgColor // 흰색 75% 투명도
         
             // 끝 색상: #D7F1FF, 25% 투명도
             let bottomColor = UIColor(red: 215/255, green: 241/255, blue: 255/255, alpha: 0.22).cgColor // #D7F1FF, 25% 투명
@@ -303,6 +304,11 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let destination = self.destination {
+            self.marker.addMarker(destination, self.mapView)
+        } else {
+            print("no current destination boi", destination)
+        }
         guard let location = locations.first else { return }
         
         if currentLocation == nil {  // Check if the initial location has been set
@@ -333,6 +339,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         if status == .authorizedWhenInUse || status == .authorizedAlways {
             locationManager.startUpdatingLocation()
         }
+        
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -360,21 +367,30 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         currentRoutePolyline?.map = nil
         currentRoutePolyline = nil
         mapView?.clear()
+        passWaypoint.removeAll()
+        
 
         guard let destination = destination else {
             errorLabel(type: "Time")
             return
         }
         
+        
+        DispatchQueue.main.async {
+            if let destination = self.destination {
+                self.marker.addMarker(destination, self.mapView)
+            }
+        }
+        // Add the destination marker immediately after clearing the map
+//        self.marker.addMarker(destination, self.mapView)
+        
         if let currentLocation = currentLocation,
-           let buttonText = sender.titleLabel?.text{
+           let buttonText = sender.titleLabel?.text {
             let desiredTime = checkDesiredTime(buttonText: buttonText)
-            print("Desired time: \(String(describing: desiredTime))")
+            print("Desired time: \(desiredTime)")
             findBestRoute(from: currentLocation, desiredTime: desiredTime)
-//            routeToPlace(destination: destination.coordinate)
         } else {
             print("Current location is not available or no destination")
-            
         }
     }
     
@@ -394,6 +410,14 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
     
     // MARK: Display Route
     func displayRouteOnMap(polyString: String, start: CLLocationCoordinate2D, end: CLLocationCoordinate2D, durationText: String) {
+        
+        DispatchQueue.main.async {
+            if let destination = self.destination {
+                self.marker.addMarker(destination, self.mapView)
+            }
+        }
+        
+        
         if let path = GMSPath(fromEncodedPath: polyString) {
             let polyline = GMSPolyline(path: path)
             polyline.strokeWidth = 5.0
@@ -433,13 +457,26 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
                 if let placeInfo = placeInfo{
                     print("placeInfo:", placeInfo)
                     DispatchQueue.main.async{
-                        self.marker.addMarker(placeInfo, self.mapView)
-                        guard let destination = self.destination else{return}
+                        self.marker.addMarker(placeInfo, self.mapView, blue: true)
+//                        guard let destination = self.destination else{
+//                            print("no destination boi")
+//                            return
+//                        }
                         self.marker.addMarker(destination, self.mapView)
+
                     }
                     self.passWaypoint.append(placeInfo)
                 }
             }
+            
+            
+            DispatchQueue.main.async {
+                if let destination = self.destination {
+                    self.marker.addMarker(destination, self.mapView)
+                }
+            }
+            
+
                 
             self.requestRoute(from: currentLocation, to: destination.coordinate, waypoints: placeInfos.map(\.!.coordinate)) { polyString, duration in
                 let durationInMinutes = duration / 60
@@ -455,6 +492,8 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         
         group.notify(queue: .main) {
             if let routeDetails = bestRouteDetails {
+//                print("adding destination marker boi")
+//                self.marker.addMarker(self.destination!, self.mapView)
                 self.storedRouteDetails = RouteDetails(
                     polyString: routeDetails.polyString,
                     durationText: routeDetails.durationText,
@@ -551,10 +590,14 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
                let _ = storedRouteDetails {
                 routeViewController.routeDetails = storedRouteDetails
                 guard let destination = destination else {
+                    print("no destination boi")
                     return
                 }
+                
+                //righthere
                 self.passWaypoint.append(destination)
                 routeViewController.waypoints = passWaypoint
+                routeViewController.destination = destination
                 print("waypoint passed", passWaypoint)
                 routeViewController.modalPresentationStyle = .fullScreen
                 self.present(routeViewController, animated: false, completion: nil)
@@ -614,11 +657,45 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             if marker.title == "開始地点"{
                 //print ("is start thing clicked")
                 return nil
+            } else if marker.title == "destination"{
+                print("is destination")
+                return nil
             }
             let infoWindow = CustomInfoWindow()
             infoWindow.frame = CGRect(x:0, y:0, width: 300, height: 200)
             infoWindow.titleLabel.text = marker.title
-            infoWindow.snippetLabel.text = marker.snippet
+            
+            let snippetComponents = marker.snippet?.split(separator: ",")
+            if let components = snippetComponents {
+                if components.count >= 2 {
+                    // Extract rating
+                    let ratingString = components[0].replacingOccurrences(of: "評価：", with: "").trimmingCharacters(in: .whitespaces)
+                    print("rating is:", ratingString)
+
+                    if let ratingDouble = Double(ratingString) {
+                        let rating = Int(round(ratingDouble))
+                        infoWindow.updateStars(rating: rating)
+                    } else {
+                        print("Invalid rating value")
+                    }
+
+                    // Extract type
+                    let typeString = components[1].replacingOccurrences(of: "ジャンル：", with: "").trimmingCharacters(in: .whitespaces)
+                    let typeAttributedString = NSMutableAttributedString(string: "ジャンル：", attributes: [.font: UIFont.boldSystemFont(ofSize: infoWindow.snippetLabel.font.pointSize)])
+                    typeAttributedString.append(NSAttributedString(string: typeString))
+                    infoWindow.snippetLabel.attributedText = typeAttributedString
+
+                    // Extract opening hours if available
+                    if components.count >= 3 {
+                        let openingHoursString = components[2].replacingOccurrences(of: "営業時間：", with: "").trimmingCharacters(in: .whitespaces)
+                        let hoursAttributedString = NSMutableAttributedString(string: "営業時間：", attributes: [.font: UIFont.boldSystemFont(ofSize: infoWindow.hoursLabel.font.pointSize)])
+                        hoursAttributedString.append(NSAttributedString(string: openingHoursString))
+                        infoWindow.hoursLabel.attributedText = hoursAttributedString
+                    } else {
+                        infoWindow.hoursLabel.text = "営業時間情報なし" // Set a default value if opening hours are not available
+                    }
+                }
+            }
             
             
             if let photo = marker.userData as? UIImage {
@@ -643,8 +720,9 @@ extension RouteMainViewController: ResultsViewControllerDelegate {
         mapView.clear()
         
         
-        
         destination = place
+//        self.marker.addMarker(destination!, self.mapView)
+
         removeErrorLabel()
         print("setting destination to:", place)
         // MARK: set coordinate as marker
@@ -661,3 +739,4 @@ extension RouteMainViewController: ResultsViewControllerDelegate {
     }
     
 }
+

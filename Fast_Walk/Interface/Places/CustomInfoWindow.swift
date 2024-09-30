@@ -11,6 +11,7 @@ import UIKit
 class CustomInfoWindow: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var snippetLabel: UILabel!
+    @IBOutlet weak var hoursLabel: UILabel!
     @IBOutlet weak var pictureView: UIImageView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var star1: UIImageView!
@@ -18,6 +19,7 @@ class CustomInfoWindow: UIView {
     @IBOutlet weak var star3: UIImageView!
     @IBOutlet weak var star4: UIImageView!
     @IBOutlet weak var star5: UIImageView!
+    
 //    @IBOutlet var heart: UIButton!
     
     override init(frame: CGRect) {
@@ -27,6 +29,19 @@ class CustomInfoWindow: UIView {
         contentView.isUserInteractionEnabled = true
 //        heart.isUserInteractionEnabled = true
     }
+    
+    func updateStars(rating: Int) {
+        let starImages = [star1, star2, star3, star4, star5] // Assuming your outlets are named star1, star2, etc.
+        print("rating called")
+        for (index, star) in starImages.enumerated() {
+            if index < rating {
+                star?.image = UIImage(systemName: "star.fill") // Use the filled star symbol
+            } else {
+                star?.image = UIImage(systemName: "star")
+            }
+        }
+    }
+
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
