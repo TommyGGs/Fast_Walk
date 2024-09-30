@@ -329,6 +329,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         currentRoutePolyline?.map = nil
         currentRoutePolyline = nil
         mapView?.clear()
+        self.marker.addMarker(destination!, self.mapView)
 
         guard let destination = destination else {
             errorLabel(type: "Time")
@@ -402,9 +403,10 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
                 if let placeInfo = placeInfo{
                     print("placeInfo:", placeInfo)
                     DispatchQueue.main.async{
-                        self.marker.addMarker(placeInfo, self.mapView)
+                        self.marker.addMarker(placeInfo, self.mapView, blue: true)
                         guard let destination = self.destination else{return}
                         self.marker.addMarker(destination, self.mapView)
+
                     }
                     self.passWaypoint.append(placeInfo)
                 }
@@ -587,7 +589,33 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             let infoWindow = CustomInfoWindow()
             infoWindow.frame = CGRect(x:0, y:0, width: 300, height: 200)
             infoWindow.titleLabel.text = marker.title
-            infoWindow.snippetLabel.text = marker.snippet
+            
+            let snippetComponents = marker.snippet?.split(separator: ",")
+            if let components = snippetComponents {
+                if components.count >= 2 {
+                    // Extract rating
+                    let ratingString = components[0].replacingOccurrences(of: "評価：", with: "").trimmingCharacters(in: .whitespaces)
+                    if let rating = Int(ratingString) {
+                        infoWindow.updateStars(rating: rating)
+                    }
+
+                    // Extract type
+                    let typeString = components[1].replacingOccurrences(of: "ジャンル：", with: "").trimmingCharacters(in: .whitespaces)
+                    let typeAttributedString = NSMutableAttributedString(string: "ジャンル：", attributes: [.font: UIFont.boldSystemFont(ofSize: infoWindow.snippetLabel.font.pointSize)])
+                    typeAttributedString.append(NSAttributedString(string: typeString))
+                    infoWindow.snippetLabel.attributedText = typeAttributedString
+
+                    // Extract opening hours if available
+                    if components.count >= 3 {
+                        let openingHoursString = components[2].replacingOccurrences(of: "営業時間：", with: "").trimmingCharacters(in: .whitespaces)
+                        let hoursAttributedString = NSMutableAttributedString(string: "営業時間：", attributes: [.font: UIFont.boldSystemFont(ofSize: infoWindow.hoursLabel.font.pointSize)])
+                        hoursAttributedString.append(NSAttributedString(string: openingHoursString))
+                        infoWindow.hoursLabel.attributedText = hoursAttributedString
+                    } else {
+                        infoWindow.hoursLabel.text = "営業時間情報なし" // Set a default value if opening hours are not available
+                    }
+                }
+            }
             
             
             if let photo = marker.userData as? UIImage {
@@ -612,8 +640,9 @@ extension RouteMainViewController: ResultsViewControllerDelegate {
         mapView.clear()
         
         
-        
         destination = place
+        self.marker.addMarker(destination!, self.mapView)
+
         removeErrorLabel()
         print("setting destination to:", place)
         // MARK: set coordinate as marker
