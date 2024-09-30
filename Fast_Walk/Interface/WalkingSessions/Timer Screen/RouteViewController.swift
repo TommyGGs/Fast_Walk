@@ -16,6 +16,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     @IBOutlet var likeLabel: UILabel!
     @IBOutlet var endBtn: UIButton!
     var waypoints: [GMSPlace] = []
+    var destination: GMSPlace?
     var overlayView: UIView!
     var countdownLabel: UILabel!
     var routeDetails: RouteDetails?
@@ -48,6 +49,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         super.viewDidLoad()
         
         //users & favorites
+
         allUsers = readAllUsers()
         user_favorites = readFavorites()
         enableHeartBtn(fill: false, enable: false)
@@ -67,8 +69,11 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         setUpNextTimerView()
         
         print("waypoints are:", waypoints)
-       
-        
+        if let destination = destination {
+            self.marker.addMarker(destination, self.mapView)
+            let marker = GMSMarker()
+            marker.position = destination.coordinate
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -228,11 +233,50 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         if marker.title == "開始地点"{
             //print ("is start thing clicked")
             return nil
+        } else if marker.title == "終着地点"{
+            print("is destination")
+            return nil
         }
+        
         let infoWindow = CustomInfoWindow()
         infoWindow.frame = CGRect(x:0, y:0, width: 300, height: 200)
         infoWindow.titleLabel.text = marker.title
-        infoWindow.snippetLabel.text = marker.snippet
+        
+        // Extract rating and type from marker.snippet
+        let snippetComponents = marker.snippet?.split(separator: ",")
+        if let components = snippetComponents {
+            if components.count >= 2 {
+                // Extract rating
+                let ratingString = components[0].replacingOccurrences(of: "評価：", with: "").trimmingCharacters(in: .whitespaces)
+                print("rating is:", ratingString)
+
+                if let ratingDouble = Double(ratingString) {
+                    let rating = Int(round(ratingDouble))
+                    infoWindow.updateStars(rating: rating)
+                } else {
+                    print("Invalid rating value")
+                }
+
+                // Extract type
+                let typeString = components[1].replacingOccurrences(of: "ジャンル：", with: "").trimmingCharacters(in: .whitespaces)
+                let typeAttributedString = NSMutableAttributedString(string: "ジャンル：", attributes: [.font: UIFont.boldSystemFont(ofSize: infoWindow.snippetLabel.font.pointSize)])
+                typeAttributedString.append(NSAttributedString(string: typeString))
+                infoWindow.snippetLabel.attributedText = typeAttributedString
+
+                // Extract opening hours if available
+                if components.count >= 3 {
+                    let openingHoursString = components[2].replacingOccurrences(of: "営業時間：", with: "").trimmingCharacters(in: .whitespaces)
+                    let hoursAttributedString = NSMutableAttributedString(string: "営業時間：", attributes: [.font: UIFont.boldSystemFont(ofSize: infoWindow.hoursLabel.font.pointSize)])
+                    hoursAttributedString.append(NSAttributedString(string: openingHoursString))
+                    infoWindow.hoursLabel.attributedText = hoursAttributedString
+                } else {
+                    infoWindow.hoursLabel.text = "営業時間情報なし" // Set a default value if opening hours are not available
+                }
+            }
+        }
+
+
+
         currentSpot = marker.position
         
 // TODO: - have placeID stored in favorites
@@ -471,6 +515,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
         if let location = locations.last {
             currentLocation = location.coordinate
 //            let cameraUpdate = GMSCameraUpdate.setTarget(location.coordinate, zoom: 25)
