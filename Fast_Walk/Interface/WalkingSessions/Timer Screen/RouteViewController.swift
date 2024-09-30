@@ -609,8 +609,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     // MARK: - setup Heart Button
     func enableHeartBtn(fill: Bool, enable: Bool = true) {
         print("right now fav array is:", favorites)
-        likeLabel.isHidden = true
-        endBtn.isHidden = true
+//        likeLabel.isHidden = true
+//        endBtn.isHidden = true
         
         if enable == true {
             heartBtn.tintColor = .red
