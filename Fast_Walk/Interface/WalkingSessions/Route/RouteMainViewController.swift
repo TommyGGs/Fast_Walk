@@ -39,6 +39,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         placesClient = GMSPlacesClient.shared()
         searchVCStuff()
         beginLocationUpdate()
+        addGradientLayer()
         locationManager.delegate = self
         self.view.sendSubviewToBack(mapContainerView)
 //<<<<<<< HEAD
@@ -199,6 +200,36 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             titleLabel.bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -15) // Anchor it to the bottom of the parent with some padding
         ])
     }
+    
+    func addGradientLayer() {
+            // CAGradientLayer 생성
+            let gradientLayer = CAGradientLayer()
+
+            // 시작 색상: #B4E4FF, 100% 투명도
+            let topColor = UIColor(red: 180/255, green: 228/255, blue: 255/255, alpha: 0.8).cgColor // #B4E4FF, 100% 투명
+        
+        // 중간 색상: 흰색, 75% 투명도
+            let middleColor = UIColor(white: 1.0, alpha: 0.65).cgColor // 흰색 75% 투명도
+        
+            // 끝 색상: #D7F1FF, 25% 투명도
+            let bottomColor = UIColor(red: 215/255, green: 241/255, blue: 255/255, alpha: 0.22).cgColor // #D7F1FF, 25% 투명
+
+            // 그라데이션의 색상 배열 설정
+            gradientLayer.colors = [topColor, middleColor, bottomColor]
+        
+        // 그라데이션의 각 색상이 적용될 위치 (0.0이 상단, 1.0이 하단)
+        gradientLayer.locations = [0.0, 0.5, 0.9] // 중간 색상이 50% 위치에 오도록 설정
+
+            // 그라데이션 레이어의 프레임 설정
+            gradientLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 180) // 높이 조절 가능
+
+            // 그라데이션 위치 설정 (0.0이 상단, 1.0이 하단)
+            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
+
+            // view의 레이어에 그라데이션 레이어 추가
+            self.view.layer.addSublayer(gradientLayer)
+        }
 
 
 
@@ -223,9 +254,9 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
 //            backButton.heightAnchor.constraint(equalToConstant: 30)
             
             backButton.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 16),
-            backButton.topAnchor.constraint(equalTo: parentView.topAnchor, constant: 70), // Adjust based on the search bar's position
-            backButton.widthAnchor.constraint(equalToConstant: 30),
-            backButton.heightAnchor.constraint(equalToConstant: 30)
+            backButton.topAnchor.constraint(equalTo: parentView.topAnchor, constant: 74), // Adjust based on the search bar's position
+            backButton.widthAnchor.constraint(equalToConstant: 24),
+            backButton.heightAnchor.constraint(equalToConstant: 24)
         ])
         
         

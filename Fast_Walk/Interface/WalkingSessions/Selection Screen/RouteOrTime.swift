@@ -266,8 +266,8 @@ class RouteOrTimeViewController: UIViewController, CLLocationManagerDelegate, GM
             
             // Set constraints for the label (align to top and left)
             NSLayoutConstraint.activate([
-                titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-                titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 80)
+                titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 60),
+                titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 130)
             ])
             self.view.bringSubviewToFront(titleLabel)
         }

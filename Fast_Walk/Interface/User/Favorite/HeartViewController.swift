@@ -148,14 +148,19 @@ class HeartViewController: UIViewController, UICollectionViewDelegate, UICollect
     func closeButton() {
         let close = UIButton(type: .system)
         close.setTitle("閉じる", for: .normal)
-        close.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        // フォントをカスタムフォントに変更
+        close.titleLabel?.font = UIFont(name: "NotoSansJP-Regular", size: 15)
+           
+           // テキストカラーを黒に変更
+        close.setTitleColor(UIColor.black, for: .normal)
+        
         close.addTarget(self , action: #selector(closeScreen), for: .touchUpInside)
         close.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(close)
         
         NSLayoutConstraint.activate([
             close.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            close.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+            close.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
     }
     

@@ -346,15 +346,15 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="shoeprints.fill" catalog="system" title=""/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xn-gT-2dV">
-                                        <rect key="frame" x="-5" y="140" width="400" height="130"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xn-gT-2dV">
+                                        <rect key="frame" x="-5" y="130" width="400" height="140"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="YkL-ZI-iQ5"/>
+                                            <constraint firstAttribute="height" constant="140" id="YkL-ZI-iQ5"/>
                                             <constraint firstAttribute="width" constant="400" id="brf-7W-dNl"/>
                                         </constraints>
                                         <color key="tintColor" systemColor="viewFlipsideBackgroundColor"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="スタート" cornerStyle="fixed" titleAlignment="center">
+                                        <buttonConfiguration key="configuration" style="filled" title="スタート" cornerStyle="small" titleAlignment="center">
                                             <fontDescription key="titleFontDescription" name="NotoSansJP-Bold" family="Noto Sans JP" pointSize="36"/>
                                             <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </buttonConfiguration>
@@ -362,14 +362,14 @@
                                             <action selector="useRoute" destination="BYZ-38-t0r" eventType="touchUpInside" id="2HS-Pw-pH8"/>
                                         </connections>
                                     </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xet-ML-iTl">
-                                        <rect key="frame" x="20" y="13" width="350" height="80"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uyh-we-BUR">
+                                        <rect key="frame" x="20" y="30" width="350" height="80"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fqc-Cx-zfz">
                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="80" id="bem-Si-6wu"/>
-                                                    <constraint firstAttribute="height" constant="80" id="xxv-sP-nN6"/>
+                                                    <constraint firstAttribute="width" constant="80" id="c2a-Xb-B0s"/>
+                                                    <constraint firstAttribute="height" constant="80" id="uvc-EV-46e"/>
                                                 </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="30" cornerStyle="capsule">
@@ -383,6 +383,10 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGd-wc-gna">
                                                 <rect key="frame" x="90" y="0.0" width="80" height="80"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" id="Bei-gY-VyN"/>
+                                                    <constraint firstAttribute="height" constant="80" id="gvs-d5-F1i"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="45" cornerStyle="capsule">
                                                     <fontDescription key="titleFontDescription" name="NotoSansJP-Regular" family="Noto Sans JP" pointSize="22"/>
@@ -395,6 +399,10 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7K-AR-U7A">
                                                 <rect key="frame" x="180" y="0.0" width="80" height="80"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="96Z-Kh-Z54"/>
+                                                    <constraint firstAttribute="width" constant="80" id="EwA-me-fkH"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="60" cornerStyle="capsule">
                                                     <fontDescription key="titleFontDescription" name="NotoSansJP-Regular" family="Noto Sans JP" pointSize="22"/>
@@ -407,6 +415,10 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yek-0c-FkO">
                                                 <rect key="frame" x="270" y="0.0" width="80" height="80"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" id="eRI-nl-Xm7"/>
+                                                    <constraint firstAttribute="height" constant="80" id="hge-sY-1ha"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="90" cornerStyle="capsule">
                                                     <fontDescription key="titleFontDescription" name="NotoSansJP-Regular" family="Noto Sans JP" pointSize="22"/>
@@ -418,13 +430,9 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstItem="AGd-wc-gna" firstAttribute="width" secondItem="Fqc-Cx-zfz" secondAttribute="width" id="BCH-GU-eKA"/>
-                                            <constraint firstItem="AGd-wc-gna" firstAttribute="height" secondItem="Fqc-Cx-zfz" secondAttribute="height" id="vsx-F8-xSS"/>
-                                        </constraints>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="riX-BV-UDf">
-                                        <rect key="frame" x="145" y="188" width="75" height="35"/>
+                                        <rect key="frame" x="145" y="183" width="75" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
@@ -432,10 +440,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="uyh-we-BUR" firstAttribute="leading" secondItem="GFA-RH-qf9" secondAttribute="leading" constant="20" id="0US-Xe-KpU"/>
+                                    <constraint firstItem="6Xn-gT-2dV" firstAttribute="top" secondItem="uyh-we-BUR" secondAttribute="bottom" constant="20" id="78n-ez-GCQ"/>
                                     <constraint firstAttribute="width" constant="390" id="96m-Hb-Rjc"/>
-                                    <constraint firstItem="xet-ML-iTl" firstAttribute="centerX" secondItem="GFA-RH-qf9" secondAttribute="centerX" id="AmK-Vc-7v1"/>
                                     <constraint firstAttribute="height" constant="260" id="G3Y-e5-X06"/>
-                                    <constraint firstItem="xet-ML-iTl" firstAttribute="top" secondItem="GFA-RH-qf9" secondAttribute="top" constant="13" id="XS6-6P-AJJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="6Xn-gT-2dV" secondAttribute="bottom" constant="-10" id="Zbt-K5-NlN"/>
+                                    <constraint firstAttribute="trailing" secondItem="uyh-we-BUR" secondAttribute="trailing" constant="20" id="fko-OS-hpS"/>
                                     <constraint firstItem="6Xn-gT-2dV" firstAttribute="centerX" secondItem="GFA-RH-qf9" secondAttribute="centerX" id="oba-XN-6gH"/>
                                 </constraints>
                             </view>
@@ -457,7 +467,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Dhg-9r-j9c" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="4kl-ow-vDa"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6Xn-gT-2dV" secondAttribute="bottom" constant="30" id="9Kl-FU-0ld"/>
                             <constraint firstAttribute="trailing" secondItem="Dhg-9r-j9c" secondAttribute="trailing" id="EG0-lZ-vjW"/>
                             <constraint firstItem="ShJ-gr-Sfc" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="30" id="LjT-fq-znE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Dhg-9r-j9c" secondAttribute="bottom" constant="238" id="SmA-NK-wzV"/>
