@@ -30,6 +30,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
     var passWaypoint: [GMSPlace] = []
     var whiteBoxView: UIView!
 
+    var timer: Timer?
     
     private var placesClient: GMSPlacesClient!
     
@@ -272,6 +273,9 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let destination = self.destination {
+            self.marker.addMarker(destination, self.mapView)
+        }
         guard let location = locations.first else { return }
         
         if currentLocation == nil {  // Check if the initial location has been set
@@ -329,22 +333,22 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         currentRoutePolyline?.map = nil
         currentRoutePolyline = nil
         mapView?.clear()
-        self.marker.addMarker(destination!, self.mapView)
 
         guard let destination = destination else {
             errorLabel(type: "Time")
             return
         }
         
+        // Add the destination marker immediately after clearing the map
+//        self.marker.addMarker(destination, self.mapView)
+        
         if let currentLocation = currentLocation,
-           let buttonText = sender.titleLabel?.text{
+           let buttonText = sender.titleLabel?.text {
             let desiredTime = checkDesiredTime(buttonText: buttonText)
-            print("Desired time: \(String(describing: desiredTime))")
+            print("Desired time: \(desiredTime)")
             findBestRoute(from: currentLocation, desiredTime: desiredTime)
-//            routeToPlace(destination: destination.coordinate)
         } else {
             print("Current location is not available or no destination")
-            
         }
     }
     
@@ -404,13 +408,19 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
                     print("placeInfo:", placeInfo)
                     DispatchQueue.main.async{
                         self.marker.addMarker(placeInfo, self.mapView, blue: true)
-                        guard let destination = self.destination else{return}
+//                        guard let destination = self.destination else{
+//                            print("no destination boi")
+//                            return
+//                        }
                         self.marker.addMarker(destination, self.mapView)
 
                     }
                     self.passWaypoint.append(placeInfo)
                 }
             }
+            
+            
+
                 
             self.requestRoute(from: currentLocation, to: destination.coordinate, waypoints: placeInfos.map(\.!.coordinate)) { polyString, duration in
                 let durationInMinutes = duration / 60
@@ -426,6 +436,8 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
         
         group.notify(queue: .main) {
             if let routeDetails = bestRouteDetails {
+//                print("adding destination marker boi")
+//                self.marker.addMarker(self.destination!, self.mapView)
                 self.storedRouteDetails = RouteDetails(
                     polyString: routeDetails.polyString,
                     durationText: routeDetails.durationText,
@@ -522,10 +534,12 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
                let _ = storedRouteDetails {
                 routeViewController.routeDetails = storedRouteDetails
                 guard let destination = destination else {
+                    print("no destination boi")
                     return
                 }
                 self.passWaypoint.append(destination)
                 routeViewController.waypoints = passWaypoint
+                routeViewController.destination = destination
                 print("waypoint passed", passWaypoint)
                 routeViewController.modalPresentationStyle = .fullScreen
                 self.present(routeViewController, animated: false, completion: nil)
@@ -641,7 +655,7 @@ extension RouteMainViewController: ResultsViewControllerDelegate {
         
         
         destination = place
-        self.marker.addMarker(destination!, self.mapView)
+//        self.marker.addMarker(destination!, self.mapView)
 
         removeErrorLabel()
         print("setting destination to:", place)

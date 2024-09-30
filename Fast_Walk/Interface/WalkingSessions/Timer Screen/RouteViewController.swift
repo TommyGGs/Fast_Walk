@@ -16,6 +16,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     @IBOutlet var likeLabel: UILabel!
     @IBOutlet var endBtn: UIButton!
     var waypoints: [GMSPlace] = []
+    var destination: GMSPlace?
     var overlayView: UIView!
     var countdownLabel: UILabel!
     var routeDetails: RouteDetails?
@@ -48,6 +49,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         super.viewDidLoad()
         
         //users & favorites
+
         allUsers = readAllUsers()
         user_favorites = readFavorites()
         enableHeartBtn(fill: false, enable: false)
@@ -65,8 +67,9 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         setUpTimerView()
         
         print("waypoints are:", waypoints)
-       
-        
+        if let destination = destination {
+            self.marker.addMarker(destination, self.mapView)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -425,6 +428,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
         if let location = locations.last {
             currentLocation = location.coordinate
 //            let cameraUpdate = GMSCameraUpdate.setTarget(location.coordinate, zoom: 25)
