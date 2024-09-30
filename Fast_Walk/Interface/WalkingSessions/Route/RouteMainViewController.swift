@@ -209,7 +209,7 @@ class RouteMainViewController: UIViewController, UISearchResultsUpdating, CLLoca
             let topColor = UIColor(red: 180/255, green: 228/255, blue: 255/255, alpha: 0.8).cgColor // #B4E4FF, 100% 투명
         
         // 중간 색상: 흰색, 75% 투명도
-            let middleColor = UIColor(white: 1.0, alpha: 0.65).cgColor // 흰색 75% 투명도
+            let middleColor = UIColor(white: 1.0, alpha: 0.30).cgColor // 흰색 75% 투명도
         
             // 끝 색상: #D7F1FF, 25% 투명도
             let bottomColor = UIColor(red: 215/255, green: 241/255, blue: 255/255, alpha: 0.22).cgColor // #D7F1FF, 25% 투명

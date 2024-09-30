@@ -40,6 +40,7 @@
 		8291C5932B47A4EB0058AE71 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8291C5922B47A4EB0058AE71 /* ViewController.swift */; };
 		8291C5952B47A5290058AE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8291C5942B47A5290058AE71 /* AppDelegate.swift */; };
 		82CD0D122B4818380027A327 /* EndScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CD0D112B4818380027A327 /* EndScreenViewController.swift */; };
+		8716DCD22CAACD95007A3078 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = E22AA3FA2B5A8B0F00AE06BD /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		B63699282B64E81500970294 /* FigmaTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63699272B64E81500970294 /* FigmaTestViewController.swift */; };
 		B636992E2B64E9D600970294 /* スクリーンショット 2024-01-06 午後3.43.png in Resources */ = {isa = PBXBuildFile; fileRef = B636992D2B64E9D600970294 /* スクリーンショット 2024-01-06 午後3.43.png */; };
 		B64AA7ED2B63532E004426CA /* PastDataViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B64AA7EC2B63532D004426CA /* PastDataViewController.storyboard */; };
@@ -87,6 +88,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8716DCD22CAACD95007A3078 /* RealmSwift in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -569,6 +571,7 @@
 			packageReferences = (
 				31DAB4312B46637700F04CF0 /* XCRemoteSwiftPackageReference "CareKit" */,
 				E22AA3F72B5A8B0F00AE06BD /* XCRemoteSwiftPackageReference "realm-swift" */,
+				8716DCD32CAAD07D007A3078 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 			);
 			productRefGroup = E212929E2B16E61400796BE5 /* Products */;
 			projectDirPath = "";
@@ -958,6 +961,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.0.2;
+			};
+		};
+		8716DCD32CAAD07D007A3078 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa";
+			requirement = {
+				branch = master;
+				kind = branch;
 			};
 		};
 		E22AA3F72B5A8B0F00AE06BD /* XCRemoteSwiftPackageReference "realm-swift" */ = {

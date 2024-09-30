@@ -194,7 +194,7 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     
     func readFavorites() -> [FavoriteSpot] {
-        var favorites = Array(realm.objects(FavoriteSpot.self))
+        let favorites = Array(realm.objects(FavoriteSpot.self))
         var findFavorites: [FavoriteSpot] = []
         for favorite in favorites {
             if favorite.userID == Current.user.userID {
@@ -593,19 +593,19 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
         }
     }
     
-    @IBAction func goToEnd(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let endVC = storyboard.instantiateViewController(withIdentifier: "EndViewController") as? EndViewController {
-            endVC.receivedTime = duration // Set the properties you need to pass
-            
-            // Set the presentation style if necessary (e.g., full screen)
-            endVC.modalPresentationStyle = .fullScreen
-            
-            // Present with animation
-            self.present(endVC, animated: false, completion: nil)
-        }
-    }
-    
+//    @IBAction func goToEnd(_ sender: UIButton) {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        if let endVC = storyboard.instantiateViewController(withIdentifier: "EndViewController") as? EndViewController {
+//            endVC.receivedTime = duration // Set the properties you need to pass
+//            
+//            // Set the presentation style if necessary (e.g., full screen)
+//            endVC.modalPresentationStyle = .fullScreen
+//            
+//            // Present with animation
+//            self.present(endVC, animated: false, completion: nil)
+//        }
+//    }
+//    
     // MARK: - setup Heart Button
     func enableHeartBtn(fill: Bool, enable: Bool = true) {
         print("right now fav array is:", favorites)

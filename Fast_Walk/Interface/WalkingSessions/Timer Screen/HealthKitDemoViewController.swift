@@ -182,6 +182,7 @@ class HealthKitDemoViewController: UIViewController {
 
         if let endVC = segue.destination as? EndViewController {
             endVC.receivedStepCount = self.totalSteps
+            print("this is the steps", self.totalSteps)
             endVC.receivedDistance = self.totalDistance
             endVC.receivedAvgPace = self.averagePace
         }
