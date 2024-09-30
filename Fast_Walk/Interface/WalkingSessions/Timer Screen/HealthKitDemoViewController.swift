@@ -15,6 +15,7 @@ class HealthKitDemoViewController: UIViewController {
     var anchor: HKQueryAnchor?
     var averagePace: Float = 0
     var duration: Int = 0
+
     
     
     override func viewDidLoad() {
@@ -157,7 +158,7 @@ class HealthKitDemoViewController: UIViewController {
                 if let distance = pedometerData.distance {
                     // Check for sudden spikes in distance (e.g., > 100m in a short time might be unreasonable)
                     if distance.doubleValue > 0 && distance.doubleValue < 1000 {
-                        self!.totalDistance = Double(distance)
+//                        self!.totalDistance = Double(distance)
                     }
                 }
 
@@ -206,6 +207,8 @@ class HealthKitDemoViewController: UIViewController {
         if let endVC = segue.destination as? EndViewController {
             endVC.receivedStepCount = self.totalSteps
             print("this is the steps", self.totalSteps)
+            
+            print("this is distance", self.totalDistance)
             endVC.receivedDistance = self.totalDistance
             endVC.receivedAvgPace = self.averagePace
             endVC.receivedTime = self.duration

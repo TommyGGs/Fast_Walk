@@ -42,6 +42,8 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     // heart stuff
     var enableHeart: Bool = false
     var errorLabelReference: UILabel?
+    let averageWalkingSpeed: Double = 1.2 // Average walking speed in meters per second
+
 
     let realm = try! Realm()
 
@@ -457,15 +459,40 @@ class RouteViewController: HealthKitDemoViewController, CLLocationManagerDelegat
     }
     
     @objc func onTimerCalled(){
+//        let remainingMinutes: Int = countdown / 60
+//        let remainingSeconds: Int = countdown % 60
+//        let durationMinutes: Int = duration / 60
+//        let durationSeconds: Int = duration % 60
+//        currentTime.text = String(format: "%02d:%02d", remainingMinutes, remainingSeconds)
+//        countdown -= 1
+//        //gpt changed here
+//        super.duration += 1
+        
+        
         let remainingMinutes: Int = countdown / 60
         let remainingSeconds: Int = countdown % 60
-        let durationMinutes: Int = duration / 60
-        let durationSeconds: Int = duration % 60
         currentTime.text = String(format: "%02d:%02d", remainingMinutes, remainingSeconds)
         countdown -= 1
-        //gpt changed here
-        super.duration += 1
+        duration += 1 // Increment duration in seconds
+
+        // Calculate total distance based on fixed average walking speed
+        totalDistance = Double(duration) * averageWalkingSpeed 
         
+        print("total distance now is\(duration)*\(averageWalkingSpeed)")// Distance in meters
+
+        // Optionally, update UI with total distance
+        let distanceInKilometers = totalDistance / 1000.0
+        totalDistance = distanceInKilometers
+        print("distance is now at", distanceInKilometers)
+        DispatchQueue.main.async {
+//            self.stepsLabel.text = String(format: "合計: %.2f km", distanceInKilometers)
+        }
+//
+//        if countdown < 0 {
+//            // You can remove mode switches if they are not needed
+//            startTimer(resume: false)
+//        }
+//        
 //        print (String(format: "%02d:%02d", durationMinutes, durationSeconds))
         
         if countdown < 0 {
