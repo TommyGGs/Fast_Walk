@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -35,7 +35,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="39" translatesAutoresizingMaskIntoConstraints="NO" id="cfO-Yo-WbV">
-                                <rect key="frame" x="37.666666666666657" y="631" width="318" height="80"/>
+                                <rect key="frame" x="37.666666666666657" y="628" width="318" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vv9-ne-zUC">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
@@ -45,7 +45,7 @@
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="10" cornerStyle="capsule">
-                                            <fontDescription key="titleFontDescription" name=".SFUI-Regular" family=".AppleSystemUIFont" pointSize="22"/>
+                                            <fontDescription key="titleFontDescription" name="NotoSansJP-Medium" family="Noto Sans JP" pointSize="22"/>
                                             <color key="baseBackgroundColor" red="0.30980392159999998" green="0.52549019610000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -60,7 +60,7 @@
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="20" cornerStyle="capsule">
-                                            <fontDescription key="titleFontDescription" name=".SFUI-Regular" family=".AppleSystemUIFont" pointSize="22"/>
+                                            <fontDescription key="titleFontDescription" name="NotoSansJP-Medium" family="Noto Sans JP" pointSize="22"/>
                                             <color key="baseBackgroundColor" red="0.30980392159999998" green="0.52549019610000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -75,7 +75,7 @@
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="30" cornerStyle="capsule">
-                                            <fontDescription key="titleFontDescription" name=".SFUI-Regular" family=".AppleSystemUIFont" pointSize="22"/>
+                                            <fontDescription key="titleFontDescription" name="NotoSansJP-Medium" family="Noto Sans JP" pointSize="22"/>
                                             <color key="baseBackgroundColor" red="0.30980392159999998" green="0.52549019610000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -93,7 +93,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="cfO-Yo-WbV" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Dab-No-mbJ"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="cfO-Yo-WbV" secondAttribute="bottom" constant="107" id="K5a-wh-OmK"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="cfO-Yo-WbV" secondAttribute="bottom" constant="110" id="K5a-wh-OmK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ktp-oX-wWQ"/>
