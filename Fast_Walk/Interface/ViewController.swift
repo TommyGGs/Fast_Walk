@@ -76,7 +76,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
 //        navBar()
         //MARK: Setup route type selection view
         //        configurePlaceTypesStackView()
-        configurePlaceTypesButtons()
         //
         self.view.bringSubviewToFront(heartButton)
         self.view.bringSubviewToFront(homeButton)
@@ -88,6 +87,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         addGradientLayer()
         addTitleLabel()
         setupBackButton()
+        
+        configurePlaceTypesButtons()
+
         
     }
     
@@ -113,7 +115,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
            // Set constraints for the label (align to top and left)
            NSLayoutConstraint.activate([
                titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-               titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 27)
+               titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 32)
            ])
         self.view.bringSubviewToFront(titleLabel)
        }
@@ -195,7 +197,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
             barBackgroundView.layer.cornerRadius = 10
             barBackgroundView.layer.shadowColor = UIColor.black.cgColor
             barBackgroundView.layer.shadowOpacity = 0.1
-            barBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        
+        //gpt ch
+            barBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 1)
             barBackgroundView.layer.shadowRadius = 5
         
         view.addSubview(barBackgroundView)
@@ -226,7 +230,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
                 barBackgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 90),
                 barBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
                 barBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-                barBackgroundView.heightAnchor.constraint(equalToConstant: 34)
+                barBackgroundView.heightAnchor.constraint(equalToConstant: 24)
             ])
 
         
@@ -310,6 +314,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDel
         topboxview.layer.cornerRadius = 5
         
         view.addSubview(topboxview)
+        
+        //gpt changed here
+//        if let index = view.subviews.firstIndex(of: topboxview), index > 0 {
+//            view.exchangeSubview(at: index, withSubviewAt: index - 1)
+//        }
+
         
         topboxview.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
